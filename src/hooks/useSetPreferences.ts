@@ -8,16 +8,12 @@ import {
 } from "src/globals";
 
 export function useSetPreferences() {
-  const [lang, setLang] = usePreferredLanguage();
-  const [theme, setTheme] = usePreferredTheme();
+  const [, setLang] = usePreferredLanguage();
+  const [, setTheme] = usePreferredTheme();
   useEffect(() => {
     const preferredLanguage = localStorage.getItem("preferredLanguage");
     const preferredTheme = localStorage.getItem("preferredTheme");
     setLang(preferredLanguage as Languages);
     setTheme(preferredTheme as Themes);
   }, []);
-  useEffect(() => {
-    localStorage.setItem("preferredLanguage", lang);
-    localStorage.setItem("preferredTheme", theme);
-  }, [lang, theme]);
 }
