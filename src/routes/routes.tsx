@@ -1,7 +1,5 @@
 import { useMemo } from "react";
 
-import { Route } from "src/types/Route";
-
 import {
   Home as HomeIcon,
   Delete as DeleteIcon,
@@ -9,6 +7,8 @@ import {
   Visibility as VisibilityIcon,
   Edit as EditIcon,
 } from "@mui/icons-material";
+
+import { Route } from "src/types/Route";
 
 export function useRoutes() {
   return useMemo<Route[]>(
