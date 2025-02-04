@@ -2,6 +2,9 @@ import { ThemeProvider } from "@emotion/react";
 import { Button } from "@mui/material";
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
+import { BrowserRouter } from "react-router";
+
+import { Sidebar } from "src/components";
 
 import { useSetPreferences } from "src/hooks";
 
@@ -9,7 +12,8 @@ import { lightTheme, darkTheme } from "src/themes";
 
 import enTranslations from "src/translations/en.json";
 import arTranslations from "src/translations/ar.json";
-import { usePreferredTheme } from "./globals";
+
+import { usePreferredTheme } from "src/globals";
 
 i18next.use(initReactI18next).init({
   resources: {
@@ -32,7 +36,10 @@ function App() {
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
-      <Button>asd</Button>
+      <BrowserRouter>
+        <Sidebar />
+        <Button>asd</Button>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }
