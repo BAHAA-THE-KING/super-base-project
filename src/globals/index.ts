@@ -1,2 +1,6 @@
-export { type Languages, type Themes } from "./atoms";
-export { usePreferredLanguage, usePreferredTheme } from "./hooks";
+export { type Languages, type Themes, type Directions } from "./atoms";
+export {
+  usePreferredLanguage,
+  usePreferredTheme,
+  usePreferredDirection,
+} from "./hooks";

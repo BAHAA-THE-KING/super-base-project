@@ -21,3 +21,16 @@ export const themeAtom = atom<Themes>({
     },
   ],
 });
+
+export type Directions = "ltr" | "rtl";
+export const directionAtom = atom<Directions>({
+  key: "direction",
+  default: "ltr",
+  effects: [
+    ({ onSet }) => {
+      onSet((direction) =>
+        localStorage.setItem("preferredDirection", direction)
+      );
+    },
+  ],
+});

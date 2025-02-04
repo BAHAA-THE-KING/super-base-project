@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material";
 
-const theme = createTheme({});
+const lightTheme = createTheme({});
 
-export default theme;
+export { lightTheme };

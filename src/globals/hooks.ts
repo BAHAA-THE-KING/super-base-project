@@ -1,7 +1,7 @@
 import { useRecoilState } from "recoil";
 import i18next from "i18next";
 
-import { languageAtom, Languages, themeAtom } from "./atoms";
+import { directionAtom, languageAtom, Languages, themeAtom } from "./atoms";
 
 export const usePreferredLanguage = () => {
   const [language, setLanguage] = useRecoilState(languageAtom);
@@ -15,3 +15,4 @@ export const usePreferredLanguage = () => {
 };
 
 export const usePreferredTheme = () => useRecoilState(themeAtom);
+export const usePreferredDirection = () => useRecoilState(directionAtom);
