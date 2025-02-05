@@ -1,8 +1,9 @@
 import React from "react";
-import { Divider } from "@mui/material";
+
+import { BaseSidebarDivider } from "./Base";
 
 const SidebarDivider: React.FC = () => {
-  return <Divider sx={{ bgcolor: "white", my: 1 }} />;
+  return <BaseSidebarDivider />;
 };
 
 export default SidebarDivider;

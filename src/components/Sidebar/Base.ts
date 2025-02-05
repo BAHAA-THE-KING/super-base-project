@@ -1,4 +1,10 @@
-import { Drawer, ListItemButton, styled, Typography } from "@mui/material";
+import {
+  Divider,
+  Drawer,
+  ListItemButton,
+  styled,
+  Typography,
+} from "@mui/material";
 
 export const BaseDrawer = styled(Drawer)(({ theme }) => ({
   width: 280,
@@ -6,7 +12,7 @@ export const BaseDrawer = styled(Drawer)(({ theme }) => ({
   "& .MuiDrawer-paper": {
     width: 280,
     background: theme.palette.background.paper,
-    padding: 10,
+    padding: "10px",
   },
 }));
 
@@ -15,22 +21,22 @@ export const BaseLogo = styled(Typography)(({ theme }) => ({
   fontWeight: "bold",
   textAlign: "center",
   marginBottom: "16px",
-  color: theme.palette.common.black,
+  color: theme.palette.text.primary,
 }));
 
 export const BaseSidebarItem = styled(ListItemButton)<{ isActive: boolean }>(
   ({ theme, isActive }) => ({
     borderRadius: 8,
-    my: 2,
+    margin: `${theme.spacing(1)}  ${0}`,
     transition: "all 0.3s",
-    background: isActive ? theme.palette.primary.main : "transparent",
+    backgroundColor: isActive ? theme.palette.primary.main : "transparent",
     color: isActive
       ? theme.palette.primary.contrastText
       : theme.palette.text.primary,
     "&:hover": {
-      background: isActive
+      backgroundColor: isActive
         ? theme.palette.primary.dark
-        : theme.palette.grey[100],
+        : theme.palette.grey[200],
     },
 
     // Icon
@@ -47,9 +53,9 @@ export const BaseSidebarCollapse = styled(ListItemButton)<{
   open: boolean;
 }>(({ theme, isActive, open }) => ({
   borderRadius: 8,
-  my: 2,
+  margin: `${theme.spacing(1)}  ${0}`,
   transition: "all 0.3s",
-  background: isActive
+  backgroundColor: isActive
     ? theme.palette.primary.main
     : open
     ? theme.palette.grey[200]
@@ -58,7 +64,9 @@ export const BaseSidebarCollapse = styled(ListItemButton)<{
     ? theme.palette.primary.contrastText
     : theme.palette.text.primary,
   "&:hover": {
-    background: isActive ? theme.palette.primary.dark : theme.palette.grey[100],
+    backgroundColor: isActive
+      ? theme.palette.primary.dark
+      : theme.palette.grey[200],
   },
 
   // Icon
@@ -67,4 +75,9 @@ export const BaseSidebarCollapse = styled(ListItemButton)<{
       ? theme.palette.primary.contrastText
       : theme.palette.text.primary,
   },
+}));
+
+export const BaseSidebarDivider = styled(Divider)(({ theme }) => ({
+  margin: `${theme.spacing(1)}  ${0}`,
+  backgroundColor: theme.palette.text.primary,
 }));

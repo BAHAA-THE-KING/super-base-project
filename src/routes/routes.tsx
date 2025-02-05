@@ -6,6 +6,7 @@ import {
   Close as CloseIcon,
   Visibility as VisibilityIcon,
   Edit as EditIcon,
+  Save as SaveIcon,
 } from "@mui/icons-material";
 
 import { Route } from "src/types/Route";
@@ -62,6 +63,13 @@ export function useRoutes() {
         path: "/edit",
         title: "Edit Your Life",
         component: <EditIcon />,
+      },
+      {
+        icon: SaveIcon,
+        key: "save",
+        path: "/save",
+        title: "Save Yourself",
+        component: <SaveIcon />,
       },
     ],
     []

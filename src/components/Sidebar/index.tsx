@@ -11,7 +11,7 @@ const Sidebar: React.FC = () => {
 
   return (
     <BaseDrawer variant="permanent">
-      <BaseLogo>Modernize</BaseLogo>
+      <BaseLogo>BAHAA THE KING</BaseLogo>
       <SidebarList routes={routes} />
     </BaseDrawer>
   );
