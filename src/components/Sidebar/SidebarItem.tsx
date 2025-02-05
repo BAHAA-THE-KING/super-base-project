@@ -1,8 +1,9 @@
 import React from "react";
-import { ListItemIcon, ListItemText, Tooltip } from "@mui/material";
+import { ListItemIcon, ListItemText } from "@mui/material";
 import { useLocation, useNavigate } from "react-router";
 
 import { BaseSidebarItem } from "./Base";
+import { BaseTooltip } from "src/components/Base";
 
 interface SidebarItemProps {
   path: string;
@@ -24,12 +25,12 @@ const SidebarItem: React.FC<SidebarItemProps> = (route) => {
   };
 
   return (
-    <Tooltip title={route.title} placement="right">
+    <BaseTooltip title={route.title} placement="right">
       <BaseSidebarItem onClick={handleClick} isActive={isActive}>
         <ListItemIcon>{React.createElement(route.icon)}</ListItemIcon>
         {route.isExpanded && <ListItemText primary={route.title} />}
       </BaseSidebarItem>
-    </Tooltip>
+    </BaseTooltip>
   );
 };
 

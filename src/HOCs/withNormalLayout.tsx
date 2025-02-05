@@ -1,6 +1,6 @@
 import { Box } from "@mui/system";
 import React, { ComponentType } from "react";
-import { Sidebar } from "src/components";
+import { Header, Sidebar } from "src/components";
 
 export function withNormalLayout<T extends object>(
   Component: ComponentType<T>
@@ -10,6 +10,7 @@ export function withNormalLayout<T extends object>(
       <Box display={"flex"} minHeight={"100vh"}>
         <Sidebar />
         <Box width={"100%"}>
+          <Header />
           <Component {...props} />
         </Box>
       </Box>

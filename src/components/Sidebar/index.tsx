@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { List, Tooltip } from "@mui/material";
+import { List } from "@mui/material";
 import {
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
@@ -7,6 +7,7 @@ import {
 
 import { BaseDrawer, BaseLogo, BaseSidebarItem } from "./Base";
 import SidebarList from "./SidebarList";
+import { BaseTooltip } from "src/components/Base";
 
 import { usePublicRoutes } from "src/routes/public";
 
@@ -18,14 +19,14 @@ const Sidebar: React.FC = () => {
     <BaseDrawer variant="permanent" isExpanded={isExpanded}>
       {/* Toggle Button */}
       <List component="div" disablePadding>
-        <Tooltip title={isExpanded ? "close" : "open"} placement="right">
+        <BaseTooltip title={isExpanded ? "close" : "open"} placement="right">
           <BaseSidebarItem
             color={"inherit"}
             onClick={() => setIsExpanded(!isExpanded)}
           >
             {isExpanded ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </BaseSidebarItem>
-        </Tooltip>
+        </BaseTooltip>
       </List>
 
       {/* Logo - Hide when collapsed */}
