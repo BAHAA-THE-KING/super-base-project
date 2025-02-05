@@ -11,7 +11,9 @@ import {
 
 import { Route } from "src/types/Route";
 
-export function useRoutes() {
+import { HomePage } from "src/views";
+
+export function usePublicRoutes() {
   return useMemo<Route[]>(
     () => [
       {
@@ -19,7 +21,7 @@ export function useRoutes() {
         key: "home",
         path: "/",
         title: "Home",
-        component: <HomeIcon />,
+        element: <HomePage Component={HomeIcon} />,
       },
       {
         key: "divider-1",
@@ -35,14 +37,14 @@ export function useRoutes() {
             key: "x-1",
             path: "/x-1",
             title: "First",
-            component: <CloseIcon />,
+            element: <HomePage Component={CloseIcon} />,
           },
           {
             icon: CloseIcon,
             key: "x-2",
             path: "/x-2",
             title: "Second",
-            component: <CloseIcon />,
+            element: <HomePage Component={CloseIcon} />,
           },
         ],
       },
@@ -51,7 +53,7 @@ export function useRoutes() {
         key: "watch",
         path: "/watch",
         title: "Watch Other People",
-        component: <VisibilityIcon />,
+        element: <HomePage Component={VisibilityIcon} />,
       },
       {
         key: "divider-2",
@@ -62,14 +64,14 @@ export function useRoutes() {
         key: "edit",
         path: "/edit",
         title: "Edit Your Life",
-        component: <EditIcon />,
+        element: <HomePage Component={EditIcon} />,
       },
       {
         icon: SaveIcon,
         key: "save",
         path: "/save",
         title: "Save Yourself",
-        component: <SaveIcon />,
+        element: <HomePage Component={SaveIcon} />,
       },
     ],
     []

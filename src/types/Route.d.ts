@@ -3,7 +3,7 @@ export type Route = Partial<{
   path: string;
   title: string;
   icon: React.FC;
-  component: React.ReactElement;
+  element: React.ReactElement;
   children: Route[];
   isDivider: boolean;
 }>;

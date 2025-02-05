@@ -12,15 +12,15 @@ export const BaseDrawer = styled(Drawer)(({ theme }) => ({
   "& .MuiDrawer-paper": {
     width: 280,
     background: theme.palette.background.paper,
-    padding: "10px",
+    padding: 10,
   },
 }));
 
 export const BaseLogo = styled(Typography)(({ theme }) => ({
-  fontSize: "24px",
+  fontSize: 24,
   fontWeight: "bold",
   textAlign: "center",
-  marginBottom: "16px",
+  marginBottom: 16,
   color: theme.palette.text.primary,
 }));
 

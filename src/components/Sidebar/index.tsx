@@ -4,10 +4,10 @@ import { BaseDrawer, BaseLogo } from "./Base";
 
 import SidebarList from "./SidebarList";
 
-import { useRoutes } from "src/routes/routes";
+import { usePublicRoutes } from "src/routes/public";
 
 const Sidebar: React.FC = () => {
-  const routes = useRoutes();
+  const routes = usePublicRoutes();
 
   return (
     <BaseDrawer variant="permanent">
