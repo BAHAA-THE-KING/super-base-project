@@ -9,7 +9,7 @@ export function withNormalLayout<T extends object>(
     return (
       <Box display={"flex"} minHeight={"100vh"}>
         <Sidebar />
-        <Box width={"100%"}>
+        <Box width={"100%"} m={1}>
           <Header />
           <Component {...props} />
         </Box>

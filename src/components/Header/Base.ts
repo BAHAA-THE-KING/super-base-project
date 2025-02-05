@@ -10,7 +10,7 @@ export const BaseHeader = styled(Box)(({ theme }) => ({
   borderBottom: `1px solid ${theme.palette.divider}`,
   borderRadius: theme.shape.borderRadius,
   boxShadow: `0px 4px 10px ${theme.palette.grey[200]}`,
-  margin: theme.spacing(1),
+  marginBottom: theme.spacing(1),
 }));
 
 export const BaseHeaderTitle = styled(Typography)(({ theme }) => ({
