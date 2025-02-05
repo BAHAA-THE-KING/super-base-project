@@ -13,6 +13,28 @@ import { Route } from "src/types/Route";
 
 import { HomePage } from "src/views";
 
+/*
+  ──────────────────────────────────────
+  Divider
+  - key
+  - isDivider
+  ──────────────────────────────────────
+  Item
+  - icon
+  - key
+  - path
+  - title
+  - element
+  ──────────────────────────────────────
+  Collapse
+  - key
+  - icon
+  - title
+  - children
+  ──────────────────────────────────────
+*/
+
+
 export function usePublicRoutes() {
   return useMemo<Route[]>(
     () => [

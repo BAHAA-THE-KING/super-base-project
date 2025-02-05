@@ -7,9 +7,11 @@ export function withNormalLayout<T extends object>(
 ): React.FC<T> {
   return function (props: T) {
     return (
-      <Box width={"100%"} minHeight={"100vh"}>
+      <Box display={"flex"} minHeight={"100vh"}>
         <Sidebar />
-        <Component {...props} />
+        <Box width={"100%"}>
+          <Component {...props} />
+        </Box>
       </Box>
     );
   };

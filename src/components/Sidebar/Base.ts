@@ -6,25 +6,28 @@ import {
   Typography,
 } from "@mui/material";
 
-export const BaseDrawer = styled(Drawer)(({ theme }) => ({
-  width: 280,
-  flexShrink: 0,
-  "& .MuiDrawer-paper": {
-    width: 280,
-    background: theme.palette.background.paper,
-    padding: 10,
-  },
-}));
+export const BaseDrawer = styled(Drawer)<{ isExpanded?: boolean }>(
+  ({ theme, isExpanded }) => ({
+    width: isExpanded ? 280 : 55,
+    flexShrink: 0,
+    margin: theme.spacing(1),
+    transition: "width 0.3s ease",
+    "& .MuiDrawer-paper": {
+      width: isExpanded ? 280 : 55,
+      padding: theme.spacing(1),
+      overflowX: "hidden",
+    },
+  })
+);
 
 export const BaseLogo = styled(Typography)(({ theme }) => ({
   fontSize: 24,
   fontWeight: "bold",
   textAlign: "center",
-  marginBottom: 16,
   color: theme.palette.text.primary,
 }));
 
-export const BaseSidebarItem = styled(ListItemButton)<{ isActive: boolean }>(
+export const BaseSidebarItem = styled(ListItemButton)<{ isActive?: boolean }>(
   ({ theme, isActive }) => ({
     borderRadius: 8,
     margin: `${theme.spacing(1)}  ${0}`,

@@ -7,9 +7,12 @@ import SidebarCollapse from "./SidebarCollapse";
 
 import { Route } from "src/types/Route";
 
-type Props = { routes: Route[] };
+type Props = {
+  routes: Route[];
+  isExpanded: boolean;
+};
 
-const SidebarList: React.FC<Props> = ({ routes }) => {
+const SidebarList: React.FC<Props> = ({ routes, isExpanded }) => {
   return (
     <List component="div" disablePadding>
       {routes.map((route) =>
@@ -21,6 +24,7 @@ const SidebarList: React.FC<Props> = ({ routes }) => {
             title={route.title!}
             icon={route.icon!}
             children={route.children}
+            isExpanded={isExpanded}
           />
         ) : (
           <SidebarItem
@@ -28,6 +32,7 @@ const SidebarList: React.FC<Props> = ({ routes }) => {
             path={route.path!}
             title={route.title!}
             icon={route.icon!}
+            isExpanded={isExpanded}
           />
         )
       )}

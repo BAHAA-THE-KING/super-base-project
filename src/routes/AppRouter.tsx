@@ -1,16 +1,29 @@
-import { BrowserRouter, Route, Routes, Navigate } from "react-router";
+import { BrowserRouter, Route, Routes } from "react-router";
 
 import { usePublicRoutes } from "./public";
 
+import { NotFoundPage } from "src/views";
+
+import { Route as RouteType } from "src/types/Route";
+import React from "react";
+
 export function AppRouter() {
   const publicRoutes = usePublicRoutes();
+  const mapRoutes = (routes: RouteType[]) =>
+    routes.map((route) => (
+      <React.Fragment key={route.key}>
+        {route.isDivider ? null : route?.children?.length ? (
+          mapRoutes(route.children)
+        ) : (
+          <Route key={route.key!} path={route.path!} element={route.element!} />
+        )}
+      </React.Fragment>
+    ));
   return (
     <BrowserRouter>
       <Routes>
-        {publicRoutes.map((route) => (
-          <Route path={route.path} element={route.element} />
-        ))}
-        <Route path={"*"} element={<Navigate to={"/"} />} />
+        {mapRoutes(publicRoutes)}
+        <Route path={"*"} element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
