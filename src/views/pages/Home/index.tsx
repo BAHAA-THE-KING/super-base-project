@@ -1,3 +1,14 @@
+import { BaseButton } from "src/components/Base/BaseButton";
+
 export const Home = ({ Component }: { Component: React.FC }) => {
-  return <Component />;
+  return (
+    <BaseButton
+      variant="contained"
+      color={"error"}
+      startIcon={<Component />}
+      animations={["faceInOnce", "scaleGesture"]}
+    >
+      asdasdasda
+    </BaseButton>
+  );
 };
