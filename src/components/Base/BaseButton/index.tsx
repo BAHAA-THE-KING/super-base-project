@@ -1,21 +1,30 @@
 import { Button, ButtonProps, styled } from "@mui/material";
+import { motion } from "framer-motion";
 
 import animationsProps from "src/animations";
 
 import { Animations } from "src/types/Animations";
 
-import { motion, type MotionProps } from "framer-motion";
+type BaseButtonProps = ButtonProps & {
+  animations?: Animations;
+};
 
-const StyledButton = styled(Button)(() => {});
+const StyledButton = styled(Button)();
 
-type BaseButtonProps = ButtonProps;
-
-export const BaseButton = (props: BaseButtonProps) => {
-  return (
-    <StyledButton
-      {...props}
-      component={motion.div}
-      variants={animationsProps}
-    />
+export const BaseButton = ({ animations, ...props }: BaseButtonProps) => {
+  const requiredAnimations = animations?.reduce(
+    (p, e) => ({ ...p, ...animationsProps[e] }),
+    {}
   );
+  const anim = {
+    component: motion.div,
+    variants: requiredAnimations,
+    initial: "initial",
+    animate: "animate",
+    whileInView:"animate",
+    whileHover: "whileHover",
+    whileTap: "whileTap",
+    viewport:{ once: true, amount: 0.2 }
+  };
+  return <StyledButton {...props} {...anim} />;
 };

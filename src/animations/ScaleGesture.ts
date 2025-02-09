@@ -1,7 +1,6 @@
-import { motion } from "framer-motion";
+import { Variants } from "framer-motion";
 
-export const scaleGestureProps = {
-  component: motion.div,
+export const scaleGestureProps: Variants = {
   whileHover: { scale: 1.1 },
   whileTap: { scale: 0.9 },
 };
