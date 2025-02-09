@@ -1,4 +1,4 @@
-export { type Languages, type Themes, type Directions } from "./atoms";
+export { type Languages, type Directions } from "./atoms";
 export {
   usePreferredLanguage,
   usePreferredTheme,

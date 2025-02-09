@@ -1,5 +1,7 @@
 import { atom } from "recoil";
 
+import { Themes } from "src/types/Themes";
+
 export type Languages = "en" | "ar";
 export const languageAtom = atom<Languages>({
   key: "language",
@@ -11,7 +13,6 @@ export const languageAtom = atom<Languages>({
   ],
 });
 
-export type Themes = "light" | "dark";
 export const themeAtom = atom<Themes>({
   key: "theme",
   default: "light",

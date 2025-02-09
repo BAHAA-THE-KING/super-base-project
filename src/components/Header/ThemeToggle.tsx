@@ -1,5 +1,5 @@
 import React from "react";
-import { Brightness4, Brightness7 } from "@mui/icons-material";
+import { Brightness4, Brightness7, Terminal } from "@mui/icons-material";
 
 import { BaseIconButton } from "./Base";
 
@@ -11,9 +11,19 @@ const ThemeToggle: React.FC = () => {
   return (
     <BaseTooltip title={"theme"}>
       <BaseIconButton
-        onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+        onClick={() =>
+          setTheme(
+            theme === "light" ? "dark" : theme === "dark" ? "hacker" : "light"
+          )
+        }
       >
-        {theme === "dark" ? <Brightness7 /> : <Brightness4 />}
+        {theme === "dark" ? (
+          <Brightness4 />
+        ) : theme === "hacker" ? (
+          <Terminal />
+        ) : (
+          <Brightness7 />
+        )}
       </BaseIconButton>
     </BaseTooltip>
   );

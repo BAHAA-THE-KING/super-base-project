@@ -5,8 +5,9 @@ import {
   usePreferredTheme,
   usePreferredDirection,
   type Languages,
-  type Themes,
 } from "src/globals";
+
+import { Themes } from "src/types/Themes";
 
 export function useSetPreferences() {
   const [, setLang] = usePreferredLanguage();

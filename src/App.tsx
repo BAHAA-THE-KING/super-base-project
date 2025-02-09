@@ -4,7 +4,7 @@ import { initReactI18next } from "react-i18next";
 
 import { useSetPreferences } from "src/hooks";
 
-import { lightTheme, darkTheme } from "src/themes";
+import themes from "src/themes";
 
 import enTranslations from "src/translations/en.json";
 import arTranslations from "src/translations/ar.json";
@@ -33,7 +33,7 @@ function App() {
   const [theme] = usePreferredTheme();
 
   return (
-    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+    <ThemeProvider theme={themes[theme]}>
       <AppRouter />
     </ThemeProvider>
   );
