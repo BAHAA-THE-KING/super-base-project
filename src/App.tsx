@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@emotion/react";
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { useSetPreferences } from "src/hooks";
 
@@ -32,10 +33,25 @@ function App() {
   useSetPreferences();
   const [theme] = usePreferredTheme();
 
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        cacheTime: 5 * 60 * 1000, // cache for 5 minutes
+        staleTime: 5 * 60 * 1000, // cache for 5 minutes
+        refetchOnWindowFocus: false, // don't refetch if the user swap windows
+        refetchOnReconnect: true, // refetch when connection detected
+        refetchOnMount: false, // don't refetch if the component mounts
+        retry: 3, // stop after 3 failures
+      },
+    },
+  });
+
   return (
-    <ThemeProvider theme={themes[theme]}>
-      <AppRouter />
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={themes[theme]}>
+        <AppRouter />
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 
