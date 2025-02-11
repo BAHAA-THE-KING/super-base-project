@@ -1,2 +1,5 @@
 import animationsProps from "src/animations";
-export type Animations = (keyof typeof animationsProps)[];
+export type Animations = {
+  transitions?: keyof (typeof animationsProps)["transitions"];
+  gestures?: keyof (typeof animationsProps)["gestures"];
+};

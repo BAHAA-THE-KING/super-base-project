@@ -1,4 +1,4 @@
-import { BaseButton } from "src/components/Base/BaseButton";
+import { BaseButton } from "src/components/Base";
 
 export const Home = ({ Component }: { Component: React.FC }) => {
   return (
@@ -7,7 +7,9 @@ export const Home = ({ Component }: { Component: React.FC }) => {
         variant="contained"
         color={"error"}
         startIcon={<Component />}
-        animations={["faceInOnce", "scaleGesture"]}
+        animations={{
+          gestures: "wiggle",
+        }}
       >
         click me
       </BaseButton>
