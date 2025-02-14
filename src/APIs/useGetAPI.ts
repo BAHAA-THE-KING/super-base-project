@@ -1,32 +1,36 @@
 import { QueryKey, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { api } from "src/utils";
+import { api, ExtractPathParams } from "./utils";
 
-type Config<R> = {
+type Config<R, P> = {
   enabled?: boolean;
   keys?: any[];
   invalidateKeys?: QueryKey;
-  filters?: {
-    [key: string]: string | number;
-  };
+  params?:
+    | P
+    | {
+        [key: string]: string | number;
+      };
   defaultData?: R;
 };
 
-export function useGetAPI<R>(path: string, config: Config<R> = {}) {
+export function useGetAPI<R>(
+  path: string,
+  config: Config<R, ExtractPathParams<typeof path>> = {}
+) {
   const {
     enabled = true,
     keys = [],
     invalidateKeys,
-    filters,
+    params,
     defaultData,
   } = config;
 
   const queryClient = useQueryClient();
 
   return useQuery(
-    [path, filters, ...keys],
-    async ({ signal }) =>
-      (await api.get<R>(path, { params: filters, signal })).data,
+    [path, params, ...keys],
+    async ({ signal }) => (await api.get<R>(path, { params, signal })).data,
     {
       enabled,
       placeholderData: defaultData,

@@ -1,6 +1,6 @@
 import { QueryKey, useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { api } from "src/utils";
+import { api, ExtractPathParams } from "./utils";
 
 type Config = {
   invalidateKeys?: QueryKey;
@@ -17,7 +17,10 @@ export function usePutAPI<R, T, P = any>(path: string, config: Config = {}) {
       params,
     }: {
       data: T;
-      params?: P | { [key: string]: string | number };
+      params?:
+        | ExtractPathParams<typeof path>
+        | P
+        | { [key: string]: string | number };
     }) => (await api.put<R>(path, data, { params })).data,
     {
       onSuccess: () => {

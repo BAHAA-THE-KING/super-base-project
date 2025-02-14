@@ -4,7 +4,7 @@ export function useUsers() {
   const getAllUsers = (filters: Partial<{ name: string }>) =>
     useGetAPI<{ id: number; name: string; age: number }[]>("/all", {
       defaultData: [],
-      filters,
+      params: filters,
     });
 
   const addUser = usePostAPI<
