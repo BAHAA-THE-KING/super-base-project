@@ -2,6 +2,7 @@ import { ThemeProvider } from "@emotion/react";
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { useSetPreferences } from "src/hooks";
 
@@ -50,6 +51,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={themes[theme]}>
         <AppRouter />
+        <ReactQueryDevtools initialIsOpen={false} />
       </ThemeProvider>
     </QueryClientProvider>
   );
