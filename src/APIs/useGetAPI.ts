@@ -24,12 +24,12 @@ export function useGetAPI<R>(path: string, config: Config<R> = {}) {
   const queryClient = useQueryClient();
 
   return useQuery(
-    [path, ...keys],
+    [path, filters, ...keys],
     async ({ signal }) =>
       (await api.get<R>(path, { params: filters, signal })).data,
     {
       enabled,
-      initialData: defaultData,
+      placeholderData: defaultData,
       onSuccess: () => {
         if (invalidateKeys) {
           queryClient.invalidateQueries(invalidateKeys);

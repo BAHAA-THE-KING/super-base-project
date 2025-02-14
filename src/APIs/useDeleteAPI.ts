@@ -4,22 +4,27 @@ import { api } from "src/utils";
 
 type Config = {
   invalidateKeys?: QueryKey;
-  filters?: {
-    [key: string]: string | number;
-  };
 };
 
-export function useDeleteAPI<R>(path: string, config: Config = {}) {
-  const { invalidateKeys, filters } = config;
+export function useDeleteAPI<R, P = any>(path: string, config: Config = {}) {
+  const { invalidateKeys } = config;
 
   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: () => api.delete<R>(path, { params: filters }),
-    onSuccess: () => {
-      if (invalidateKeys) {
-        queryClient.invalidateQueries(invalidateKeys);
-      }
-    },
-  });
+  return useMutation(
+    async (
+      params:
+        | P
+        | {
+            [key: string]: string | number;
+          }
+    ) => (await api.delete<R>(path, { params })).data,
+    {
+      onSuccess: () => {
+        if (invalidateKeys) {
+          queryClient.invalidateQueries(invalidateKeys);
+        }
+      },
+    }
+  );
 }

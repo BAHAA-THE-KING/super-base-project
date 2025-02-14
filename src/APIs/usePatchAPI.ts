@@ -4,22 +4,31 @@ import { api } from "src/utils";
 
 type Config = {
   invalidateKeys?: QueryKey;
-  filters?: {
-    [key: string]: string | number;
-  };
 };
 
-export function usePatchAPI<R, T>(path: string, config: Config = {}) {
-  const { invalidateKeys, filters } = config;
+export function usePatchAPI<R, T, P = any>(path: string, config: Config = {}) {
+  const { invalidateKeys } = config;
 
   const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: (data: T) => api.patch<R>(path, data, { params: filters }),
-    onSuccess: () => {
-      if (invalidateKeys) {
-        queryClient.invalidateQueries(invalidateKeys);
-      }
-    },
-  });
+  return useMutation(
+    async ({
+      data,
+      params,
+    }: {
+      data: T;
+      params?:
+        | P
+        | {
+            [key: string]: string | number;
+          };
+    }) => (await api.patch<R>(path, data, { params })).data,
+    {
+      onSuccess: () => {
+        if (invalidateKeys) {
+          queryClient.invalidateQueries(invalidateKeys);
+        }
+      },
+    }
+  );
 }
