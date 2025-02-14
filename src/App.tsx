@@ -29,22 +29,22 @@ i18next.use(initReactI18next).init({
   },
 });
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      cacheTime: 5 * 60 * 1000, // cache for 5 minutes
+      staleTime: 5 * 60 * 1000, // cache for 5 minutes
+      refetchOnWindowFocus: false, // don't refetch if the user swap windows
+      refetchOnReconnect: true, // refetch when connection detected
+      refetchOnMount: false, // don't refetch if the component mounts
+      retry: 3, // stop after 3 failures
+    },
+  },
+});
+
 function App() {
   useSetPreferences();
   const [theme] = usePreferredTheme();
-
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        cacheTime: 5 * 60 * 1000, // cache for 5 minutes
-        staleTime: 5 * 60 * 1000, // cache for 5 minutes
-        refetchOnWindowFocus: false, // don't refetch if the user swap windows
-        refetchOnReconnect: true, // refetch when connection detected
-        refetchOnMount: false, // don't refetch if the component mounts
-        retry: 3, // stop after 3 failures
-      },
-    },
-  });
 
   return (
     <QueryClientProvider client={queryClient}>
