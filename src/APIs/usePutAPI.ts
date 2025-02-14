@@ -6,7 +6,10 @@ type Config = {
   invalidateKeys?: QueryKey;
 };
 
-export function usePutAPI<R, T, P = any>(path: string, config: Config = {}) {
+export function usePutAPI<R, T, P = any, TPath extends string = string>(
+  path: TPath,
+  config: Config = {}
+) {
   const { invalidateKeys } = config;
 
   const queryClient = useQueryClient();
@@ -18,7 +21,7 @@ export function usePutAPI<R, T, P = any>(path: string, config: Config = {}) {
     }: {
       data: T;
       params?:
-        | ExtractPathParams<typeof path>
+        | ExtractPathParams<TPath>
         | P
         | { [key: string]: string | number };
     }) => (await api.put<R>(path, data, { params })).data,

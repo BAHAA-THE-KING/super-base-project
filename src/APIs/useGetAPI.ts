@@ -14,9 +14,9 @@ type Config<R, P> = {
   defaultData?: R;
 };
 
-export function useGetAPI<R>(
-  path: string,
-  config: Config<R, ExtractPathParams<typeof path>> = {}
+export function useGetAPI<R, TPath extends string = string>(
+  path: TPath,
+  config: Config<R, ExtractPathParams<TPath>> = {}
 ) {
   const {
     enabled = true,

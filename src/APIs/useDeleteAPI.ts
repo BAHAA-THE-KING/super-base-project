@@ -7,7 +7,10 @@ type Config = {
   invalidateKeys?: QueryKey;
 };
 
-export function useDeleteAPI<R, P = any>(path: string, config: Config = {}) {
+export function useDeleteAPI<R, P = any, TPath extends string = string>(
+  path: TPath,
+  config: Config = {}
+) {
   const { invalidateKeys } = config;
 
   const queryClient = useQueryClient();
@@ -15,7 +18,7 @@ export function useDeleteAPI<R, P = any>(path: string, config: Config = {}) {
   return useMutation(
     async (
       params:
-        | ExtractPathParams<typeof path>
+        | ExtractPathParams<TPath>
         | P
         | {
             [key: string]: string | number;
