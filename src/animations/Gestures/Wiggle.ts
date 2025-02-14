@@ -1,4 +1,4 @@
-import { type Variants } from "framer-motion";
+import { type Variants } from "motion/react";
 
 // Wiggle effect (subtle rotation for attention)
 export const wiggleProps: Variants = {

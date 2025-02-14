@@ -1,4 +1,4 @@
-import { type Variants } from "framer-motion";
+import { type Variants } from "motion/react";
 
 export const scaleProps: Variants = {
   whileHover: { scale: 1.1 },

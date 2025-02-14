@@ -1,4 +1,4 @@
-import { type Variants } from "framer-motion";
+import { type Variants } from "motion/react";
 
 export const popInProps: Variants = {
   initial: { opacity: 0, scale: 0.8 },

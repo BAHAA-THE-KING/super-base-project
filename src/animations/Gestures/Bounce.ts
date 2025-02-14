@@ -1,4 +1,4 @@
-import { type Variants } from "framer-motion";
+import { type Variants } from "motion/react";
 
 // Bounce effect (for click interactions)
 export const bounceProps: Variants = {
