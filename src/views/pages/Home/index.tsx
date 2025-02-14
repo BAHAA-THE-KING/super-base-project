@@ -1,11 +1,13 @@
 import { Divider, Typography } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
-import React, { useEffect } from "react";
+import React from "react";
 import { useGetAPI, usePostAPI } from "src/APIs";
 import { BaseButton } from "src/components/Base";
 
 export const Home = ({ Component }: { Component: React.FC }) => {
-  const { data } = useGetAPI<{ id: string; age: string }[]>("/all");
+  const { data } = useGetAPI<{ id: string; age: string }[]>("/all", {
+    defaultData: [],
+  });
 
   const { mutateAsync: addItem } = usePostAPI("/create", {
     invalidateKeys: ["/all"],
@@ -18,7 +20,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
   );
   return (
     <>
-      {data?.data?.map((e) => {
+      {data?.map((e) => {
         const entries = Object.entries(e);
         return entries.map(([k, v]) => (
           <React.Fragment key={k}>

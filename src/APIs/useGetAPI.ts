@@ -23,15 +23,18 @@ export function useGetAPI<R>(path: string, config: Config<R> = {}) {
 
   const queryClient = useQueryClient();
 
-  return useQuery({
-    enabled,
-    queryKey: [path, ...keys],
-    //initialData: defaultData,
-    queryFn: ({ signal }) => api.get<R>(path, { params: filters, signal }),
-    onSuccess: () => {
-      if (invalidateKeys) {
-        queryClient.invalidateQueries(invalidateKeys);
-      }
-    },
-  });
+  return useQuery(
+    [path, ...keys],
+    async ({ signal }) =>
+      (await api.get<R>(path, { params: filters, signal })).data,
+    {
+      enabled,
+      initialData: defaultData,
+      onSuccess: () => {
+        if (invalidateKeys) {
+          queryClient.invalidateQueries(invalidateKeys);
+        }
+      },
+    }
+  );
 }

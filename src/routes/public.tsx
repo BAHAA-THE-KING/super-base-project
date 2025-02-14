@@ -34,7 +34,6 @@ import { HomePage } from "src/views";
   ──────────────────────────────────────
 */
 
-
 export function usePublicRoutes() {
   return useMemo<Route[]>(
     () => [

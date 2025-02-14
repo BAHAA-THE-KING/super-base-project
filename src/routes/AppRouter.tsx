@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router";
 
 import { usePublicRoutes } from "./public";
@@ -5,7 +6,6 @@ import { usePublicRoutes } from "./public";
 import { NotFoundPage } from "src/views";
 
 import { Route as RouteType } from "src/types/Route";
-import React from "react";
 
 export function AppRouter() {
   const publicRoutes = usePublicRoutes();
