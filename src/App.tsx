@@ -1,8 +1,12 @@
-import { ThemeProvider } from "@emotion/react";
+import { useEffect } from "react";
+import { CacheProvider, ThemeProvider } from "@emotion/react";
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import createCache from "@emotion/cache";
+import { prefixer } from "stylis";
+import rtlPlugin from "stylis-plugin-rtl";
 
 import { useSetPreferences } from "src/hooks";
 
@@ -11,10 +15,15 @@ import themes from "src/themes";
 import enTranslations from "src/translations/en.json";
 import arTranslations from "src/translations/ar.json";
 
-import { usePreferredTheme } from "src/globals";
+import {
+  usePreferredDirection,
+  usePreferredLanguage,
+  usePreferredTheme,
+} from "src/globals";
 
 import { AppRouter } from "./routes/AppRouter";
 
+// Multi-lang config
 i18next.use(initReactI18next).init({
   resources: {
     en: {
@@ -30,6 +39,7 @@ i18next.use(initReactI18next).init({
   },
 });
 
+// Query cache config
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -43,16 +53,42 @@ const queryClient = new QueryClient({
   },
 });
 
+// RTL theme config
+const cacheRtl = createCache({
+  key: "muirtl",
+  stylisPlugins: [prefixer, rtlPlugin],
+});
+
 function App() {
   useSetPreferences();
   const [theme] = usePreferredTheme();
+  const [lang] = usePreferredLanguage();
+  const [dir, setDirection] = usePreferredDirection();
+
+  const currentTheme = themes[theme];
+
+  useEffect(() => {
+    const newDir = lang === "ar" ? "rtl" : "ltr";
+    setDirection(newDir);
+  }, [lang]);
+  useEffect(() => {
+    currentTheme.direction = dir;
+  }, [dir]);
+
+  const app = (
+    <ThemeProvider theme={currentTheme}>
+      <AppRouter />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </ThemeProvider>
+  );
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={themes[theme]}>
-        <AppRouter />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </ThemeProvider>
+      {dir === "ltr" ? (
+        app
+      ) : (
+        <CacheProvider value={cacheRtl}>{app}</CacheProvider>
+      )}
     </QueryClientProvider>
   );
 }

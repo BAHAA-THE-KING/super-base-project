@@ -10,6 +10,9 @@ const hackerTheme = createTheme({
       default: "#111111",
       paper: "#212121",
     },
+    transparent: {
+      selection: "#FFFFFF22",
+    },
   },
   typography: {
     fontFamily: "Ubuntu Mono",

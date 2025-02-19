@@ -16,9 +16,10 @@ export function useSetPreferences() {
   useEffect(() => {
     const preferredLanguage = localStorage.getItem("preferredLanguage");
     const preferredTheme = localStorage.getItem("preferredTheme");
-    if (preferredLanguage) setLang(preferredLanguage as Languages);
-    if (preferredTheme) setTheme(preferredTheme as Themes);
-    if (preferredLanguage)
+    if (preferredLanguage) {
+      setLang(preferredLanguage as Languages);
       setDirection(preferredLanguage === "ar" ? "rtl" : "ltr");
+    }
+    if (preferredTheme) setTheme(preferredTheme as Themes);
   }, []);
 }

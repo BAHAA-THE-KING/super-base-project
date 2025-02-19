@@ -7,6 +7,9 @@ const darkTheme = createTheme({
       default: "#424242",
       paper: "#303030",
     },
+    transparent: {
+      selection: "#FFFFFF22",
+    },
   },
 });
 

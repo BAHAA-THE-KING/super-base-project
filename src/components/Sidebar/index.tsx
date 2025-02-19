@@ -13,7 +13,7 @@ import { usePublicRoutes } from "src/routes/public";
 
 const Sidebar: React.FC = () => {
   const routes = usePublicRoutes();
-  const [isExpanded, setIsExpanded] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <BaseDrawer variant="permanent" isExpanded={isExpanded}>

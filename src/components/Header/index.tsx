@@ -9,7 +9,7 @@ import UserMenu from "./UserMenu";
 
 const Header: React.FC = () => {
   return (
-    <BaseHeader>
+    <BaseHeader boxShadow={1}>
       <HeaderTitle />
       <Box display="flex" gap={2}>
         <ThemeToggle />

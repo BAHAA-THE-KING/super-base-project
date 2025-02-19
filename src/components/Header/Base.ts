@@ -9,8 +9,6 @@ export const BaseHeader = styled(Box)(({ theme }) => ({
   backdropFilter: "blur(10px)",
   borderBottom: `1px solid ${theme.palette.divider}`,
   borderRadius: theme.shape.borderRadius,
-  // Problem
-  boxShadow: `0px 4px 10px ${theme.palette.grey[200]}`,
   marginBottom: theme.spacing(1),
 }));
 

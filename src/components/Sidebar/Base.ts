@@ -39,7 +39,7 @@ export const BaseSidebarItem = styled(ListItemButton)<{ isActive?: boolean }>(
     "&:hover": {
       backgroundColor: isActive
         ? theme.palette.primary.dark
-        : theme.palette.grey[200],
+        : theme.palette.transparent.selection,
     },
 
     // Icon

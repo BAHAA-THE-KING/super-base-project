@@ -1,14 +1,8 @@
 import React, { useState } from "react";
-import {
-  Divider,
-  Grid2,
-  IconButton,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Divider, Grid2, IconButton, TextField } from "@mui/material";
 import { Delete as DeleteIcon } from "@mui/icons-material";
 
-import { BaseButton, BaseTooltip } from "src/components/Base";
+import { BaseButton, BaseTooltip, BaseTypography } from "src/components/Base";
 
 import { useHomePageData } from "src/views/data";
 
@@ -29,7 +23,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
         {users?.map((e) => (
           <React.Fragment key={e.id}>
             <Grid2 size={{ xs: 11 }}>
-              <Typography variant="h5">name: {e.fullname}</Typography>
+              <BaseTypography variant="h5">name: {e.fullname}</BaseTypography>
             </Grid2>
             <Grid2 size={{ xs: 1 }}>
               <BaseTooltip title={"delete user"}>

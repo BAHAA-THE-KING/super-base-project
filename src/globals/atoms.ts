@@ -29,9 +29,7 @@ export const directionAtom = atom<Directions>({
   default: "ltr",
   effects: [
     ({ onSet }) => {
-      onSet((direction) =>
-        localStorage.setItem("preferredDirection", direction)
-      );
+      onSet((dir) => (document.dir = dir));
     },
   ],
 });

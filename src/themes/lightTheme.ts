@@ -7,6 +7,9 @@ const lightTheme = createTheme({
       default: "#fff",
       paper: "#f0f0f0",
     },
+    transparent: {
+      selection: "#00000022",
+    },
   },
 });
 
