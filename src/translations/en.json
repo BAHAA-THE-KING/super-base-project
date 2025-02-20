@@ -1,4 +1,12 @@
 {
-   "lang": "language",
-   "click_please": "click me please"
+  "lang": "language",
+  "click_please": "click me please",
+  "search": "search",
+  "home": "Home",
+  "deleted_routes": "Deleted Routes",
+  "first": "First",
+  "second": "Second",
+  "watch_other_people": "Watch Other People",
+  "edit_your_life": "Edit Your Life",
+  "save_yourself": "Save Yourself"
 }

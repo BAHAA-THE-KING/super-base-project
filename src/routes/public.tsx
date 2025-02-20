@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { t } from "i18next";
 
 import {
   Home as HomeIcon,
@@ -41,7 +42,7 @@ export function usePublicRoutes() {
         icon: HomeIcon,
         key: "home",
         path: "/",
-        title: "Home",
+        title: t("home"),
         element: <HomePage Component={HomeIcon} />,
       },
       {
@@ -51,20 +52,20 @@ export function usePublicRoutes() {
       {
         icon: DeleteIcon,
         key: "deleted",
-        title: "Deleted Routes",
+        title: t("deleted_routes"),
         children: [
           {
             icon: CloseIcon,
             key: "x-1",
             path: "/x-1",
-            title: "First",
+            title: t("first"),
             element: <HomePage Component={CloseIcon} />,
           },
           {
             icon: CloseIcon,
             key: "x-2",
             path: "/x-2",
-            title: "Second",
+            title: t("second"),
             element: <HomePage Component={CloseIcon} />,
           },
         ],
@@ -73,7 +74,7 @@ export function usePublicRoutes() {
         icon: VisibilityIcon,
         key: "watch",
         path: "/watch",
-        title: "Watch Other People",
+        title: t("watch_other_people"),
         element: <HomePage Component={VisibilityIcon} />,
       },
       {
@@ -84,14 +85,14 @@ export function usePublicRoutes() {
         icon: EditIcon,
         key: "edit",
         path: "/edit",
-        title: "Edit Your Life",
+        title: t("edit_your_life"),
         element: <HomePage Component={EditIcon} />,
       },
       {
         icon: SaveIcon,
         key: "save",
         path: "/save",
-        title: "Save Yourself",
+        title: t("save_yourself"),
         element: <HomePage Component={SaveIcon} />,
       },
     ],

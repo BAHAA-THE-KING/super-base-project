@@ -1,4 +1,4 @@
-import { Box, IconButton, Typography, styled } from "@mui/material";
+import { Box, IconButton, styled } from "@mui/material";
 
 export const BaseHeader = styled(Box)(({ theme }) => ({
   display: "flex",
@@ -12,10 +12,10 @@ export const BaseHeader = styled(Box)(({ theme }) => ({
   marginBottom: theme.spacing(1),
 }));
 
-export const BaseHeaderTitle = styled(Typography)(({ theme }) => ({
-  fontSize: 18,
-  fontWeight: "bold",
-  color: theme.palette.text.primary,
+export const BaseHeaderTitle = styled(Box)(() => ({
+  display: "flex",
+  justifyContent: "flex-start",
+  alignItems: "center",
 }));
 
 export const BaseIconButton = styled(IconButton)(({ theme }) => ({

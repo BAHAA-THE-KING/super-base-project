@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Divider, Grid2, IconButton, TextField } from "@mui/material";
+import { t } from "i18next";
+
 import { Delete as DeleteIcon } from "@mui/icons-material";
 
 import { BaseButton, BaseTooltip, BaseTypography } from "src/components/Base";
@@ -15,7 +17,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
       <Grid2 container spacing={3}>
         <Grid2 size={{ xs: 12 }}>
           <TextField
-            label="search"
+            label={t("search")}
             onChange={({ target: { value } }) => setParams({ name: value })}
             fullWidth
           />
@@ -55,7 +57,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               });
             }}
           >
-            click me
+            {t("click_please")}
           </BaseButton>
         </Grid2>
       </Grid2>

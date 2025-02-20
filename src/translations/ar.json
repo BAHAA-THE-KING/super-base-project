@@ -1,4 +1,15 @@
 {
-   "lang": "اللغة",
-   "click_please": "اضغطني بليز"
+  "lang": "اللغة",
+  "click_please": "اضغطني بليز",
+  "search": "بحث",
+  "home": "الصفحة الرئيسية",
+  "deleted_routes": "الأشياء المحذوفة",
+  "first": "الأول",
+  "second": "الثاني",
+  "watch_other_people": "راقب أناساً آخرين",
+  "edit_your_life": "غير حياتك",
+  "save_yourself": "انقذ نفسك",
+  "watch": "المراقبة",
+  "edit": "التعديل",
+  "save": "الحفظ"
 }
