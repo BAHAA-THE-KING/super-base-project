@@ -11,5 +11,8 @@
   "save_yourself": "انقذ نفسك",
   "watch": "المراقبة",
   "edit": "التعديل",
-  "save": "الحفظ"
+  "save": "الحفظ",
+  "something_went_wrong": "حدث خطأ ما !",
+  "an_unexpected_error_occurred": "حدث خطأ غير متوقع",
+  "try_again": "حاول مجدداً"
 }

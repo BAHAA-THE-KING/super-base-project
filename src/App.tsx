@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import createCache from "@emotion/cache";
 import { prefixer } from "stylis";
 import rtlPlugin from "stylis-plugin-rtl";
+import { ErrorBoundary } from "react-error-boundary";
 
 import { useSetPreferences } from "src/hooks";
 
@@ -22,6 +23,8 @@ import {
 } from "src/globals";
 
 import { AppRouter } from "./routes/AppRouter";
+
+import { MainErrorFallback } from "./ErrorFallbacks";
 
 // Multi-lang config
 i18next.use(initReactI18next).init({
@@ -83,13 +86,15 @@ function App() {
   );
 
   return (
-    <QueryClientProvider client={queryClient}>
-      {dir === "ltr" ? (
-        app
-      ) : (
-        <CacheProvider value={cacheRtl}>{app}</CacheProvider>
-      )}
-    </QueryClientProvider>
+    <ErrorBoundary fallbackRender={MainErrorFallback}>
+      <QueryClientProvider client={queryClient}>
+        {dir === "ltr" ? (
+          app
+        ) : (
+          <CacheProvider value={cacheRtl}>{app}</CacheProvider>
+        )}
+      </QueryClientProvider>
+    </ErrorBoundary>
   );
 }
 
