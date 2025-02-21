@@ -2,15 +2,17 @@ import React from "react";
 import { Box } from "@mui/material";
 
 import { BaseHeader } from "./Base";
-import HeaderTitle from "./HeaderTitle";
 import ThemeToggle from "./ThemeToggle";
 import LanguageSelector from "./LanguageSelector";
 import UserMenu from "./UserMenu";
+import SidebarToggle from "./SidebarToggle";
 
 const Header: React.FC = () => {
   return (
     <BaseHeader boxShadow={1}>
-      <HeaderTitle />
+      <Box display="flex">
+        <SidebarToggle />
+      </Box>
       <Box display="flex" gap={2}>
         <ThemeToggle />
         <LanguageSelector />

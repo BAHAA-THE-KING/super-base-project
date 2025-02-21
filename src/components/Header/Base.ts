@@ -5,11 +5,8 @@ export const BaseHeader = styled(Box)(({ theme }) => ({
   alignItems: "center",
   justifyContent: "space-between",
   padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
-  background: theme.palette.background.paper,
-  backdropFilter: "blur(10px)",
-  borderBottom: `1px solid ${theme.palette.divider}`,
-  borderRadius: theme.shape.borderRadius,
   marginBottom: theme.spacing(1),
+  boxShadow: "none",
 }));
 
 export const BaseHeaderTitle = styled(Box)(() => ({
@@ -19,6 +16,7 @@ export const BaseHeaderTitle = styled(Box)(() => ({
 }));
 
 export const BaseIconButton = styled(IconButton)(({ theme }) => ({
+  color: theme.palette.text.secondary,
   "&:hover": {
     color: theme.palette.text.primary,
   },

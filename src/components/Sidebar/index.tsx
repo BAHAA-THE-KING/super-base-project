@@ -1,39 +1,22 @@
-import React, { useState } from "react";
-import { List } from "@mui/material";
-import {
-  ChevronLeft as ChevronLeftIcon,
-  ChevronRight as ChevronRightIcon,
-} from "@mui/icons-material";
+import React from "react";
 
-import { BaseDrawer, BaseLogo, BaseSidebarItem } from "./Base";
+import { BaseDrawer, BaseLogo } from "./Base";
 import SidebarList from "./SidebarList";
-import { BaseTooltip } from "src/components/Base";
 
 import { usePublicRoutes } from "src/routes/public";
+import { useSidebarOpen } from "src/globals";
 
 const Sidebar: React.FC = () => {
   const routes = usePublicRoutes();
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useSidebarOpen();
 
   return (
-    <BaseDrawer variant="permanent" isExpanded={isExpanded}>
-      {/* Toggle Button */}
-      <List component="div" disablePadding>
-        <BaseTooltip title={isExpanded ? "close" : "open"} placement="right">
-          <BaseSidebarItem
-            color={"inherit"}
-            onClick={() => setIsExpanded(!isExpanded)}
-          >
-            {isExpanded ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </BaseSidebarItem>
-        </BaseTooltip>
-      </List>
-
+    <BaseDrawer open={sidebarOpen} onClose={() => setSidebarOpen(false)}>
       {/* Logo - Hide when collapsed */}
-      {isExpanded && <BaseLogo>BAHAA THE KING</BaseLogo>}
+      {sidebarOpen && <BaseLogo>BAHAA THE KING</BaseLogo>}
 
       {/* Sidebar Items */}
-      <SidebarList routes={routes} isExpanded={isExpanded} />
+      <SidebarList routes={routes} isExpanded={sidebarOpen} />
     </BaseDrawer>
   );
 };

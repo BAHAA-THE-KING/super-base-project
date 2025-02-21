@@ -33,3 +33,8 @@ export const directionAtom = atom<Directions>({
     },
   ],
 });
+
+export const sidebarOpenAtom = atom({
+  default: false,
+  key: "sidebar-open",
+});

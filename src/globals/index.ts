@@ -3,4 +3,5 @@ export {
   usePreferredLanguage,
   usePreferredTheme,
   usePreferredDirection,
+  useSidebarOpen,
 } from "./hooks";
