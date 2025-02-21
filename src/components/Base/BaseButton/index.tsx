@@ -6,7 +6,11 @@ import { PropsWithAnimations } from "src/animations/types/PropsWithAnimations";
 
 type BaseButtonProps = PropsWithAnimations<ButtonProps>;
 
-const StyledButton = styled(Button)();
+const StyledButton = styled(Button)<BaseButtonProps>(({}) => ({
+  boxShadow: "none",
+  textTransform: "capitalize",
+  "&:hover": { boxShadow: "none" },
+}));
 
 export const BaseButton = ({ animations, ...props }: BaseButtonProps) => {
   const animationsProps = useAnimation(animations);

@@ -43,19 +43,22 @@ export const Home = ({ Component }: { Component: React.FC }) => {
           </React.Fragment>
         ))}
         <Grid2 size={{ xs: 12 }}>
+          <BaseButton variant="text">{t("click_please")}</BaseButton>
+        </Grid2>
+        <Grid2 size={{ xs: 12 }}>
+          <BaseButton
+            variant="outlined"
+            color="error"
+            startIcon={<Component />}
+          >
+            {t("click_please")}
+          </BaseButton>
+        </Grid2>
+        <Grid2 size={{ xs: 12 }}>
           <BaseButton
             variant="contained"
-            color={"error"}
+            color="success"
             startIcon={<Component />}
-            animations={{
-              gestures: "rotate",
-              transitions: "faceInOnce",
-            }}
-            onClick={() => {
-              addUser({
-                data: { name: "koko" + Math.random(), age: 16 },
-              });
-            }}
           >
             {t("click_please")}
           </BaseButton>
