@@ -1,6 +1,10 @@
+import { useState } from "react";
+
 import { useUsers } from "../APIs";
 
-export function useHomePageData(params: Partial<{ name: string }>) {
+export function useHomePageData() {
+  const [params, setParams] = useState<Partial<{ name: string }>>({});
+
   const { addUser, getAllUsers, deleteUser } = useUsers();
 
   const { data: usersResponse } = getAllUsers(params);
@@ -10,5 +14,5 @@ export function useHomePageData(params: Partial<{ name: string }>) {
     fullname: e.name,
   }));
 
-  return { users, addUser, deleteUser };
+  return { users, addUser, deleteUser, params, setParams };
 }

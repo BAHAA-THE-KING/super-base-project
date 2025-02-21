@@ -1,47 +1,18 @@
-import React, { useState } from "react";
-import { Divider, Grid2, IconButton, TextField } from "@mui/material";
+import React from "react";
+import { Box, Grid2 } from "@mui/material";
 import { t } from "i18next";
 
-import { Delete as DeleteIcon } from "@mui/icons-material";
-
-import { BaseButton, BaseTooltip, BaseTypography } from "src/components/Base";
+import { BaseButton, BaseCard } from "src/components/Base";
 
 import { useHomePageData } from "src/views/data";
+import { MapsHomeWork } from "@mui/icons-material";
 
 export const Home = ({ Component }: { Component: React.FC }) => {
-  const [params, setParams] = useState<Partial<{ name: string }>>({});
-  const { users, addUser, deleteUser } = useHomePageData(params);
+  const {} = useHomePageData();
 
   return (
     <>
-      <Grid2 container spacing={3}>
-        <Grid2 size={{ xs: 12 }}>
-          <TextField
-            label={t("search")}
-            onChange={({ target: { value } }) => setParams({ name: value })}
-            fullWidth
-          />
-        </Grid2>
-        {users?.map((e) => (
-          <React.Fragment key={e.id}>
-            <Grid2 size={{ xs: 11 }}>
-              <BaseTypography variant="h5">name: {e.fullname}</BaseTypography>
-            </Grid2>
-            <Grid2 size={{ xs: 1 }}>
-              <BaseTooltip title={"delete user"}>
-                <IconButton
-                  onClick={() => deleteUser({ userId: e.id })}
-                  color="error"
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </BaseTooltip>
-            </Grid2>
-            <Grid2 size={{ xs: 12 }}>
-              <Divider />
-            </Grid2>
-          </React.Fragment>
-        ))}
+      <Grid2 container spacing={1}>
         <Grid2 size={{ xs: 12 }}>
           <BaseButton variant="text">{t("click_please")}</BaseButton>
         </Grid2>
@@ -62,6 +33,125 @@ export const Home = ({ Component }: { Component: React.FC }) => {
           >
             {t("click_please")}
           </BaseButton>
+        </Grid2>
+        <Grid2 size={{ xs: 2 }}>
+          <BaseCard sx={{ height: "100px" }} color="primary">
+            <Box
+              width={"100%"}
+              height={"100%"}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              flexDirection={"column"}
+            >
+              <Box>
+                <MapsHomeWork fontSize="large" />
+              </Box>
+              <Box>{t("click_please")}</Box>
+            </Box>
+          </BaseCard>
+        </Grid2>
+        <Grid2 size={{ xs: 2 }}>
+          <BaseCard sx={{ height: "100px" }} color="secondary">
+            <Box
+              width={"100%"}
+              height={"100%"}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              flexDirection={"column"}
+            >
+              <Box>
+                <MapsHomeWork fontSize="large" />
+              </Box>
+              <Box>{t("click_please")}</Box>
+            </Box>
+          </BaseCard>
+        </Grid2>
+        <Grid2 size={{ xs: 2 }}>
+          <BaseCard sx={{ height: "100px" }} color="success">
+            <Box
+              width={"100%"}
+              height={"100%"}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              flexDirection={"column"}
+            >
+              <Box>
+                <MapsHomeWork fontSize="large" />
+              </Box>
+              <Box>{t("click_please")}</Box>
+            </Box>
+          </BaseCard>
+        </Grid2>
+        <Grid2 size={{ xs: 2 }}>
+          <BaseCard sx={{ height: "100px" }} color="info">
+            <Box
+              width={"100%"}
+              height={"100%"}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              flexDirection={"column"}
+            >
+              <Box>
+                <MapsHomeWork fontSize="large" />
+              </Box>
+              <Box>{t("click_please")}</Box>
+            </Box>
+          </BaseCard>
+        </Grid2>
+        <Grid2 size={{ xs: 2 }}>
+          <BaseCard sx={{ height: "100px" }} color="warning">
+            <Box
+              width={"100%"}
+              height={"100%"}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              flexDirection={"column"}
+            >
+              <Box>
+                <MapsHomeWork fontSize="large" />
+              </Box>
+              <Box>{t("click_please")}</Box>
+            </Box>
+          </BaseCard>
+        </Grid2>
+        <Grid2 size={{ xs: 2 }}>
+          <BaseCard sx={{ height: "100px" }} color="error">
+            <Box
+              width={"100%"}
+              height={"100%"}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              flexDirection={"column"}
+            >
+              <Box>
+                <MapsHomeWork fontSize="large" />
+              </Box>
+              <Box>{t("click_please")}</Box>
+            </Box>
+          </BaseCard>
+        </Grid2>
+        <Grid2 size={{ xs: 12 }}>
+          <BaseCard sx={{ height: "100px" }}>
+            <Box
+              width={"100%"}
+              height={"100%"}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              flexDirection={"column"}
+            >
+              <Box>
+                <MapsHomeWork fontSize="large" />
+              </Box>
+              <Box>{t("click_please")}</Box>
+            </Box>
+          </BaseCard>
         </Grid2>
       </Grid2>
     </>
