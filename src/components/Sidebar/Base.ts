@@ -56,7 +56,7 @@ export const BaseSidebarCollapse = styled(ListItemButton)<{
   backgroundColor: isActive
     ? theme.palette.primary.main
     : open
-    ? theme.palette.grey[200]
+    ? theme.palette.transparent.selection
     : "transparent",
   color: isActive
     ? theme.palette.primary.contrastText
@@ -64,7 +64,7 @@ export const BaseSidebarCollapse = styled(ListItemButton)<{
   "&:hover": {
     backgroundColor: isActive
       ? theme.palette.primary.dark
-      : theme.palette.grey[200],
+      : theme.palette.transparent.selection,
   },
 
   // Icon
