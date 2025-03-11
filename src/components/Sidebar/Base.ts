@@ -6,11 +6,17 @@ import {
   Typography,
 } from "@mui/material";
 
-export const BaseDrawer = styled(Drawer)(({ theme }) => ({
-  margin: theme.spacing(1),
-  transition: "width 0.3s ease",
-  "& .MuiDrawer-paper": {
+export const BaseDrawer = styled(Drawer)<{
+  direction: "ltr" | "rtl";
+  isOpen: boolean;
+}>(({ theme, isOpen }) => ({
+  "&>.MuiDrawer-paper ": {
     padding: theme.spacing(1),
+    transform: `translateX(${isOpen ? 0 : "-100%"})`,
+    transition: theme.transitions.create("transform", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.shorter,
+    }),
   },
 }));
 
@@ -56,7 +62,7 @@ export const BaseSidebarCollapse = styled(ListItemButton)<{
   backgroundColor: isActive
     ? theme.palette.primary.main
     : open
-    ? theme.palette.grey[200]
+    ? theme.palette.transparent.selection
     : "transparent",
   color: isActive
     ? theme.palette.primary.contrastText
@@ -64,7 +70,7 @@ export const BaseSidebarCollapse = styled(ListItemButton)<{
   "&:hover": {
     backgroundColor: isActive
       ? theme.palette.primary.dark
-      : theme.palette.grey[200],
+      : theme.palette.transparent.selection,
   },
 
   // Icon

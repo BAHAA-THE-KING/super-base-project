@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import {
   usePreferredLanguage,
   usePreferredTheme,
-  usePreferredDirection,
+  useDirection,
   type Languages,
 } from "src/globals";
 
@@ -12,7 +12,7 @@ import { Themes } from "src/types/Themes";
 export function useSetPreferences() {
   const [, setLang] = usePreferredLanguage();
   const [, setTheme] = usePreferredTheme();
-  const [, setDirection] = usePreferredDirection();
+  const [, setDirection] = useDirection();
   useEffect(() => {
     const preferredLanguage = localStorage.getItem("preferredLanguage");
     const preferredTheme = localStorage.getItem("preferredTheme");

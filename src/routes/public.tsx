@@ -2,12 +2,12 @@ import { useMemo } from "react";
 import { t } from "i18next";
 
 import {
-  Home as HomeIcon,
-  Delete as DeleteIcon,
-  Close as CloseIcon,
-  Visibility as VisibilityIcon,
-  Edit as EditIcon,
-  Save as SaveIcon,
+  HomeOutlined as HomeOutlinedIcon,
+  DeleteOutlined as DeleteOutlinedIcon,
+  CloseOutlined as CloseOutlinedIcon,
+  VisibilityOutlined as VisibilityOutlinedIcon,
+  EditOutlined as EditOutlinedIcon,
+  SaveOutlined as SaveOutlinedIcon,
 } from "@mui/icons-material";
 
 import { Route } from "src/types/Route";
@@ -39,61 +39,61 @@ export function usePublicRoutes() {
   return useMemo<Route[]>(
     () => [
       {
-        icon: HomeIcon,
+        icon: HomeOutlinedIcon,
         key: "home",
         path: "/",
         title: t("home"),
-        element: <HomePage Component={HomeIcon} />,
+        element: <HomePage Component={HomeOutlinedIcon} />,
       },
       {
         key: "divider-1",
         isDivider: true,
       },
       {
-        icon: DeleteIcon,
+        icon: DeleteOutlinedIcon,
         key: "deleted",
         title: t("deleted_routes"),
         children: [
           {
-            icon: CloseIcon,
+            icon: CloseOutlinedIcon,
             key: "x-1",
             path: "/x-1",
             title: t("first"),
-            element: <HomePage Component={CloseIcon} />,
+            element: <HomePage Component={CloseOutlinedIcon} />,
           },
           {
-            icon: CloseIcon,
+            icon: CloseOutlinedIcon,
             key: "x-2",
             path: "/x-2",
             title: t("second"),
-            element: <HomePage Component={CloseIcon} />,
+            element: <HomePage Component={CloseOutlinedIcon} />,
           },
         ],
       },
       {
-        icon: VisibilityIcon,
+        icon: VisibilityOutlinedIcon,
         key: "watch",
         path: "/watch",
         title: t("watch_other_people"),
-        element: <HomePage Component={VisibilityIcon} />,
+        element: <HomePage Component={VisibilityOutlinedIcon} />,
       },
       {
         key: "divider-2",
         isDivider: true,
       },
       {
-        icon: EditIcon,
+        icon: EditOutlinedIcon,
         key: "edit",
         path: "/edit",
         title: t("edit_your_life"),
-        element: <HomePage Component={EditIcon} />,
+        element: <HomePage Component={EditOutlinedIcon} />,
       },
       {
-        icon: SaveIcon,
+        icon: SaveOutlinedIcon,
         key: "save",
         path: "/save",
         title: t("save_yourself"),
-        element: <HomePage Component={SaveIcon} />,
+        element: <HomePage Component={SaveOutlinedIcon} />,
       },
     ],
     []

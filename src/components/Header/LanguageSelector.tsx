@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Menu, MenuItem } from "@mui/material";
-import { Language as LanguageIcon } from "@mui/icons-material";
+import { LanguageOutlined as LanguageOutlinedIcon } from "@mui/icons-material";
 
 import { usePreferredLanguage } from "src/globals";
 import { BaseIconButton } from "./Base";
@@ -13,7 +13,7 @@ const LanguageSelector: React.FC = () => {
     <>
       <BaseTooltip title={"language"}>
         <BaseIconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
-          <LanguageIcon />
+          <LanguageOutlinedIcon />
         </BaseIconButton>
       </BaseTooltip>
       <Menu

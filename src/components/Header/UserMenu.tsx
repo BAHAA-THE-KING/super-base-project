@@ -1,6 +1,6 @@
 import React from "react";
 import { Menu, MenuItem } from "@mui/material";
-import { AccountCircle } from "@mui/icons-material";
+import { AccountCircleOutlined as AccountCircleOutlinedIcon } from "@mui/icons-material";
 
 import { BaseIconButton } from "./Base";
 import { BaseTooltip } from "src/components/Base";
@@ -12,7 +12,7 @@ const UserMenu: React.FC = () => {
     <>
       <BaseTooltip title={"account"}>
         <BaseIconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
-          <AccountCircle />
+          <AccountCircleOutlinedIcon />
         </BaseIconButton>
       </BaseTooltip>
       <Menu

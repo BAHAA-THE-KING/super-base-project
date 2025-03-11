@@ -1,5 +1,9 @@
 import React from "react";
-import { Brightness4, Brightness7, Terminal } from "@mui/icons-material";
+import {
+  Brightness4Outlined as Brightness4OutlinedIcon,
+  Brightness7Outlined as Brightness7OutlinedIcon,
+  TerminalOutlined as TerminalOutlinedIcon,
+} from "@mui/icons-material";
 
 import { BaseIconButton } from "./Base";
 
@@ -18,11 +22,11 @@ const ThemeToggle: React.FC = () => {
         }
       >
         {theme === "dark" ? (
-          <Brightness4 />
+          <Brightness4OutlinedIcon />
         ) : theme === "hacker" ? (
-          <Terminal />
+          <TerminalOutlinedIcon />
         ) : (
-          <Brightness7 />
+          <Brightness7OutlinedIcon />
         )}
       </BaseIconButton>
     </BaseTooltip>

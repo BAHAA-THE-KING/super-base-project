@@ -2,10 +2,11 @@ import React from "react";
 import { Box, Grid2 } from "@mui/material";
 import { t } from "i18next";
 
+import { MapsHomeWorkOutlined as MapsHomeWorkOutlinedIcon } from "@mui/icons-material";
+
 import { BaseButton, BaseCard } from "src/components/Base";
 
 import { useHomePageData } from "src/views/data";
-import { MapsHomeWork } from "@mui/icons-material";
 
 export const Home = ({ Component }: { Component: React.FC }) => {
   const {} = useHomePageData();
@@ -45,7 +46,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               flexDirection={"column"}
             >
               <Box>
-                <MapsHomeWork fontSize="large" />
+                <MapsHomeWorkOutlinedIcon fontSize="large" />
               </Box>
               <Box>{t("click_please")}</Box>
             </Box>
@@ -62,7 +63,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               flexDirection={"column"}
             >
               <Box>
-                <MapsHomeWork fontSize="large" />
+                <MapsHomeWorkOutlinedIcon fontSize="large" />
               </Box>
               <Box>{t("click_please")}</Box>
             </Box>
@@ -79,7 +80,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               flexDirection={"column"}
             >
               <Box>
-                <MapsHomeWork fontSize="large" />
+                <MapsHomeWorkOutlinedIcon fontSize="large" />
               </Box>
               <Box>{t("click_please")}</Box>
             </Box>
@@ -96,7 +97,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               flexDirection={"column"}
             >
               <Box>
-                <MapsHomeWork fontSize="large" />
+                <MapsHomeWorkOutlinedIcon fontSize="large" />
               </Box>
               <Box>{t("click_please")}</Box>
             </Box>
@@ -113,7 +114,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               flexDirection={"column"}
             >
               <Box>
-                <MapsHomeWork fontSize="large" />
+                <MapsHomeWorkOutlinedIcon fontSize="large" />
               </Box>
               <Box>{t("click_please")}</Box>
             </Box>
@@ -130,7 +131,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               flexDirection={"column"}
             >
               <Box>
-                <MapsHomeWork fontSize="large" />
+                <MapsHomeWorkOutlinedIcon fontSize="large" />
               </Box>
               <Box>{t("click_please")}</Box>
             </Box>
@@ -147,7 +148,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               flexDirection={"column"}
             >
               <Box>
-                <MapsHomeWork fontSize="large" />
+                <MapsHomeWorkOutlinedIcon fontSize="large" />
               </Box>
               <Box>{t("click_please")}</Box>
             </Box>

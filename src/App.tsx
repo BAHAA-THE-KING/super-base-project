@@ -17,7 +17,7 @@ import enTranslations from "src/translations/en.json";
 import arTranslations from "src/translations/ar.json";
 
 import {
-  usePreferredDirection,
+  useDirection,
   usePreferredLanguage,
   usePreferredTheme,
 } from "src/globals";
@@ -66,7 +66,7 @@ function App() {
   useSetPreferences();
   const [theme] = usePreferredTheme();
   const [lang] = usePreferredLanguage();
-  const [dir, setDirection] = usePreferredDirection();
+  const [dir, setDirection] = useDirection();
 
   const currentTheme = themes[theme];
 

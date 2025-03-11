@@ -8,7 +8,10 @@ export const languageAtom = atom<Languages>({
   default: "en",
   effects: [
     ({ onSet }) => {
-      onSet((lang) => localStorage.setItem("preferredLanguage", lang));
+      onSet((lang) => {
+        localStorage.setItem("preferredLanguage", lang);
+        document.documentElement.lang = lang;
+      });
     },
   ],
 });

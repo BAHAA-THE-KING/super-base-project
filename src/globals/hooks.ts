@@ -21,5 +21,5 @@ export const usePreferredLanguage = () => {
 };
 
 export const usePreferredTheme = () => useRecoilState(themeAtom);
-export const usePreferredDirection = () => useRecoilState(directionAtom);
+export const useDirection = () => useRecoilState(directionAtom);
 export const useSidebarOpen = () => useRecoilState(sidebarOpenAtom);

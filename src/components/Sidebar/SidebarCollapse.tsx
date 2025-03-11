@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { ListItemIcon, ListItemText, Collapse } from "@mui/material";
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
+import {
+  ExpandLessOutlined as ExpandLessOutlinedIcon,
+  ExpandMoreOutlined as ExpandMoreOutlinedIcon,
+} from "@mui/icons-material";
 
 import SidebarList from "./SidebarList";
 
@@ -36,7 +39,7 @@ const SidebarCollapse: React.FC<SidebarCollapseProps> = (route) => {
             {route.icon && React.createElement(route.icon)}
           </ListItemIcon>
           {route.isExpanded && <ListItemText primary={route.title} />}
-          {open ? <ExpandLess /> : <ExpandMore />}
+          {open ? <ExpandLessOutlinedIcon /> : <ExpandMoreOutlinedIcon />}
         </BaseSidebarCollapse>
       </BaseTooltip>
       <Collapse in={open} timeout="auto" unmountOnExit>

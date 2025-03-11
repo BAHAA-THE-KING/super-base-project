@@ -1,18 +1,30 @@
 import React from "react";
 
-import { Menu as MenuIcon } from "@mui/icons-material";
+import {
+  MenuOpenOutlined as MenuOpenOutlinedIcon,
+  MenuOutlined as MenuOutlinedIcon,
+} from "@mui/icons-material";
 
 import { BaseTooltip } from "src/components/Base";
 import { BaseIconButton } from "./Base";
 
-import { useSidebarOpen } from "src/globals";
+import { useDirection, useSidebarOpen } from "src/globals";
 
 const SidebarToggle: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useSidebarOpen();
+  const [direction] = useDirection();
   return (
     <BaseTooltip title={"menu toggle"}>
       <BaseIconButton onClick={() => setSidebarOpen(!sidebarOpen)}>
-        <MenuIcon />
+        {sidebarOpen ? (
+          direction === "ltr" ? (
+            <MenuOpenOutlinedIcon sx={{ scale: "-1 1" }} />
+          ) : (
+            <MenuOpenOutlinedIcon />
+          )
+        ) : (
+          <MenuOutlinedIcon />
+        )}
       </BaseIconButton>
     </BaseTooltip>
   );
