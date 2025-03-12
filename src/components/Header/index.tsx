@@ -10,8 +10,10 @@ import SidebarToggle from "./SidebarToggle";
 const Header: React.FC = () => {
   return (
     <BaseHeader boxShadow={1}>
-      <Box display="flex" gap={2}>
+      <Box display="flex">
         <SidebarToggle />
+      </Box>
+      <Box display="flex" gap={2}>
         <ThemeToggle />
         <LanguageSelector />
         <UserMenu />

@@ -3,7 +3,7 @@ import { Box, IconButton, styled } from "@mui/material";
 export const BaseHeader = styled(Box)(({ theme }) => ({
   display: "flex",
   alignItems: "center",
-  justifyContent: "flex-end",
+  justifyContent: "space-between",
   padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
   marginBottom: theme.spacing(1),
   boxShadow: "none",
