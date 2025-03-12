@@ -29,7 +29,7 @@ const SidebarCollapse: React.FC<SidebarCollapseProps> = (route) => {
 
   return (
     <>
-      <BaseTooltip title={route.title} placement="right">
+      <BaseTooltip title={route.title} placement="end">
         <BaseSidebarCollapse
           onClick={handleClick}
           isActive={isActive}

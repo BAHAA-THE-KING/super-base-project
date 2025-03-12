@@ -25,7 +25,7 @@ const SidebarItem: React.FC<SidebarItemProps> = (route) => {
   };
 
   return (
-    <BaseTooltip title={route.title} placement="right">
+    <BaseTooltip title={route.title} placement="end">
       <BaseSidebarItem onClick={handleClick} isActive={isActive}>
         <ListItemIcon>{React.createElement(route.icon)}</ListItemIcon>
         {route.isExpanded && <ListItemText primary={route.title} />}
