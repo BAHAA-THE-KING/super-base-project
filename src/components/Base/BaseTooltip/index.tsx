@@ -1,9 +1,16 @@
 import { styled, Tooltip, type TooltipProps } from "@mui/material";
+
 import { useDirection } from "src/globals";
 
-const StyledTooltip = styled(Tooltip)(() => ({}));
+const StyledTooltip = styled(Tooltip)(({ theme }) => ({
+  "& .MuiTooltip-arrow": {
+    // left: "auto !important",
+    // right: "50% !important",
+    // transform: "translateX(50%) !important",
+  },
+}));
 
-type BaseTooltipProps = Omit<TooltipProps, "placement"> & {
+type BaseTooltipProps = Omit<TooltipProps, "placement" | "arrow"> & {
   placement?: TooltipProps["placement"] | "end" | "start";
 };
 
@@ -17,9 +24,9 @@ export const BaseTooltip = (props: BaseTooltipProps) => {
   } else if (props?.placement === "end") {
     if (direction === "ltr") placement = "right";
     else placement = "left";
-  } else {
+  } else if (props.placement) {
     placement = props.placement as TooltipProps["placement"];
   }
 
-  return <StyledTooltip {...props} placement={placement} arrow />;
+  return <StyledTooltip {...props} placement={placement} arrow open />;
 };

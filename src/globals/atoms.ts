@@ -10,7 +10,7 @@ export const languageAtom = atom<Languages>({
     ({ onSet }) => {
       onSet((lang) => {
         localStorage.setItem("preferredLanguage", lang);
-        document.documentElement.lang = lang;
+        (document as any).lang = lang;
       });
     },
   ],
