@@ -14,5 +14,8 @@
   "save": "الحفظ",
   "something_went_wrong": "حدث خطأ ما !",
   "an_unexpected_error_occurred": "حدث خطأ غير متوقع",
-  "try_again": "حاول مجدداً"
+  "try_again": "حاول مجدداً",
+  "tables": "الجداول",
+  "arabic": "العربية",
+  "english": "الانكليزية"
 }

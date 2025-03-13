@@ -8,14 +8,19 @@ import { BaseButton, BaseCard } from "src/components/Base";
 
 import { useHomePageData } from "src/views/data";
 
+import { useBaseTranslation } from "src/hooks";
+
+const i18ns = ["click_please"];
 export const Home = ({ Component }: { Component: React.FC }) => {
+  const [ClickPleaseText] = useBaseTranslation(i18ns);
+
   const {} = useHomePageData();
 
   return (
     <>
       <Grid2 container spacing={1}>
         <Grid2 size={{ xs: 12 }}>
-          <BaseButton variant="text">{t("click_please")}</BaseButton>
+          <BaseButton variant="text">{ClickPleaseText}</BaseButton>
         </Grid2>
         <Grid2 size={{ xs: 12 }}>
           <BaseButton
@@ -23,7 +28,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
             color="error"
             startIcon={<Component />}
           >
-            {t("click_please")}
+            {ClickPleaseText}
           </BaseButton>
         </Grid2>
         <Grid2 size={{ xs: 12 }}>
@@ -32,7 +37,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
             color="success"
             startIcon={<Component />}
           >
-            {t("click_please")}
+            {ClickPleaseText}
           </BaseButton>
         </Grid2>
         <Grid2 size={{ xs: 2 }}>
@@ -48,7 +53,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               <Box>
                 <MapsHomeWorkOutlinedIcon fontSize="large" />
               </Box>
-              <Box>{t("click_please")}</Box>
+              <Box>{ClickPleaseText}</Box>
             </Box>
           </BaseCard>
         </Grid2>
@@ -65,7 +70,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               <Box>
                 <MapsHomeWorkOutlinedIcon fontSize="large" />
               </Box>
-              <Box>{t("click_please")}</Box>
+              <Box>{ClickPleaseText}</Box>
             </Box>
           </BaseCard>
         </Grid2>
@@ -82,7 +87,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               <Box>
                 <MapsHomeWorkOutlinedIcon fontSize="large" />
               </Box>
-              <Box>{t("click_please")}</Box>
+              <Box>{ClickPleaseText}</Box>
             </Box>
           </BaseCard>
         </Grid2>
@@ -99,7 +104,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               <Box>
                 <MapsHomeWorkOutlinedIcon fontSize="large" />
               </Box>
-              <Box>{t("click_please")}</Box>
+              <Box>{ClickPleaseText}</Box>
             </Box>
           </BaseCard>
         </Grid2>
@@ -116,7 +121,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               <Box>
                 <MapsHomeWorkOutlinedIcon fontSize="large" />
               </Box>
-              <Box>{t("click_please")}</Box>
+              <Box>{ClickPleaseText}</Box>
             </Box>
           </BaseCard>
         </Grid2>
@@ -133,7 +138,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               <Box>
                 <MapsHomeWorkOutlinedIcon fontSize="large" />
               </Box>
-              <Box>{t("click_please")}</Box>
+              <Box>{ClickPleaseText}</Box>
             </Box>
           </BaseCard>
         </Grid2>
@@ -150,7 +155,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               <Box>
                 <MapsHomeWorkOutlinedIcon fontSize="large" />
               </Box>
-              <Box>{t("click_please")}</Box>
+              <Box>{ClickPleaseText}</Box>
             </Box>
           </BaseCard>
         </Grid2>

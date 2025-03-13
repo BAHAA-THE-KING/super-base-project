@@ -14,5 +14,8 @@
   "save": "save",
   "something_went_wrong": "Oops! Something went wrong.",
   "an_unexpected_error_occurred": "An unexpected error occurred",
-  "try_again": "Try Again"
+  "try_again": "Try Again",
+  "tables": "tables",
+  "arabic": "arabic",
+  "english": "english"
 }

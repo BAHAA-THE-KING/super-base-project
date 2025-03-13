@@ -1,12 +1,21 @@
 import React from "react";
 import { FallbackProps } from "react-error-boundary";
 import { Button, Container, Typography } from "@mui/material";
-import { t } from "i18next";
 
+import { useBaseTranslation } from "src/hooks";
+
+const i18ns = [
+  "something_went_wrong",
+  "an_unexpected_error_occurred",
+  "try_again",
+];
 const MainErrorFallback: React.FC<FallbackProps> = ({
   error,
   resetErrorBoundary,
 }) => {
+  const [SomethingWentWrongText, AnUnexpectedErrorOccurredText, TryAgainText] =
+    useBaseTranslation(i18ns);
+
   return (
     <Container
       sx={{
@@ -19,10 +28,10 @@ const MainErrorFallback: React.FC<FallbackProps> = ({
       }}
     >
       <Typography variant="h4" color="error" gutterBottom>
-        {t("something_went_wrong")}
+        {SomethingWentWrongText}
       </Typography>
       <Typography variant="body1">
-        {error.message || t("an_unexpected_error_occurred") + "."}
+        {error.message || AnUnexpectedErrorOccurredText + "."}
       </Typography>
       <Button
         variant="contained"
@@ -30,7 +39,7 @@ const MainErrorFallback: React.FC<FallbackProps> = ({
         onClick={resetErrorBoundary}
         sx={{ mt: 2 }}
       >
-        {t("try_again")}
+        {TryAgainText}
       </Button>
     </Container>
   );

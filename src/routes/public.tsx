@@ -12,7 +12,8 @@ import {
 
 import { Route } from "src/types/Route";
 
-import { HomePage } from "src/views";
+import { HomePage, TablePage } from "src/views";
+import { useBaseTranslation } from "src/hooks";
 
 /*
   ──────────────────────────────────────
@@ -35,14 +36,34 @@ import { HomePage } from "src/views";
   ──────────────────────────────────────
 */
 
+const i18ns = [
+  "home",
+  "deleted_routes",
+  "first",
+  "second",
+  "watch_other_people",
+  "edit_your_life",
+  "save_yourself",
+  "tables",
+];
 export function usePublicRoutes() {
+  const [
+    HomeText,
+    DeletedRoutesText,
+    FirstText,
+    SecondText,
+    WatchOtherPeopleText,
+    EditYourLifeText,
+    WaveYourselfText,
+    TablesText,
+  ] = useBaseTranslation(i18ns);
   return useMemo<Route[]>(
     () => [
       {
         icon: HomeOutlinedIcon,
         key: "home",
         path: "/",
-        title: t("home"),
+        title: HomeText,
         element: <HomePage Component={HomeOutlinedIcon} />,
       },
       {
@@ -52,20 +73,20 @@ export function usePublicRoutes() {
       {
         icon: DeleteOutlinedIcon,
         key: "deleted",
-        title: t("deleted_routes"),
+        title: DeletedRoutesText,
         children: [
           {
             icon: CloseOutlinedIcon,
             key: "x-1",
             path: "/x-1",
-            title: t("first"),
+            title: FirstText,
             element: <HomePage Component={CloseOutlinedIcon} />,
           },
           {
             icon: CloseOutlinedIcon,
             key: "x-2",
             path: "/x-2",
-            title: t("second"),
+            title: SecondText,
             element: <HomePage Component={CloseOutlinedIcon} />,
           },
         ],
@@ -74,7 +95,7 @@ export function usePublicRoutes() {
         icon: VisibilityOutlinedIcon,
         key: "watch",
         path: "/watch",
-        title: t("watch_other_people"),
+        title: WatchOtherPeopleText,
         element: <HomePage Component={VisibilityOutlinedIcon} />,
       },
       {
@@ -85,15 +106,22 @@ export function usePublicRoutes() {
         icon: EditOutlinedIcon,
         key: "edit",
         path: "/edit",
-        title: t("edit_your_life"),
+        title: EditYourLifeText,
         element: <HomePage Component={EditOutlinedIcon} />,
       },
       {
         icon: SaveOutlinedIcon,
         key: "save",
         path: "/save",
-        title: t("save_yourself"),
+        title: WaveYourselfText,
         element: <HomePage Component={SaveOutlinedIcon} />,
+      },
+      {
+        icon: SaveOutlinedIcon,
+        key: "table",
+        path: "/tables",
+        title: TablesText,
+        element: <TablePage />,
       },
     ],
     []

@@ -6,7 +6,12 @@ import { usePreferredLanguage } from "src/globals";
 import { BaseIconButton } from "./Base";
 import { BaseTooltip } from "src/components/Base";
 
+import { useBaseTranslation } from "src/hooks";
+
+const i18ns = ["arabic", "english"];
 const LanguageSelector: React.FC = () => {
+  const [ArabicText, EnglishText] = useBaseTranslation(i18ns);
+
   const [language, setLanguage] = usePreferredLanguage();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   return (
@@ -25,13 +30,13 @@ const LanguageSelector: React.FC = () => {
           onClick={() => setLanguage("ar")}
           selected={language === "ar"}
         >
-          Arabic
+          {ArabicText}
         </MenuItem>
         <MenuItem
           onClick={() => setLanguage("en")}
           selected={language === "en"}
         >
-          English
+          {EnglishText}
         </MenuItem>
       </Menu>
     </>
