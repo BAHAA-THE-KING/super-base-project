@@ -39,7 +39,13 @@ const SidebarCollapse: React.FC<SidebarCollapseProps> = (route) => {
             {route.icon && React.createElement(route.icon)}
           </ListItemIcon>
           {route.isExpanded && <ListItemText primary={route.title} />}
-          {open ? <ExpandLessOutlinedIcon /> : <ExpandMoreOutlinedIcon />}
+          {route.isExpanded ? (
+            open ? (
+              <ExpandLessOutlinedIcon />
+            ) : (
+              <ExpandMoreOutlinedIcon />
+            )
+          ) : null}
         </BaseSidebarCollapse>
       </BaseTooltip>
       <Collapse in={open} timeout="auto" unmountOnExit>

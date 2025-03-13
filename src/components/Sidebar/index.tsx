@@ -1,43 +1,59 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { BaseDrawer, BaseLogo } from "./Base";
 import SidebarList from "./SidebarList";
 
 import { usePublicRoutes } from "src/routes/public";
 import { useDirection, useSidebarOpen } from "src/globals";
+import { useBreakpoints } from "src/hooks";
 
 const Sidebar: React.FC = () => {
   const routes = usePublicRoutes();
   const [sidebarOpen, setSidebarOpen] = useSidebarOpen();
   const closeSidebar = () => {
+    setSidebarOpen(false);
+    setWillClose(false);
+  };
+  const handleMouseLeave = () => {
     if (willClose) {
-      setSidebarOpen(false);
-      setWillClose(false);
+      closeSidebar();
     }
   };
-  const handleWillClose = () => setWillClose(true);
+  const handleMouseEnter = () => setWillClose(true);
   const [direction] = useDirection();
 
   const [willClose, setWillClose] = useState(false);
+
+  const { up } = useBreakpoints();
+
+  const [isExpanded, setIsExpanded] = useState(false);
+  useEffect(() => {
+    if (up("lg")) {
+      setIsExpanded(sidebarOpen);
+    } else {
+      setIsExpanded(true);
+    }
+  }, [up("lg"), sidebarOpen]);
 
   return (
     <BaseDrawer
       open
       variant="permanent"
       isOpen={sidebarOpen}
+      isExpanded={isExpanded}
       onClose={closeSidebar}
       ModalProps={{
         keepMounted: true, // Better open performance on mobile.
       }}
       direction={direction}
-      onMouseEnter={handleWillClose}
-      onMouseLeave={closeSidebar}
+      onMouseEnter={handleMouseEnter}
+      //onMouseLeave={handleMouseLeave}
     >
       {/* Logo - Hide when collapsed */}
-      <BaseLogo>BAHAA THE KING</BaseLogo>
+      {isExpanded && <BaseLogo>BAHAA THE KING</BaseLogo>}
 
       {/* Sidebar Items */}
-      <SidebarList routes={routes} isExpanded />
+      <SidebarList routes={routes} isExpanded={isExpanded} />
     </BaseDrawer>
   );
 };
