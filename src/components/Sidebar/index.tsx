@@ -47,7 +47,7 @@ const Sidebar: React.FC = () => {
       }}
       direction={direction}
       onMouseEnter={handleMouseEnter}
-      //onMouseLeave={handleMouseLeave}
+      onMouseLeave={handleMouseLeave}
     >
       {/* Logo - Hide when collapsed */}
       {isExpanded && <BaseLogo>BAHAA THE KING</BaseLogo>}
