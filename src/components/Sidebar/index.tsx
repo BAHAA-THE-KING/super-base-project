@@ -31,7 +31,7 @@ const Sidebar: React.FC = () => {
       }}
       direction={direction}
       onMouseEnter={handleWillClose}
-      // onMouseLeave={closeSidebar}
+      onMouseLeave={closeSidebar}
     >
       {/* Logo - Hide when collapsed */}
       <BaseLogo>BAHAA THE KING</BaseLogo>
