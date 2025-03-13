@@ -12,8 +12,8 @@ export const BaseDrawer = styled(Drawer)<{
   isExpanded: boolean;
 }>(({ theme, isOpen, isExpanded }) => ({
   "&>.MuiDrawer-paper": {
-    padding: theme.spacing(1),
     maxWidth: "100%",
+    padding: `0 ${theme.spacing(1)}`,
     transition: theme.transitions.create(["transform", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.shorter,
