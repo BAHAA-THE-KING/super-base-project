@@ -42,6 +42,7 @@ export function useTableColumns() {
       {
         field: "registered",
         headerName: status,
+        type: "boolean",
         flex: 1,
         renderCell: ({ value }) =>
           value ? (
