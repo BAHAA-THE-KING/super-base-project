@@ -17,5 +17,12 @@
   "try_again": "حاول مجدداً",
   "tables": "الجداول",
   "arabic": "العربية",
-  "english": "الانكليزية"
+  "english": "الانكليزية",
+  "name": "الاسم",
+  "email": "البريد الالكتروني",
+  "status": "الحالة",
+  "registered": "مسجل",
+  "unregistered": "غير مسجل",
+  "show_profile": "عرض الملف",
+  "deactivate_user": "إلغاء التفعيل"
 }

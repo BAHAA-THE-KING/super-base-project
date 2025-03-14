@@ -17,5 +17,12 @@
   "try_again": "Try Again",
   "tables": "tables",
   "arabic": "arabic",
-  "english": "english"
+  "english": "english",
+  "name": "name",
+  "email": "email",
+  "status": "status",
+  "registered": "registered",
+  "unregistered": "unregistered",
+  "show_profile": "show profile",
+  "deactivate_user": "deactivate user"
 }
