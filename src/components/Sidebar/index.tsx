@@ -24,16 +24,16 @@ const Sidebar: React.FC = () => {
 
   const [willClose, setWillClose] = useState(false);
 
-  const { up } = useBreakpoints();
+  const { isGreater } = useBreakpoints("lg");
 
   const [isExpanded, setIsExpanded] = useState(false);
   useEffect(() => {
-    if (up("lg")) {
+    if (isGreater) {
       setIsExpanded(sidebarOpen);
     } else {
       setIsExpanded(true);
     }
-  }, [up("lg"), sidebarOpen]);
+  }, [isGreater, sidebarOpen]);
 
   return (
     <BaseDrawer
