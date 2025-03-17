@@ -1,6 +1,4 @@
 import { useMemo } from "react";
-import { t } from "i18next";
-
 import {
   HomeOutlined as HomeOutlinedIcon,
   DeleteOutlined as DeleteOutlinedIcon,
@@ -8,11 +6,12 @@ import {
   VisibilityOutlined as VisibilityOutlinedIcon,
   EditOutlined as EditOutlinedIcon,
   SaveOutlined as SaveOutlinedIcon,
+  Insights as InsightsIcon,
 } from "@mui/icons-material";
 
 import { Route } from "src/types/Route";
 
-import { HomePage, TablePage } from "src/views";
+import { HomePage, TablePage, ChartsPage } from "src/views";
 import { useBaseTranslation } from "src/hooks";
 
 /*
@@ -45,6 +44,7 @@ const i18ns = [
   "edit_your_life",
   "save_yourself",
   "tables",
+  "charts",
 ];
 export function usePublicRoutes() {
   const [
@@ -56,6 +56,7 @@ export function usePublicRoutes() {
     EditYourLifeText,
     WaveYourselfText,
     TablesText,
+    ChartsText,
   ] = useBaseTranslation(i18ns);
   return useMemo<Route[]>(
     () => [
@@ -122,6 +123,13 @@ export function usePublicRoutes() {
         path: "/tables",
         title: TablesText,
         element: <TablePage />,
+      },
+      {
+        icon: InsightsIcon,
+        key: "chart",
+        path: "/charts",
+        title: ChartsText,
+        element: <ChartsPage />,
       },
     ],
     []
