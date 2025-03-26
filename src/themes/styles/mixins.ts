@@ -1,5 +1,6 @@
 import type { CSSObject } from "@mui/material/styles";
 import colors from "../core/colors.json";
+import { ColorType, GradientType } from "src/types/theme";
 
 // ----------------------------------------------------------------------
 
@@ -42,8 +43,8 @@ export function textGradient(color: string): CSSObject {
  * ...bgGradient({ color: `to right, ${theme.vars.palette.grey[900]} 25%, ${varAlpha(theme.vars.palette.primary.darkerChannel, 0.88)}`, imgUrl: '/assets/background/overlay.png' }),
  */
 export type BgGradientProps = {
-  color: "primary" | "secondary" | "error" | "warning" | "info" | "success";
-  mode: "light" | "main" | "bold";
+  color: ColorType;
+  mode: GradientType;
   imgUrl?: string;
 };
 

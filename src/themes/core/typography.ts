@@ -1,41 +1,25 @@
-import type { TypographyOptions } from '@mui/material/styles/createTypography';
+import type { TypographyOptions } from "@mui/material/styles/createTypography";
 
-import { setFont, pxToRem, responsiveFontSizes } from '../styles/utils';
-
-// ----------------------------------------------------------------------
-
-declare module '@mui/material/styles' {
-  interface TypographyVariants {
-    fontSecondaryFamily: React.CSSProperties['fontFamily'];
-    fontWeightSemiBold: React.CSSProperties['fontWeight'];
-  }
-  interface TypographyVariantsOptions {
-    fontSecondaryFamily?: React.CSSProperties['fontFamily'];
-    fontWeightSemiBold?: React.CSSProperties['fontWeight'];
-  }
-  interface ThemeVars {
-    typography: Theme['typography'];
-  }
-}
+import { setFont, pxToRem, responsiveFontSizes } from "../styles/utils";
 
 // ----------------------------------------------------------------------
 
-export const defaultFont = 'DM Sans Variable';
+export const defaultFont = "Rubik";
 
 export const primaryFont = setFont(defaultFont);
 
-export const secondaryFont = setFont('Barlow');
+export const secondaryFont = setFont("DM Sans Variable, Barlow");
 
 // ----------------------------------------------------------------------
 
 export const typography: TypographyOptions = {
   fontFamily: primaryFont,
   fontSecondaryFamily: secondaryFont,
-  fontWeightLight: '300',
-  fontWeightRegular: '400',
-  fontWeightMedium: '500',
-  fontWeightSemiBold: '600',
-  fontWeightBold: '700',
+  fontWeightLight: "300",
+  fontWeightRegular: "400",
+  fontWeightMedium: "500",
+  fontWeightSemiBold: "600",
+  fontWeightBold: "700",
   h1: {
     fontWeight: 800,
     lineHeight: 80 / 64,
@@ -101,12 +85,12 @@ export const typography: TypographyOptions = {
     fontWeight: 700,
     lineHeight: 1.5,
     fontSize: pxToRem(12),
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
   },
   button: {
     fontWeight: 700,
     lineHeight: 24 / 14,
     fontSize: pxToRem(14),
-    textTransform: 'unset',
+    textTransform: "unset",
   },
 };
