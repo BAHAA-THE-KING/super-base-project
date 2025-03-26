@@ -3,9 +3,10 @@ import React, { useEffect, useState } from "react";
 import { BaseDrawer, BaseLogo } from "./Base";
 import SidebarList from "./SidebarList";
 
-import { usePublicRoutes } from "src/routes/public";
+import { usePublicRoutes } from "src/routes";
 import { useDirection, useSidebarOpen } from "src/globals";
 import { useBreakpoints } from "src/hooks";
+import { Stack } from "@mui/material";
 
 const Sidebar: React.FC = () => {
   const routes = usePublicRoutes();
@@ -49,11 +50,13 @@ const Sidebar: React.FC = () => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Logo - Hide when collapsed */}
-      {isExpanded && <BaseLogo>BAHAA THE KING</BaseLogo>}
+      <Stack>
+        {/* Logo - Hide when collapsed */}
+        {isExpanded && <BaseLogo>BAHAA THE KING</BaseLogo>}
 
-      {/* Sidebar Items */}
-      <SidebarList routes={routes} isExpanded={isExpanded} />
+        {/* Sidebar Items */}
+        <SidebarList routes={routes} isExpanded={isExpanded} />
+      </Stack>
     </BaseDrawer>
   );
 };

@@ -13,14 +13,20 @@ export const BaseDrawer = styled(Drawer)<{
 }>(({ theme, isOpen, isExpanded }) => ({
   "&>.MuiDrawer-paper": {
     maxWidth: "100%",
-    padding: `0 ${theme.spacing(1)}`,
     transition: theme.transitions.create(["transform", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.shorter,
     }),
   },
+  "&>.MuiDrawer-paper>.MuiStack-root": {
+    padding: `0 ${theme.spacing(1)}`,
+  },
   [theme.breakpoints.up("lg")]: {
+    "&>.MuiDrawer-paper>.MuiStack-root": {
+      padding: 0,
+    },
     "&>.MuiDrawer-paper": {
+      padding: `0 ${theme.spacing(1)}`,
       width: isExpanded ? "244px" : "57.5px",
       transform: `translateX(0)`,
       position: "relative",
@@ -31,6 +37,11 @@ export const BaseDrawer = styled(Drawer)<{
     "&>.MuiDrawer-paper": {
       width: "auto",
       transform: `translateX(${isOpen ? 0 : "-100%"})`,
+    },
+  },
+  [theme.breakpoints.down("sm")]: {
+    "&>.MuiDrawer-paper": {
+      width: "100%",
     },
   },
 }));

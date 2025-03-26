@@ -24,5 +24,10 @@
   "registered": "مسجل",
   "unregistered": "غير مسجل",
   "show_profile": "عرض الملف",
-  "deactivate_user": "إلغاء التفعيل"
+  "deactivate_user": "إلغاء التفعيل",
+  "charts": "المخططات",
+  "language": "اللغة",
+  "theme": "المظهر",
+  "open_sidebar":"فتح القائمة",
+  "close_sidebar":"إغلاق القائمة"
 }

@@ -1,5 +1,5 @@
 import React, { ComponentType } from "react";
-import { Box } from "@mui/system";
+import { Box } from "@mui/material";
 
 import { Header, Sidebar } from "src/components";
 import { useSidebarOpen } from "src/globals";

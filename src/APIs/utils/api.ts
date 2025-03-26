@@ -1,11 +1,13 @@
 import { Axios } from "axios";
 import Cookies from "js-cookie";
+
 import { buildUrl } from "./urlBuilder";
 
 const api = new Axios({
   baseURL: "http://localhost:8000",
   headers: {
     "Content-Type": "application/json",
+    "Accept-Encoding": "application/json",
   },
 });
 
@@ -15,7 +17,7 @@ api.interceptors.request.use((request) => {
     request.headers.Authorization = "Bearer " + token;
   }
   const data = request.data;
-  if (data) {
+  if (!(data instanceof FormData)) {
     request.data = JSON.stringify(request.data);
   }
 

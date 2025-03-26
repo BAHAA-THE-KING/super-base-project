@@ -26,7 +26,18 @@ export function usePostAPI<R, T, P = any, TPath extends string = string>(
         | {
             [key: string]: string | number;
           };
-    }) => (await api.post<R>(path, data, { params })).data,
+    }) =>
+      (
+        await api.post<R>(path, data, {
+          params,
+          headers: {
+            "Content-Type":
+              data instanceof FormData
+                ? "application/x-www-form-urlencoded"
+                : "application/json",
+          },
+        })
+      ).data,
     {
       onSuccess: () => {
         console.log("Query Success, invalidating:", invalidateKeys);

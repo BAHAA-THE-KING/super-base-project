@@ -22,7 +22,7 @@ import {
   usePreferredTheme,
 } from "src/globals";
 
-import { AppRouter } from "./routes/AppRouter";
+import { AppRouter } from "src/routes/AppRouter";
 
 import { MainErrorFallback } from "./ErrorFallbacks";
 

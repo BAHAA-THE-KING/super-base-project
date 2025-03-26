@@ -4,7 +4,6 @@ import { Box } from "@mui/material";
 import { BaseHeader } from "./Base";
 import ThemeToggle from "./ThemeToggle";
 import LanguageSelector from "./LanguageSelector";
-import UserMenu from "./UserMenu";
 import SidebarToggle from "./SidebarToggle";
 
 const Header: React.FC = () => {
@@ -14,7 +13,6 @@ const Header: React.FC = () => {
         <SidebarToggle />
         <ThemeToggle />
         <LanguageSelector />
-        <UserMenu />
       </Box>
     </BaseHeader>
   );

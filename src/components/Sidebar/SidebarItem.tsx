@@ -4,6 +4,8 @@ import { useLocation, useNavigate } from "react-router";
 
 import { BaseSidebarItem } from "./Base";
 import { BaseTooltip } from "src/components/Base";
+import { useBreakpoints } from "src/hooks";
+import { useSidebarOpen } from "src/globals";
 
 interface SidebarItemProps {
   path: string;
@@ -20,12 +22,24 @@ const SidebarItem: React.FC<SidebarItemProps> = (route) => {
 
   const navigate = useNavigate();
 
+  const [, setSidebarOpen] = useSidebarOpen();
+
   const handleClick = () => {
     navigate(route.path || "/");
+    setSidebarOpen(false);
   };
 
+  const { isLower } = useBreakpoints("sm");
+
   return (
-    <BaseTooltip title={route.title} placement="end">
+    <BaseTooltip
+      title={route.title}
+      placement="end"
+      disableHoverListener={isLower}
+      disableFocusListener={isLower}
+      disableTouchListener={isLower}
+      disableInteractive={isLower}
+    >
       <BaseSidebarItem
         onClick={handleClick}
         isActive={isActive}

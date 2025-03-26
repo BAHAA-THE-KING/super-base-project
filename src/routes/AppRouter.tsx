@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router";
 
-import { usePublicRoutes } from "./public";
+import { usePublicRoutes } from ".";
 
 import { NotFoundPage } from "src/views";
 

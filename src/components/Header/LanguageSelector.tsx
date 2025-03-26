@@ -8,15 +8,15 @@ import { BaseTooltip } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
-const i18ns = ["arabic", "english"];
+const i18ns = ["arabic", "english", "language"];
 const LanguageSelector: React.FC = () => {
-  const [ArabicText, EnglishText] = useBaseTranslation(i18ns);
+  const [ArabicText, EnglishText, LanguageText] = useBaseTranslation(i18ns);
 
   const [language, setLanguage] = usePreferredLanguage();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   return (
     <>
-      <BaseTooltip title={"language"}>
+      <BaseTooltip title={LanguageText}>
         <BaseIconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
           <LanguageOutlinedIcon />
         </BaseIconButton>
