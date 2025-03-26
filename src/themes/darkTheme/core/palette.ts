@@ -1,7 +1,7 @@
 import type { ColorSystemOptions } from "@mui/material/styles";
 
 import COLORS from "./colors.json";
-import { varAlpha, createPaletteChannel } from "../styles";
+import { varAlpha, createPaletteChannel } from "src/themes/styles";
 
 // ----------------------------------------------------------------------
 
@@ -32,8 +32,8 @@ export const common = createPaletteChannel(COLORS.common);
 // Text
 export const text = {
   light: createPaletteChannel({
-    primary: grey[800],
-    secondary: grey[600],
+    primary: grey[100],
+    secondary: grey[300],
     disabled: grey[500],
   }),
 };
@@ -41,9 +41,9 @@ export const text = {
 // Background
 export const background = {
   light: createPaletteChannel({
-    paper: "#FFFFFF",
-    default: grey[100],
-    neutral: grey[200],
+    paper: "#2a3447",
+    default: grey[900],
+    neutral: grey[700],
   }),
 };
 

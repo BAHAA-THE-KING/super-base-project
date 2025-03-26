@@ -1,5 +1,5 @@
 import type { CSSObject } from "@mui/material/styles";
-import colors from "../core/colors.json";
+import colors from "../darkTheme/core/colors.json";
 import { ColorType, GradientType } from "src/types/theme";
 
 // ----------------------------------------------------------------------

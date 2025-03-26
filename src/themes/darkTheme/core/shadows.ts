@@ -1,7 +1,7 @@
 import type { Shadows } from "@mui/material/styles";
 
 import { grey } from "./palette";
-import { varAlpha } from "../styles";
+import { varAlpha } from "src/themes/styles";
 
 // ----------------------------------------------------------------------
 
