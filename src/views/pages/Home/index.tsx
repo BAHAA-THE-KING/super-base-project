@@ -4,7 +4,7 @@ import { t } from "i18next";
 
 import { MapsHomeWorkOutlined as MapsHomeWorkOutlinedIcon } from "@mui/icons-material";
 
-import { BaseButton, BaseCard } from "src/components/Base";
+import { BButton, BCard } from "src/components/Base";
 
 import { useHomePageData } from "src/views/data";
 
@@ -20,28 +20,28 @@ export const Home = ({ Component }: { Component: React.FC }) => {
     <>
       <Grid2 container spacing={1}>
         <Grid2 size={{ xs: 12 }}>
-          <BaseButton variant="text">{ClickPleaseText}</BaseButton>
+          <BButton variant="text">{ClickPleaseText}</BButton>
         </Grid2>
         <Grid2 size={{ xs: 12 }}>
-          <BaseButton
+          <BButton
             variant="outlined"
             color="error"
             startIcon={<Component />}
           >
             {ClickPleaseText}
-          </BaseButton>
+          </BButton>
         </Grid2>
         <Grid2 size={{ xs: 12 }}>
-          <BaseButton
+          <BButton
             variant="contained"
             color="success"
             startIcon={<Component />}
           >
             {ClickPleaseText}
-          </BaseButton>
+          </BButton>
         </Grid2>
         <Grid2 size={{ xs: 2 }}>
-          <BaseCard sx={{ height: "100px" }} color="primary">
+          <BCard sx={{ height: "100px" }} color="primary">
             <Box
               width={"100%"}
               height={"100%"}
@@ -55,10 +55,10 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               </Box>
               <Box>{ClickPleaseText}</Box>
             </Box>
-          </BaseCard>
+          </BCard>
         </Grid2>
         <Grid2 size={{ xs: 2 }}>
-          <BaseCard sx={{ height: "100px" }} color="secondary">
+          <BCard sx={{ height: "100px" }} color="secondary">
             <Box
               width={"100%"}
               height={"100%"}
@@ -72,10 +72,10 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               </Box>
               <Box>{ClickPleaseText}</Box>
             </Box>
-          </BaseCard>
+          </BCard>
         </Grid2>
         <Grid2 size={{ xs: 2 }}>
-          <BaseCard sx={{ height: "100px" }} color="success">
+          <BCard sx={{ height: "100px" }} color="success">
             <Box
               width={"100%"}
               height={"100%"}
@@ -89,10 +89,10 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               </Box>
               <Box>{ClickPleaseText}</Box>
             </Box>
-          </BaseCard>
+          </BCard>
         </Grid2>
         <Grid2 size={{ xs: 2 }}>
-          <BaseCard sx={{ height: "100px" }} color="info">
+          <BCard sx={{ height: "100px" }} color="info">
             <Box
               width={"100%"}
               height={"100%"}
@@ -106,10 +106,10 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               </Box>
               <Box>{ClickPleaseText}</Box>
             </Box>
-          </BaseCard>
+          </BCard>
         </Grid2>
         <Grid2 size={{ xs: 2 }}>
-          <BaseCard sx={{ height: "100px" }} color="warning">
+          <BCard sx={{ height: "100px" }} color="warning">
             <Box
               width={"100%"}
               height={"100%"}
@@ -123,10 +123,10 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               </Box>
               <Box>{ClickPleaseText}</Box>
             </Box>
-          </BaseCard>
+          </BCard>
         </Grid2>
         <Grid2 size={{ xs: 2 }}>
-          <BaseCard sx={{ height: "100px" }} color="error">
+          <BCard sx={{ height: "100px" }} color="error">
             <Box
               width={"100%"}
               height={"100%"}
@@ -140,10 +140,10 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               </Box>
               <Box>{ClickPleaseText}</Box>
             </Box>
-          </BaseCard>
+          </BCard>
         </Grid2>
         <Grid2 size={{ xs: 12 }}>
-          <BaseCard sx={{ height: "100px" }}>
+          <BCard sx={{ height: "100px" }}>
             <Box
               width={"100%"}
               height={"100%"}
@@ -157,7 +157,7 @@ export const Home = ({ Component }: { Component: React.FC }) => {
               </Box>
               <Box>{ClickPleaseText}</Box>
             </Box>
-          </BaseCard>
+          </BCard>
         </Grid2>
       </Grid2>
     </>

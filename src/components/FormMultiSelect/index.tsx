@@ -8,7 +8,7 @@ import {
   RegisterOptions,
 } from "react-hook-form";
 
-import { BaseChip } from "../Base";
+import { BChip } from "../Base";
 import { useBaseTranslation } from "src/hooks";
 
 type Props<
@@ -65,7 +65,7 @@ export function FormMultiSelect<
           }}
           renderTags={(value, getTagProps) =>
             value.map((option, index) => (
-              <BaseChip
+              <BChip
                 label={typeof option === "string" ? option : option.name}
                 {...getTagProps({ index })}
               />

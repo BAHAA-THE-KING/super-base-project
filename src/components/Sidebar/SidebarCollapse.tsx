@@ -9,7 +9,7 @@ import SidebarList from "./SidebarList";
 
 import { Route } from "src/types/Route";
 import { BaseSidebarCollapse } from "./Base";
-import { BaseTooltip } from "src/components/Base";
+import { BTooltip } from "src/components/Base";
 
 interface SidebarCollapseProps {
   title: string;
@@ -29,7 +29,7 @@ const SidebarCollapse: React.FC<SidebarCollapseProps> = (route) => {
 
   return (
     <>
-      <BaseTooltip title={route.title} placement="end">
+      <BTooltip title={route.title} placement="end">
         <BaseSidebarCollapse
           onClick={handleClick}
           isActive={isActive}
@@ -47,7 +47,7 @@ const SidebarCollapse: React.FC<SidebarCollapseProps> = (route) => {
             )
           ) : null}
         </BaseSidebarCollapse>
-      </BaseTooltip>
+      </BTooltip>
       <Collapse in={open} timeout="auto" unmountOnExit>
         {open ? (
           <SidebarList routes={route.children} isExpanded={route.isExpanded} />

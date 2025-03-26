@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 
-import { BaseDataGrid } from "src/components/Base/BaseDataGrid";
+import { BDataGrid } from "src/components/Base";
 
 import { useTableColumns } from "./columns";
 
@@ -13,7 +13,7 @@ export function Table() {
 
   return (
     <Box display={"flex"} flexGrow={1} width={"100%"} >
-      <BaseDataGrid rows={rows} columns={columns} />
+      <BDataGrid rows={rows} columns={columns} />
     </Box>
   );
 }

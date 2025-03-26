@@ -3,18 +3,18 @@ import { Menu, MenuItem } from "@mui/material";
 import { AccountCircleOutlined as AccountCircleOutlinedIcon } from "@mui/icons-material";
 
 import { BaseIconButton } from "./Base";
-import { BaseTooltip } from "src/components/Base";
+import { BTooltip } from "src/components/Base";
 
 const UserMenu: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   return (
     <>
-      <BaseTooltip title={"account"}>
+      <BTooltip title={"account"}>
         <BaseIconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
           <AccountCircleOutlinedIcon />
         </BaseIconButton>
-      </BaseTooltip>
+      </BTooltip>
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}

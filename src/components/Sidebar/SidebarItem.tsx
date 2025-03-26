@@ -3,7 +3,7 @@ import { ListItemIcon, ListItemText } from "@mui/material";
 import { useLocation, useNavigate } from "react-router";
 
 import { BaseSidebarItem } from "./Base";
-import { BaseTooltip } from "src/components/Base";
+import { BTooltip } from "src/components/Base";
 import { useBreakpoints } from "src/hooks";
 import { useSidebarOpen } from "src/globals";
 
@@ -32,7 +32,7 @@ const SidebarItem: React.FC<SidebarItemProps> = (route) => {
   const { isLower } = useBreakpoints("sm");
 
   return (
-    <BaseTooltip
+    <BTooltip
       title={route.title}
       placement="end"
       disableHoverListener={isLower}
@@ -48,7 +48,7 @@ const SidebarItem: React.FC<SidebarItemProps> = (route) => {
         <ListItemIcon>{React.createElement(route.icon)}</ListItemIcon>
         <ListItemText primary={route.title} />
       </BaseSidebarItem>
-    </BaseTooltip>
+    </BTooltip>
   );
 };
 

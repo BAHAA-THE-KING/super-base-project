@@ -4,15 +4,11 @@ import { useAnimation } from "src/animations/hooks";
 
 import { PropsWithAnimations } from "src/animations/types/PropsWithAnimations";
 
-type BaseButtonProps = PropsWithAnimations<ButtonProps>;
+type BButtonProps = PropsWithAnimations<ButtonProps>;
 
-const StyledButton = styled(Button)<BaseButtonProps>(({}) => ({
-  boxShadow: "none",
-  textTransform: "capitalize",
-  "&:hover": { boxShadow: "none" },
-}));
+const StyledButton = styled(Button)<BButtonProps>(({}) => ({}));
 
-export const BaseButton = ({ animations, ...props }: BaseButtonProps) => {
+export const BButton = ({ animations, ...props }: BButtonProps) => {
   const animationsProps = useAnimation(animations);
   return <StyledButton {...props} {...animationsProps} />;
 };

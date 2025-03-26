@@ -1,5 +1,6 @@
-export { BaseTooltip } from "./BaseTooltip";
-export { BaseButton } from "./BaseButton";
-export { BaseTypography } from "./BaseTypography";
-export { BaseCard } from "./BaseCard";
-export { BaseChip } from "./BaseChip";
+export { BTooltip } from "./BTooltip";
+export { BButton } from "./BButton";
+export { BTypography } from "./BTypography";
+export { BCard } from "./BCard";
+export { BChip } from "./BChip";
+export { BDataGrid } from "./BDataGrid";

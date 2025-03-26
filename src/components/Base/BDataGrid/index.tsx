@@ -15,19 +15,19 @@ import rtlPlugin from "stylis-plugin-rtl";
 import createCache from "@emotion/cache";
 
 import { usePreferredLanguage } from "src/globals";
-import { BaseTooltip } from "../BaseTooltip";
+import { BTooltip } from "..";
 
 const cacheRtl = createCache({
   key: "data-grid-rtl-demo",
   stylisPlugins: [prefixer, rtlPlugin],
 });
 
-type BaseDataGridProps = DataGridProps & {
+type BDataGridProps = DataGridProps & {
   containerProps?: BoxProps;
 };
 
 const StyledDataGrid = styled(
-  ({ containerProps = {}, ...dataGridProps }: BaseDataGridProps) => {
+  ({ containerProps = {}, ...dataGridProps }: BDataGridProps) => {
     const existingTheme = useTheme();
     const [language] = usePreferredLanguage();
     const locale = language === "ar" ? arSD : enUS;
@@ -53,7 +53,7 @@ const StyledDataGrid = styled(
               {...dataGridProps}
               slots={{
                 toolbar: GridToolbar,
-                baseTooltip: BaseTooltip,
+              ooltip: BTooltip,
               }}
             />
           </Box>
@@ -63,6 +63,6 @@ const StyledDataGrid = styled(
   }
 )(() => ({}));
 
-export function BaseDataGrid(props: BaseDataGridProps) {
+export function BDataGrid(props: BDataGridProps) {
   return <StyledDataGrid {...props} />;
 }

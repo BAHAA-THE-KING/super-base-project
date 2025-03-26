@@ -4,11 +4,11 @@ import { useDirection } from "src/globals";
 
 const StyledTooltip = styled(Tooltip)(() => ({}));
 
-type BaseTooltipProps = Omit<TooltipProps, "placement" | "arrow"> & {
+type BTooltipProps = Omit<TooltipProps, "placement" | "arrow"> & {
   placement?: TooltipProps["placement"] | "end" | "start";
 };
 
-export const BaseTooltip = (props: BaseTooltipProps) => {
+export const BTooltip = (props: BTooltipProps) => {
   const [direction] = useDirection();
   let placement: TooltipProps["placement"];
 

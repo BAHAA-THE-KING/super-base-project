@@ -5,7 +5,7 @@ import {
   MenuOutlined as MenuOutlinedIcon,
 } from "@mui/icons-material";
 
-import { BaseTooltip } from "src/components/Base";
+import { BTooltip } from "src/components/Base";
 import { BaseIconButton } from "./Base";
 
 import { useDirection, useSidebarOpen } from "src/globals";
@@ -18,7 +18,7 @@ const SidebarToggle: React.FC = () => {
   const [sidebarOpen, setSidebarOpen] = useSidebarOpen();
   const [direction] = useDirection();
   return (
-    <BaseTooltip title={sidebarOpen ? CloseSidebarText : OpenSidebarText}>
+    <BTooltip title={sidebarOpen ? CloseSidebarText : OpenSidebarText}>
       <BaseIconButton onClick={() => setSidebarOpen(!sidebarOpen)}>
         {sidebarOpen ? (
           direction === "ltr" ? (
@@ -30,7 +30,7 @@ const SidebarToggle: React.FC = () => {
           <MenuOutlinedIcon />
         )}
       </BaseIconButton>
-    </BaseTooltip>
+    </BTooltip>
   );
 };
 

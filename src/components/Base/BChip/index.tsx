@@ -1,6 +1,7 @@
 import { Chip, type ChipProps, styled } from "@mui/material";
+import { varAlpha } from "src/themes/styles";
 
-type BaseChipProps = Omit<ChipProps, "variant"> & {
+type BChipProps = Omit<ChipProps, "variant"> & {
   variant?: "outlined" | "filled" | "slight";
 };
 
@@ -8,10 +9,13 @@ const StyledChip = styled(Chip)<{
   hasSlightBG: boolean;
 }>(({ theme, hasSlightBG, color = "primary" }) => ({
   backgroundColor:
-    hasSlightBG && color !== "default" ? theme.palette[color].background : "",
+    hasSlightBG && color !== "default"
+      ? theme.palette[color]?.background ??
+        varAlpha(theme.vars.palette[color]["mainChannel"], 0.2)
+      : "",
 }));
 
-export const BaseChip = ({ ...props }: BaseChipProps) => {
+export const BChip = ({ ...props }: BChipProps) => {
   let variant: ChipProps["variant"];
   let hasSlightBG = false;
   if (props.variant !== "slight") variant = props.variant;

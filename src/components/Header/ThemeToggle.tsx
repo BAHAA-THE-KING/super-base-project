@@ -8,7 +8,7 @@ import {
 import { BaseIconButton } from "./Base";
 
 import { usePreferredTheme } from "src/globals";
-import { BaseTooltip } from "src/components/Base";
+import { BTooltip } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
@@ -19,7 +19,7 @@ const ThemeToggle: React.FC = () => {
   const [theme, setTheme] = usePreferredTheme();
 
   return (
-    <BaseTooltip title={ThemeText}>
+    <BTooltip title={ThemeText}>
       <BaseIconButton
         onClick={() =>
           setTheme(
@@ -35,7 +35,7 @@ const ThemeToggle: React.FC = () => {
           <Brightness7OutlinedIcon />
         )}
       </BaseIconButton>
-    </BaseTooltip>
+    </BTooltip>
   );
 };
 

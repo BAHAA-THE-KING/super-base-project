@@ -4,7 +4,7 @@ import { LanguageOutlined as LanguageOutlinedIcon } from "@mui/icons-material";
 
 import { usePreferredLanguage } from "src/globals";
 import { BaseIconButton } from "./Base";
-import { BaseTooltip } from "src/components/Base";
+import { BTooltip } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
@@ -16,11 +16,11 @@ const LanguageSelector: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   return (
     <>
-      <BaseTooltip title={LanguageText}>
+      <BTooltip title={LanguageText}>
         <BaseIconButton onClick={(e) => setAnchorEl(e.currentTarget)}>
           <LanguageOutlinedIcon />
         </BaseIconButton>
-      </BaseTooltip>
+      </BTooltip>
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}

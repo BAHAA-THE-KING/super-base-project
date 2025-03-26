@@ -5,7 +5,7 @@ import {
   Visibility as VisibilityIcon,
 } from "@mui/icons-material";
 
-import { BaseChip, BaseTooltip } from "src/components/Base";
+import { BChip, BTooltip } from "src/components/Base";
 import { useBaseTranslation } from "src/hooks";
 
 const i18ns = [
@@ -46,14 +46,14 @@ export function useTableColumns() {
         flex: 1,
         renderCell: ({ value }) =>
           value ? (
-            <BaseChip
+            <BChip
               color="success"
               label={registered}
               size="small"
               variant="slight"
             />
           ) : (
-            <BaseChip
+            <BChip
               color="error"
               label={unregistered}
               size="small"
@@ -66,20 +66,20 @@ export function useTableColumns() {
         flex: 1,
         type: "actions",
         getActions: () => [
-          <BaseTooltip title={showProfile}>
+          <BTooltip title={showProfile}>
             <GridActionsCellItem
               icon={<VisibilityIcon />}
               color="primary"
               label={showProfile}
             />
-          </BaseTooltip>,
-          <BaseTooltip title={deactivateUser}>
+          </BTooltip>,
+          <BTooltip title={deactivateUser}>
             <GridActionsCellItem
               icon={<PersonRemoveIcon />}
               color="error"
               label={deactivateUser}
             />
-          </BaseTooltip>,
+          </BTooltip>,
           <GridActionsCellItem
             icon={<VisibilityIcon />}
             label={showProfile}
