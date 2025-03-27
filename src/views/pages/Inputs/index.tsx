@@ -25,6 +25,11 @@ export const Inputs = ({ Component }: { Component: React.FC }) => {
                 <TextField variant={variant} size={size} label="Label" />
               </Grid2>
             ))}
+            {sizes.map((size) => (
+              <Grid2 key={variant + "" + size} size={{ xs: 3 }}>
+                <TextField variant={variant} size={size} label="Label" error />
+              </Grid2>
+            ))}
             <Grid2 size={{ xs: 12 }}></Grid2>
           </React.Fragment>
         ))}

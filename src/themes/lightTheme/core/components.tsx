@@ -70,27 +70,14 @@ const MuiCardHeader: Components<Theme>["MuiCardHeader"] = {
   },
 };
 
-//const MuiOutlinedInput: Components<Theme>["MuiOutlinedInput"] = {
-//  styleOverrides: {
-//    notchedOutline: ({ theme }: any) => ({
-//      borderColor: varAlpha(theme.vars.palette.grey["500Channel"], 0.2),
-//      "&:hover": {
-//        borderColor: theme.palette.grey["800"],
-//      },
-//      "&:focus": {
-//        borderColor: theme.palette.grey["800"],
-//      },
-//    }),
-//
-//  },
-//};
-
 const MuiTextField: Components<Theme>["MuiTextField"] = {
   styleOverrides: {
-    root: ({ theme }: any) => ({
+    root: ({ theme, ownerState: { error } }: any) => ({
       /* Global */
       ".Mui-focused.MuiFormLabel-root": {
-        color: theme.palette.grey[800] + " !important",
+        color:
+          (error ? theme.palette.error.main : theme.palette.grey[800]) +
+          " !important",
         fontWeight: 600,
       },
 
@@ -99,23 +86,42 @@ const MuiTextField: Components<Theme>["MuiTextField"] = {
         borderColor: varAlpha(theme.vars.palette.grey["500Channel"], 0.2),
       },
       "&:hover .MuiOutlinedInput-notchedOutline": {
-        borderColor: theme.palette.grey[800] + " !important",
+        borderColor:
+          (error ? theme.palette.error.main : theme.palette.grey[800]) +
+          " !important",
       },
       ".Mui-focused .MuiOutlinedInput-notchedOutline": {
-        borderColor: theme.palette.grey[800] + " !important",
+        borderColor:
+          (error ? theme.palette.error.main : theme.palette.grey[800]) +
+          " !important",
         borderWidth: 2,
       },
 
       /* Filled */
       ".MuiFilledInput-root": {
         borderRadius: 10,
-        backgroundColor: varAlpha(theme.vars.palette.grey["500Channel"], 0.08),
+        backgroundColor: varAlpha(
+          error
+            ? theme.vars.palette.error["mainChannel"]
+            : theme.vars.palette.grey["500Channel"],
+          0.08
+        ),
       },
       "&:hover .MuiFilledInput-root": {
-        backgroundColor: varAlpha(theme.vars.palette.grey["500Channel"], 0.16),
+        backgroundColor: varAlpha(
+          error
+            ? theme.vars.palette.error["mainChannel"]
+            : theme.vars.palette.grey["500Channel"],
+          0.16
+        ),
       },
       ".Mui-focused.MuiFilledInput-root": {
-        backgroundColor: varAlpha(theme.vars.palette.grey["500Channel"], 0.16),
+        backgroundColor: varAlpha(
+          error
+            ? theme.vars.palette.error["mainChannel"]
+            : theme.vars.palette.grey["500Channel"],
+          0.16
+        ),
       },
       ".MuiFilledInput-root::before, .MuiFilledInput-root::after": {
         borderBottomStyle: "none !important",
@@ -239,7 +245,6 @@ export const components = {
   MuiCheckbox,
   MuiTableCell,
   MuiCardHeader,
-  //MuiOutlinedInput,
   MuiTextField,
   MuiFormControlLabel,
 };
