@@ -30,6 +30,17 @@ const MuiButton: Components<Theme>["MuiButton"] = {
         backgroundColor: theme.vars.palette.grey[200],
       },
     }),
+    soft: ({ theme, ownerState: { color } }: any) => ({
+      backgroundColor: theme.vars.palette[color]
+        ? varAlpha(theme.vars.palette[color]?.["mainChannel"], 0.08)
+        : "",
+      color: theme.vars.palette[color]?.dark,
+      "&:hover": {
+        backgroundColor: theme.vars.palette[color]
+          ? varAlpha(theme.vars.palette[color]?.["mainChannel"], 0.16)
+          : "",
+      },
+    }),
     sizeLarge: {
       minHeight: 48,
     },

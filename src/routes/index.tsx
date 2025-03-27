@@ -11,7 +11,7 @@ import {
 
 import { Route } from "src/types/Route";
 
-import { HomePage, TablePage, ChartsPage } from "src/views";
+import { ButtonsPage, CardsPage, TablePage, ChartsPage } from "src/views";
 import { useBaseTranslation } from "src/hooks";
 
 /*
@@ -65,7 +65,7 @@ export function usePublicRoutes() {
         key: "home",
         path: "/",
         title: HomeText,
-        element: <HomePage Component={HomeOutlinedIcon} />,
+        element: <ButtonsPage Component={HomeOutlinedIcon} />,
       },
       {
         key: "divider-1",
@@ -81,14 +81,14 @@ export function usePublicRoutes() {
             key: "x-1",
             path: "/x-1",
             title: FirstText,
-            element: <HomePage Component={CloseOutlinedIcon} />,
+            element: <CardsPage Component={CloseOutlinedIcon} />,
           },
           {
             icon: CloseOutlinedIcon,
             key: "x-2",
             path: "/x-2",
             title: SecondText,
-            element: <HomePage Component={CloseOutlinedIcon} />,
+            element: <ButtonsPage Component={CloseOutlinedIcon} />,
           },
         ],
       },
@@ -97,7 +97,7 @@ export function usePublicRoutes() {
         key: "watch",
         path: "/watch",
         title: WatchOtherPeopleText,
-        element: <HomePage Component={VisibilityOutlinedIcon} />,
+        element: <ButtonsPage Component={VisibilityOutlinedIcon} />,
       },
       {
         key: "divider-2",
@@ -108,14 +108,14 @@ export function usePublicRoutes() {
         key: "edit",
         path: "/edit",
         title: EditYourLifeText,
-        element: <HomePage Component={EditOutlinedIcon} />,
+        element: <ButtonsPage Component={EditOutlinedIcon} />,
       },
       {
         icon: SaveOutlinedIcon,
         key: "save",
         path: "/save",
         title: WaveYourselfText,
-        element: <HomePage Component={SaveOutlinedIcon} />,
+        element: <ButtonsPage Component={SaveOutlinedIcon} />,
       },
       {
         icon: SaveOutlinedIcon,

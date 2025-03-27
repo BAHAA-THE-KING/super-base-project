@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, Grid2 } from "@mui/material";
-import { t } from "i18next";
 
 import { MapsHomeWorkOutlined as MapsHomeWorkOutlinedIcon } from "@mui/icons-material";
 
@@ -9,37 +8,17 @@ import { BButton, BCard } from "src/components/Base";
 import { useHomePageData } from "src/views/data";
 
 import { useBaseTranslation } from "src/hooks";
+import { BButtonProps } from "src/components/Base/BButton";
 
 const i18ns = ["click_please"];
-export const Home = ({ Component }: { Component: React.FC }) => {
+export const Cards = ({ Component }: { Component: React.FC }) => {
   const [ClickPleaseText] = useBaseTranslation(i18ns);
 
   const {} = useHomePageData();
 
   return (
     <>
-      <Grid2 container spacing={1}>
-        <Grid2 size={{ xs: 12 }}>
-          <BButton variant="text">{ClickPleaseText}</BButton>
-        </Grid2>
-        <Grid2 size={{ xs: 12 }}>
-          <BButton
-            variant="outlined"
-            color="error"
-            startIcon={<Component />}
-          >
-            {ClickPleaseText}
-          </BButton>
-        </Grid2>
-        <Grid2 size={{ xs: 12 }}>
-          <BButton
-            variant="contained"
-            color="success"
-            startIcon={<Component />}
-          >
-            {ClickPleaseText}
-          </BButton>
-        </Grid2>
+      <Grid2 container spacing={2}>
         <Grid2 size={{ xs: 2 }}>
           <BCard sx={{ height: "100px" }} color="primary">
             <Box

@@ -4,9 +4,13 @@ import { useAnimation } from "src/animations/hooks";
 
 import { PropsWithAnimations } from "src/animations/types/PropsWithAnimations";
 
-type BButtonProps = PropsWithAnimations<ButtonProps>;
+export type BButtonProps = PropsWithAnimations<ButtonProps> & {
+  circular?: boolean;
+};
 
-const StyledButton = styled(Button)<BButtonProps>(({}) => ({}));
+const StyledButton = styled(Button)<BButtonProps>(({ circular = false }) => ({
+  borderRadius: circular ? "1000px" : "",
+}));
 
 export const BButton = ({ animations, ...props }: BButtonProps) => {
   const animationsProps = useAnimation(animations);
