@@ -28,6 +28,7 @@
   "charts": "المخططات",
   "language": "اللغة",
   "theme": "المظهر",
-  "open_sidebar":"فتح القائمة",
-  "close_sidebar":"إغلاق القائمة"
+  "open_sidebar": "فتح القائمة",
+  "close_sidebar": "إغلاق القائمة",
+  "you_have_to_enter_the": "يجب أن تدخل"
 }

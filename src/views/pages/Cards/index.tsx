@@ -3,12 +3,11 @@ import { Box, Grid2 } from "@mui/material";
 
 import { MapsHomeWorkOutlined as MapsHomeWorkOutlinedIcon } from "@mui/icons-material";
 
-import { BButton, BCard } from "src/components/Base";
+import { BCard } from "src/components/Base";
 
 import { useHomePageData } from "src/views/data";
 
 import { useBaseTranslation } from "src/hooks";
-import { BButtonProps } from "src/components/Base/BButton";
 
 const i18ns = ["click_please"];
 export const Cards = ({ Component }: { Component: React.FC }) => {
