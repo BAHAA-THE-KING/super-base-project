@@ -70,10 +70,70 @@ const MuiCardHeader: Components<Theme>["MuiCardHeader"] = {
   },
 };
 
-const MuiOutlinedInput: Components<Theme>["MuiOutlinedInput"] = {
+//const MuiOutlinedInput: Components<Theme>["MuiOutlinedInput"] = {
+//  styleOverrides: {
+//    notchedOutline: ({ theme }: any) => ({
+//      borderColor: varAlpha(theme.vars.palette.grey["500Channel"], 0.2),
+//      "&:hover": {
+//        borderColor: theme.palette.grey["800"],
+//      },
+//      "&:focus": {
+//        borderColor: theme.palette.grey["800"],
+//      },
+//    }),
+//
+//  },
+//};
+
+const MuiTextField: Components<Theme>["MuiTextField"] = {
   styleOverrides: {
-    notchedOutline: ({ theme }) => ({
-      borderColor: varAlpha(theme.vars.palette.grey["500Channel"], 0.2),
+    root: ({ theme }: any) => ({
+      /* Global */
+      ".Mui-focused.MuiFormLabel-root": {
+        color: theme.palette.grey["200"] + " !important",
+        fontWeight: 600,
+      },
+
+      /* Outlined */
+      ".MuiOutlinedInput-notchedOutline": {
+        borderColor: varAlpha(theme.vars.palette.grey["500Channel"], 0.2),
+      },
+      "&:hover .MuiOutlinedInput-notchedOutline": {
+        borderColor: theme.palette.grey["200"] + " !important",
+      },
+      ".Mui-focused .MuiOutlinedInput-notchedOutline": {
+        borderColor: theme.palette.grey["200"] + " !important",
+        borderWidth: 2,
+      },
+
+      /* Filled */
+      ".MuiFilledInput-root": {
+        borderRadius: 10,
+        backgroundColor: varAlpha(theme.vars.palette.grey["500Channel"], 0.08),
+      },
+      "&:hover .MuiFilledInput-root": {
+        backgroundColor: varAlpha(theme.vars.palette.grey["500Channel"], 0.16),
+      },
+      ".Mui-focused.MuiFilledInput-root": {
+        backgroundColor: varAlpha(theme.vars.palette.grey["500Channel"], 0.16),
+      },
+      ".MuiFilledInput-root::before, .MuiFilledInput-root::after": {
+        borderBottomStyle: "none !important",
+      },
+
+      /* Standard */
+      ".MuiInput-underline::before": {
+        borderBottomColor: varAlpha(
+          theme.vars.palette.grey["500Channel"],
+          0.32
+        ),
+      },
+      "&:hover .MuiInput-underline::before, .MuiInput-underline::after": {
+        borderBottomColor: theme.palette.grey["200"],
+      },
+      ".Mui-focused.MuiInput-underline::after": {
+        borderBottomWidth: 2,
+      },
     }),
   },
 };
@@ -179,6 +239,7 @@ export const components = {
   MuiCheckbox,
   MuiTableCell,
   MuiCardHeader,
-  MuiOutlinedInput,
+  //MuiOutlinedInput,
+  MuiTextField,
   MuiFormControlLabel,
 };

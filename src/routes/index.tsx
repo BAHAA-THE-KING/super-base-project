@@ -11,7 +11,13 @@ import {
 
 import { Route } from "src/types/Route";
 
-import { ButtonsPage, CardsPage, TablePage, ChartsPage } from "src/views";
+import {
+  ButtonsPage,
+  CardsPage,
+  InputsPage,
+  TablePage,
+  ChartsPage,
+} from "src/views";
 import { useBaseTranslation } from "src/hooks";
 
 /*
@@ -88,7 +94,7 @@ export function usePublicRoutes() {
             key: "x-2",
             path: "/x-2",
             title: SecondText,
-            element: <ButtonsPage Component={CloseOutlinedIcon} />,
+            element: <InputsPage Component={CloseOutlinedIcon} />,
           },
         ],
       },
