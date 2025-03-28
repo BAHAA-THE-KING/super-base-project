@@ -17,6 +17,7 @@ import {
   InputsPage,
   SwitchesPage,
   RadiosPage,
+  CheckboxesPage,
   TablePage,
   ChartsPage,
 } from "src/views";
@@ -124,7 +125,7 @@ export function usePublicRoutes() {
         key: "save",
         path: "/save",
         title: WaveYourselfText,
-        element: <ButtonsPage Component={SaveOutlinedIcon} />,
+        element: <CheckboxesPage Component={SaveOutlinedIcon} />,
       },
       {
         icon: SaveOutlinedIcon,
