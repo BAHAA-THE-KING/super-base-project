@@ -14,7 +14,7 @@ export function useAnimation(animations?: Animations) {
       : {}),
   };
   return {
-    component: motion.button,
+    component: motion.div,
     variants: requiredAnimations,
     initial: "initial",
     animate: "animate",

@@ -18,6 +18,7 @@ import {
   SwitchesPage,
   RadiosPage,
   CheckboxesPage,
+  AlertsPage,
   TablePage,
   ChartsPage,
 } from "src/views";
@@ -64,7 +65,7 @@ export function usePublicRoutes() {
     SecondText,
     WatchOtherPeopleText,
     EditYourLifeText,
-    WaveYourselfText,
+    SaveYourselfText,
     TablesText,
     ChartsText,
   ] = useBaseTranslation(i18ns);
@@ -124,8 +125,15 @@ export function usePublicRoutes() {
         icon: SaveOutlinedIcon,
         key: "save",
         path: "/save",
-        title: WaveYourselfText,
+        title: SaveYourselfText,
         element: <CheckboxesPage Component={SaveOutlinedIcon} />,
+      },
+      {
+        icon: SaveOutlinedIcon,
+        key: "save-1",
+        path: "/save-1",
+        title: SaveYourselfText,
+        element: <AlertsPage Component={SaveOutlinedIcon} />,
       },
       {
         icon: SaveOutlinedIcon,

@@ -1,7 +1,5 @@
 import type { Theme, Components } from "@mui/material/styles";
 
-import SvgIcon from "@mui/material/SvgIcon";
-
 import { bgGradient, varAlpha } from "src/themes/styles";
 
 // ----------------------------------------------------------------------
@@ -232,6 +230,28 @@ const MuiSwitch: Components<Theme>["MuiSwitch"] = {
   },
 };
 
+const MuiAlert: Components<Theme>["MuiAlert"] = {
+  styleOverrides: {
+    filled: ({ theme, ownerState: { color } }) => ({
+      color: theme.palette[color ?? "error"].contrastText,
+    }),
+    standard: ({ theme, ownerState: { color } }) => ({
+      backgroundColor: theme.palette[color ?? "error"].lighter,
+    }),
+    outlined: ({ theme, ownerState: { color } }) => ({
+      backgroundColor: varAlpha(
+        theme.vars.palette[color ?? "error"]["mainChannel"],
+        0.08
+      ),
+      borderColor: varAlpha(
+        theme.vars.palette[color ?? "error"]["mainChannel"],
+        0.16
+      ),
+      color: theme.palette[color ?? "error"].dark,
+    }),
+  },
+};
+
 // ----------------------------------------------------------------------
 
 export const components = {
@@ -246,4 +266,5 @@ export const components = {
   MuiTextField,
   MuiFormControlLabel,
   MuiSwitch,
+  MuiAlert,
 };
