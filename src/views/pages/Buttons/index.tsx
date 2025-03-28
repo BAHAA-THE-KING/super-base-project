@@ -27,23 +27,21 @@ export const Buttons = ({ Component }: { Component: React.FC }) => {
   ];
 
   return (
-    <>
-      <Grid2 container spacing={2}>
-        {colors.map((color) => (
-          <React.Fragment key={color}>
-            {variants.map((variant) =>
-              sizes.map((size) => (
-                <Grid2 key={variant + "" + size} size={{ xs: 1 }}>
-                  <BButton variant={variant} color={color} size={size}>
-                    {size}
-                  </BButton>
-                </Grid2>
-              ))
-            )}
-            <Grid2 size={{ xs: 12 }}></Grid2>
-          </React.Fragment>
-        ))}
-      </Grid2>
-    </>
+    <Grid2 container spacing={2}>
+      {colors.map((color) => (
+        <React.Fragment key={color}>
+          {variants.map((variant) =>
+            sizes.map((size) => (
+              <Grid2 key={variant + "" + size} size={{ xs: 1 }}>
+                <BButton variant={variant} color={color} size={size}>
+                  {size}
+                </BButton>
+              </Grid2>
+            ))
+          )}
+          <Grid2 size={{ xs: 12 }}></Grid2>
+        </React.Fragment>
+      ))}
+    </Grid2>
   );
 };

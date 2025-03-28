@@ -236,6 +236,47 @@ const MuiRadio: Components<Theme>["MuiRadio"] = {
   },
 };
 
+const MuiSwitch: Components<Theme>["MuiSwitch"] = {
+  styleOverrides: {
+    root: {
+      overflow: "visible",
+    },
+    sizeMedium: ({ theme }) => ({
+      ".MuiSwitch-thumb": {
+        width: 14,
+        height: 14,
+      },
+      ".MuiSwitch-switchBase": {
+        padding: 16,
+      },
+      ".MuiSwitch-switchBase.Mui-checked": {
+        transform: "translateX(12px)",
+      },
+      ".MuiSwitch-track": {
+        padding: 4,
+        borderRadius: 100,
+      },
+    }),
+    sizeSmall: ({ theme }) => ({
+      ".MuiSwitch-thumb": {
+        width: 10,
+        height: 10,
+      },
+      ".MuiSwitch-switchBase": {
+        padding: 9.6,
+      },
+      ".MuiSwitch-switchBase.Mui-checked": {
+        padding: 9.5,
+        transform: "translateX(10px)",
+      },
+      ".MuiSwitch-track": {
+        padding: 3,
+        borderRadius: 100,
+      },
+    }),
+  },
+};
+
 // ----------------------------------------------------------------------
 
 export const components = {
@@ -251,4 +292,5 @@ export const components = {
   MuiCardHeader,
   MuiTextField,
   MuiFormControlLabel,
+  MuiSwitch,
 };

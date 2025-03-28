@@ -15,6 +15,7 @@ import {
   ButtonsPage,
   CardsPage,
   InputsPage,
+  SwitchesPage,
   TablePage,
   ChartsPage,
 } from "src/views";
@@ -103,7 +104,7 @@ export function usePublicRoutes() {
         key: "watch",
         path: "/watch",
         title: WatchOtherPeopleText,
-        element: <ButtonsPage Component={VisibilityOutlinedIcon} />,
+        element: <SwitchesPage Component={VisibilityOutlinedIcon} />,
       },
       {
         key: "divider-2",
