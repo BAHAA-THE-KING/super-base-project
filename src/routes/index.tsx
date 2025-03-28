@@ -16,9 +16,11 @@ import {
   CardsPage,
   InputsPage,
   SwitchesPage,
+  RadiosPage,
   TablePage,
   ChartsPage,
 } from "src/views";
+
 import { useBaseTranslation } from "src/hooks";
 
 /*
@@ -115,7 +117,7 @@ export function usePublicRoutes() {
         key: "edit",
         path: "/edit",
         title: EditYourLifeText,
-        element: <ButtonsPage Component={EditOutlinedIcon} />,
+        element: <RadiosPage Component={EditOutlinedIcon} />,
       },
       {
         icon: SaveOutlinedIcon,
