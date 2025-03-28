@@ -21,6 +21,7 @@ import {
   AlertsPage,
   TablePage,
   ChartsPage,
+  ProgressesPage,
 } from "src/views";
 
 import { useBaseTranslation } from "src/hooks";
@@ -134,6 +135,13 @@ export function usePublicRoutes() {
         path: "/save-1",
         title: SaveYourselfText,
         element: <AlertsPage Component={SaveOutlinedIcon} />,
+      },
+      {
+        icon: SaveOutlinedIcon,
+        key: "save-2",
+        path: "/save-2",
+        title: SaveYourselfText,
+        element: <ProgressesPage Component={SaveOutlinedIcon} />,
       },
       {
         icon: SaveOutlinedIcon,

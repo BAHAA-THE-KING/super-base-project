@@ -7,3 +7,5 @@ export { BDataGrid } from "./BDataGrid";
 export { BCheckbox, type BCheckboxProps } from "./BCheckbox";
 export { BRadio, type BRadioProps } from "./BRadio";
 export { BAlert, type BAlertProps } from "./BAlert";
+export { BCircularProgress, type BCircularProgressProps } from "./BCircularProgress";
+export { BLinearProgress, type BLinearProgressProps } from "./BLinearProgress";
