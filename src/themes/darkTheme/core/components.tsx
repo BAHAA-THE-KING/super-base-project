@@ -76,7 +76,7 @@ const MuiTextField: Components<Theme>["MuiTextField"] = {
       /* Global */
       ".Mui-focused.MuiFormLabel-root": {
         color:
-          (error ? theme.palette.error.main : theme.palette.grey["200"]) +
+          (error ? theme.palette.error.main : theme.palette.grey[200]) +
           " !important",
         fontWeight: 600,
       },
@@ -87,12 +87,12 @@ const MuiTextField: Components<Theme>["MuiTextField"] = {
       },
       "&:hover .MuiOutlinedInput-notchedOutline": {
         borderColor:
-          (error ? theme.palette.error.main : theme.palette.grey["200"]) +
+          (error ? theme.palette.error.main : theme.palette.grey[200]) +
           " !important",
       },
       ".Mui-focused .MuiOutlinedInput-notchedOutline": {
         borderColor:
-          (error ? theme.palette.error.main : theme.palette.grey["200"]) +
+          (error ? theme.palette.error.main : theme.palette.grey[200]) +
           " !important",
         borderWidth: 2,
       },
@@ -130,12 +130,16 @@ const MuiTextField: Components<Theme>["MuiTextField"] = {
       /* Standard */
       ".MuiInput-underline::before": {
         borderBottomColor: varAlpha(
-          theme.vars.palette.grey["500Channel"],
+          error
+            ? theme.vars.palette.error["mainChannel"]
+            : theme.vars.palette.grey["500Channel"],
           0.32
         ),
       },
       "&:hover .MuiInput-underline::before, .MuiInput-underline::after": {
-        borderBottomColor: theme.palette.grey["200"],
+        borderBottomColor: error
+          ? theme.palette.error.main
+          : theme.palette.grey[200],
       },
       ".Mui-focused.MuiInput-underline::after": {
         borderBottomWidth: 2,

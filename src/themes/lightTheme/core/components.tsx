@@ -130,12 +130,16 @@ const MuiTextField: Components<Theme>["MuiTextField"] = {
       /* Standard */
       ".MuiInput-underline::before": {
         borderBottomColor: varAlpha(
-          theme.vars.palette.grey["500Channel"],
+          error
+            ? theme.vars.palette.error["mainChannel"]
+            : theme.vars.palette.grey["500Channel"],
           0.32
         ),
       },
       "&:hover .MuiInput-underline::before, .MuiInput-underline::after": {
-        borderBottomColor: theme.palette.grey[800],
+        borderBottomColor: error
+          ? theme.palette.error.main
+          : theme.palette.grey[800],
       },
       ".Mui-focused.MuiInput-underline::after": {
         borderBottomWidth: 2,
