@@ -1,5 +1,4 @@
 import React from "react";
-import { useForm } from "react-hook-form";
 import { Grid2, TextField, type TextFieldProps } from "@mui/material";
 
 import { useBaseTranslation } from "src/hooks";
@@ -28,6 +27,34 @@ export const Inputs = ({ Component }: { Component: React.FC }) => {
             {sizes.map((size) => (
               <Grid2 key={variant + "" + size} size={{ xs: 3 }}>
                 <TextField variant={variant} size={size} label="Label" error />
+              </Grid2>
+            ))}
+            <Grid2 size={{ xs: 12 }}></Grid2>
+          </React.Fragment>
+        ))}
+        {variants.map((variant) => (
+          <React.Fragment key={variant}>
+            {sizes.map((size) => (
+              <Grid2 key={variant + "" + size} size={{ xs: 3 }}>
+                <TextField
+                  variant={variant}
+                  size={size}
+                  label="Label"
+                  multiline
+                  rows={3}
+                />
+              </Grid2>
+            ))}
+            {sizes.map((size) => (
+              <Grid2 key={variant + "" + size} size={{ xs: 3 }}>
+                <TextField
+                  variant={variant}
+                  size={size}
+                  label="Label"
+                  error
+                  multiline
+                  rows={3}
+                />
               </Grid2>
             ))}
             <Grid2 size={{ xs: 12 }}></Grid2>
