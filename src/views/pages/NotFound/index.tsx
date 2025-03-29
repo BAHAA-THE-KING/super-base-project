@@ -1,10 +1,9 @@
-import React from "react";
 import { Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router";
 
 import { BaseContainer } from "./components";
 
-const NotFound: React.FC = () => {
+export function NotFound() {
   const navigate = useNavigate();
 
   return (
@@ -20,6 +19,4 @@ const NotFound: React.FC = () => {
       </Button>
     </BaseContainer>
   );
-};
-
-export { NotFound };
+}
