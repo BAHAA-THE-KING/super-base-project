@@ -7,7 +7,7 @@ import { bgGradient, varAlpha } from "src/themes/styles";
 const MuiBackdrop: Components<Theme>["MuiBackdrop"] = {
   styleOverrides: {
     root: ({ theme }) => ({
-      backgroundColor: varAlpha(theme.vars.palette.grey["100Channel"], 0.8),
+      backgroundColor: varAlpha(theme.palette.grey["100Channel"], 0.8),
     }),
     invisible: {
       background: "transparent",
@@ -21,21 +21,21 @@ const MuiButton: Components<Theme>["MuiButton"] = {
   },
   styleOverrides: {
     containedInherit: ({ theme }) => ({
-      color: theme.vars.palette.common.white,
-      backgroundColor: theme.vars.palette.grey[800],
+      color: theme.palette.common.white,
+      backgroundColor: theme.palette.grey[800],
       "&:hover": {
-        color: theme.vars.palette.common.white,
-        backgroundColor: theme.vars.palette.grey[800],
+        color: theme.palette.common.white,
+        backgroundColor: theme.palette.grey[800],
       },
     }),
     soft: ({ theme, ownerState: { color } }: any) => ({
-      backgroundColor: theme.vars.palette[color]
-        ? varAlpha(theme.vars.palette[color]?.["mainChannel"], 0.08)
+      backgroundColor: theme.palette[color]
+        ? varAlpha(theme.palette[color]?.["mainChannel"], 0.08)
         : "",
-      color: theme.vars.palette[color]?.dark,
+      color: theme.palette[color]?.dark,
       "&:hover": {
-        backgroundColor: theme.vars.palette[color]
-          ? varAlpha(theme.vars.palette[color]?.["mainChannel"], 0.16)
+        backgroundColor: theme.palette[color]
+          ? varAlpha(theme.palette[color]?.["mainChannel"], 0.16)
           : "",
       },
     }),
@@ -81,7 +81,7 @@ const MuiTextField: Components<Theme>["MuiTextField"] = {
 
       /* Outlined */
       ".MuiOutlinedInput-notchedOutline": {
-        borderColor: varAlpha(theme.vars.palette.grey["500Channel"], 0.2),
+        borderColor: varAlpha(theme.palette.grey["500Channel"], 0.2),
       },
       "&:hover .MuiOutlinedInput-notchedOutline": {
         borderColor:
@@ -100,24 +100,24 @@ const MuiTextField: Components<Theme>["MuiTextField"] = {
         borderRadius: 10,
         backgroundColor: varAlpha(
           error
-            ? theme.vars.palette.error["mainChannel"]
-            : theme.vars.palette.grey["500Channel"],
+            ? theme.palette.error["mainChannel"]
+            : theme.palette.grey["500Channel"],
           0.08
         ),
       },
       "&:hover .MuiFilledInput-root": {
         backgroundColor: varAlpha(
           error
-            ? theme.vars.palette.error["mainChannel"]
-            : theme.vars.palette.grey["500Channel"],
+            ? theme.palette.error["mainChannel"]
+            : theme.palette.grey["500Channel"],
           0.16
         ),
       },
       ".Mui-focused.MuiFilledInput-root": {
         backgroundColor: varAlpha(
           error
-            ? theme.vars.palette.error["mainChannel"]
-            : theme.vars.palette.grey["500Channel"],
+            ? theme.palette.error["mainChannel"]
+            : theme.palette.grey["500Channel"],
           0.16
         ),
       },
@@ -129,8 +129,8 @@ const MuiTextField: Components<Theme>["MuiTextField"] = {
       ".MuiInput-underline::before": {
         borderBottomColor: varAlpha(
           error
-            ? theme.vars.palette.error["mainChannel"]
-            : theme.vars.palette.grey["500Channel"],
+            ? theme.palette.error["mainChannel"]
+            : theme.palette.grey["500Channel"],
           0.32
         ),
       },
@@ -153,7 +153,7 @@ const MuiPaper: Components<Theme>["MuiPaper"] = {
   styleOverrides: {
     root: { backgroundImage: "none" },
     outlined: ({ theme }) => ({
-      borderColor: varAlpha(theme.vars.palette.grey["500Channel"], 0.16),
+      borderColor: varAlpha(theme.palette.grey["500Channel"], 0.16),
     }),
   },
 };
@@ -162,9 +162,9 @@ const MuiTableCell: Components<Theme>["MuiTableCell"] = {
   styleOverrides: {
     head: ({ theme }) => ({
       fontSize: theme.typography.pxToRem(14),
-      color: theme.vars.palette.text.secondary,
+      color: theme.palette.text.secondary,
       fontWeight: theme.typography.fontWeightSemiBold,
-      backgroundColor: theme.vars.palette.background.neutral,
+      backgroundColor: theme.palette.background.neutral,
     }),
   },
 };
@@ -240,11 +240,11 @@ const MuiAlert: Components<Theme>["MuiAlert"] = {
     }),
     outlined: ({ theme, ownerState: { color } }) => ({
       backgroundColor: varAlpha(
-        theme.vars.palette[color ?? "error"]["mainChannel"],
+        theme.palette[color ?? "error"]["mainChannel"],
         0.08
       ),
       borderColor: varAlpha(
-        theme.vars.palette[color ?? "error"]["mainChannel"],
+        theme.palette[color ?? "error"]["mainChannel"],
         0.16
       ),
       color: theme.palette[color ?? "error"].dark,
