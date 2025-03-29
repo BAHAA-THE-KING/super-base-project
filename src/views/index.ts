@@ -10,6 +10,7 @@ import { Progresses } from "./pages/Progresses";
 import { NotFound } from "./pages/NotFound";
 import { Table } from "./pages/Table";
 import { Charts } from "./pages/Charts";
+import { Snackbars } from "./pages/Snackbars";
 
 export const ButtonsPage = withNormalLayout(Buttons);
 export const CardsPage = withNormalLayout(Cards);
@@ -22,3 +23,4 @@ export const ProgressesPage = withNormalLayout(Progresses);
 export const NotFoundPage = withNormalLayout(NotFound);
 export const TablePage = withNormalLayout(Table);
 export const ChartsPage = withNormalLayout(Charts);
+export const SnackbarsPage = withNormalLayout(Snackbars);

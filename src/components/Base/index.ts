@@ -9,3 +9,4 @@ export { BRadio, type BRadioProps } from "./BRadio";
 export { BAlert, type BAlertProps } from "./BAlert";
 export { BCircularProgress, type BCircularProgressProps } from "./BCircularProgress";
 export { BLinearProgress, type BLinearProgressProps } from "./BLinearProgress";
+export { BSnackbarContent, type BSnackbarContentProps } from "./BSnackbarContent";
