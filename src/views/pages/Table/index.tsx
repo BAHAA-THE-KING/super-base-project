@@ -12,7 +12,7 @@ export function Table() {
   const columns = useTableColumns();
 
   return (
-    <Box display={"flex"} flexGrow={1} width={"100%"} >
+    <Box>
       <BDataGrid rows={rows} columns={columns} />
     </Box>
   );

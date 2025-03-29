@@ -21,12 +21,12 @@ export function withNormalLayout<T extends object>(
         <Sidebar />
         <Box
           // I don't like it :(
-          width={
+          width={(theme) =>
             isGreater
               ? sidebarOpen
-                ? "CALC(100% - 280px)"
-                : "CALC(100% - 60px)"
-              : "100%"
+                ? `CALC(100% - 280px - ${theme.spacing(1)})`
+                : `CALC(100% - 60px - ${theme.spacing(1)})`
+              : `CALC(100% - ${theme.spacing(1)})`
           }
           m={1}
         >

@@ -1,12 +1,12 @@
-import { useMemo, useRef } from "react";
+import React, { useMemo } from "react";
 import { CacheProvider } from "@emotion/react";
 import {
   Box,
   BoxProps,
   createTheme,
+  CssBaseline,
   styled,
   ThemeProvider,
-  useTheme,
 } from "@mui/material";
 import { DataGrid, DataGridProps, GridToolbar } from "@mui/x-data-grid";
 import { arSD, enUS } from "@mui/x-data-grid/locales";
@@ -14,7 +14,7 @@ import { prefixer } from "stylis";
 import rtlPlugin from "stylis-plugin-rtl";
 import createCache from "@emotion/cache";
 
-import { usePreferredLanguage } from "src/globals";
+import { useDirection, usePreferredLanguage } from "src/globals";
 import { BTooltip } from "..";
 
 const cacheRtl = createCache({
@@ -27,42 +27,41 @@ type BDataGridProps = DataGridProps & {
 };
 
 const StyledDataGrid = styled(
-  ({ containerProps = {}, ...dataGridProps }: BDataGridProps) => {
-    const existingTheme = useTheme();
+  ({ containerProps, ...props }: BDataGridProps) => {
     const [language] = usePreferredLanguage();
     const locale = language === "ar" ? arSD : enUS;
+    const [direction] = useDirection();
 
     const theme = useMemo(
-      () => createTheme({}, locale, existingTheme),
-      [existingTheme, locale]
+      () => createTheme({ direction }, locale),
+      [direction, locale]
     );
 
-    return (
-      <CacheProvider value={cacheRtl}>
-        <ThemeProvider theme={theme}>
-          <Box
-            {...containerProps}
-            style={{
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              flexDirection: "column",
+    const Grid = React.memo(() => (
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Box {...containerProps} sx={{ width: "100%" }}>
+          <DataGrid
+            {...props}
+            slots={{
+              toolbar: GridToolbar,
+              baseTooltip: BTooltip,
             }}
-          >
-            <DataGrid
-              {...dataGridProps}
-              slots={{
-                toolbar: GridToolbar,
-              ooltip: BTooltip,
-              }}
-            />
-          </Box>
-        </ThemeProvider>
+          />
+        </Box>
+      </ThemeProvider>
+    ));
+
+    return direction === "rtl" ? (
+      <CacheProvider value={cacheRtl}>
+        <Grid />
       </CacheProvider>
+    ) : (
+      <Grid />
     );
   }
 )(() => ({}));
 
-export function BDataGrid(props: BDataGridProps) {
+export function BDataGrid({ ...props }: BDataGridProps) {
   return <StyledDataGrid {...props} />;
 }
