@@ -30,5 +30,7 @@
   "theme": "المظهر",
   "open_sidebar": "فتح القائمة",
   "close_sidebar": "إغلاق القائمة",
-  "you_have_to_enter_the": "يجب أن تدخل"
+  "you_have_to_enter_the": "يجب أن تدخل",
+  "you_have_to_upload_at_least_one_image": "يجب أن ترفع صورة واحدة على الأقل",
+  "click_to_add_image": "اضغط لاختيار الصور"
 }

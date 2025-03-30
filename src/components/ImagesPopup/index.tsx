@@ -12,13 +12,18 @@ type Props = {
   open: boolean;
   close: () => void;
   images: string[];
+  defaultIndex?: number;
 };
 
-export function ImagesPopup({ open, close, images }: Props) {
-  const [imageIndex, setImageIndex] = useState(0);
+export function ImagesPopup({ open, close, images, defaultIndex = 0 }: Props) {
+  const isDefaultIndexVerified =
+    defaultIndex >= 0 && defaultIndex < images.length;
+  const [imageIndex, setImageIndex] = useState(
+    isDefaultIndexVerified ? defaultIndex : 0
+  );
   useEffect(() => {
-    setImageIndex(0);
-  }, [open, images]);
+    setImageIndex(isDefaultIndexVerified ? defaultIndex : 0);
+  }, [open, images, defaultIndex, isDefaultIndexVerified]);
 
   return (
     <Modal open={open} onClose={close}>
@@ -53,13 +58,13 @@ export function ImagesPopup({ open, close, images }: Props) {
           alignItems={"center"}
         >
           <BaseIconButton
-            disabled={imageIndex + 1 !== images.length - 1}
+            disabled={imageIndex === images.length - 1}
             onClick={() => setImageIndex(imageIndex + 1)}
           >
             <ArrowForwardIcon />
           </BaseIconButton>
           <BaseIconButton
-            disabled={imageIndex - 1 !== 0}
+            disabled={imageIndex === 0}
             onClick={() => setImageIndex(imageIndex - 1)}
           >
             <ArrowBackIcon />
