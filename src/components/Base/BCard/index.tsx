@@ -9,23 +9,24 @@ type BCardProps = PropsWithAnimations<CardProps> & {
   color?: "primary" | "secondary" | "success" | "info" | "warning" | "error";
 };
 
-const StyledCard = styled(Card)<BCardProps>(({ theme, color }) => ({
-  width: "100%",
-  height: "100%",
-  margin: 0,
-  padding: theme.spacing(1),
-  color: color ? theme.palette[color].main : "",
-  backgroundColor: color
-    ? theme.palette[color]?.background ??
-      varAlpha(theme.vars.palette[color]["mainChannel"], 0.2)
-    : "",
-  fontWeight: "600",
-  border: "none",
-  boxShadow: "none",
-  pointerEvents: "initial",
-  userSelect: "initial",
-  cursor: "initial",
-}));
+const StyledCard = styled(Card)<BCardProps>(({ theme, color }) =>
+  theme.unstable_sx({
+    width: "100%",
+    height: "100%",
+    m: 0,
+    p: 1,
+    color: color ? theme.palette[color].main : "",
+    bgcolor: color
+      ? varAlpha(theme.palette[color]["mainChannel"], 0.2)
+      : "",
+    fontWeight: "600",
+    border: "none",
+    boxShadow: "none",
+    pointerEvents: "initial",
+    userSelect: "initial",
+    cursor: "initial",
+  })
+);
 
 export const BCard = ({ animations, ...props }: BCardProps) => {
   const animationsProps = useAnimation(animations);

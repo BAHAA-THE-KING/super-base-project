@@ -13,7 +13,9 @@ import { PropsWithAnimations } from "src/animations/types/PropsWithAnimations";
 
 export type BAlertProps = PropsWithAnimations<AlertProps>;
 
-const StyledAlert = styled(Alert)<BAlertProps>(() => ({}));
+const StyledAlert = styled(Alert)<BAlertProps>(({ theme }) =>
+  theme.unstable_sx({})
+);
 
 export const BAlert = ({ animations, ...props }: BAlertProps) => {
   const animationsProps = useAnimation(animations);

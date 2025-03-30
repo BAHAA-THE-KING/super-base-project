@@ -6,7 +6,9 @@ import { PropsWithAnimations } from "src/animations/types/PropsWithAnimations";
 
 export type BCheckboxProps = PropsWithAnimations<CheckboxProps>;
 
-const StyledCheckbox = styled(Checkbox)<BCheckboxProps>(() => ({}));
+const StyledCheckbox = styled(Checkbox)<BCheckboxProps>(({ theme }) =>
+  theme.unstable_sx({})
+);
 
 export const BCheckbox = ({ animations, ...props }: BCheckboxProps) => {
   const animationsProps = useAnimation(animations);

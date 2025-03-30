@@ -12,18 +12,19 @@ export type BButtonProps = PropsWithAnimations<ButtonProps> & {
 };
 
 const StyledButton = styled(Button)<BButtonProps>(
-  ({ theme, circular = false, icon, color }) => ({
-    borderRadius: circular || icon ? "1000px" : "",
-    aspectRatio: icon ? 1 : "",
-    minWidth: icon ? 0 : "",
-    color: icon && !color ? theme.palette.grey[600] : "",
-    "&:hover": {
-      backgroundColor:
-        icon && !color
-          ? varAlpha(theme.vars.palette.grey["600Channel"], 0.08)
-          : "",
-    },
-  })
+  ({ theme, circular = false, icon, color }) =>
+    theme.unstable_sx({
+      borderRadius: circular || icon ? "1000px" : "",
+      aspectRatio: icon ? "1" : "",
+      minWidth: icon ? 0 : "",
+      color: icon && !color ? theme.palette.grey[600] : "",
+      "&:hover": {
+        bgcolor:
+          icon && !color
+            ? varAlpha(theme.palette.grey["600Channel"], 0.08)
+            : "",
+      },
+    })
 );
 
 export const BButton = ({

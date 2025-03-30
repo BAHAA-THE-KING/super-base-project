@@ -26,42 +26,38 @@ type BDataGridProps = DataGridProps & {
   containerProps?: BoxProps;
 };
 
-const StyledDataGrid = styled(
-  ({ containerProps, ...props }: BDataGridProps) => {
-    const [language] = usePreferredLanguage();
-    const locale = language === "ar" ? arSD : enUS;
-    const [direction] = useDirection();
+const StyledDataGrid = styled(DataGrid)(({ theme }) => theme.unstable_sx({}));
 
-    const theme = useMemo(
-      () => createTheme({ direction }, locale),
-      [direction, locale]
-    );
+export function BDataGrid({ containerProps, ...props }: BDataGridProps) {
+  const [language] = usePreferredLanguage();
+  const locale = language === "ar" ? arSD : enUS;
+  const [direction] = useDirection();
 
-    const Grid = React.memo(() => (
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Box {...containerProps} sx={{ width: "100%" }}>
-          <DataGrid
-            {...props}
-            slots={{
-              toolbar: GridToolbar,
-              baseTooltip: BTooltip,
-            }}
-          />
-        </Box>
-      </ThemeProvider>
-    ));
+  const theme = useMemo(
+    () => createTheme({ direction }, locale),
+    [direction, locale]
+  );
 
-    return direction === "rtl" ? (
-      <CacheProvider value={cacheRtl}>
-        <Grid />
-      </CacheProvider>
-    ) : (
+  const Grid = React.memo(() => (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box {...containerProps} sx={{ width: "100%" }}>
+        <StyledDataGrid
+          {...props}
+          slots={{
+            toolbar: GridToolbar,
+            baseTooltip: BTooltip,
+          }}
+        />
+      </Box>
+    </ThemeProvider>
+  ));
+
+  return direction === "rtl" ? (
+    <CacheProvider value={cacheRtl}>
       <Grid />
-    );
-  }
-)(() => ({}));
-
-export function BDataGrid({ ...props }: BDataGridProps) {
-  return <StyledDataGrid {...props} />;
+    </CacheProvider>
+  ) : (
+    <Grid />
+  );
 }

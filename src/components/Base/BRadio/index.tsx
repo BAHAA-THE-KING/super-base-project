@@ -6,7 +6,9 @@ import { PropsWithAnimations } from "src/animations/types/PropsWithAnimations";
 
 export type BRadioProps = PropsWithAnimations<RadioProps>;
 
-const StyledRadio = styled(Radio)<BRadioProps>(() => ({}));
+const StyledRadio = styled(Radio)<BRadioProps>(({ theme }) =>
+  theme.unstable_sx({})
+);
 
 export const BRadio = ({ animations, ...props }: BRadioProps) => {
   const animationsProps = useAnimation(animations);

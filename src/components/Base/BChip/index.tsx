@@ -7,13 +7,14 @@ type BChipProps = Omit<ChipProps, "variant"> & {
 
 const StyledChip = styled(Chip)<{
   hasSlightBG: boolean;
-}>(({ theme, hasSlightBG, color = "primary" }) => ({
-  backgroundColor:
-    hasSlightBG && color !== "default"
-      ? theme.palette[color]?.background ??
-        varAlpha(theme.vars.palette[color]["mainChannel"], 0.2)
-      : "",
-}));
+}>(({ theme, hasSlightBG, color = "primary" }) =>
+  theme.unstable_sx({
+    bgcolor:
+      hasSlightBG && color !== "default"
+        ? varAlpha(theme.palette[color]["mainChannel"], 0.2)
+        : "",
+  })
+);
 
 export const BChip = ({ ...props }: BChipProps) => {
   let variant: ChipProps["variant"];

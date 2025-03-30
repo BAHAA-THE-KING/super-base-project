@@ -50,12 +50,14 @@ declare module "@mui/material/styles/createPalette" {
   interface SimplePaletteColorOptions {
     lighter: string;
     darker: string;
+    mainChannel: string;
     lighterChannel: string;
     darkerChannel: string;
   }
   interface PaletteColor {
     lighter: string;
     darker: string;
+    mainChannel: string;
     lighterChannel: string;
     darkerChannel: string;
   }

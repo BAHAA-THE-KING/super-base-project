@@ -1,6 +1,4 @@
-import type { Theme } from "@mui/material/styles";
-
-import { extendTheme } from "@mui/material/styles";
+import { createTheme, type Theme } from "@mui/material/styles";
 
 import {
   shadows,
@@ -49,25 +47,19 @@ function shouldSkipGeneratingVar(
 
 // ----------------------------------------------------------------------
 
-function createTheme(): Theme {
-  const initialTheme = {
-    colorSchemes,
-    shadows: shadows(),
-    customShadows: customShadows(),
-    shape: { borderRadius: 8 },
-    components,
-    typography,
+const darkTheme: Theme = createTheme({
+  palette: colorSchemes.light?.palette, // Adjust if using color schemes
+  shadows: shadows(),
+  shape: { borderRadius: 8 },
+  typography,
+  components,
+  customShadows: customShadows(),
+  cssVariables: {
     cssVarPrefix: "",
     shouldSkipGeneratingVar,
-  };
-
-  const theme = extendTheme(initialTheme);
-
-  return theme;
-}
+  },
+});
 
 // ----------------------------------------------------------------------
-
-const darkTheme = createTheme();
 
 export { darkTheme };

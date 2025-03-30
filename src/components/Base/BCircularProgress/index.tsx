@@ -17,7 +17,7 @@ export type BCircularProgressProps =
   };
 
 const StyledCircularProgress = styled(CircularProgress)<BCircularProgressProps>(
-  () => ({})
+  ({ theme }) => theme.unstable_sx({})
 );
 
 export const BCircularProgress = ({

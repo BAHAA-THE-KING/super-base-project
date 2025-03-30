@@ -16,7 +16,7 @@ export type BLinearProgressProps = PropsWithAnimations<LinearProgressProps> & {
 };
 
 const StyledLinearProgress = styled(LinearProgress)<BLinearProgressProps>(
-  () => ({})
+  ({ theme }) => theme.unstable_sx({})
 );
 
 export const BLinearProgress = ({

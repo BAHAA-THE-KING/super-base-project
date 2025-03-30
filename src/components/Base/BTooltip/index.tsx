@@ -2,7 +2,7 @@ import { styled, Tooltip, type TooltipProps } from "@mui/material";
 
 import { useDirection } from "src/globals";
 
-const StyledTooltip = styled(Tooltip)(() => ({}));
+const StyledTooltip = styled(Tooltip)(({ theme }) => theme.unstable_sx({}));
 
 type BTooltipProps = Omit<TooltipProps, "placement" | "arrow"> & {
   placement?: TooltipProps["placement"] | "end" | "start";

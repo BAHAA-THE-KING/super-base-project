@@ -30,7 +30,7 @@ const MuiButton: Components<Theme>["MuiButton"] = {
     }),
     soft: ({ theme, ownerState: { color } }: any) => ({
       backgroundColor: theme.palette[color]
-        ? varAlpha(theme.palette[color]?.mainChannel, 0.08)
+        ? varAlpha(theme.palette[color]?.["mainChannel"], 0.08)
         : "",
       color: theme.palette[color]?.dark,
       "&:hover": {
