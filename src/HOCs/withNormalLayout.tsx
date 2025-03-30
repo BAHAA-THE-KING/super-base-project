@@ -1,39 +1,35 @@
-import React, { ComponentType } from "react";
-import { Box } from "@mui/material";
+import React, { ComponentType, useEffect, useRef } from "react";
+import { Stack } from "@mui/material";
 
 import { Header, Sidebar } from "src/components";
-import { useSidebarOpen } from "src/globals";
-import { useBreakpoints } from "src/hooks";
 
 export function withNormalLayout<T extends object>(
   Component: ComponentType<T>
 ): React.FC<T> {
   return function (props: T) {
-    const [sidebarOpen] = useSidebarOpen();
-    const { isGreater } = useBreakpoints("lg");
+    const sidebarRef = useRef<HTMLElement | null>();
 
     return (
-      <Box
-        display={"flex"}
+      <Stack
+        direction={"row"}
         minHeight={"100vh"}
         bgcolor={(theme) => theme.palette.background.default}
       >
-        <Sidebar />
-        <Box
-          // I don't like it :(
-          width={(theme) =>
-            isGreater
-              ? sidebarOpen
-                ? `CALC(100% - 280px - ${theme.spacing(1)})`
-                : `CALC(100% - 60px - ${theme.spacing(1)})`
-              : `CALC(100% - ${theme.spacing(1)})`
-          }
+        <Sidebar ref={sidebarRef} />
+        <Stack
+          width={`CALC(100% - ${sidebarRef.current?.clientWidth ?? 0}px)`}
           m={1}
+          sx={(theme) => ({
+            transition: theme.transitions.create(["transform", "width"], {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.shorter,
+            }),
+          })}
         >
           <Header />
           <Component {...props} />
-        </Box>
-      </Box>
+        </Stack>
+      </Stack>
     );
   };
 }

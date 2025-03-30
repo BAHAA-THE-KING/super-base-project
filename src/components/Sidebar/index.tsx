@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
+import { Stack } from "@mui/material";
 
 import { BaseDrawer, BaseLogo } from "./Base";
 import SidebarList from "./SidebarList";
@@ -6,9 +7,8 @@ import SidebarList from "./SidebarList";
 import { usePublicRoutes } from "src/routes";
 import { useDirection, useSidebarOpen } from "src/globals";
 import { useBreakpoints } from "src/hooks";
-import { Stack } from "@mui/material";
 
-const Sidebar: React.FC = () => {
+const Sidebar = forwardRef<any>(({}, ref) => {
   const routes = usePublicRoutes();
   const [sidebarOpen, setSidebarOpen] = useSidebarOpen();
   const closeSidebar = () => {
@@ -49,6 +49,7 @@ const Sidebar: React.FC = () => {
       direction={direction}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      ref={ref}
     >
       <Stack>
         {/* Logo - Hide when collapsed */}
@@ -59,6 +60,6 @@ const Sidebar: React.FC = () => {
       </Stack>
     </BaseDrawer>
   );
-};
+});
 
 export { Sidebar };
