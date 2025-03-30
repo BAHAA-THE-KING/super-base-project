@@ -5,3 +5,4 @@ export { FormInput } from "./FormInput";
 export { FormSelect } from "./FormSelect";
 export { FormMultiSelect } from "./FormMultiSelect";
 export { FormImage } from "./FormImage";
+export { FormSlider } from "./FormSlider";
