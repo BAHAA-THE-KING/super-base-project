@@ -1,5 +1,6 @@
-import { useEffect } from "react";
-import { CacheProvider, ThemeProvider } from "@emotion/react";
+import { useEffect, useMemo } from "react";
+import { CacheProvider } from "@emotion/react";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -68,30 +69,36 @@ function App() {
   const [lang] = usePreferredLanguage();
   const [dir, setDirection] = useDirection();
 
-  const currentTheme = themes[theme];
+  const currentTheme = useMemo(() => {
+    const currentTheme = themes[theme];
+    currentTheme.direction = dir;
+    return currentTheme;
+  }, [themes, theme, dir]);
 
   useEffect(() => {
     const newDir = lang === "ar" ? "rtl" : "ltr";
     setDirection(newDir);
   }, [lang]);
-  useEffect(() => {
-    currentTheme.direction = dir;
-  }, [dir]);
-
-  const app = (
-    <ThemeProvider theme={currentTheme}>
-      <AppRouter />
-      <ReactQueryDevtools initialIsOpen={false} />
-    </ThemeProvider>
-  );
 
   return (
     <ErrorBoundary fallbackRender={MainErrorFallback}>
       <QueryClientProvider client={queryClient}>
         {dir === "ltr" ? (
-          app
+          <>
+            <CssBaseline />
+            <ThemeProvider theme={currentTheme}>
+              <AppRouter />
+              <ReactQueryDevtools initialIsOpen={false} />
+            </ThemeProvider>
+          </>
         ) : (
-          <CacheProvider value={cacheRtl}>{app}</CacheProvider>
+          <CacheProvider value={cacheRtl}>
+            <CssBaseline />
+            <ThemeProvider theme={currentTheme}>
+              <AppRouter />
+              <ReactQueryDevtools initialIsOpen={false} />
+            </ThemeProvider>
+          </CacheProvider>
         )}
       </QueryClientProvider>
     </ErrorBoundary>

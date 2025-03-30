@@ -9,25 +9,3 @@ body {
   margin: 0;
   padding: 0;
 }
-
-/* Fix Tooltip Styles */
-.MuiTooltip-popper[data-popper-placement*="left"] .MuiTooltip-tooltip {
-  margin-right: 14px !important;
-  margin-left: unset !important;
-}
-.MuiTooltip-popper[data-popper-placement*="left"] .MuiTooltip-arrow {
-  right: 0 !important;
-  margin-right: -0.71em !important;
-  left: unset !important;
-  margin-left: unset !important;
-}
-.MuiTooltip-popper[data-popper-placement*="right"] .MuiTooltip-tooltip {
-  margin-right: unset !important;
-  margin-left: 14px !important;
-}
-.MuiTooltip-popper[data-popper-placement*="right"] .MuiTooltip-arrow {
-  left: 0 !important;
-  margin-left: -0.71em !important;
-  right: unset !important;
-  margin-right: unset !important;
-}
