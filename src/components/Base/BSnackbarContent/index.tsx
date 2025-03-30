@@ -29,7 +29,7 @@ const StyledSnackbarContent = styled(SnackbarContent)(({ theme }) =>
     py: 0,
     px: 1,
     bgcolor: theme.palette.background.paper,
-    color: theme.palette.getContrastText(theme.palette.background.paper),
+    color: theme.palette.text.primary,
   })
 );
 

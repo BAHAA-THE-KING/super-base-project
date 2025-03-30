@@ -6,13 +6,14 @@ import {
   FieldValues,
   RegisterOptions,
 } from "react-hook-form";
-import { Badge, Box, IconButton, Stack, Typography } from "@mui/material";
+import { Badge, Box, IconButton, Stack } from "@mui/material";
 import {
   Close as CloseIcon,
   AddRounded as AddRoundedIcon,
 } from "@mui/icons-material";
 
 import { ImagesPopup } from "../ImagesPopup";
+import { BTypography } from "../Base";
 
 import { useBaseTranslation } from "src/hooks";
 
@@ -58,131 +59,130 @@ export function FormImage<
           field: { value, onChange },
           fieldState: { invalid, error },
         }) => (
-          <Stack
-            border={(theme) =>
-              `${varAlpha(theme.palette.grey["500Channel"], 0.2)} 1px solid`
-            }
-            color={(theme) =>
-              theme.palette.getContrastText(theme.palette.background.paper)
-            }
-            borderRadius={3}
-            justifyContent={"flex-start"}
-            alignItems={"stretch"}
-            onClick={() => inputRef?.current?.click()}
-            sx={{ cursor: "pointer" }}
-          >
+          <Stack>
+            <BTypography>{label}</BTypography>
             <Stack
-              minHeight={"100px"}
-              direction={"row"}
-              flexWrap={"wrap"}
-              justifyContent={"center"}
-              alignItems={"center"}
+              border={(theme) =>
+                `${varAlpha(theme.palette.grey["500Channel"], 0.2)} 1px solid`
+              }
+              borderRadius={3}
+              justifyContent={"flex-start"}
+              alignItems={"stretch"}
+              onClick={() => inputRef?.current?.click()}
+              sx={{ cursor: "pointer" }}
             >
-              {value.length ? (
-                <>
-                  {value.map((image: string, index: number) => (
-                    <Badge
-                      key={(previews[index] || image) + index}
-                      badgeContent={
-                        <IconButton
-                          size="small"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onChange(
-                              value.filter((_: any, i: number) => i !== index)
-                            );
-                            setPreviews(previews.filter((_, i) => i !== index));
-                          }}
-                        >
-                          <CloseIcon />
-                        </IconButton>
-                      }
-                      sx={{
-                        cursor: "pointer",
-                        "& .MuiBadge-badge": {
-                          right: "85%",
-                          top: "5%",
-                        },
-                      }}
-                    >
-                      <Box
-                        sx={(theme) => ({
-                          width: "75px",
-                          height: "75px",
-                          borderRadius: 1,
-                          border: `2px solid ${theme.palette.grey["500"]}`,
-                          m: "10px",
-                        })}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setOpen(index);
+              <Stack
+                minHeight={"100px"}
+                direction={"row"}
+                flexWrap={"wrap"}
+                justifyContent={"center"}
+                alignItems={"center"}
+              >
+                {value.length ? (
+                  <>
+                    {value.map((image: string, index: number) => (
+                      <Badge
+                        key={(previews[index] || image) + index}
+                        badgeContent={
+                          <IconButton
+                            size="small"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              onChange(
+                                value.filter((_: any, i: number) => i !== index)
+                              );
+                              setPreviews(
+                                previews.filter((_, i) => i !== index)
+                              );
+                            }}
+                          >
+                            <CloseIcon />
+                          </IconButton>
+                        }
+                        sx={{
+                          cursor: "pointer",
+                          "& .MuiBadge-badge": {
+                            right: "85%",
+                            top: "5%",
+                          },
                         }}
                       >
-                        <img
-                          src={previews[index] || image}
-                          alt={label}
-                          style={{
+                        <Box
+                          sx={(theme) => ({
                             width: "75px",
                             height: "75px",
-                            objectFit: "cover",
+                            borderRadius: 1,
+                            border: `2px solid ${theme.palette.grey["500"]}`,
+                            m: "10px",
+                          })}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setOpen(index);
                           }}
-                        />
-                      </Box>
-                    </Badge>
-                  ))}
-                  <Box
-                    sx={(theme) => ({
-                      width: "75px",
-                      height: "75px",
-                      borderRadius: 1,
-                      border: `2px solid ${theme.palette.grey["500"]}`,
-                      m: "10px",
-                    })}
-                  >
-                    <AddRoundedIcon sx={{ fontSize: "75px" }} />
-                  </Box>
-                </>
-              ) : (
-                <Stack
-                  width={"100%"}
-                  height={"100%"}
-                  justifyContent={"center"}
-                  alignItems={"center"}
-                >
-                  {ClickToAddImageText}
-                </Stack>
+                        >
+                          <img
+                            src={previews[index] || image}
+                            style={{
+                              width: "75px",
+                              height: "75px",
+                              objectFit: "cover",
+                            }}
+                          />
+                        </Box>
+                      </Badge>
+                    ))}
+                    <Box
+                      sx={(theme) => ({
+                        width: "75px",
+                        height: "75px",
+                        borderRadius: 1,
+                        border: `2px solid ${theme.palette.grey["500"]}`,
+                        m: "10px",
+                      })}
+                    >
+                      <AddRoundedIcon
+                        sx={(theme) => ({
+                          fontSize: "75px",
+                          color: theme.palette.text.primary,
+                        })}
+                      />
+                    </Box>
+                  </>
+                ) : (
+                  <BTypography>{ClickToAddImageText}</BTypography>
+                )}
+              </Stack>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                style={{ display: "none" }}
+                disabled={disabled}
+                onChange={(e) => {
+                  const filesLength = e.target.files?.length ?? 0;
+                  if (filesLength === 0) return;
+                  const files = e.target.files;
+                  const resultFiles: any[] = [];
+                  const resultPreviews: any[] = [];
+                  [...new Array(filesLength)].map((_, index) => {
+                    const file = files?.item(index);
+                    if (file) {
+                      const url = URL.createObjectURL(file);
+                      resultPreviews.push(url);
+                      resultFiles.push(file);
+                    }
+                  });
+                  setPreviews([...previews, ...resultPreviews]);
+                  onChange([...value, ...resultFiles]);
+                }}
+                ref={inputRef}
+              />
+              {invalid && (
+                <BTypography color="error" variant="caption">
+                  {error?.message || YouHaveToUploadAtLeastOneImageText}
+                </BTypography>
               )}
             </Stack>
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              style={{ display: "none" }}
-              disabled={disabled}
-              onChange={(e) => {
-                const filesLength = e.target.files?.length ?? 0;
-                if (filesLength === 0) return;
-                const files = e.target.files;
-                const resultFiles: any[] = [];
-                const resultPreviews: any[] = [];
-                [...new Array(filesLength)].map((_, index) => {
-                  const file = files?.item(index);
-                  if (file) {
-                    const url = URL.createObjectURL(file);
-                    resultPreviews.push(url);
-                    resultFiles.push(file);
-                  }
-                });
-                setPreviews([...previews, ...resultPreviews]);
-                onChange([...value, ...resultFiles]);
-              }}
-              ref={inputRef}
-            />
-            {invalid && (
-              <Typography color="error" variant="caption">
-                {error?.message || YouHaveToUploadAtLeastOneImageText}
-              </Typography>
-            )}
           </Stack>
         )}
       />
