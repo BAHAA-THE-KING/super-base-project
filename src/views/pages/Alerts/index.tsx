@@ -2,7 +2,7 @@ import React from "react";
 import { Grid2 } from "@mui/material";
 import { BAlert, type BAlertProps } from "src/components/Base";
 
-export const Alerts = ({ Component }: { Component: React.FC }) => {
+export const Alerts = () => {
   const colors: BAlertProps["color"][] = [
     "info",
     "success",

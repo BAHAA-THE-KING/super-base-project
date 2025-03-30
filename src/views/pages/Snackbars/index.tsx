@@ -12,7 +12,7 @@ import { varAlpha } from "src/themes/styles";
 
 import { BAlertProps, BButton, BSnackbarContent } from "src/components/Base";
 
-export const Snackbars = ({ Component }: { Component: React.FC }) => {
+export const Snackbars = () => {
   const colors: BAlertProps["color"][] = [
     "info",
     "success",

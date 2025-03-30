@@ -10,7 +10,7 @@ import { useHomePageData } from "src/views/data";
 import { useBaseTranslation } from "src/hooks";
 
 const i18ns = ["click_please"];
-export const Cards = ({ Component }: { Component: React.FC }) => {
+export const Cards = () => {
   const [ClickPleaseText] = useBaseTranslation(i18ns);
 
   const {} = useHomePageData();

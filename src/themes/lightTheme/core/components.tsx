@@ -1,6 +1,6 @@
 import type { Theme, Components } from "@mui/material/styles";
 
-import { bgGradient, varAlpha } from "src/themes/styles";
+import { varAlpha } from "src/themes/styles";
 
 // ----------------------------------------------------------------------
 

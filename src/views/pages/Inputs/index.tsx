@@ -4,7 +4,7 @@ import { Grid2, TextField, type TextFieldProps } from "@mui/material";
 import { useBaseTranslation } from "src/hooks";
 
 const i18ns = ["click_please"];
-export const Inputs = ({ Component }: { Component: React.FC }) => {
+export const Inputs = () => {
   const [ClickPleaseText] = useBaseTranslation(i18ns);
 
   const variants: TextFieldProps["variant"][] = [

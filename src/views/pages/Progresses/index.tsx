@@ -7,7 +7,7 @@ import {
   type BCircularProgressProps,
 } from "src/components/Base";
 
-export const Progresses = ({ Component }: { Component: React.FC }) => {
+export const Progresses = () => {
   const colors: BCircularProgressProps["color"][] = [
     "primary",
     "secondary",

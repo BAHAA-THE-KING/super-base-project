@@ -7,7 +7,7 @@ import { useHomePageData } from "src/views/data";
 
 import { BButtonProps } from "src/components/Base/BButton";
 
-export const Buttons = ({ Component }: { Component: React.FC }) => {
+export const Buttons = () => {
   const {} = useHomePageData();
 
   const colors: BButtonProps["color"][] = [

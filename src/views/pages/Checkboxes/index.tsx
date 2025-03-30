@@ -3,7 +3,7 @@ import { Grid2 } from "@mui/material";
 
 import { BCheckbox, type BCheckboxProps } from "src/components/Base";
 
-export const Checkboxes = ({ Component }: { Component: React.FC }) => {
+export const Checkboxes = () => {
   const colors: BCheckboxProps["color"][] = [
     "primary",
     "secondary",

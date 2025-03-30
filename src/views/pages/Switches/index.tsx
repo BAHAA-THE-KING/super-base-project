@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid2, Switch, type SwitchProps } from "@mui/material";
 
-export const Switches = ({ Component }: { Component: React.FC }) => {
+export const Switches = () => {
   const colors: SwitchProps["color"][] = [
     "primary",
     "secondary",

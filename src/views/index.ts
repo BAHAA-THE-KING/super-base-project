@@ -11,6 +11,7 @@ import { NotFound } from "./pages/NotFound";
 import { Table } from "./pages/Table";
 import { Charts } from "./pages/Charts";
 import { Snackbars } from "./pages/Snackbars";
+import { Home } from "./pages/Home";
 
 export const ButtonsPage = withNormalLayout(Buttons);
 export const CardsPage = withNormalLayout(Cards);
@@ -24,3 +25,4 @@ export const NotFoundPage = withNormalLayout(NotFound);
 export const TablePage = withNormalLayout(Table);
 export const ChartsPage = withNormalLayout(Charts);
 export const SnackbarsPage = withNormalLayout(Snackbars);
+export const HomePage = withNormalLayout(Home);

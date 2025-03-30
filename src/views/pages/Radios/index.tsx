@@ -3,7 +3,7 @@ import { Grid2 } from "@mui/material";
 
 import { BRadio, type BRadioProps } from "src/components/Base";
 
-export const Radios = ({ Component }: { Component: React.FC }) => {
+export const Radios = () => {
   const colors: BRadioProps["color"][] = [
     "primary",
     "secondary",
