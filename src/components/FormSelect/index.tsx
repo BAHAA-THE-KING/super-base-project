@@ -1,5 +1,5 @@
 import { useMemo, useRef } from "react";
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete } from "@mui/material";
 import {
   Control,
   Controller,
@@ -7,6 +7,8 @@ import {
   FieldValues,
   RegisterOptions,
 } from "react-hook-form";
+
+import { BTextField } from "../Base";
 
 import { useBaseTranslation } from "src/hooks";
 
@@ -18,7 +20,7 @@ type Props<
   options: { id: number; name: string }[];
   control: Control<TFieldValues>;
   label: string;
-  rules: Omit<
+  rules?: Omit<
     RegisterOptions<TFieldValues, TName>,
     "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"
   >;
@@ -69,7 +71,7 @@ export function FormSelect<
             }
           }}
           renderInput={(params) => (
-            <TextField
+            <BTextField
               {...params}
               label={label}
               error={Boolean(invalid || error)}
@@ -84,18 +86,7 @@ export function FormSelect<
           getOptionLabel={(option) =>
             typeof option === "string" ? option : option.name
           }
-          //isOptionEqualToValue={(option, value) =>
-          //  typeof option === "string"
-          //    ? option === (typeof value === "string" ? value : value.name)
-          //    : option.id === (typeof value === "string" ? -1 : value.id)
-          //}
-          //filterOptions={(options, params) => {
-          //  const filtered = options.filter((e) => e.id);
-          //  if (params.inputValue !== "") {
-          //    filtered.push({ id: -1, name: params.inputValue });
-          //  }
-          //  return filtered;
-          //}}
+          filterOptions={(options) => options.filter((option) => option.id)}
         />
       )}
     />

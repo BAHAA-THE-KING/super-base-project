@@ -18,7 +18,7 @@ type Props<
 > = {
   name: TName;
   control: Control<TFieldValues>;
-  rules: Omit<
+  rules?: Omit<
     RegisterOptions<TFieldValues, TName>,
     "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"
   >;

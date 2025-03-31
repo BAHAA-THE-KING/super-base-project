@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Autocomplete, TextField } from "@mui/material";
+import { Autocomplete } from "@mui/material";
 import {
   Control,
   Controller,
@@ -8,7 +8,8 @@ import {
   RegisterOptions,
 } from "react-hook-form";
 
-import { BChip } from "../Base";
+import { BChip, BTextField } from "../Base";
+
 import { useBaseTranslation } from "src/hooks";
 
 type Props<
@@ -64,15 +65,19 @@ export function FormMultiSelect<
             field.onChange(updatedValue);
           }}
           renderTags={(value, getTagProps) =>
-            value.map((option, index) => (
-              <BChip
-                label={typeof option === "string" ? option : option.name}
-                {...getTagProps({ index })}
-              />
-            ))
+            value.map((option, index) => {
+              const { key, ...tagProps } = getTagProps({ index });
+              return (
+                <BChip
+                  label={typeof option === "string" ? option : option.name}
+                  key={key}
+                  {...tagProps}
+                />
+              );
+            })
           }
           renderInput={(params) => (
-            <TextField
+            <BTextField
               {...params}
               label={label}
               error={Boolean(invalid || error)}

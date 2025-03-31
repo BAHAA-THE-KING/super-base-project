@@ -1,4 +1,3 @@
-import { TextField } from "@mui/material";
 import {
   Control,
   Controller,
@@ -6,6 +5,8 @@ import {
   FieldValues,
   RegisterOptions,
 } from "react-hook-form";
+
+import { BTextField } from "../Base";
 
 import { useBaseTranslation } from "src/hooks";
 
@@ -15,7 +16,7 @@ type Props<
 > = {
   name: TName;
   control: Control<TFieldValues>;
-  rules: Omit<
+  rules?: Omit<
     RegisterOptions<TFieldValues, TName>,
     "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"
   >;
@@ -38,7 +39,7 @@ export function FormInput<
       rules={rules}
       disabled={disabled}
       render={({ field, fieldState: { invalid, error } }) => (
-        <TextField
+        <BTextField
           {...field}
           fullWidth
           label={label}
