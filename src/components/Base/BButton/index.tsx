@@ -12,8 +12,36 @@ export type BButtonProps = PropsWithAnimations<ButtonProps> & {
 };
 
 const StyledButton = styled(Button)<BButtonProps>(
-  ({ theme, circular = false, icon, color }) =>
-    theme.unstable_sx({
+  ({ theme, circular = false, icon, color, variant, size }) => {
+    const containedInheritStyles = {
+      color: theme.palette.common.white,
+      backgroundColor: theme.palette.grey[200],
+      "&:hover": {
+        color: theme.palette.common.white,
+        backgroundColor: theme.palette.grey[200],
+      },
+    };
+    const softStyles = {
+      backgroundColor:
+        color && color !== "inherit" && theme.palette[color]
+          ? varAlpha(theme.palette[color]["mainChannel"], 0.08)
+          : "",
+      color:
+        color && color !== "inherit" && theme.palette[color]
+          ? theme.palette[color]?.dark
+          : "",
+      "&:hover": {
+        backgroundColor:
+          color && color !== "inherit" && theme.palette[color]
+            ? varAlpha(theme.palette[color]["mainChannel"], 0.16)
+            : "",
+      },
+    };
+    const largeStyles = {
+      minHeight: "48px",
+    };
+
+    return theme.unstable_sx({
       borderRadius: circular || icon ? "1000px" : "",
       aspectRatio: icon ? "1" : "",
       minWidth: icon ? 0 : "",
@@ -24,7 +52,13 @@ const StyledButton = styled(Button)<BButtonProps>(
             ? varAlpha(theme.palette.grey["600Channel"], 0.08)
             : "",
       },
-    })
+      ...(variant === "contained" && color === "inherit"
+        ? containedInheritStyles
+        : {}),
+      ...(variant === "soft" ? softStyles : {}),
+      ...(size === "large" ? largeStyles : {}),
+    });
+  }
 );
 
 export const BButton = ({

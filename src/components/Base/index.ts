@@ -10,3 +10,5 @@ export { BAlert, type BAlertProps } from "./BAlert";
 export { BCircularProgress, type BCircularProgressProps } from "./BCircularProgress";
 export { BLinearProgress, type BLinearProgressProps } from "./BLinearProgress";
 export { BSnackbarContent, type BSnackbarContentProps } from "./BSnackbarContent";
+export { BSwitch, type BSwitchProps } from "./BSwitch";
+export { BTextField, type BTextFieldProps } from "./BTextField";

@@ -1,18 +1,15 @@
 import React from "react";
-import { Grid2, TextField, type TextFieldProps } from "@mui/material";
+import { Grid2 } from "@mui/material";
 
-import { useBaseTranslation } from "src/hooks";
+import { BTextField, type BTextFieldProps } from "src/components/Base";
 
-const i18ns = ["click_please"];
 export const Inputs = () => {
-  const [ClickPleaseText] = useBaseTranslation(i18ns);
-
-  const variants: TextFieldProps["variant"][] = [
+  const variants: BTextFieldProps["variant"][] = [
     "outlined",
     "filled",
     "standard",
   ];
-  const sizes: TextFieldProps["size"][] = ["medium", "small"];
+  const sizes: BTextFieldProps["size"][] = ["medium", "small"];
 
   return (
     <>
@@ -21,12 +18,12 @@ export const Inputs = () => {
           <React.Fragment key={variant}>
             {sizes.map((size) => (
               <Grid2 key={variant + "" + size} size={{ xs: 3 }}>
-                <TextField variant={variant} size={size} label="Label" />
+                <BTextField variant={variant} size={size} label="Label" />
               </Grid2>
             ))}
             {sizes.map((size) => (
               <Grid2 key={variant + "" + size} size={{ xs: 3 }}>
-                <TextField variant={variant} size={size} label="Label" error />
+                <BTextField variant={variant} size={size} label="Label" error />
               </Grid2>
             ))}
             <Grid2 size={{ xs: 12 }}></Grid2>
@@ -36,7 +33,7 @@ export const Inputs = () => {
           <React.Fragment key={variant}>
             {sizes.map((size) => (
               <Grid2 key={variant + "" + size} size={{ xs: 3 }}>
-                <TextField
+                <BTextField
                   variant={variant}
                   size={size}
                   label="Label"
@@ -47,7 +44,7 @@ export const Inputs = () => {
             ))}
             {sizes.map((size) => (
               <Grid2 key={variant + "" + size} size={{ xs: 3 }}>
-                <TextField
+                <BTextField
                   variant={variant}
                   size={size}
                   label="Label"

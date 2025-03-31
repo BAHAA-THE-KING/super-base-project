@@ -6,3 +6,5 @@ export { FormSelect } from "./FormSelect";
 export { FormMultiSelect } from "./FormMultiSelect";
 export { FormImage } from "./FormImage";
 export { FormSlider } from "./FormSlider";
+export { FormCheckbox } from "./FormCheckbox";
+export { FormRadio } from "./FormRadio";
