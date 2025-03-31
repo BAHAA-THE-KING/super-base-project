@@ -5,7 +5,9 @@ type BChipProps = Omit<ChipProps, "variant"> & {
   variant?: "outlined" | "filled" | "slight";
 };
 
-const StyledChip = styled(Chip)<{
+const StyledChip = styled(Chip, {
+  shouldForwardProp: (prop) => prop !== "hasSlightBG", // Exclude the hasSlightBG prop
+})<{
   hasSlightBG: boolean;
 }>(({ theme, hasSlightBG, color = "primary" }) =>
   theme.unstable_sx({

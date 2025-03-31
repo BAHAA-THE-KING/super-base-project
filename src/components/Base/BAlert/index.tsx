@@ -10,6 +10,7 @@ import {
 import { useAnimation } from "src/animations/hooks";
 
 import { PropsWithAnimations } from "src/animations/types/PropsWithAnimations";
+
 import { varAlpha } from "src/themes/styles";
 
 export type BAlertProps = PropsWithAnimations<AlertProps>;

@@ -6,7 +6,10 @@ import {
   Typography,
 } from "@mui/material";
 
-export const BaseDrawer = styled(Drawer)<{
+export const BaseDrawer = styled(Drawer, {
+  shouldForwardProp: (prop) =>
+    prop !== "direction" && prop !== "isOpen" && prop !== "isExpanded",
+})<{
   direction: "ltr" | "rtl";
   isOpen: boolean;
   isExpanded: boolean;
@@ -59,7 +62,9 @@ export const BaseLogo = styled(Typography)(({ theme }) =>
   })
 );
 
-export const BaseSidebarItem = styled(ListItemButton)<{
+export const BaseSidebarItem = styled(ListItemButton, {
+  shouldForwardProp: (prop) => prop !== "isActive" && prop !== "isExpanded",
+})<{
   isActive?: boolean;
   isExpanded: boolean;
 }>(({ theme, isActive, isExpanded }) =>
@@ -90,7 +95,9 @@ export const BaseSidebarItem = styled(ListItemButton)<{
   })
 );
 
-export const BaseSidebarCollapse = styled(ListItemButton)<{
+export const BaseSidebarCollapse = styled(ListItemButton, {
+  shouldForwardProp: (props) => props !== "isActive" && props !== "open",
+})<{
   isActive: boolean;
   open: boolean;
 }>(({ theme, isActive, open }) =>
