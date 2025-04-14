@@ -2,20 +2,9 @@
   "lang": "اللغة",
   "click_please": "اضغطني بليز",
   "search": "بحث",
-  "home": "الصفحة الرئيسية",
-  "deleted_routes": "الأشياء المحذوفة",
-  "first": "الأول",
-  "second": "الثاني",
-  "watch_other_people": "راقب أناساً آخرين",
-  "edit_your_life": "غير حياتك",
-  "save_yourself": "انقذ نفسك",
-  "watch": "المراقبة",
-  "edit": "التعديل",
-  "save": "الحفظ",
   "something_went_wrong": "حدث خطأ ما !",
   "an_unexpected_error_occurred": "حدث خطأ غير متوقع",
   "try_again": "حاول مجدداً",
-  "tables": "الجداول",
   "arabic": "العربية",
   "english": "الانكليزية",
   "name": "الاسم",
@@ -34,5 +23,6 @@
   "you_have_to_upload_at_least_one_image": "يجب أن ترفع صورة واحدة على الأقل",
   "click_to_add_image": "اضغط لاختيار الصور",
   "you_have_to_choose_the": "يجب أن تختار",
-  "no_options": "لا يوجد خيارات"
+  "no_options": "لا يوجد خيارات",
+  "show_beneficiaries": "عرض المستفيدين"
 }
