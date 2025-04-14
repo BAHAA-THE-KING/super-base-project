@@ -2,94 +2,192 @@ import { useMemo } from "react";
 import { GridActionsCellItem, GridColDef } from "@mui/x-data-grid";
 import {
   PersonRemove as PersonRemoveIcon,
-  Visibility as VisibilityIcon,
+  AssignmentInd as AssignmentIndIcon,
 } from "@mui/icons-material";
 
 import { BChip, BTooltip } from "src/components/Base";
 import { useBaseTranslation } from "src/hooks";
+import { Beneficiary } from "src/types/data/Beneficiary";
 
 const i18ns = [
-  "name",
-  "email",
-  "status",
-  "registered",
-  "unregistered",
+  "full_name",
+  "father_name",
+  "mother_name",
+  "birth",
+  "national_number",
+  "job",
+  "phone_number",
+  "mobile_number",
+  "residence_type",
+  "rent",
+  "own",
+  "host",
+  "borrow",
+  "monthly_income",
+  "family_members",
+  "member",
+  "request_status",
+  "pending",
+  "accepted",
+  "rejected",
   "show_profile",
-  "deactivate_user",
+  "cut_aids",
 ];
 export function useBeneficiariesColumns() {
   const [
-    name,
-    email,
-    status,
-    registered,
-    unregistered,
-    showProfile,
-    deactivateUser,
+    FullNameText,
+    FatherNameText,
+    MotherNameText,
+    BirthText,
+    NationalNumberText,
+    JobText,
+    PhoneNumberText,
+    MobileNumberText,
+    ResidenceTypeText,
+    RentText,
+    OwnText,
+    HostText,
+    BorrowText,
+    MonthlyIncomeText,
+    FamilyMembersText,
+    MemberText,
+    RequestStatusText,
+    PendingText,
+    AcceptedText,
+    RejectedText,
+    ShowProfileText,
+    CutAidsText,
   ] = useBaseTranslation(i18ns);
-  return useMemo<GridColDef[]>(
+  return useMemo<GridColDef<Beneficiary>[]>(
     () => [
       {
-        field: "name",
-        headerName: name,
+        field: "first_name",
+        headerName: FullNameText,
+        valueGetter: (value, row) => value + " " + row.last_name,
         flex: 1,
       },
       {
-        field: "email",
-        headerName: email,
+        field: "father_name",
+        headerName: FatherNameText,
         flex: 1,
       },
       {
-        field: "registered",
-        headerName: status,
-        type: "boolean",
+        field: "mother_name",
+        headerName: MotherNameText,
         flex: 1,
-        renderCell: ({ value }) =>
-          value ? (
-            <BChip
-              color="success"
-              label={registered}
-              size="small"
-              variant="slight"
-            />
-          ) : (
-            <BChip
-              color="error"
-              label={unregistered}
-              size="small"
-              variant="slight"
-            />
-          ),
+      },
+      {
+        field: "birth_date",
+        headerName: BirthText,
+        valueGetter: (value, row) => row.birth_place + " " + value,
+        flex: 1,
+      },
+      {
+        field: "national_number",
+        headerName: NationalNumberText,
+        flex: 1,
+      },
+      {
+        field: "job",
+        headerName: JobText,
+        flex: 1,
+      },
+      {
+        field: "phone_number",
+        headerName: PhoneNumberText,
+        flex: 1,
+      },
+      {
+        field: "mobile_number",
+        headerName: MobileNumberText,
+        flex: 1,
+      },
+      {
+        field: "residence_type",
+        headerName: ResidenceTypeText,
+        flex: 1,
+        type: "singleSelect",
+        options: [
+          { value: "rent", label: RentText },
+          { value: "own", label: OwnText },
+          { value: "host", label: HostText },
+          { value: "borrow", label: BorrowText },
+        ],
+        valueGetter: (value) =>
+          value === "rent"
+            ? RentText
+            : value === "own"
+            ? OwnText
+            : value === "host"
+            ? HostText
+            : value === "borrow"
+            ? BorrowText
+            : "",
+      },
+      {
+        field: "family_members",
+        headerName: FamilyMembersText,
+        valueFormatter: (value) => value + " " + MemberText,
+        flex: 1,
+      },
+      {
+        field: "monthly_income",
+        headerName: MonthlyIncomeText,
+        valueFormatter: (value) => `$${value}`,
+        flex: 1,
+      },
+      {
+        field: "request_status",
+        headerName: RequestStatusText,
+        type: "singleSelect",
+        flex: 1,
+        options: [
+          { value: "pending", label: PendingText },
+          { value: "accepted", label: AcceptedText },
+          { value: "rejected", label: RejectedText },
+        ],
+        renderCell: ({ value }) => {
+          const color =
+            value === "pending"
+              ? "warning"
+              : value === "accepted"
+              ? "success"
+              : value === "rejected"
+              ? "error"
+              : "primary";
+          const label =
+            value === "pending"
+              ? PendingText
+              : value === "accepted"
+              ? AcceptedText
+              : value === "rejected"
+              ? RejectedText
+              : "";
+
+          return (
+            <BChip color={color} label={label} size="small" variant="slight" />
+          );
+        },
       },
       {
         field: "id",
         flex: 1,
         type: "actions",
         getActions: () => [
-          <BTooltip title={showProfile}>
+          <BTooltip title={ShowProfileText}>
             <GridActionsCellItem
-              icon={<VisibilityIcon />}
+              icon={<AssignmentIndIcon />}
               color="primary"
-              label={showProfile}
+              label={ShowProfileText}
             />
           </BTooltip>,
-          <BTooltip title={deactivateUser}>
+          <BTooltip title={CutAidsText}>
             <GridActionsCellItem
               icon={<PersonRemoveIcon />}
               color="error"
-              label={deactivateUser}
+              label={CutAidsText}
             />
           </BTooltip>,
-          <GridActionsCellItem
-            icon={<VisibilityIcon />}
-            label={showProfile}
-            showInMenu
-          />,
-          <GridActionsCellItem
-            icon={<PersonRemoveIcon />}
-            label={deactivateUser}
-            showInMenu
-          />,
         ],
       },
     ],

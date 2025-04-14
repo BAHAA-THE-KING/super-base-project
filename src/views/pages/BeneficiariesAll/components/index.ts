@@ -1,0 +1,1 @@
+export { BeneficiariesGrid } from "./BeneficiariesGrid";
