@@ -33,6 +33,7 @@ const SidebarList: React.FC<Props> = ({ routes, isExpanded }) => {
             title={route.title!}
             icon={route.icon!}
             isExpanded={isExpanded}
+            hidden={route.hidden}
           />
         )
       )}

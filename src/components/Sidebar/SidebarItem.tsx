@@ -12,9 +12,12 @@ interface SidebarItemProps {
   title: string;
   icon: React.FC;
   isExpanded: boolean;
+  hidden?: boolean;
 }
 
 const SidebarItem: React.FC<SidebarItemProps> = (route) => {
+  if (route.hidden) return <></>;
+
   const { pathname } = useLocation();
 
   const isActive =
