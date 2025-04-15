@@ -6,8 +6,11 @@ import {
 } from "@mui/icons-material";
 
 import { BChip, BTooltip } from "src/components/Base";
+
 import { useBaseTranslation } from "src/hooks";
-import { Beneficiary } from "src/types/data/Beneficiary";
+
+import { BeneficiaryTable } from "src/types/data/BeneficiaryTable";
+import { useNavigate } from "react-router";
 
 const i18ns = [
   "full_name",
@@ -58,7 +61,8 @@ export function useBeneficiariesColumns() {
     ShowProfileText,
     CutAidsText,
   ] = useBaseTranslation(i18ns);
-  return useMemo<GridColDef<Beneficiary>[]>(
+  const navigate = useNavigate();
+  return useMemo<GridColDef<BeneficiaryTable>[]>(
     () => [
       {
         field: "first_name",
@@ -173,12 +177,13 @@ export function useBeneficiariesColumns() {
         field: "id",
         flex: 1,
         type: "actions",
-        getActions: () => [
+        getActions: ({ id }) => [
           <BTooltip title={ShowProfileText}>
             <GridActionsCellItem
               icon={<AssignmentIndIcon />}
               color="primary"
               label={ShowProfileText}
+              onClick={() => navigate(`/beneficiary/${id}`)}
             />
           </BTooltip>,
           <BTooltip title={CutAidsText}>

@@ -6,4 +6,5 @@ export type Route = Partial<{
   element: React.ReactElement;
   children: Route[];
   isDivider: boolean;
+  hidden: boolean;
 }>;

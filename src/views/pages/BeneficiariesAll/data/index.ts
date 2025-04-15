@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import { Beneficiary } from "src/types/data/Beneficiary";
+import { BeneficiaryTable } from "src/types/data/BeneficiaryTable";
 
-function generateRandomPerson(): Omit<Beneficiary, "id"> {
+function generateRandomPerson(): Omit<BeneficiaryTable, "id"> {
   const firstNames = ["John", "Sarah", "Ali", "Fatima", "Omar", "Layla"];
   const lastNames = ["Smith", "Hussein", "Ahmed", "Brown", "Yousef", "Khan"];
   const places = ["Baghdad", "Cairo", "Beirut", "Amman", "Damascus", "Tunis"];
@@ -55,7 +55,7 @@ function generateRandomPerson(): Omit<Beneficiary, "id"> {
 }
 
 export function useData() {
-  return useMemo<Beneficiary[]>(
+  return useMemo<BeneficiaryTable[]>(
     () => [
       {
         id: 1,

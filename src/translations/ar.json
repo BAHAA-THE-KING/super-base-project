@@ -17,7 +17,7 @@
   "click_to_add_image": "اضغط لاختيار الصور",
   "you_have_to_choose_the": "يجب أن تختار",
   "no_options": "لا يوجد خيارات",
-  "show_beneficiaries": "عرض المستفيدين",
+  "all_beneficiaries": "عرض كل المستفيدين",
   "full_name": "الاسم الكامل",
   "father_name": "اسم الأب",
   "mother_name": "اسم الأم",
@@ -39,5 +39,6 @@
   "show_profile": "عرض ملف المستفيد",
   "cut_aids": "قطع المساعدات",
   "family_members": "أفراد العائلة",
-  "member": "شخص"
+  "member": "شخص",
+  "show_beneficiary": "عرض مستفيد"
 }
