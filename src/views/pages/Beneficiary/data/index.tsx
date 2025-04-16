@@ -1,11 +1,14 @@
 import { useMemo } from "react";
 
+import image from "./image.png";
+
 import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
 
 export function useData(id: number) {
   return useMemo<SingleBeneficiary>(
     () => ({
-      id: 1,
+      id,
+      image_url: image,
       first_name: "Omar",
       last_name: "Yousef",
       father_name: "Ali",
@@ -78,6 +81,12 @@ export function useData(id: number) {
           health_status: "Healthy",
         },
       ],
+      group: {
+        id: 3,
+        name: "section 5",
+        salary: "1000000",
+        color: "warning",
+      },
     }),
     []
   );

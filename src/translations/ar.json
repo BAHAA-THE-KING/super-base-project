@@ -40,5 +40,11 @@
   "cut_aids": "قطع المساعدات",
   "family_members": "أفراد العائلة",
   "member": "شخص",
-  "show_beneficiary": "عرض مستفيد"
+  "show_beneficiary": "عرض مستفيد",
+  "group": "الفئة",
+  "family_info": "معلومات العائلة",
+  "supporters_info": "معلومات المعيلين",
+  "group_info": "معلومات الفئة",
+  "available_aids": "المساعدات المتوفرة",
+  "requests": "الطلبات"
 }

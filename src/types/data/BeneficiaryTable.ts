@@ -11,6 +11,14 @@ export type BeneficiaryTable = {
   phone_number: string;
   mobile_number: string;
   residence_type: "rent" | "own" | "host" | "borrow";
+  group_name: string;
+  group_color:
+    | "primary"
+    | "secondary"
+    | "error"
+    | "info"
+    | "success"
+    | "warning";
   family_members: number;
   monthly_income: number;
   request_status: "accepted" | "rejected" | "pending";

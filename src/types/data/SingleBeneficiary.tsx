@@ -5,6 +5,7 @@ type UncleFrom = "father" | "mother";
 
 export interface SingleBeneficiary {
   id: number;
+  image_url: string;
   first_name: string;
   last_name: string;
   father_name: string;
@@ -19,6 +20,7 @@ export interface SingleBeneficiary {
   address: string;
   residence_type: ResidenceType;
   residence_document_id: number;
+  group: Group;
   monthly_income: number;
   case_description: string;
   request_id: number;
@@ -54,4 +56,11 @@ export interface Partner {
   job: string;
   gender: Gender;
   health_status: string;
+}
+
+export interface Group {
+  id: number;
+  name: string;
+  salary: string;
+  color: "primary" | "secondary" | "error" | "info" | "success" | "warning";
 }

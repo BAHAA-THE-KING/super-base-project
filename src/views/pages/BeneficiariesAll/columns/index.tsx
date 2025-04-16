@@ -28,6 +28,7 @@ const i18ns = [
   "borrow",
   "monthly_income",
   "family_members",
+  "group",
   "member",
   "request_status",
   "pending",
@@ -53,6 +54,7 @@ export function useBeneficiariesColumns() {
     BorrowText,
     MonthlyIncomeText,
     FamilyMembersText,
+    GroupText,
     MemberText,
     RequestStatusText,
     PendingText,
@@ -133,6 +135,21 @@ export function useBeneficiariesColumns() {
         headerName: FamilyMembersText,
         valueFormatter: (value) => value + " " + MemberText,
         flex: 1,
+      },
+      {
+        field: "group_name",
+        headerName: GroupText,
+        flex: 1,
+        renderCell: ({ value, row }) => {
+          return (
+            <BChip
+              color={row.group_color}
+              label={value}
+              size="small"
+              variant="slight"
+            />
+          );
+        },
       },
       {
         field: "monthly_income",

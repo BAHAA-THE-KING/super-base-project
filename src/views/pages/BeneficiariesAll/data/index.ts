@@ -20,6 +20,23 @@ function generateRandomPerson(): Omit<BeneficiaryTable, "id"> {
     "Recently lost job due to company downsizing.",
     "Medical bills have accumulated beyond affordability.",
   ];
+  const groups = [
+    {
+      name: "section 1",
+      color: "primary",
+      salary: "500000",
+    },
+    {
+      name: "section 2",
+      color: "secondary",
+      salary: "1000000",
+    },
+    {
+      name: "section 3",
+      color: "warning",
+      salary: "1500000",
+    },
+  ];
 
   const random = (arr: any) => arr[Math.floor(Math.random() * arr.length)];
   const randomDate = (start: any, end: any) =>
@@ -35,6 +52,8 @@ function generateRandomPerson(): Omit<BeneficiaryTable, "id"> {
     `07${Math.floor(10000000 + Math.random() * 90000000)}`;
   const generateNationalNumber = () =>
     `${Date.now()}${Math.floor(Math.random() * 1000)}`;
+  const generateGroup = () => groups[Math.floor(Math.random() * groups.length)];
+  const group = generateGroup();
 
   return {
     first_name: random(firstNames),
@@ -51,6 +70,8 @@ function generateRandomPerson(): Omit<BeneficiaryTable, "id"> {
     monthly_income: Math.floor(Math.random() * 1000 + 100), // e.g., 100–1100
     request_status: random(["accepted", "rejected", "pending"]),
     family_members: Math.floor(Math.random() * 10) + 1,
+    group_name: group.name,
+    group_color: group.color as BeneficiaryTable["group_color"],
   };
 }
 
