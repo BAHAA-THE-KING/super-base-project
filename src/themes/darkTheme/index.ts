@@ -48,7 +48,10 @@ function shouldSkipGeneratingVar(
 // ----------------------------------------------------------------------
 
 const darkTheme: Theme = createTheme({
-  palette: colorSchemes.light?.palette, // Adjust if using color schemes
+  palette: {
+    ...colorSchemes.dark?.palette,
+    mode: "dark",
+  }, // Adjust if using color schemes
   shadows: shadows(),
   shape: { borderRadius: 8 },
   typography,

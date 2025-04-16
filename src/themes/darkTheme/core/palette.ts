@@ -31,7 +31,7 @@ export const common = createPaletteChannel(COLORS.common);
 
 // Text
 export const text = {
-  light: createPaletteChannel({
+  dark: createPaletteChannel({
     primary: grey[100],
     secondary: grey[300],
     disabled: grey[500],
@@ -40,7 +40,7 @@ export const text = {
 
 // Background
 export const background = {
-  light: createPaletteChannel({
+  dark: createPaletteChannel({
     paper: "#2a3447",
     default: grey[900],
     neutral: grey[700],
@@ -59,7 +59,7 @@ export const baseAction = {
 };
 
 export const action = {
-  light: { ...baseAction, active: grey[600] },
+  dark: { ...baseAction, active: grey[600] },
 };
 
 /*
@@ -78,15 +78,15 @@ export const basePalette = {
   action,
 };
 
-export const lightPalette = {
+export const darkPalette = {
   ...basePalette,
-  text: text.light,
-  background: background.light,
-  action: action.light,
+  text: text.dark,
+  background: background.dark,
+  action: action.dark,
 };
 
 // ----------------------------------------------------------------------
 
-export const colorSchemes: Partial<Record<"light", ColorSystemOptions>> = {
-  light: { palette: lightPalette },
+export const colorSchemes: Partial<Record<"dark", ColorSystemOptions>> = {
+  dark: { palette: darkPalette },
 };
