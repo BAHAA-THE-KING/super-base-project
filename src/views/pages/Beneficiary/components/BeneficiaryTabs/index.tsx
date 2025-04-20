@@ -19,6 +19,12 @@ const TabItem = styled(Tab)(({ theme }) =>
     [theme.breakpoints.up("md")]: {
       minWidth: "160px",
     },
+    "&:first-child": {
+      marginInlineStart: 0,
+    },
+    //"&:last-child": {
+    //  marginInlineEnd: 0,
+    //},
     "&:hover": {
       [`&:not(.${tabClasses.selected}), &:not(.${tabClasses.selected}):before, &:not(.${tabClasses.selected}):after`]:
         {
@@ -41,14 +47,22 @@ const TabItem = styled(Tab)(({ theme }) =>
       content: '" "',
       transition: "0.2s",
     },
-    [`&:before`]: {
+    "&:before": {
       left: -10,
       clipPath: "path('M 10 10 C 2 10 0 8 0 0 L 0 10 Z')",
     },
-    [`&:after`]: {
+    "&:first-child:before": {
+      left: 0,
+      clipPath: "",
+    },
+    "&:after": {
       right: -10,
       clipPath: "path('M 0 10 C 8 10 10 8 10 0 L 10 10 Z')",
     },
+    //"&:last-child:after": {
+    //  right: 0,
+    //  clipPath: "",
+    //},
   })
 );
 
