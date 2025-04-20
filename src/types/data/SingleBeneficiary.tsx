@@ -1,5 +1,5 @@
 type ResidenceType = "rent" | "own" | "host" | "borrow";
-type RequestStatus = "accepted" | "rejected";
+type RequestStatus = "accepted" | "pending" | "rejected";
 type Gender = "male" | "female";
 type UncleFrom = "father" | "mother";
 
@@ -20,11 +20,14 @@ export interface SingleBeneficiary {
   address: string;
   residence_type: ResidenceType;
   residence_document_id: number;
+  children: Child[];
+  uncles: Uncle[];
+  partner: Partner;
   group: Group;
   monthly_income: number;
   case_description: string;
   request_id: number;
-  request_status: RequestStatus | null;
+  request_status: RequestStatus;
 }
 
 export interface Child {
