@@ -70,5 +70,9 @@
   "is_alive": "على قيد الحياة",
   "partner_name": "اسم الزوج",
   "residence_place": "مكان الإقامة",
-  "provided_aid": "المساعدة المقدمة"
+  "provided_aid": "المساعدة المقدمة",
+  "group_details": "تفاصيل التصنيف",
+  "salary": "الراتب الشهري",
+  "conditions": "الشروط",
+  "the_beneficiary_has": "المستفيد لديه"
 }

@@ -67,4 +67,14 @@ export interface Group {
   name: string;
   salary: string;
   color: "primary" | "secondary" | "error" | "info" | "success" | "warning";
+  group_conditions: {
+    id: number;
+    params: string;
+    condition: Condition;
+  }[];
+}
+
+export interface Condition {
+  id: number;
+  name: string;
 }

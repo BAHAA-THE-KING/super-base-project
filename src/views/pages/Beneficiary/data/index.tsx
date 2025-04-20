@@ -85,6 +85,24 @@ export function useData(id: number) {
         name: "section 5",
         salary: "1000000",
         color: "warning",
+        group_conditions: [
+          {
+            id: 6,
+            params: "5",
+            condition: {
+              id: 9,
+              name: "more than 3 members under 18 years old",
+            },
+          },
+          {
+            id: 63,
+            params: "8",
+            condition: {
+              id: 85,
+              name: "more than 5 members",
+            },
+          },
+        ],
       },
     }),
     []

@@ -3,7 +3,12 @@ import { useLocation, useNavigate, useParams } from "react-router";
 import { Box } from "@mui/material";
 
 import { DownPart, UpPart } from "./components";
-import { FamilyInfo, PersonalInfo, SupportersInfo } from "./components/Tabs";
+import {
+  FamilyInfo,
+  PersonalInfo,
+  SupportersInfo,
+  GroupInfo,
+} from "./components/Tabs";
 
 import { useBaseTranslation } from "src/hooks";
 
@@ -51,7 +56,7 @@ export function ShowBeneficiaries() {
       {
         name: "group",
         label: GroupInfoText,
-        element: <></>,
+        element: <GroupInfo beneficiary={beneficiary} />,
       },
       {
         name: "aids",
