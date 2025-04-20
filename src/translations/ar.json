@@ -69,5 +69,6 @@
   "name": "الاسم",
   "is_alive": "على قيد الحياة",
   "partner_name": "اسم الزوج",
-  "residence_place": "مكان الإقامة"
+  "residence_place": "مكان الإقامة",
+  "provided_aid": "المساعدة المقدمة"
 }

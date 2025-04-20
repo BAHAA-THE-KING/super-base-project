@@ -1,13 +1,13 @@
 import { useMemo, useState } from "react";
-import { useParams } from "react-router";
+import { useLocation, useNavigate, useParams } from "react-router";
 import { Box } from "@mui/material";
 
 import { DownPart, UpPart } from "./components";
+import { FamilyInfo, PersonalInfo, SupportersInfo } from "./components/Tabs";
 
 import { useBaseTranslation } from "src/hooks";
 
 import { useData } from "./data";
-import { FamilyInfo, PersonalInfo } from "./components/Tabs";
 
 const i18ns = [
   "personal_info",
@@ -27,6 +27,8 @@ export function ShowBeneficiaries() {
     RequestsText,
   ] = useBaseTranslation(i18ns);
   const { beneficiaryId } = useParams();
+  const { hash } = useLocation();
+  const navigate = useNavigate();
   const beneficiary = useData(Number(beneficiaryId));
 
   const tabs = useMemo(
@@ -44,7 +46,7 @@ export function ShowBeneficiaries() {
       {
         name: "supporters",
         label: SupportersInfoText,
-        element: <></>,
+        element: <SupportersInfo beneficiary={beneficiary} />,
       },
       {
         name: "group",
@@ -65,7 +67,11 @@ export function ShowBeneficiaries() {
     []
   );
 
-  const [currentTab, setCurrentTab] = useState(0);
+  const [currentTab, setCurrentTab] = useState(
+    tabs.findIndex((e) => e.name === hash.slice(1)) === -1
+      ? 0
+      : tabs.findIndex((e) => e.name === hash.slice(1))
+  );
 
   return (
     <Box>
@@ -76,7 +82,10 @@ export function ShowBeneficiaries() {
         image_url={beneficiary.image_url}
         tabs={tabs}
         currentTab={currentTab}
-        setCurrentTab={setCurrentTab}
+        setCurrentTab={(newTab) => {
+          navigate("#" + tabs[newTab].name, { replace: true });
+          setCurrentTab(newTab);
+        }}
       />
       <DownPart element={tabs[currentTab].element} />
     </Box>
