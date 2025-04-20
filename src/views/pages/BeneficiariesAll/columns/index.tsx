@@ -11,6 +11,7 @@ import { useBaseTranslation } from "src/hooks";
 
 import { BeneficiaryTable } from "src/types/data/BeneficiaryTable";
 import { useNavigate } from "react-router";
+import { RequestStatusChip } from "src/components";
 
 const i18ns = [
   "full_name",
@@ -167,28 +168,7 @@ export function useBeneficiariesColumns() {
           { value: "accepted", label: AcceptedText },
           { value: "rejected", label: RejectedText },
         ],
-        renderCell: ({ value }) => {
-          const color =
-            value === "pending"
-              ? "warning"
-              : value === "accepted"
-              ? "success"
-              : value === "rejected"
-              ? "error"
-              : "primary";
-          const label =
-            value === "pending"
-              ? PendingText
-              : value === "accepted"
-              ? AcceptedText
-              : value === "rejected"
-              ? RejectedText
-              : "";
-
-          return (
-            <BChip color={color} label={label} size="small" variant="slight" />
-          );
-        },
+        renderCell: ({ value }) => <RequestStatusChip status={value} />,
       },
       {
         field: "id",
