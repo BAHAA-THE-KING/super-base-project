@@ -87,13 +87,8 @@ export function BeneficiaryTabs({ tabs, currentTab, setCurrentTab }: Props) {
         },
       }}
     >
-      {tabs.map((tab, index) => (
-        <TabItem
-          key={tab.name}
-          label={tab.label}
-          tabIndex={index + 1}
-          disableRipple
-        />
+      {tabs.map((tab) => (
+        <TabItem key={tab.name} label={tab.label} tabIndex={0} disableRipple />
       ))}
     </Tabs>
   );
