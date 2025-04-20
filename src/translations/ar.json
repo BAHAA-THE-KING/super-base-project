@@ -46,5 +46,18 @@
   "supporters_info": "معلومات المعيلين",
   "group_info": "معلومات الفئة",
   "available_aids": "المساعدات المتوفرة",
-  "requests": "الطلبات"
+  "requests": "الطلبات",
+  "personal_info": "المعلومات الشخصية",
+  "first_name": "الاسم",
+  "last_name": "الكنية",
+  "birth_date": "تاريخ الولادة",
+  "birth_place": "مكان الولادة",
+  "identity_info": "معلومات الهوية",
+  "residence_info": "معلومات السكن",
+  "address": "العنوان",
+  "residence_document": "وثيقة الإقامة",
+  "additional_info": "معلومات إضافية",
+  "health_status": "الحالة الصحية",
+  "membership_request": "طلب الانتساب",
+  "case_description": "وصف الحالة"
 }

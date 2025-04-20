@@ -7,8 +7,10 @@ import { DownPart, UpPart } from "./components";
 import { useBaseTranslation } from "src/hooks";
 
 import { useData } from "./data";
+import { PersonalInfo } from "./components/Tabs";
 
 const i18ns = [
+  "personal_info",
   "family_info",
   "supporters_info",
   "group_info",
@@ -17,6 +19,7 @@ const i18ns = [
 ];
 export function ShowBeneficiaries() {
   const [
+    PersonalInfoText,
     FamilyInfoText,
     SupportersInfoText,
     GroupInfoText,
@@ -28,6 +31,11 @@ export function ShowBeneficiaries() {
 
   const tabs = useMemo(
     () => [
+      {
+        name: "personal",
+        label: PersonalInfoText,
+        element: <PersonalInfo beneficiary={beneficiary} />,
+      },
       {
         name: "family",
         label: FamilyInfoText,
@@ -70,7 +78,7 @@ export function ShowBeneficiaries() {
         currentTab={currentTab}
         setCurrentTab={setCurrentTab}
       />
-      <DownPart />
+      <DownPart element={tabs[currentTab].element} />
     </Box>
   );
 }
