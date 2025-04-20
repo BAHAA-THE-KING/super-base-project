@@ -1,6 +1,7 @@
 import { styled } from "@mui/material/styles";
 import Tab, { tabClasses } from "@mui/material/Tab";
 import Tabs, { tabsClasses } from "@mui/material/Tabs";
+
 import { varAlpha } from "src/themes/styles";
 
 const TabItem = styled(Tab)(({ theme }) =>
@@ -25,7 +26,7 @@ const TabItem = styled(Tab)(({ theme }) =>
     //"&:last-child": {
     //  marginInlineEnd: 0,
     //},
-    "&:hover": {
+    "&:hover, &:focus": {
       [`&:not(.${tabClasses.selected}), &:not(.${tabClasses.selected}):before, &:not(.${tabClasses.selected}):after`]:
         {
           backgroundColor: varAlpha(theme.palette.grey["500Channel"], 0.2),
@@ -86,8 +87,13 @@ export function BeneficiaryTabs({ tabs, currentTab, setCurrentTab }: Props) {
         },
       }}
     >
-      {tabs.map((tab) => (
-        <TabItem key={tab.name} label={tab.label} disableRipple />
+      {tabs.map((tab, index) => (
+        <TabItem
+          key={tab.name}
+          label={tab.label}
+          tabIndex={index + 1}
+          disableRipple
+        />
       ))}
     </Tabs>
   );
