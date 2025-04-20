@@ -7,7 +7,7 @@ import { DownPart, UpPart } from "./components";
 import { useBaseTranslation } from "src/hooks";
 
 import { useData } from "./data";
-import { PersonalInfo } from "./components/Tabs";
+import { FamilyInfo, PersonalInfo } from "./components/Tabs";
 
 const i18ns = [
   "personal_info",
@@ -39,7 +39,7 @@ export function ShowBeneficiaries() {
       {
         name: "family",
         label: FamilyInfoText,
-        element: <></>,
+        element: <FamilyInfo beneficiary={beneficiary} />,
       },
       {
         name: "supporters",

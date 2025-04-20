@@ -59,5 +59,15 @@
   "additional_info": "معلومات إضافية",
   "health_status": "الحالة الصحية",
   "membership_request": "طلب الانتساب",
-  "case_description": "وصف الحالة"
+  "case_description": "وصف الحالة",
+  "gender": "الجنس",
+  "male": "ذكر",
+  "female": "أنثى",
+  "husband_info": "معلومات الزوج",
+  "wife_info": "معلومات الزوجة",
+  "children_info": "معلومات الأبناء",
+  "name": "الاسم",
+  "is_alive": "على قيد الحياة",
+  "partner_name": "اسم الزوج",
+  "residence_place": "مكان الإقامة"
 }

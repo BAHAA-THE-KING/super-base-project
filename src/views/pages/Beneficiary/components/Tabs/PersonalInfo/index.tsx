@@ -26,6 +26,9 @@ const i18ns = [
   "residence_document",
   "additional_info",
   "job",
+  "gender",
+  "male",
+  "female",
   "health_status",
   "phone_number",
   "mobile_number",
@@ -54,6 +57,9 @@ export function PersonalInfo({ beneficiary }: Props) {
     ResidenceDocumentText,
     AdditionalInfoText,
     JobText,
+    GenderText,
+    MaleText,
+    FemaleText,
     HealthStatusText,
     PhoneNumberText,
     MobileNumberText,
@@ -104,6 +110,14 @@ export function PersonalInfo({ beneficiary }: Props) {
           {MotherNameText}: {beneficiary.mother_name}
         </BTypography>
         <BTypography my={2}>
+          {GenderText}:{" "}
+          {beneficiary.gender === "male"
+            ? MaleText
+            : beneficiary.gender === "female"
+            ? FemaleText
+            : ""}
+        </BTypography>
+        <BTypography my={2}>
           {BirthDateText}: {beneficiary.birth_date}
         </BTypography>
         <BTypography my={2}>
@@ -113,7 +127,6 @@ export function PersonalInfo({ beneficiary }: Props) {
           {NationalNumberText}: {beneficiary.national_number}
         </BTypography>
       </Grid2>
-
       <Grid2 size={{ xs: 12, md: 4 }}>
         <BTypography variant="h6" fontWeight={"bold"} mb={3}>
           {ResidenceInfoText}
@@ -155,7 +168,6 @@ export function PersonalInfo({ beneficiary }: Props) {
           {MonthlyIncomeText}: {beneficiary.monthly_income}
         </BTypography>
       </Grid2>
-
       <Grid2 size={{ xs: 12, md: 4 }}>
         <BTypography variant="h6" fontWeight={"bold"} mb={3}>
           {MembershipRequestText}

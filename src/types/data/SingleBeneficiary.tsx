@@ -13,6 +13,7 @@ export interface SingleBeneficiary {
   birth_date: string; // YYYY-MM-DD
   birth_place: string;
   national_number: string;
+  gender: Gender;
   job: string;
   health_status: string;
   phone_number: string;
