@@ -3,6 +3,7 @@ import { useMemo } from "react";
 import image from "./image.png";
 
 import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
+import { Aid } from "src/types/data/Aid";
 
 export function useData(id: number) {
   return useMemo<SingleBeneficiary>(
@@ -107,4 +108,59 @@ export function useData(id: number) {
     }),
     []
   );
+}
+
+export function useAidsData(beneficiary_id: number) {
+  const aids: Aid[] = useMemo(
+    () => [
+      {
+        id: 1,
+        is_collected: true,
+        description: "راتب بقيمة 100 ألف",
+        collection_date: "2025-04-01",
+        recipient_name: "عمر يوسف",
+        expiry_date: "2025-05-01",
+        type: "monthly salary",
+      },
+      {
+        id: 2,
+        is_collected: false,
+        description: "ملابس شتوية للأطفال",
+        collection_date: null,
+        recipient_name: "فاطمة خالد",
+        expiry_date: "2026-01-01",
+        type: "aids",
+      },
+      {
+        id: 3,
+        is_collected: true,
+        description: "وصفة أدوية زكام",
+        collection_date: "2025-03-20",
+        recipient_name: "علي حسن",
+        expiry_date: "2025-09-30",
+        type: "prescription exchange",
+      },
+      {
+        id: 4,
+        is_collected: false,
+        description: "وقود للتدفئة",
+        collection_date: null,
+        recipient_name: "ليلى يوسف",
+        expiry_date: "2026-06-30",
+        type: "special materials",
+      },
+      {
+        id: 5,
+        is_collected: true,
+        description: "200 ألف لتسديد قسط المدرسة",
+        collection_date: "2025-02-15",
+        recipient_name: "خالد حسين",
+        expiry_date: "2025-12-31",
+        type: "emergency aids",
+      },
+    ],
+    []
+  );
+
+  return { isLoading: false, aids };
 }

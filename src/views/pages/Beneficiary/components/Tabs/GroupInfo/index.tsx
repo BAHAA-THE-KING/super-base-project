@@ -46,7 +46,7 @@ export function GroupInfo({ beneficiary }: Props) {
         },
       })}
     >
-      <Grid2 size={{ xs: 12, md: 4 }}>
+      <Grid2 size={{ xs: 12, md: 3 }}>
         <BTypography variant="h6" fontWeight={"bold"} mb={3}>
           {GroupDetailsText}
         </BTypography>

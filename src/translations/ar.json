@@ -77,5 +77,14 @@
   "the_beneficiary_has": "المستفيد لديه",
   "kinship": "صلة القرابة",
   "maternal_uncle": "خال",
-  "uncle": "عم"
+  "uncle": "عم",
+  "monthly_salary": "راتب شهري",
+  "aids": "توزيع",
+  "emergency_aids": "مساعدة فورية",
+  "special_materials": "طلب خاص",
+  "prescription_exchange": "صرف وصفة طبية",
+  "received": "تم التسليم",
+  "valid_until": "صالح حتى",
+  "received_by": "استلمها",
+  "on": "بتاريخ"
 }
