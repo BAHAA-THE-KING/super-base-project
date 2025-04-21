@@ -74,5 +74,8 @@
   "group_details": "تفاصيل التصنيف",
   "salary": "الراتب الشهري",
   "conditions": "الشروط",
-  "the_beneficiary_has": "المستفيد لديه"
+  "the_beneficiary_has": "المستفيد لديه",
+  "kinship": "صلة القرابة",
+  "maternal_uncle": "خال",
+  "uncle": "عم"
 }

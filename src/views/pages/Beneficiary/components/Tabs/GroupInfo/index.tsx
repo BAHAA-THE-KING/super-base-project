@@ -1,5 +1,4 @@
 import { Checkbox, Grid2 } from "@mui/material";
-import React from "react";
 
 import { BTypography } from "src/components/Base";
 

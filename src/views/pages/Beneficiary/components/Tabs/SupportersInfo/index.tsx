@@ -10,10 +10,25 @@ type Props = {
   beneficiary: SingleBeneficiary;
 };
 
-const i18ns = ["first_name", "last_name", "job", "provided_aid"];
+const i18ns = [
+  "first_name",
+  "last_name",
+  "kinship",
+  "maternal_uncle",
+  "uncle",
+  "job",
+  "provided_aid",
+];
 export function SupportersInfo({ beneficiary }: Props) {
-  const [FirstNameText, LastNameText, JobText, ProvidedAidText] =
-    useBaseTranslation(i18ns);
+  const [
+    FirstNameText,
+    LastNameText,
+    KinshipText,
+    MaternalUncleText,
+    UncleText,
+    JobText,
+    ProvidedAidText,
+  ] = useBaseTranslation(i18ns);
 
   return (
     <Grid2
@@ -43,6 +58,10 @@ export function SupportersInfo({ beneficiary }: Props) {
           </BTypography>
           <BTypography my={2}>
             {LastNameText}: {uncle.last_name}
+          </BTypography>
+          <BTypography my={2}>
+            {KinshipText}:{" "}
+            {uncle.from === "mother" ? MaternalUncleText : UncleText}
           </BTypography>
           <BTypography my={2}>
             {JobText}: {uncle.job}
