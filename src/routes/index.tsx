@@ -6,7 +6,7 @@ import {
 
 import { Route } from "src/types/Route";
 
-import { AllBeneficiariesPage, ShowBeneficiariesPage } from "src/views";
+import { AllBeneficiariesPage, ShowBeneficiaryPage } from "src/views";
 
 import { useBaseTranslation } from "src/hooks";
 
@@ -50,7 +50,7 @@ export function usePublicRoutes() {
         key: "show-beneficiary",
         path: "/beneficiary/:beneficiaryId",
         title: ShowBeneficiariesText,
-        element: <ShowBeneficiariesPage />,
+        element: <ShowBeneficiaryPage />,
         hidden: true,
       },
       {

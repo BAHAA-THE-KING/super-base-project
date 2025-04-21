@@ -23,7 +23,7 @@ const i18ns = [
   "available_aids",
   "requests",
 ];
-export function ShowBeneficiaries() {
+export function ShowBeneficiary() {
   const [
     PersonalInfoText,
     FamilyInfoText,
