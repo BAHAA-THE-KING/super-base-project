@@ -1,3 +1,3 @@
-export { UpPart } from "./UpPart";
-export { BeneficiaryTabs } from "./BeneficiaryTabs";
-export { DownPart } from "./DownPart";
+export { GeneralPart } from "./GeneralPart";
+export { BeneficiaryTabList } from "./BeneficiaryTabList";
+export { InformationPart } from "./InformationPart";

@@ -1,7 +1,7 @@
 import { Box, Stack } from "@mui/material";
 
 import { BChip, BTypography } from "src/components/Base";
-import { BeneficiaryTabs } from "../BeneficiaryTabs";
+import { BeneficiaryTabList } from "../BeneficiaryTabList";
 
 import { Group } from "src/types/data/SingleBeneficiary";
 
@@ -15,7 +15,7 @@ type Props = {
   setCurrentTab: (tab: number) => void;
 };
 
-export function UpPart({
+export function GeneralPart({
   group_name,
   group_color,
   name,
@@ -25,29 +25,20 @@ export function UpPart({
   currentTab,
 }: Props) {
   return (
-    <Stack
-      width={"100%"}
-      minHeight={"20vh"}
-      flexDirection={"column"}
-      justifyContent={"space-between"}
-      alignItems={"flex-start"}
-    >
+    <Stack flex={"1"} flexDirection={"column"}>
       <Stack
         width={"100%"}
+        flexDirection={"column"}
         justifyContent={"flex-start"}
         alignItems={"center"}
-        sx={(theme) => ({
-          flexDirection: "row",
-          [theme.breakpoints.down("sm")]: { flexDirection: "column" },
-        })}
       >
         <Stack
           height={"100%"}
           borderRadius={"50%"}
           overflow={"hidden"}
           sx={(theme) => ({
-            width: "30%",
-            [theme.breakpoints.up("sm")]: { width: "20%" },
+            width: "70%",
+            [theme.breakpoints.up("sm")]: { width: "40%" },
             border: `3px solid ${theme.palette.primary.main}`,
           })}
         >
@@ -61,20 +52,13 @@ export function UpPart({
             }}
           />
         </Stack>
-        <Stack
-          width={"100%"}
-          height={"100%"}
-          mx={3}
-          flexDirection={"column"}
-          justifyContent={"space-between"}
-          alignItems={"flex-start"}
-        >
+        <Stack mx={3} flexDirection={"row"} justifyContent={"center"}>
           <BTypography variant="h3">{name}</BTypography>
           <BChip color={group_color} label={group_name} />
         </Stack>
       </Stack>
       <Box width={"100%"} mt={3}>
-        <BeneficiaryTabs
+        <BeneficiaryTabList
           tabs={tabs}
           currentTab={currentTab}
           setCurrentTab={setCurrentTab}

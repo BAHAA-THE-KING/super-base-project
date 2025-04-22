@@ -4,14 +4,13 @@ import { Stack } from "@mui/material";
 type Props = {
   element: React.ReactNode;
 };
-export function DownPart({ element }: Props) {
+export function InformationPart({ element }: Props) {
   return (
     <Stack
-      width={"100%"}
+      flex={"2"}
+      borderRadius={1}
+      p={3}
       sx={(theme) => ({
-        borderBottomRightRadius: 10,
-        borderBottomLeftRadius: 10,
-        p: 3,
         backgroundColor:
           theme.palette.mode === "dark"
             ? theme.palette.grey[800]

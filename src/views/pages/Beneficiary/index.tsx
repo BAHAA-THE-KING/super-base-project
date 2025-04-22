@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router";
-import { Box } from "@mui/material";
+import { Stack } from "@mui/material";
 
-import { DownPart, UpPart } from "./components";
+import { InformationPart, GeneralPart } from "./components";
 import {
   FamilyInfo,
   PersonalInfo,
@@ -80,8 +80,8 @@ export function ShowBeneficiary() {
   );
 
   return (
-    <Box>
-      <UpPart
+    <Stack direction={"row"} height={"100%"} mb={2}>
+      <GeneralPart
         name={beneficiary.first_name + " " + beneficiary.last_name}
         group_name={beneficiary.group.name}
         group_color={beneficiary.group.color}
@@ -93,7 +93,7 @@ export function ShowBeneficiary() {
           setCurrentTab(newTab);
         }}
       />
-      <DownPart element={tabs[currentTab].element} />
-    </Box>
+      <InformationPart element={tabs[currentTab].element} />
+    </Stack>
   );
 }
