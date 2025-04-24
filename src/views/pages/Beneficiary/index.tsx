@@ -9,6 +9,7 @@ import {
   SupportersInfo,
   GroupInfo,
   AvailableAids,
+  Requests,
 } from "./components/Tabs";
 
 import { useBaseTranslation } from "src/hooks";
@@ -67,7 +68,7 @@ export function ShowBeneficiary() {
       {
         name: "requests",
         label: RequestsText,
-        element: <></>,
+        element: <Requests beneficiary_id={beneficiary.id} />,
       },
     ],
     []

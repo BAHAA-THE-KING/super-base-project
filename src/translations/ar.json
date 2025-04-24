@@ -81,10 +81,19 @@
   "monthly_salary": "راتب شهري",
   "aids": "توزيع",
   "emergency_aids": "مساعدة فورية",
-  "special_materials": "طلب خاص",
+  "special_materials": "طلب مادة خاصة",
   "prescription_exchange": "صرف وصفة طبية",
   "received": "تم التسليم",
   "valid_until": "صالح حتى",
   "received_by": "استلمها",
-  "on": "بتاريخ"
+  "on": "بتاريخ",
+  "rejection_reason": "سبب الرفض",
+  "status": "الحالة",
+  "request_type": "نوع الطلب",
+  "requested": "المطلوب",
+  "reason": "السبب",
+  "result": "النتيجة",
+  "action_date": "تاريخ اتخاذ القرار",
+  "collecting_info": "معلومات الاستلام",
+  "not_received": "لم يتم التسليم"
 }
