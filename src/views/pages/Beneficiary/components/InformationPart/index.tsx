@@ -1,10 +1,12 @@
 import React from "react";
 import { Stack } from "@mui/material";
+import { varAlpha } from "src/themes/styles";
 
 type Props = {
+  color: "primary" | "secondary" | "error" | "warning" | "info" | "success";
   element: React.ReactNode;
 };
-export function InformationPart({ element }: Props) {
+export function InformationPart({ element, color }: Props) {
   return (
     <Stack
       width={"70%"}
@@ -13,8 +15,8 @@ export function InformationPart({ element }: Props) {
       sx={(theme) => ({
         backgroundColor:
           theme.palette.mode === "dark"
-            ? theme.palette.grey[800]
-            : theme.palette.grey[300],
+            ? varAlpha(theme.palette[color].darkerChannel, 0.2)
+            : theme.palette[color].lighter,
       })}
     >
       {element}

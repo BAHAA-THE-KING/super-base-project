@@ -44,31 +44,37 @@ export function ShowBeneficiary() {
         name: "personal",
         label: PersonalInfoText,
         element: <PersonalInfo beneficiary={beneficiary} />,
+        color: "primary",
       },
       {
         name: "family",
         label: FamilyInfoText,
         element: <FamilyInfo beneficiary={beneficiary} />,
+        color: "primary",
       },
       {
         name: "supporters",
         label: SupportersInfoText,
         element: <SupportersInfo beneficiary={beneficiary} />,
+        color: "primary",
       },
       {
         name: "group",
         label: GroupInfoText,
         element: <GroupInfo beneficiary={beneficiary} />,
+        color: "secondary",
       },
       {
         name: "aids",
         label: AvailableAidsText,
         element: <AvailableAids beneficiary_id={beneficiary.id} />,
+        color: "success",
       },
       {
         name: "requests",
         label: RequestsText,
         element: <Requests beneficiary_id={beneficiary.id} />,
+        color: "success",
       },
     ],
     []
@@ -94,7 +100,10 @@ export function ShowBeneficiary() {
           setCurrentTab(newTab);
         }}
       />
-      <InformationPart element={tabs[currentTab].element} />
+      <InformationPart
+        element={tabs[currentTab].element}
+        color={tabs[currentTab].color as "primary" | "secondary" | "success"}
+      />
     </Stack>
   );
 }
