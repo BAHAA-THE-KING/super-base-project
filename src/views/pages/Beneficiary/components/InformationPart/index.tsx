@@ -9,7 +9,7 @@ type Props = {
 export function InformationPart({ element, color }: Props) {
   return (
     <Stack
-      width={"70%"}
+      width={"80%"}
       borderRadius={1}
       p={3}
       sx={(theme) => ({

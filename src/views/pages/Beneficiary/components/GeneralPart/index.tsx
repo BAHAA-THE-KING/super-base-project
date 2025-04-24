@@ -25,7 +25,7 @@ export function GeneralPart({
   currentTab,
 }: Props) {
   return (
-    <Stack width={"30%"} flexDirection={"column"}>
+    <Stack width={"20%"} flexDirection={"column"}>
       <Stack
         width={"100%"}
         flexDirection={"column"}
