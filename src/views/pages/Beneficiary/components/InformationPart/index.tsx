@@ -7,7 +7,7 @@ type Props = {
 export function InformationPart({ element }: Props) {
   return (
     <Stack
-      flex={"2"}
+      width={"70%"}
       borderRadius={1}
       p={3}
       sx={(theme) => ({
