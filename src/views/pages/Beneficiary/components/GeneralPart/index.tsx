@@ -34,7 +34,7 @@ export function GeneralPart({
       >
         <Stack
           height={"100%"}
-          borderRadius={"50%"}
+          borderRadius={"10px"}
           overflow={"hidden"}
           sx={(theme) => ({
             width: "70%",
