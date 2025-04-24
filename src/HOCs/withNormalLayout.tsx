@@ -33,6 +33,7 @@ export function withNormalLayout<T extends object>(
         direction={"row"}
         minHeight={"100vh"}
         bgcolor={(theme) => theme.palette.background.default}
+        overflow={"auto"}
       >
         <Sidebar ref={sidebarRef} />
         <Stack
