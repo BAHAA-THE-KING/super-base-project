@@ -5,10 +5,12 @@ import {
   FieldValues,
   RegisterOptions,
 } from "react-hook-form";
+import { type SxProps, type Theme } from "@mui/material";
 
 import { BTextField } from "../Base";
 
 import { useBaseTranslation } from "src/hooks";
+import { ComponentProps } from "react";
 
 type Props<
   TFieldValues extends FieldValues = FieldValues,
@@ -22,6 +24,9 @@ type Props<
   >;
   disabled?: boolean;
   label: string;
+  sx?: SxProps<Theme>;
+  multiline?: boolean;
+  inputProps?: ComponentProps<typeof BTextField>;
 };
 
 const i18ns = ["you_have_to_enter_the"];
@@ -29,7 +34,16 @@ const i18ns = ["you_have_to_enter_the"];
 export function FormInput<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
->({ control, label, name, rules, disabled }: Props<TFieldValues, TName>) {
+>({
+  control,
+  label,
+  name,
+  rules,
+  disabled,
+  sx,
+  multiline,
+  inputProps = {},
+}: Props<TFieldValues, TName>) {
   const [YouHaveToEnterThe] = useBaseTranslation(i18ns);
 
   return (
@@ -42,6 +56,10 @@ export function FormInput<
         <BTextField
           {...field}
           fullWidth
+          sx={sx}
+          variant="standard"
+          multiline
+          rows={multiline ? 3 : 1}
           label={label}
           error={Boolean(invalid || error)}
           helperText={
@@ -49,6 +67,7 @@ export function FormInput<
               ? error?.message || YouHaveToEnterThe + " " + label
               : ""
           }
+          {...inputProps}
         />
       )}
     />

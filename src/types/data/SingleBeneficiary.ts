@@ -1,7 +1,7 @@
-type ResidenceType = "rent" | "own" | "host" | "borrow";
+type ResidenceType = { id: "rent" | "own" | "host" | "borrow" };
 type RequestStatus = "accepted" | "pending" | "rejected";
-type Gender = "male" | "female";
-type UncleFrom = "father" | "mother";
+type Gender = { id: "male" | "female" };
+type UncleFrom = { id: "father" | "mother" };
 
 export interface SingleBeneficiary {
   id: number;

@@ -1,7 +1,8 @@
 import { Grid2 } from "@mui/material";
+import { useForm } from "react-hook-form";
 
 import { BTypography } from "src/components/Base";
-import { RequestStatusChip } from "src/components";
+import { FormInput, FormSelect, RequestStatusChip } from "src/components";
 
 import { useBaseTranslation } from "src/hooks";
 
@@ -72,12 +73,17 @@ export function PersonalInfo({ beneficiary }: Props) {
     HostText,
     BorrowText,
   ] = useBaseTranslation(i18ns);
+
+  const { control } = useForm<SingleBeneficiary>({
+    defaultValues: beneficiary,
+  });
+
   return (
     <Grid2
       container
       spacing={3}
       sx={(theme) => ({
-        "&>.MuiGrid2-root": {
+        "&>.MuiGrid2-root:nth-child(even)": {
           borderBlockEnd: {
             xs: `1px solid ${theme.palette.divider}`,
             md: "none",
@@ -93,87 +99,158 @@ export function PersonalInfo({ beneficiary }: Props) {
         },
       })}
     >
-      <Grid2 size={{ xs: 12, md: 4 }}>
+      <Grid2 size={{ xs: 12, md: 3.7 }}>
         <BTypography variant="h6" fontWeight={"bold"} mb={3}>
           {IdentityInfoText}
         </BTypography>
-        <BTypography my={2}>
-          {FirstNameText}: {beneficiary.first_name}
-        </BTypography>
-        <BTypography my={2}>
-          {LastNameText}: {beneficiary.last_name}
-        </BTypography>
-        <BTypography my={2}>
-          {FatherNameText}: {beneficiary.father_name}
-        </BTypography>
-        <BTypography my={2}>
-          {MotherNameText}: {beneficiary.mother_name}
-        </BTypography>
-        <BTypography my={2}>
-          {GenderText}:{" "}
-          {beneficiary.gender === "male"
-            ? MaleText
-            : beneficiary.gender === "female"
-            ? FemaleText
-            : ""}
-        </BTypography>
-        <BTypography my={2}>
-          {BirthDateText}: {beneficiary.birth_date}
-        </BTypography>
-        <BTypography my={2}>
-          {BirthPlaceText}: {beneficiary.birth_place}
-        </BTypography>
-        <BTypography my={2}>
-          {NationalNumberText}: {beneficiary.national_number}
-        </BTypography>
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={FirstNameText}
+          name="first_name"
+          rules={{ required: true }}
+        />
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={LastNameText}
+          name="last_name"
+          rules={{ required: true }}
+        />
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={FatherNameText}
+          name="father_name"
+          rules={{ required: true }}
+        />
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={MotherNameText}
+          name="mother_name"
+          rules={{ required: true }}
+        />
+        <FormSelect
+          sx={{ my: 1 }}
+          control={control}
+          label={GenderText}
+          name="gender"
+          rules={{ required: true }}
+          options={[
+            { id: "male", name: MaleText },
+            { id: "female", name: FemaleText },
+          ]}
+        />
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={BirthDateText}
+          name="birth_date"
+          rules={{ required: true }}
+        />
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={BirthPlaceText}
+          name="birth_place"
+          rules={{ required: true }}
+        />
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={NationalNumberText}
+          name="national_number"
+          rules={{ required: true }}
+        />
       </Grid2>
-      <Grid2 size={{ xs: 12, md: 4 }}>
+      <Grid2 size={{ xs: 12, md: 0.1 }}></Grid2>
+      <Grid2 size={{ xs: 12, md: 3.7 }}>
         <BTypography variant="h6" fontWeight={"bold"} mb={3}>
           {ResidenceInfoText}
         </BTypography>
-        <BTypography my={2}>
-          {ResidenceTypeText}:{" "}
-          {beneficiary.residence_type === "rent"
-            ? RentText
-            : beneficiary.residence_type === "own"
-            ? OwnText
-            : beneficiary.residence_type === "host"
-            ? HostText
-            : beneficiary.residence_type === "borrow"
-            ? BorrowText
-            : ""}
-        </BTypography>
-        <BTypography my={2}>
-          {AddressText}: {beneficiary.address}
-        </BTypography>
-        <BTypography my={2}>
-          {ResidenceDocumentText}: {beneficiary.residence_document_id}
-        </BTypography>
+        <FormSelect
+          sx={{ my: 1 }}
+          control={control}
+          label={ResidenceTypeText}
+          name="residence_type"
+          rules={{ required: true }}
+          options={[
+            { id: "rent", name: RentText },
+            { id: "own", name: OwnText },
+            { id: "host", name: HostText },
+            { id: "borrow", name: BorrowText },
+          ]}
+        />
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={AddressText}
+          name="address"
+          rules={{ required: true }}
+        />
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={ResidenceDocumentText}
+          name="residence_document_id"
+          rules={{ required: true }}
+        />
         <BTypography variant="h6" fontWeight={"bold"} mt={3}>
           {AdditionalInfoText}
         </BTypography>
-        <BTypography my={2}>
-          {JobText}: {beneficiary.job}
-        </BTypography>
-        <BTypography my={2}>
-          {HealthStatusText}: {beneficiary.health_status}
-        </BTypography>
-        <BTypography my={2}>
-          {PhoneNumberText}: {beneficiary.phone_number}
-        </BTypography>
-        <BTypography my={2}>
-          {MobileNumberText}: {beneficiary.mobile_number}
-        </BTypography>
-        <BTypography my={2}>
-          {MonthlyIncomeText}: {beneficiary.monthly_income}
-        </BTypography>
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={JobText}
+          name="job"
+          rules={{ required: true }}
+        />
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={HealthStatusText}
+          name="health_status"
+          rules={{ required: true }}
+        />
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={PhoneNumberText}
+          name="phone_number"
+          rules={{ required: true }}
+        />
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={MobileNumberText}
+          name="mobile_number"
+          rules={{ required: true }}
+        />
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={MonthlyIncomeText}
+          name="monthly_income"
+          rules={{ required: true }}
+        />
       </Grid2>
-      <Grid2 size={{ xs: 12, md: 4 }}>
+      <Grid2 size={{ xs: 12, md: 0.1 }}></Grid2>
+      <Grid2 size={{ xs: 12, md: 3.7 }}>
         <BTypography variant="h6" fontWeight={"bold"} mb={3}>
           {MembershipRequestText}
         </BTypography>
-        <BTypography mt={2}>{CaseDescriptionText}:</BTypography>
-        <BTypography mb={2}>{beneficiary.case_description}</BTypography>
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={CaseDescriptionText}
+          name="case_description"
+          rules={{ required: true }}
+          multiline
+          inputProps={{
+            variant: "outlined",
+          }}
+        />
         <BTypography my={2}>
           {RequestStatusText}:{" "}
           <RequestStatusChip status={beneficiary.request_status} />

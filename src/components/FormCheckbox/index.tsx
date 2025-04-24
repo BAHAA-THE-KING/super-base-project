@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { Stack, type SxProps, type Theme } from "@mui/material";
 import {
   Control,
   Controller,
@@ -10,6 +10,7 @@ import {
 import { BCheckbox, BTypography } from "../Base";
 
 import { useBaseTranslation } from "src/hooks";
+import { ComponentProps } from "react";
 
 type Props<
   TFieldValues extends FieldValues = FieldValues,
@@ -23,6 +24,8 @@ type Props<
   >;
   disabled?: boolean;
   label: string;
+  sx?: SxProps<Theme>;
+  checkboxProps?: ComponentProps<typeof BCheckbox>;
 };
 
 const i18ns = ["you_have_to_enter_the"];
@@ -30,7 +33,14 @@ const i18ns = ["you_have_to_enter_the"];
 export function FormCheckbox<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
->({ control, label, name, rules, disabled }: Props<TFieldValues, TName>) {
+>({
+  control,
+  label,
+  name,
+  rules,
+  disabled,
+  checkboxProps = {},
+}: Props<TFieldValues, TName>) {
   const [YouHaveToEnterThe] = useBaseTranslation(i18ns);
 
   return (
@@ -40,17 +50,21 @@ export function FormCheckbox<
       rules={rules}
       disabled={disabled}
       render={({ field, fieldState: { invalid, error } }) => (
-        <Stack mx={3}>
-          <Stack direction={"row"}>
-            <BCheckbox {...field} checked={field.value} />
+        <Stack>
+          <Stack
+            direction={"row"}
+            justifyContent={"flex-start"}
+            alignItems={"center"}
+          >
+            <BCheckbox {...field} checked={field.value} {...checkboxProps} />
             <BTypography>{label}</BTypography>
           </Stack>
           {Boolean(invalid || error) ? (
-            <Typography color="error" variant="caption">
+            <BTypography color="error" variant="caption">
               {Boolean(invalid || error)
                 ? error?.message || YouHaveToEnterThe + " " + label
                 : ""}
-            </Typography>
+            </BTypography>
           ) : null}
         </Stack>
       )}

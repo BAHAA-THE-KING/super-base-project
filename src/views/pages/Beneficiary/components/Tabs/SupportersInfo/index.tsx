@@ -1,6 +1,8 @@
+import React from "react";
 import { Grid2 } from "@mui/material";
+import { useForm } from "react-hook-form";
 
-import { BTypography } from "src/components/Base";
+import { FormInput, FormSelect } from "src/components";
 
 import { useBaseTranslation } from "src/hooks";
 
@@ -30,12 +32,16 @@ export function SupportersInfo({ beneficiary }: Props) {
     ProvidedAidText,
   ] = useBaseTranslation(i18ns);
 
+  const { control } = useForm<SingleBeneficiary>({
+    defaultValues: beneficiary,
+  });
+
   return (
     <Grid2
       container
       spacing={3}
       sx={(theme) => ({
-        "&>.MuiGrid2-root": {
+        "&>.MuiGrid2-root:nth-child(even)": {
           borderBlockEnd: {
             xs: `1px solid ${theme.palette.divider}`,
             md: "none",
@@ -51,24 +57,52 @@ export function SupportersInfo({ beneficiary }: Props) {
         },
       })}
     >
-      {beneficiary.uncles.map((uncle) => (
-        <Grid2 size={{ xs: 12, md: 6 }} key={uncle.id}>
-          <BTypography my={2}>
-            {FirstNameText}: {uncle.first_name}
-          </BTypography>
-          <BTypography my={2}>
-            {LastNameText}: {uncle.last_name}
-          </BTypography>
-          <BTypography my={2}>
-            {KinshipText}:{" "}
-            {uncle.from === "mother" ? MaternalUncleText : UncleText}
-          </BTypography>
-          <BTypography my={2}>
-            {JobText}: {uncle.job}
-          </BTypography>
-          <BTypography mt={2}>{ProvidedAidText}:</BTypography>
-          <BTypography mb={2}>{uncle.provided_aid}</BTypography>
-        </Grid2>
+      {beneficiary.uncles.map((uncle, i) => (
+        <React.Fragment key={uncle.id}>
+          <Grid2 size={{ xs: 12, md: 3.8 }}>
+            <FormInput
+              sx={{ my: 1 }}
+              control={control}
+              label={FirstNameText}
+              name={`uncles.${i}.first_name`}
+              rules={{ required: true }}
+            />
+            <FormInput
+              sx={{ my: 1 }}
+              control={control}
+              label={LastNameText}
+              name={`uncles.${i}.last_name`}
+              rules={{ required: true }}
+            />
+            <FormSelect
+              sx={{ my: 1 }}
+              control={control}
+              label={KinshipText}
+              name={`uncles.${i}.from`}
+              rules={{ required: true }}
+              options={[
+                { id: "mother", name: MaternalUncleText },
+                { id: "father", name: UncleText },
+              ]}
+            />
+            <FormInput
+              sx={{ my: 1 }}
+              control={control}
+              label={JobText}
+              name={`uncles.${i}.job`}
+              rules={{ required: true }}
+            />
+            <FormInput
+              sx={{ my: 1 }}
+              control={control}
+              label={ProvidedAidText}
+              name={`uncles.${i}.provided_aid`}
+              rules={{ required: true }}
+              multiline
+            />
+          </Grid2>
+          <Grid2 size={{ xs: 12, md: 0.1 }}></Grid2>
+        </React.Fragment>
       ))}
     </Grid2>
   );

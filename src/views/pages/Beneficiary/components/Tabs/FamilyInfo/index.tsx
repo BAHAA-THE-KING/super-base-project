@@ -1,5 +1,8 @@
-import { Checkbox, Grid2 } from "@mui/material";
+import React from "react";
+import { Grid2 } from "@mui/material";
+import { useForm } from "react-hook-form";
 
+import { FormCheckbox, FormInput, FormSelect } from "src/components";
 import { BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
@@ -24,6 +27,8 @@ const i18ns = [
   "is_alive",
   "partner_name",
   "residence_place",
+  "male",
+  "female",
 ];
 export function FamilyInfo({ beneficiary }: Props) {
   const [
@@ -40,14 +45,20 @@ export function FamilyInfo({ beneficiary }: Props) {
     IsAliveText,
     PartnerNameText,
     ResidencePlaceText,
+    MaleText,
+    FemaleText,
   ] = useBaseTranslation(i18ns);
+
+  const { control } = useForm<SingleBeneficiary>({
+    defaultValues: beneficiary,
+  });
 
   return (
     <Grid2
       container
       spacing={3}
       sx={(theme) => ({
-        "&>.MuiGrid2-root": {
+        "&>.MuiGrid2-root:nth-child(even)": {
           borderBlockEnd: {
             xs: `1px solid ${theme.palette.divider}`,
             md: "none",
@@ -63,24 +74,41 @@ export function FamilyInfo({ beneficiary }: Props) {
         },
       })}
     >
-      <Grid2 size={{ xs: 12, md: 4 }}>
+      <Grid2 size={{ xs: 12, md: 3.8 }}>
         <BTypography variant="h6" fontWeight={"bold"} mb={3}>
-          {beneficiary.gender === "male" ? WifeInfoText : HusbandInfoText}
+          {beneficiary.gender.id === "male" ? WifeInfoText : HusbandInfoText}
         </BTypography>
-        <BTypography my={2}>
-          {FirstNameText}: {beneficiary.partner.first_name}
-        </BTypography>
-        <BTypography my={2}>
-          {LastNameText}: {beneficiary.partner.last_name}
-        </BTypography>
-        <BTypography my={2}>
-          {JobText}: {beneficiary.partner.job}
-        </BTypography>
-        <BTypography my={2}>
-          {HealthStatusText}: {beneficiary.partner.health_status}
-        </BTypography>
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={FirstNameText}
+          name="partner.first_name"
+          rules={{ required: true }}
+        />
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={LastNameText}
+          name="partner.last_name"
+          rules={{ required: true }}
+        />
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={JobText}
+          name="partner.job"
+          rules={{ required: true }}
+        />
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={HealthStatusText}
+          name="partner.health_status"
+          rules={{ required: true }}
+        />
       </Grid2>
-      <Grid2 container size={{ xs: 12, md: 8 }}>
+      <Grid2 size={{ xs: 12, md: 0.1 }}></Grid2>
+      <Grid2 container size={{ xs: 12, md: 7.8 }}>
         <Grid2 size={{ xs: 12 }}>
           <BTypography variant="h6" fontWeight={"bold"} mb={3}>
             {ChildrenInfoText}
@@ -90,7 +118,7 @@ export function FamilyInfo({ beneficiary }: Props) {
           container
           size={{ xs: 12 }}
           sx={(theme) => ({
-            "&>.MuiGrid2-root": {
+            "&>.MuiGrid2-root:nth-child(even)": {
               borderBlockEnd: {
                 xs: `1px solid ${theme.palette.divider}`,
                 md: "none",
@@ -106,29 +134,59 @@ export function FamilyInfo({ beneficiary }: Props) {
             },
           })}
         >
-          {beneficiary.children.map((child) => (
-            <Grid2 size={{ xs: 12, md: 6 }} key={child.id}>
-              <BTypography my={2} fontWeight={"bold"}>
-                {NameText}: {child.name}
-              </BTypography>
-              <BTypography my={2}>
-                {GenderText}: {child.gender}
-              </BTypography>
-              <BTypography my={2}>
-                {BirthDateText}: {child.birth_date}
-              </BTypography>
-              <BTypography my={2}>
-                {IsAliveText}: <Checkbox checked={child.is_alive} readOnly />
-              </BTypography>
-              {child.gender === "female" ? (
-                <BTypography my={2}>
-                  {PartnerNameText}: {child.partner_name}
-                </BTypography>
-              ) : null}
-              <BTypography my={2}>
-                {ResidencePlaceText}: {child.residence_place}
-              </BTypography>
-            </Grid2>
+          {beneficiary.children.map((child, i) => (
+            <React.Fragment key={child.id}>
+              <Grid2 size={{ xs: 12, md: 5.7 }}>
+                <FormInput
+                  sx={{ my: 1 }}
+                  control={control}
+                  label={NameText}
+                  name={`children.${i}.name`}
+                  rules={{ required: true }}
+                />
+                <FormSelect
+                  sx={{ my: 1 }}
+                  control={control}
+                  label={GenderText}
+                  name={`children.${i}.gender`}
+                  rules={{ required: true }}
+                  options={[
+                    { id: "male", name: MaleText },
+                    { id: "female", name: FemaleText },
+                  ]}
+                />
+                <FormInput
+                  sx={{ my: 1 }}
+                  control={control}
+                  label={BirthDateText}
+                  name={`children.${i}.birth_date`}
+                  rules={{ required: true }}
+                />
+                <FormCheckbox
+                  sx={{ my: 1 }}
+                  control={control}
+                  label={IsAliveText}
+                  name={`children.${i}.is_alive`}
+                />
+                {child.gender.id === "female" ? (
+                  <FormInput
+                    sx={{ my: 1 }}
+                    control={control}
+                    label={PartnerNameText}
+                    name={`children.${i}.partner_name`}
+                    rules={{ required: true }}
+                  />
+                ) : null}
+                <FormInput
+                  sx={{ my: 1 }}
+                  control={control}
+                  label={ResidencePlaceText}
+                  name={`children.${i}.residence_place`}
+                  rules={{ required: true }}
+                />
+              </Grid2>
+              <Grid2 size={{ xs: 12, md: 0.1 }}></Grid2>
+            </React.Fragment>
           ))}
         </Grid2>
       </Grid2>

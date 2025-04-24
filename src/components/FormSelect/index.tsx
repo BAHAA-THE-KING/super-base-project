@@ -1,5 +1,5 @@
-import { useMemo, useRef } from "react";
-import { Autocomplete } from "@mui/material";
+import { useMemo } from "react";
+import { Autocomplete, type SxProps, type Theme } from "@mui/material";
 import {
   Control,
   Controller,
@@ -17,7 +17,7 @@ type Props<
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 > = {
   name: TName;
-  options: { id: number; name: string }[];
+  options: { id: number | string; name: string }[];
   control: Control<TFieldValues>;
   label: string;
   rules?: Omit<
@@ -25,6 +25,7 @@ type Props<
     "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"
   >;
   disabled?: boolean;
+  sx?: SxProps<Theme>;
 };
 
 const i18ns = ["you_have_to_choose_the", "no_options"];
@@ -39,12 +40,11 @@ export function FormSelect<
   name,
   rules,
   disabled,
+  sx,
 }: Props<TFieldValues, TName>) {
   const [YouHaveToChooseThe, NoOptionsText] = useBaseTranslation(i18ns);
   const defaultOption = { id: 0, name: "" };
   const allOptions = useMemo(() => [defaultOption, ...options], [options]);
-
-  const newOptionsCount = useRef(0);
 
   return (
     <Controller
@@ -55,17 +55,11 @@ export function FormSelect<
       render={({ field, fieldState: { invalid, error } }) => (
         <Autocomplete
           {...field}
-          freeSolo
+          value={allOptions.find((e) => e.id === field.value.id) || defaultOption}
           options={allOptions}
           onChange={(_, value, reason) => {
             if (reason === "clear") {
               field.onChange({ target: { value: defaultOption } });
-            } else if (typeof value === "string") {
-              field.onChange({
-                target: {
-                  value: { id: -++newOptionsCount.current, name: value },
-                },
-              });
             } else {
               field.onChange({ target: { value } });
             }
@@ -73,6 +67,8 @@ export function FormSelect<
           renderInput={(params) => (
             <BTextField
               {...params}
+              fullWidth
+              variant="standard"
               label={label}
               error={Boolean(invalid || error)}
               helperText={
@@ -83,10 +79,9 @@ export function FormSelect<
             />
           )}
           noOptionsText={NoOptionsText}
-          getOptionLabel={(option) =>
-            typeof option === "string" ? option : option.name
-          }
+          getOptionLabel={(option) => option.name}
           filterOptions={(options) => options.filter((option) => option.id)}
+          sx={sx}
         />
       )}
     />
