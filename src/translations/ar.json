@@ -95,5 +95,7 @@
   "result": "النتيجة",
   "action_date": "تاريخ اتخاذ القرار",
   "collecting_info": "معلومات الاستلام",
-  "not_received": "لم يتم التسليم"
+  "not_received": "لم يتم التسليم",
+  "son_info": "معلومات الابن",
+  "daughter_info": "معلومات الابنة"
 }

@@ -1,0 +1,78 @@
+import { Circle } from "@mui/icons-material";
+import { Card, CardActionArea, CardContent } from "@mui/material";
+import { useForm } from "react-hook-form";
+
+import { FormInput } from "src/components";
+import { BTypography } from "src/components/Base";
+import { useBaseTranslation } from "src/hooks";
+
+import { Partner } from "src/types/data/SingleBeneficiary";
+
+type Props = {
+  partner: Partner;
+  beneficiaryGender: "male" | "female";
+};
+
+const i18ns = [
+  "husband_info",
+  "wife_info",
+  "first_name",
+  "last_name",
+  "job",
+  "health_status",
+];
+export function PartnerCard({ partner, beneficiaryGender }: Props) {
+  const [
+    HusbandInfoText,
+    WifeInfoText,
+    FirstNameText,
+    LastNameText,
+    JobText,
+    HealthStatusText,
+  ] = useBaseTranslation(i18ns);
+
+  const { control } = useForm({ defaultValues: { partner } });
+
+  return (
+    <Card>
+      <CardActionArea>
+        <Circle/>
+        <BTypography variant="body2" fontWeight={"bold"}>
+          {beneficiaryGender === "male" ? WifeInfoText : HusbandInfoText}
+        </BTypography>
+      </CardActionArea>
+      <CardActionArea>
+        <CardContent>
+          <FormInput
+            sx={{ my: 1 }}
+            control={control}
+            label={FirstNameText}
+            name="partner.first_name"
+            rules={{ required: true }}
+          />
+          <FormInput
+            sx={{ my: 1 }}
+            control={control}
+            label={LastNameText}
+            name="partner.last_name"
+            rules={{ required: true }}
+          />
+          <FormInput
+            sx={{ my: 1 }}
+            control={control}
+            label={JobText}
+            name="partner.job"
+            rules={{ required: true }}
+          />
+          <FormInput
+            sx={{ my: 1 }}
+            control={control}
+            label={HealthStatusText}
+            name="partner.health_status"
+            rules={{ required: true }}
+          />
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  );
+}
