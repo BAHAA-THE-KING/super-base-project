@@ -1,5 +1,5 @@
 import { Circle } from "@mui/icons-material";
-import { Card, CardActionArea, CardContent } from "@mui/material";
+import { Card, CardContent } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 import { FormInput } from "src/components";
@@ -35,44 +35,42 @@ export function PartnerCard({ partner, beneficiaryGender }: Props) {
 
   return (
     <Card>
-      <CardActionArea>
-        <Circle/>
+      <CardContent>
+        <Circle />
         <BTypography variant="body2" fontWeight={"bold"}>
           {beneficiaryGender === "male" ? WifeInfoText : HusbandInfoText}
         </BTypography>
-      </CardActionArea>
-      <CardActionArea>
-        <CardContent>
-          <FormInput
-            sx={{ my: 1 }}
-            control={control}
-            label={FirstNameText}
-            name="partner.first_name"
-            rules={{ required: true }}
-          />
-          <FormInput
-            sx={{ my: 1 }}
-            control={control}
-            label={LastNameText}
-            name="partner.last_name"
-            rules={{ required: true }}
-          />
-          <FormInput
-            sx={{ my: 1 }}
-            control={control}
-            label={JobText}
-            name="partner.job"
-            rules={{ required: true }}
-          />
-          <FormInput
-            sx={{ my: 1 }}
-            control={control}
-            label={HealthStatusText}
-            name="partner.health_status"
-            rules={{ required: true }}
-          />
-        </CardContent>
-      </CardActionArea>
+      </CardContent>
+      <CardContent>
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={FirstNameText}
+          name="partner.first_name"
+          rules={{ required: true }}
+        />
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={LastNameText}
+          name="partner.last_name"
+          rules={{ required: true }}
+        />
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={JobText}
+          name="partner.job"
+          rules={{ required: true }}
+        />
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={HealthStatusText}
+          name="partner.health_status"
+          rules={{ required: true }}
+        />
+      </CardContent>
     </Card>
   );
 }
