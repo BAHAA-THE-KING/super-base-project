@@ -1,6 +1,5 @@
-import { Card, CardContent } from "@mui/material";
+import { Card, CardContent, SvgIcon } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { Circle } from "@mui/icons-material";
 
 import { FormCheckbox, FormInput, FormSelect } from "src/components";
 import { BTypography } from "src/components/Base";
@@ -8,6 +7,9 @@ import { BTypography } from "src/components/Base";
 import { useBaseTranslation } from "src/hooks";
 
 import { Child } from "src/types/data/SingleBeneficiary";
+
+import SvgSon from "src/icons/Son";
+import SvgDaughter from "src/icons/Daughter";
 
 type Props = {
   child: Child;
@@ -44,7 +46,17 @@ export function ChildCard({ child }: Props) {
   return (
     <Card>
       <CardContent>
-        <Circle />
+        <SvgIcon
+          sx={(theme) => ({
+            m: 3,
+            scale: 3.5,
+            borderRadius: "50%",
+            bgcolor: theme.palette.secondary[theme.palette.mode],
+            float: "inline-end",
+          })}
+        >
+          {child.gender.id === "male" ? <SvgSon /> : <SvgDaughter />}
+        </SvgIcon>
         <BTypography variant="body2" fontWeight={"bold"}>
           {child.gender.id === "male" ? SonInfoText : DaughterInfoText}
         </BTypography>

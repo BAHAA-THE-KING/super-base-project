@@ -1,10 +1,11 @@
-import { Circle } from "@mui/icons-material";
-import { Card, CardContent } from "@mui/material";
+import { Card, CardContent, SvgIcon } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 import { FormInput } from "src/components";
 import { BTypography } from "src/components/Base";
 import { useBaseTranslation } from "src/hooks";
+import SvgFather from "src/icons/Father";
+import SvgMother from "src/icons/Mother";
 
 import { Partner } from "src/types/data/SingleBeneficiary";
 
@@ -36,7 +37,17 @@ export function PartnerCard({ partner, beneficiaryGender }: Props) {
   return (
     <Card>
       <CardContent>
-        <Circle />
+        <SvgIcon
+          sx={(theme) => ({
+            m: 3,
+            scale: 3.5,
+            borderRadius: "50%",
+            bgcolor: theme.palette.primary[theme.palette.mode],
+            float: "inline-end",
+          })}
+        >
+          {partner.gender.id === "male" ? <SvgFather /> : <SvgMother />}
+        </SvgIcon>
         <BTypography variant="body2" fontWeight={"bold"}>
           {beneficiaryGender === "male" ? WifeInfoText : HusbandInfoText}
         </BTypography>

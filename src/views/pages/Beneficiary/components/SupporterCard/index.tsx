@@ -1,6 +1,5 @@
-import { Card, CardContent } from "@mui/material";
+import { Card, CardContent, SvgIcon } from "@mui/material";
 import { useForm } from "react-hook-form";
-import { Circle } from "@mui/icons-material";
 
 import { FormInput, FormSelect } from "src/components";
 import { BTypography } from "src/components/Base";
@@ -8,6 +7,8 @@ import { BTypography } from "src/components/Base";
 import { useBaseTranslation } from "src/hooks";
 
 import { Uncle } from "src/types/data/SingleBeneficiary";
+
+import SvgUncle from "src/icons/Uncle";
 
 type Props = {
   uncle: Uncle;
@@ -40,7 +41,17 @@ export function SupporterCard({ uncle }: Props) {
   return (
     <Card>
       <CardContent>
-        <Circle />
+        <SvgIcon
+          sx={(theme) => ({
+            m: 3,
+            scale: 3.5,
+            borderRadius: "50%",
+            bgcolor: theme.palette.success[theme.palette.mode],
+            float: "inline-end",
+          })}
+        >
+          <SvgUncle />
+        </SvgIcon>
         <BTypography variant="body2" fontWeight={"bold"}>
           {SupporterInfoText}
         </BTypography>
