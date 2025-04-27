@@ -9,6 +9,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { useParams } from "react-router";
 import {
   FaRegDotCircle as FaRegDotCircleIcon,
   FaRegTimesCircle as FaRegTimesCircleIcon,
@@ -18,11 +19,8 @@ import {
 import { BCircularProgress, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
-import { useRequestsData } from "../../../data";
 
-type Props = {
-  beneficiary_id: number;
-};
+import { useRequestsData } from "./data";
 
 const i18ns = [
   "emergency_aids",
@@ -42,7 +40,9 @@ const i18ns = [
   "action_date",
   "collecting_info",
 ];
-export function Requests({ beneficiary_id }: Props) {
+export function ShowBeneficiaryRequests() {
+  const { beneficiaryId } = useParams();
+
   const [
     EmergencyAidsText,
     SpecialMaterialsText,
@@ -61,7 +61,8 @@ export function Requests({ beneficiary_id }: Props) {
     ActionDateText,
     CollectingInfoText,
   ] = useBaseTranslation(i18ns);
-  const { isLoading, requests } = useRequestsData(beneficiary_id);
+
+  const { isLoading, requests } = useRequestsData(Number(beneficiaryId));
 
   return (
     <>

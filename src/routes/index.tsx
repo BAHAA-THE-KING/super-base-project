@@ -1,12 +1,13 @@
 import { useMemo } from "react";
-import {
-  People as PeopleIcon,
-  Person as PersonIcon,
-} from "@mui/icons-material";
+import { People as PeopleIcon } from "@mui/icons-material";
 
 import { Route } from "src/types/Route";
 
-import { AllBeneficiariesPage, ShowBeneficiaryPage } from "src/views";
+import {
+  AllBeneficiariesPage,
+  ShowBeneficiaryPage,
+  ShowBeneficiaryRequestsPage,
+} from "src/views";
 
 import { useBaseTranslation } from "src/hooks";
 
@@ -32,10 +33,9 @@ import { useBaseTranslation } from "src/hooks";
   ──────────────────────────────────────
 */
 
-const i18ns = ["all_beneficiaries", "show_beneficiary"];
+const i18ns = ["all_beneficiaries"];
 export function usePublicRoutes() {
-  const [AllBeneficiariesText, ShowBeneficiariesText] =
-    useBaseTranslation(i18ns);
+  const [AllBeneficiariesText] = useBaseTranslation(i18ns);
   return useMemo<Route[]>(
     () => [
       {
@@ -46,11 +46,15 @@ export function usePublicRoutes() {
         element: <AllBeneficiariesPage />,
       },
       {
-        icon: PersonIcon,
         key: "show-beneficiary",
         path: "/beneficiary/:beneficiaryId",
-        title: ShowBeneficiariesText,
         element: <ShowBeneficiaryPage />,
+        hidden: true,
+      },
+      {
+        key: "show-beneficiary-requests",
+        path: "/beneficiary/:beneficiaryId/requests",
+        element: <ShowBeneficiaryRequestsPage />,
         hidden: true,
       },
       {

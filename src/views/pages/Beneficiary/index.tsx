@@ -9,7 +9,6 @@ import {
   SupportersInfo,
   GroupInfo,
   AvailableAids,
-  Requests,
 } from "./components/Tabs";
 
 import { useBaseTranslation } from "src/hooks";
@@ -73,8 +72,9 @@ export function ShowBeneficiary() {
       {
         name: "requests",
         label: RequestsText,
-        element: <Requests beneficiary_id={beneficiary.id} />,
         color: "success",
+        external: true,
+        link: `/beneficiary/${beneficiary.id}/requests`,
       },
     ],
     []

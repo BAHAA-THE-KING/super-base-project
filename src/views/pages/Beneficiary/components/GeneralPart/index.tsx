@@ -10,7 +10,7 @@ type Props = {
   group_name: string;
   group_color: Group["color"];
   image_url: string;
-  tabs: { name: string; label: string }[];
+  tabs: { name: string; label: string; external?: boolean; link?: string }[];
   currentTab: number;
   setCurrentTab: (tab: number) => void;
 };

@@ -1,7 +1,9 @@
 import { Button, Stack } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import { Launch as LaunchIcon } from "@mui/icons-material";
 
 import { varAlpha } from "src/themes/styles";
+import { useNavigate } from "react-router";
 
 const ListItem = styled(Button)<{ selected: boolean }>(({ theme, selected }) =>
   theme.unstable_sx({
@@ -33,21 +35,36 @@ const ListItem = styled(Button)<{ selected: boolean }>(({ theme, selected }) =>
 );
 
 type Props = {
-  tabs: { name: string; label: string }[];
+  tabs: { name: string; label: string; external?: boolean; link?: string }[];
   currentTab: number;
   setCurrentTab: (index: number) => void;
 };
 
 export function BeneficiaryTabList({ tabs, currentTab, setCurrentTab }: Props) {
+  const navigate = useNavigate();
+
   return (
     <Stack width={"100%"} direction={"column"} alignItems={"center"}>
       {tabs.map((tab, index) => (
         <ListItem
           key={tab.name}
           selected={currentTab === index}
-          onClick={() => setCurrentTab(index)}
+          onClick={() => {
+            if (tab.external) {
+              navigate(tab.link!);
+            } else {
+              setCurrentTab(index);
+            }
+          }}
         >
           {tab.label}
+          {tab.external && (
+            <LaunchIcon
+              sx={(theme) => ({
+                scale: (theme.direction === "ltr" ? 1 : -1) + " 1",
+              })}
+            />
+          )}
         </ListItem>
       ))}
     </Stack>
