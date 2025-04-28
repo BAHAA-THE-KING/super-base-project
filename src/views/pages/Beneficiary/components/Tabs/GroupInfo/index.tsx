@@ -1,99 +1,34 @@
-import { Checkbox, Grid2 } from "@mui/material";
+import { Stack } from "@mui/material";
 
-import { BTypography } from "src/components/Base";
+import { BCircularProgress } from "src/components/Base";
 
-import { useBaseTranslation } from "src/hooks";
+import { useGroupsData } from "../../../data";
 
 import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
+import { GroupCard } from "../../GroupCard";
 
 type Props = {
   beneficiary: SingleBeneficiary;
 };
 
-const i18ns = [
-  "group_details",
-  "name",
-  "salary",
-  "conditions",
-  "the_beneficiary_has",
-];
 export function GroupInfo({ beneficiary }: Props) {
-  const [
-    GroupDetailsText,
-    NameText,
-    SalaryText,
-    ConditionsText,
-    TheBeneficiaryHasText,
-  ] = useBaseTranslation(i18ns);
+  const { isLoading, groups } = useGroupsData();
   return (
-    <Grid2
-      container
-      spacing={3}
-      sx={(theme) => ({
-        "&>.MuiGrid2-root": {
-          borderBlockEnd: {
-            xs: `1px solid ${theme.palette.divider}`,
-            md: "none",
-          },
-          borderInlineEnd: {
-            xs: "none",
-            md: `1px solid ${theme.palette.divider}`,
-          },
-          "&:last-child": {
-            borderInlineEnd: "none",
-            borderBlockEnd: "none",
-          },
-        },
-      })}
+    <Stack
+      flexDirection={{
+        xs: "column",
+        md: "row",
+      }}
+      overflow={"auto"}
     >
-      <Grid2 size={{ xs: 12, md: 3 }}>
-        <BTypography variant="h6" fontWeight={"bold"} mb={3}>
-          {GroupDetailsText}
-        </BTypography>
-        <BTypography my={2}>
-          {NameText}: {beneficiary.group.name}
-        </BTypography>
-        <BTypography my={2}>
-          {SalaryText}: {beneficiary.group.salary}
-        </BTypography>
-      </Grid2>
-      <Grid2 container size={{ xs: 12, md: 8 }}>
-        <Grid2 size={{ xs: 12 }}>
-          <BTypography fontWeight={"bold"} my={2}>
-            {ConditionsText}
-          </BTypography>
-        </Grid2>
-        <Grid2
-          container
-          size={{ xs: 12 }}
-          sx={(theme) => ({
-            "&>.MuiGrid2-root": {
-              borderBlockEnd: {
-                xs: `1px solid ${theme.palette.divider}`,
-                md: "none",
-              },
-              borderInlineEnd: {
-                xs: "none",
-                md: `1px solid ${theme.palette.divider}`,
-              },
-              "&:last-child": {
-                borderInlineEnd: "none",
-                borderBlockEnd: "none",
-              },
-            },
-          })}
-        >
-          {beneficiary.group.group_conditions.map((group_condition) => (
-            <Grid2 size={{ xs: 12, md: 6 }} key={group_condition.id}>
-              <BTypography my={2}>{group_condition.condition.name}</BTypography>
-              <BTypography my={2}>
-                <Checkbox checked readOnly /> {TheBeneficiaryHasText}{" "}
-                {group_condition.params}
-              </BTypography>
-            </Grid2>
-          ))}
-        </Grid2>
-      </Grid2>
-    </Grid2>
+      {isLoading ? (
+        <Stack justifyContent={"center"} alignItems={"center"}>
+          <BCircularProgress />
+        </Stack>
+      ) : null}
+      {groups.map((group) => (
+        <GroupCard group={group} isActive={group.id === beneficiary.group.id} />
+      ))}
+    </Stack>
   );
 }

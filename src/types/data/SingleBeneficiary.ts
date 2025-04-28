@@ -71,6 +71,7 @@ export interface Group {
     id: number;
     params: string;
     condition: Condition;
+    is_satisfied: boolean;
   }[];
 }
 

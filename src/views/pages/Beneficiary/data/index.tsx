@@ -2,7 +2,7 @@ import { useMemo } from "react";
 
 import image from "./image.png";
 
-import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
+import { Group, SingleBeneficiary } from "src/types/data/SingleBeneficiary";
 import { Aid } from "src/types/data/Aid";
 import { Request } from "src/types/data/Request";
 
@@ -95,6 +95,7 @@ export function useData(id: number) {
               id: 9,
               name: "more than 3 members under 18 years old",
             },
+            is_satisfied: true,
           },
           {
             id: 63,
@@ -103,6 +104,7 @@ export function useData(id: number) {
               id: 85,
               name: "more than 5 members",
             },
+            is_satisfied: true,
           },
         ],
       },
@@ -321,4 +323,135 @@ export function useRequestsData(beneficiary_id: number) {
   );
 
   return { isLoading: false, requests };
+}
+
+export function useGroupsData() {
+  const groups: Group[] = useMemo(
+    () => [
+      {
+        id: 1,
+        name: "الفئة 1",
+        salary: "500000",
+        color: "primary",
+        group_conditions: [
+          {
+            id: 1,
+            params: "2",
+            condition: {
+              id: 1,
+              name: "more than 1 member under 18 years old",
+            },
+            is_satisfied: true,
+          },
+          {
+            id: 2,
+            params: "600000",
+            condition: {
+              id: 2,
+              name: "monthly income less than 500000",
+            },
+            is_satisfied: false,
+          },
+        ],
+      },
+      {
+        id: 2,
+        name: "الفئة 2",
+        salary: "700000",
+        color: "secondary",
+        group_conditions: [
+          {
+            id: 3,
+            params: "4",
+            condition: {
+              id: 3,
+              name: "more than 2 members",
+            },
+            is_satisfied: true,
+          },
+          {
+            id: 4,
+            params: "0",
+            condition: {
+              id: 4,
+              name: "more than 1 disabled member",
+            },
+            is_satisfied: false,
+          },
+        ],
+      },
+      {
+        id: 5,
+        name: "الفئة 3",
+        salary: "900000",
+        color: "success",
+        group_conditions: [
+          {
+            id: 5,
+            params: "600000",
+            condition: {
+              id: 5,
+              name: "monthly income more than 700000",
+            },
+            is_satisfied: false,
+          },
+        ],
+      },
+      {
+        id: 4,
+        name: "الفئة 4",
+        salary: "1200000",
+        color: "error",
+        group_conditions: [
+          {
+            id: 6,
+            params: "6",
+            condition: {
+              id: 6,
+              name: "more than 3 members under 18 years old",
+            },
+            is_satisfied: true,
+          },
+          {
+            id: 7,
+            params: "1",
+            condition: {
+              id: 7,
+              name: "more than 2 elderly members",
+            },
+            is_satisfied: false,
+          },
+        ],
+      },
+      {
+        id: 3,
+        name: "الفئة 5",
+        salary: "1000000",
+        color: "warning",
+        group_conditions: [
+          {
+            id: 6,
+            params: "5",
+            condition: {
+              id: 9,
+              name: "more than 3 members under 18 years old",
+            },
+            is_satisfied: true,
+          },
+          {
+            id: 63,
+            params: "8",
+            condition: {
+              id: 85,
+              name: "more than 5 members",
+            },
+            is_satisfied: true,
+          },
+        ],
+      },
+    ],
+    []
+  );
+
+  return { isLoading: false, groups };
 }
