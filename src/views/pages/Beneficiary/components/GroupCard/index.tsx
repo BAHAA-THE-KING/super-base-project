@@ -1,12 +1,14 @@
-import React from "react";
-import { Card, CardContent } from "@mui/material";
+import { Card, CardContent, Box } from "@mui/material";
+import {
+  Check as CheckIcon,
+  HorizontalRule as HorizontalRuleIcon,
+} from "@mui/icons-material";
 
-import { BCheckbox, BTypography } from "src/components/Base";
+import { BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
 import { Group } from "src/types/data/SingleBeneficiary";
-import { Box } from "@mui/material";
 
 type Props = {
   group: Group;
@@ -18,8 +20,8 @@ const i18ns = [
   "name",
   "salary",
   "conditions",
-  "the_beneficiary_has",
   "active",
+  "not_active",
 ];
 export function GroupCard({ group, isActive }: Props) {
   const [
@@ -27,8 +29,8 @@ export function GroupCard({ group, isActive }: Props) {
     NameText,
     SalaryText,
     ConditionsText,
-    TheBeneficiaryHasText,
     ActiveText,
+    NotActiveText,
   ] = useBaseTranslation(i18ns);
 
   return (
@@ -48,14 +50,18 @@ export function GroupCard({ group, isActive }: Props) {
         textAlign={"center"}
         bgcolor={(theme) => (isActive ? theme.palette.primary.main : "")}
       >
-        {isActive ? (
+        {
           <BTypography
             fontWeight={"bold"}
-            sx={(theme) => ({ color: theme.palette.primary.contrastText })}
+            sx={(theme) => ({
+              color: isActive
+                ? theme.palette.primary.contrastText
+                : theme.palette.background.paper,
+            })}
           >
-            {ActiveText}
+            {isActive ? ActiveText : NotActiveText}
           </BTypography>
-        ) : null}
+        }
       </Box>
       <CardContent>
         <BTypography variant="h6" fontWeight={"bold"} mb={3}>
@@ -69,17 +75,22 @@ export function GroupCard({ group, isActive }: Props) {
         </BTypography>
       </CardContent>
       <CardContent>
-        <BTypography fontWeight={"bold"} my={2}>
-          {ConditionsText}
-        </BTypography>
+        <BTypography fontWeight={"bold"}>{ConditionsText}</BTypography>
         {group.group_conditions.map((group_condition) => (
-          <React.Fragment key={group_condition.id}>
+          <Box
+            key={group_condition.id}
+            display={"flex"}
+            flexDirection={"row"}
+            justifyContent={"flex-start"}
+            alignItems={"center"}
+          >
+            {group_condition.is_satisfied ? (
+              <CheckIcon color="success" sx={{ mx: 1 }} />
+            ) : (
+              <HorizontalRuleIcon sx={{ mx: 1 }} />
+            )}
             <BTypography my={2}>{group_condition.condition.name}</BTypography>
-            <BTypography my={2}>
-              <BCheckbox checked={group_condition.is_satisfied} readOnly />{" "}
-              {TheBeneficiaryHasText} {group_condition.params}
-            </BTypography>
-          </React.Fragment>
+          </Box>
         ))}
       </CardContent>
     </Card>

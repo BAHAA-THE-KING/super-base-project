@@ -100,5 +100,6 @@
   "daughter_info": "معلومات الابنة",
   "supporter_info": "معلومات الداعم",
   "add_request": "إضافة طلب جديد",
-  "active": "فعّال"
+  "active": "فعّال",
+  "not_active": "غير فعّال"
 }
