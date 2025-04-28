@@ -35,7 +35,7 @@ export function PartnerCard({ partner, beneficiaryGender }: Props) {
   const { control } = useForm({ defaultValues: { partner } });
 
   return (
-    <Card>
+    <Card sx={{ m: 1, flex: 1 }}>
       <CardContent>
         <SvgIcon
           sx={(theme) => ({

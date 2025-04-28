@@ -44,7 +44,7 @@ export function ChildCard({ child }: Props) {
   const { control } = useForm({ defaultValues: { child } });
 
   return (
-    <Card>
+    <Card sx={{ m: 1, flex: 1 }}>
       <CardContent>
         <SvgIcon
           sx={(theme) => ({
