@@ -16,32 +16,32 @@ type Props = {
 };
 
 const i18ns = [
-  "group_details",
-  "name",
-  "salary",
+  "this_group_receives_salary",
   "conditions",
   "active",
   "not_active",
+  "s.p",
 ];
 export function GroupCard({ group, isActive }: Props) {
   const [
-    GroupDetailsText,
-    NameText,
-    SalaryText,
+    ThisGroupReceivesSalaryText,
     ConditionsText,
     ActiveText,
     NotActiveText,
+    SP,
   ] = useBaseTranslation(i18ns);
 
   return (
     <Card
       sx={(theme) => ({
-        minWidth: {
+        minWidth: "auto",
+        height: {
           xs: "auto",
-          md: "400px",
+          md: 400,
         },
-        m: 1,
-        border: isActive ? `3px solid ${theme.palette.primary.main}` : "",
+        border: isActive
+          ? `3px solid ${theme.palette.primary.main}`
+          : "",
       })}
     >
       <Box
@@ -65,13 +65,10 @@ export function GroupCard({ group, isActive }: Props) {
       </Box>
       <CardContent>
         <BTypography variant="h6" fontWeight={"bold"} mb={3}>
-          {GroupDetailsText}
+          {group.name}
         </BTypography>
         <BTypography my={2}>
-          {NameText}: {group.name}
-        </BTypography>
-        <BTypography my={2}>
-          {SalaryText}: {group.salary}
+          {ThisGroupReceivesSalaryText}: {group.salary} {SP}
         </BTypography>
       </CardContent>
       <CardContent>

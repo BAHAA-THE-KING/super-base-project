@@ -101,5 +101,7 @@
   "supporter_info": "معلومات الداعم",
   "add_request": "إضافة طلب جديد",
   "active": "فعّال",
-  "not_active": "غير فعّال"
+  "not_active": "غير فعّال",
+  "this_group_receives_salary": "هذه الفئة تتلقى راتباَ شهرياَ قدره",
+  "s.p": "ل.س"
 }
