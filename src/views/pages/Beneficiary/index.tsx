@@ -67,12 +67,10 @@ export function ShowBeneficiary() {
         name: "aids",
         label: AvailableAidsText,
         element: <AvailableAids beneficiary_id={beneficiary.id} />,
-        color: "success",
       },
       {
         name: "requests",
         label: RequestsText,
-        color: "success",
         external: true,
         link: `/beneficiary/${beneficiary.id}/requests`,
       },
@@ -102,7 +100,7 @@ export function ShowBeneficiary() {
       />
       <InformationPart
         element={tabs[currentTab].element}
-        color={tabs[currentTab].color as "primary" | "secondary" | "success"}
+        color={tabs[currentTab].color as "primary" | "secondary" | undefined}
       />
     </Stack>
   );

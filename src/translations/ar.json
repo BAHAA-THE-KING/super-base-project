@@ -103,5 +103,9 @@
   "active": "فعّال",
   "not_active": "غير فعّال",
   "this_group_receives_salary": "هذه الفئة تتلقى راتباَ شهرياَ قدره",
-  "s.p": "ل.س"
+  "s.p": "ل.س",
+  "aid_type": "نوع المساعدة",
+  "aid_description": "ماهية المساعدة",
+  "aid_status": "الحالة",
+  "aid_received": "التسليم"
 }

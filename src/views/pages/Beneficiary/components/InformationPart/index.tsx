@@ -3,7 +3,7 @@ import { Stack } from "@mui/material";
 import { varAlpha } from "src/themes/styles";
 
 type Props = {
-  color: "primary" | "secondary" | "error" | "warning" | "info" | "success";
+  color?: "primary" | "secondary" | "error" | "warning" | "info" | "success";
   element: React.ReactNode;
 };
 export function InformationPart({ element, color }: Props) {
@@ -14,9 +14,10 @@ export function InformationPart({ element, color }: Props) {
       p={3}
       sx={(theme) => ({
         backgroundColor:
-          theme.palette.mode === "dark"
+          color &&
+          (theme.palette.mode === "dark"
             ? varAlpha(theme.palette[color].darkerChannel, 0.2)
-            : theme.palette[color].lighter,
+            : theme.palette[color].lighter),
       })}
     >
       {element}
