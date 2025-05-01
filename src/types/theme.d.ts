@@ -117,3 +117,18 @@ declare module "@mui/material/Button" {
     soft;
   }
 }
+
+// ----------------------------------------------------------------------
+
+declare module "@mui/x-data-grid/models" {
+  interface ToolbarPropsOverrides {
+    filters: {
+      id: string;
+      field: string;
+      operator: string;
+      value: string;
+    }[];
+    removeFilter: (id: string) => void;
+    columns: readonly GridColDef<any>[];
+  }
+}
