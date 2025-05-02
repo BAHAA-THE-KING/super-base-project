@@ -4,26 +4,23 @@ import { Stack } from "@mui/material";
 import { BaseDrawer, BaseLogo } from "./Base";
 import SidebarList from "./SidebarList";
 
-import { usePublicRoutes } from "src/routes";
-import { useDirection, useSidebarOpen } from "src/globals";
 import { useBreakpoints } from "src/hooks";
+
+import { usePublicRoutes } from "src/routes";
+
+import { useDirection, useSidebarOpen } from "src/globals";
 
 const Sidebar = forwardRef<any>(({}, ref) => {
   const routes = usePublicRoutes();
   const [sidebarOpen, setSidebarOpen] = useSidebarOpen();
   const closeSidebar = () => {
     setSidebarOpen(false);
-    setWillClose(false);
   };
   const handleMouseLeave = () => {
-    if (willClose) {
-      closeSidebar();
-    }
+    closeSidebar();
   };
-  const handleMouseEnter = () => setWillClose(true);
+  const handleMouseEnter = () => setSidebarOpen(true);
   const [direction] = useDirection();
-
-  const [willClose, setWillClose] = useState(false);
 
   const { isGreater } = useBreakpoints("lg");
 
