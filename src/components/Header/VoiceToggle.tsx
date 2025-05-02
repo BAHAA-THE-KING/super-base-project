@@ -38,7 +38,7 @@ const VoiceToggle: React.FC = () => {
 
   useEffect(() => {
     function keyup(ev: KeyboardEvent) {
-      if (ev.ctrlKey && ev.key === "i") {
+      if (ev.ctrlKey && ev.code === "KeyI") {
         if (listening) {
           SpeechRecognition.stopListening();
           resetTranscript();

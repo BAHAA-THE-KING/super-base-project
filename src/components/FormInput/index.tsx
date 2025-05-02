@@ -1,3 +1,4 @@
+import { ComponentProps } from "react";
 import {
   Control,
   Controller,
@@ -9,8 +10,7 @@ import { type SxProps, type Theme } from "@mui/material";
 
 import { BTextField } from "../Base";
 
-import { useBaseTranslation } from "src/hooks";
-import { ComponentProps } from "react";
+import { useBaseTranslation, useVoiceInputHandler } from "src/hooks";
 
 type Props<
   TFieldValues extends FieldValues = FieldValues,
@@ -52,24 +52,31 @@ export function FormInput<
       control={control}
       rules={rules}
       disabled={disabled}
-      render={({ field, fieldState: { invalid, error } }) => (
-        <BTextField
-          {...field}
-          fullWidth
-          sx={sx}
-          variant="standard"
-          multiline
-          rows={multiline ? 3 : 1}
-          label={label}
-          error={Boolean(invalid || error)}
-          helperText={
-            Boolean(invalid || error)
-              ? error?.message || YouHaveToEnterThe + " " + label
-              : ""
-          }
-          {...inputProps}
-        />
-      )}
+      render={({ field, fieldState: { invalid, error } }) => {
+        const { inputRef } = useVoiceInputHandler(field.value, (value) =>
+          field.onChange({ target: { value } })
+        );
+
+        return (
+          <BTextField
+            {...field}
+            fullWidth
+            sx={sx}
+            variant="standard"
+            multiline
+            rows={multiline ? 3 : 1}
+            label={label}
+            error={Boolean(invalid || error)}
+            helperText={
+              Boolean(invalid || error)
+                ? error?.message || YouHaveToEnterThe + " " + label
+                : ""
+            }
+            inputRef={inputRef}
+            {...inputProps}
+          />
+        );
+      }}
     />
   );
 }

@@ -10,7 +10,7 @@ import {
 
 import { BTextField } from "../Base";
 
-import { useBaseTranslation } from "src/hooks";
+import { useBaseTranslation, useVoiceInputHandler } from "src/hooks";
 
 type Props<
   TFieldValues extends FieldValues = FieldValues,
@@ -55,7 +55,9 @@ export function FormSelect<
       render={({ field, fieldState: { invalid, error } }) => (
         <Autocomplete
           {...field}
-          value={allOptions.find((e) => e.id === field.value.id) || defaultOption}
+          value={
+            allOptions.find((e) => e.id === field.value.id) || defaultOption
+          }
           options={allOptions}
           onChange={(_, value, reason) => {
             if (reason === "clear") {
@@ -64,23 +66,36 @@ export function FormSelect<
               field.onChange({ target: { value } });
             }
           }}
-          renderInput={(params) => (
-            <BTextField
-              {...params}
-              fullWidth
-              variant="standard"
-              label={label}
-              error={Boolean(invalid || error)}
-              helperText={
-                Boolean(invalid || error)
-                  ? error?.message || YouHaveToChooseThe + " " + label
-                  : ""
-              }
-            />
-          )}
+          renderInput={(params) => {
+            const { inputRef } = useVoiceInputHandler(
+              field.value.name ?? "",
+              (value) =>
+                params.inputProps.onChange &&
+                params.inputProps.onChange({ target: { value } })
+            );
+            return (
+              <BTextField
+                {...params}
+                fullWidth
+                variant="standard"
+                label={label}
+                error={Boolean(invalid || error)}
+                helperText={
+                  Boolean(invalid || error)
+                    ? error?.message || YouHaveToChooseThe + " " + label
+                    : ""
+                }
+                inputRef={inputRef}
+              />
+            );
+          }}
           noOptionsText={NoOptionsText}
           getOptionLabel={(option) => option.name}
-          filterOptions={(options) => options.filter((option) => option.id)}
+          filterOptions={(options, state) =>
+            options.filter(
+              (option) => option.id && option.name.includes(state.inputValue)
+            )
+          }
           sx={sx}
         />
       )}
