@@ -41,3 +41,8 @@ export const sidebarOpenAtom = atom({
   default: false,
   key: "sidebar-open",
 });
+
+export const voiceInputAtom = atom({
+  default: "",
+  key: "voice-input",
+});

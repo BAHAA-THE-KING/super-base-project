@@ -7,6 +7,7 @@ import {
   Languages,
   sidebarOpenAtom,
   themeAtom,
+  voiceInputAtom,
 } from "./atoms";
 
 export const usePreferredLanguage = () => {
@@ -23,3 +24,4 @@ export const usePreferredLanguage = () => {
 export const usePreferredTheme = () => useRecoilState(themeAtom);
 export const useDirection = () => useRecoilState(directionAtom);
 export const useSidebarOpen = () => useRecoilState(sidebarOpenAtom);
+export const useVoiceInput = () => useRecoilState(voiceInputAtom);

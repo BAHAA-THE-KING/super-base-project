@@ -117,5 +117,7 @@
   "after": "بعد",
   "after_or_equals": "بعد أو يساوي",
   "before": "قبل",
-  "before_or_equals": "قبل أو يساوي"
+  "before_or_equals": "قبل أو يساوي",
+  "voice_input": "الإدخال الصوتي",
+  "voice_input_not_available": "الإدخال الصوتي غير متوفر"
 }
