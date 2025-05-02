@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { ComponentProps, useMemo } from "react";
 import { Autocomplete, type SxProps, type Theme } from "@mui/material";
 import {
   Control,
@@ -26,6 +26,7 @@ type Props<
   >;
   disabled?: boolean;
   sx?: SxProps<Theme>;
+  inputProps?: ComponentProps<typeof BTextField>;
 };
 
 const i18ns = ["you_have_to_choose_the", "no_options"];
@@ -41,6 +42,7 @@ export function FormSelect<
   rules,
   disabled,
   sx,
+  inputProps = {},
 }: Props<TFieldValues, TName>) {
   const [YouHaveToChooseThe, NoOptionsText] = useBaseTranslation(i18ns);
   const defaultOption = { id: 0, name: "" };
@@ -56,7 +58,7 @@ export function FormSelect<
         <Autocomplete
           {...field}
           value={
-            allOptions.find((e) => e.id === field.value.id) || defaultOption
+            allOptions.find((e) => e.id === field?.value?.id) || defaultOption
           }
           options={allOptions}
           onChange={(_, value, reason) => {
@@ -68,7 +70,7 @@ export function FormSelect<
           }}
           renderInput={(params) => {
             const { inputRef } = useVoiceInputHandler(
-              field.value.name ?? "",
+              field?.value?.name ?? "",
               (value) =>
                 params.inputProps.onChange &&
                 params.inputProps.onChange({ target: { value } })
@@ -86,6 +88,7 @@ export function FormSelect<
                     : ""
                 }
                 inputRef={inputRef}
+                {...inputProps}
               />
             );
           }}

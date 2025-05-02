@@ -39,8 +39,14 @@ type DeactivateRequest = {
 };
 
 export function useBeneficiaries() {
-  const getIndexedBeneficiaries = (filters: Partial<IndexFilters>) =>
+  const getAllBeneficiaries = (filters: Partial<IndexFilters>) =>
     useGetAPI<IndexResponse>("/beneficiaries/index", {
+      defaultData: [],
+      params: filters,
+      keys: ["beneficiaries"],
+    });
+  const getIndexedBeneficiaries = (filters: Partial<IndexFilters>) =>
+    useGetAPI<IndexResponse>("/beneficiaries", {
       defaultData: [],
       params: filters,
       keys: ["beneficiaries"],
@@ -62,6 +68,7 @@ export function useBeneficiaries() {
   }).mutateAsync;
 
   return {
+    getAllBeneficiaries,
     getIndexedBeneficiaries,
     addBeneficiary,
     editBeneficiary,

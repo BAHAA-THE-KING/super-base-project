@@ -78,7 +78,7 @@ export function FormMultiSelect<
           }
           renderInput={(params) => {
             const { inputRef } = useVoiceInputHandler(
-              field.value.name ?? "",
+              field?.value?.name ?? "",
               (value) =>
                 params.inputProps.onChange &&
                 params.inputProps.onChange({ target: { value } })
