@@ -119,5 +119,7 @@
   "before": "قبل",
   "before_or_equals": "قبل أو يساوي",
   "voice_input": "الإدخال الصوتي",
-  "voice_input_not_available": "الإدخال الصوتي غير متوفر"
+  "voice_input_not_available": "الإدخال الصوتي غير متوفر",
+  "go_back": "العودة",
+  "not_found_message": "يبدو أن الصفحة التي تحاول الوصول لها غير موجودة!"
 }

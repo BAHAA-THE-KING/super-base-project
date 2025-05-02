@@ -1,16 +1,16 @@
 import React from "react";
+
 import {
   Brightness4Outlined as Brightness4OutlinedIcon,
   Brightness7Outlined as Brightness7OutlinedIcon,
-  TerminalOutlined as TerminalOutlinedIcon,
 } from "@mui/icons-material";
 
 import { BaseIconButton } from "./Base";
-
-import { usePreferredTheme } from "src/globals";
 import { BTooltip } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
+
+import { usePreferredTheme } from "src/globals";
 
 const i18ns = ["theme"];
 const ThemeToggle: React.FC = () => {

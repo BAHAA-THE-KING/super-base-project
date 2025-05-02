@@ -1,23 +1,24 @@
-import React from "react";
-import { Box } from "@mui/material";
+import { Stack } from "@mui/material";
 
 import { BaseHeader } from "./Base";
 import ThemeToggle from "./ThemeToggle";
 import VoiceToggle from "./VoiceToggle";
 import LanguageSelector from "./LanguageSelector";
 import SidebarToggle from "./SidebarToggle";
+import GoBack from "./GoBack";
 
-const Header: React.FC = () => {
+export function Header() {
   return (
     <BaseHeader boxShadow={1}>
-      <Box display="flex" gap={2}>
+      <Stack flexDirection={"row"} gap={2}>
+        <GoBack />
+      </Stack>
+      <Stack flexDirection={"row"} gap={2}>
         <SidebarToggle />
         <VoiceToggle />
         <ThemeToggle />
         <LanguageSelector />
-      </Box>
+      </Stack>
     </BaseHeader>
   );
-};
-
-export { Header };
+}

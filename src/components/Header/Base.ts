@@ -5,7 +5,7 @@ export const BaseHeader = styled(Box)(({ theme }) =>
   theme.unstable_sx({
     display: "flex",
     alignItems: "center",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
     py: 1,
     px: 2,
     mb: 1,
@@ -26,10 +26,7 @@ export const BaseIconButton = styled(IconButton)(({ theme }) =>
     color: theme.palette.text.secondary,
     "&:hover": {
       color: theme.palette.primary.main,
-      backgroundColor: varAlpha(
-        theme.palette.primary["mainChannel"],
-        0.2
-      ),
+      backgroundColor: varAlpha(theme.palette.primary["mainChannel"], 0.2),
     },
   })
 );
