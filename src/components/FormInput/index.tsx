@@ -63,7 +63,7 @@ export function FormInput<
             fullWidth
             sx={sx}
             variant="standard"
-            multiline
+            multiline={multiline}
             rows={multiline ? 3 : 1}
             label={label}
             error={Boolean(invalid || error)}

@@ -13,7 +13,7 @@ type Form = {
   beneficiary: { id: number; name: string };
   reason: string;
   urgency_level: "low" | "medium" | "high";
-  requested_amount: number;
+  what_exchanged: string;
 };
 
 const i18ns = [
@@ -21,25 +21,23 @@ const i18ns = [
   "dear_members",
   "greetings",
   "i_am_applicant",
-  "this_request_will_help_with",
-  "because_i_cannot_afford",
-  "thank_you_very_much",
+  "i_need_this_medicines",
+  "the_doctor_said",
+  "thank_you_very_much_for_medicines",
   "in_date",
-  "emergency_aid_form",
-  "s.p",
+  "prescription_exchange_form",
 ];
-export function EmergencyAidForm({ beneficiaryId }: Props) {
+export function PrescriptionExchangeForm({ beneficiaryId }: Props) {
   const [
     SubmitText,
     DearMembersText,
     GreetingsText,
     IAmApplicantText,
-    ThisRequestWillHelpWithText,
-    BecauseICannotAffordText,
-    ThankYouVeryMuchText,
+    INeedThisMedicinesText,
+    TheDoctorSaidText,
+    ThankYouVeryMuchForMedicinesText,
     InDateText,
-    EmergencyAidFormText,
-    SPText,
+    PrescriptionExchangeFormText,
   ] = useBaseTranslation(i18ns);
 
   const { control, setValue, handleSubmit } = useForm<Form>();
@@ -58,7 +56,7 @@ export function EmergencyAidForm({ beneficiaryId }: Props) {
     <>
       <Stack mb={5}>
         <BTypography variant="h5" fontWeight={"bold"}>
-          {EmergencyAidFormText}
+          {PrescriptionExchangeFormText}
         </BTypography>
       </Stack>
       <Stack mb={4}>
@@ -81,9 +79,27 @@ export function EmergencyAidForm({ beneficiaryId }: Props) {
         />
       </Stack>
       <Stack flexDirection={"row"} flexWrap={"wrap"} mt={2}>
-        <BTypography marginInlineEnd={1}>
-          {ThisRequestWillHelpWithText}
-        </BTypography>
+        <BTypography marginInlineEnd={1}>{INeedThisMedicinesText}</BTypography>
+        <FormInput
+          control={control}
+          label=""
+          name="what_exchanged"
+          inputProps={{
+            fullWidth: false,
+            sx: {
+              minWidth: "300px",
+              maxWidth: "500px",
+            },
+            slotProps: {
+              htmlInput: {
+                style: {
+                  fieldSizing: "content",
+                },
+              },
+            },
+          }}
+        />
+        <BTypography mx={1}>{TheDoctorSaidText},</BTypography>
         <FormInput
           control={control}
           label=""
@@ -92,25 +108,20 @@ export function EmergencyAidForm({ beneficiaryId }: Props) {
             fullWidth: false,
             sx: {
               minWidth: "300px",
+              maxWidth: "500px",
+            },
+            slotProps: {
+              htmlInput: {
+                style: {
+                  fieldSizing: "content",
+                },
+              },
             },
           }}
         />
-        <BTypography mx={1}>{BecauseICannotAffordText}</BTypography>
-        <FormInput
-          control={control}
-          label=""
-          name="requested_amount"
-          inputProps={{
-            fullWidth: false,
-            sx: {
-              width: "150px",
-            },
-          }}
-        />
-        <BTypography>{SPText}</BTypography>
       </Stack>
       <Stack mt={2}>
-        <BTypography>{ThankYouVeryMuchText}</BTypography>
+        <BTypography>{ThankYouVeryMuchForMedicinesText}.</BTypography>
       </Stack>
       <Stack mt={2}>
         <BTypography>
