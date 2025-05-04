@@ -2,7 +2,11 @@ import { useMemo } from "react";
 import { Stack } from "@mui/material";
 import { useLocation } from "react-router";
 
-import { EmergencyAidForm, PrescriptionExchangeForm } from "./components";
+import {
+  EmergencyAidForm,
+  PrescriptionExchangeForm,
+  SpecialMaterialForm,
+} from "./components";
 
 import { varAlpha } from "src/themes/styles";
 
@@ -20,6 +24,8 @@ export function AddRequest({ requestType }: Props) {
         <EmergencyAidForm beneficiaryId={BeneficiaryId} />
       ) : requestType === "prescription_exchange" ? (
         <PrescriptionExchangeForm beneficiaryId={BeneficiaryId} />
+      ) : requestType === "special_materials" ? (
+        <SpecialMaterialForm beneficiaryId={BeneficiaryId} />
       ) : (
         <></>
       ),

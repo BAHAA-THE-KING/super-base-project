@@ -1,13 +1,25 @@
 import { useMemo } from "react";
 
-import { useBeneficiaries } from "src/views/APIs";
+import { useBeneficiaries, useItems } from "src/views/APIs";
 
-export function useAddRequestData() {
+export function useAddRequestData(withItems?: boolean) {
   const { getAllBeneficiaries } = useBeneficiaries();
+  const { getAllItems } = useItems();
 
-  const { data, isLoading } = getAllBeneficiaries({});
+  const { data: beneficiariesData, isLoading: isLoading1 } =
+    getAllBeneficiaries({});
+  const { data: itemsData, isLoading: isLoading2 } = getAllItems(
+    {},
+    { enabled: Boolean(withItems) }
+  );
 
-  const beneficiaries = useMemo(() => data ?? [], [data]);
+  const beneficiaries = useMemo(
+    () => beneficiariesData ?? [],
+    [beneficiariesData]
+  );
+  const items = useMemo(() => itemsData?.data ?? [], [itemsData]);
 
-  return { beneficiaries, isLoading };
+  const isLoading = isLoading1 || isLoading2;
+
+  return { beneficiaries, items, isLoading };
 }
