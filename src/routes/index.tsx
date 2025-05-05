@@ -7,6 +7,7 @@ import {
 } from "@mui/icons-material";
 import { FaHandHoldingUsd as FaHandHoldingUsdIcon } from "react-icons/fa";
 import { FaPrescriptionBottleAlt as FaPrescriptionBottleAltIcon } from "react-icons/fa";
+import { GrGroup as GrGroupIcon } from "react-icons/gr";
 
 import { Route } from "src/types/Route";
 
@@ -15,6 +16,7 @@ import {
   AllBeneficiariesPage,
   ShowBeneficiaryPage,
   ShowBeneficiaryRequestsPage,
+  GroupsPage,
 } from "src/views";
 
 import { useBaseTranslation } from "src/hooks";
@@ -48,6 +50,7 @@ const i18ns = [
   "emergency_aids",
   "prescription_exchange",
   "special_materials",
+  "groups_info",
 ];
 export function usePublicRoutes() {
   const [
@@ -56,6 +59,7 @@ export function usePublicRoutes() {
     EmergencyAidsText,
     PrescriptionExchangeText,
     SpecialMaterialsText,
+    GroupsInfoText,
   ] = useBaseTranslation(i18ns);
   return useMemo<Route[]>(
     () => [
@@ -117,6 +121,17 @@ export function usePublicRoutes() {
       {
         key: "divider-1",
         isDivider: true,
+      },
+      {
+        key: "groups",
+        path: "/groups",
+        element: <GroupsPage />,
+        icon: () => (
+          <SvgIcon>
+            <GrGroupIcon />
+          </SvgIcon>
+        ),
+        title: GroupsInfoText,
       },
     ],
     []
