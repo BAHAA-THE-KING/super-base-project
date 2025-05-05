@@ -144,5 +144,8 @@
   "edit": "تعديل",
   "follows_it": "يتبع لها",
   "beneficiaries": "مستفيدين",
-  "about": "حوالي"
+  "about": "حوالي",
+  "apply_step": "طلب جديد",
+  "pending_step": "موافقة مجلس الإدارة",
+  "receive_step": "استلام المساعدة"
 }

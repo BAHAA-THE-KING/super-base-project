@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Stack } from "@mui/material";
+import { Stack, StepLabel, Stepper } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 import { FormInput, FormSelect } from "src/components";
@@ -7,6 +7,7 @@ import { BButton, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 import { useAddRequestData } from "../hooks";
+import { Step } from "@mui/material";
 
 type Props = { beneficiaryId: number };
 type Form = {
@@ -26,6 +27,9 @@ const i18ns = [
   "thank_you_very_much_for_medicines",
   "in_date",
   "prescription_exchange_form",
+  "apply_step",
+  "pending_step",
+  "receive_step",
 ];
 export function PrescriptionExchangeForm({ beneficiaryId }: Props) {
   const [
@@ -38,6 +42,9 @@ export function PrescriptionExchangeForm({ beneficiaryId }: Props) {
     ThankYouVeryMuchForMedicinesText,
     InDateText,
     PrescriptionExchangeFormText,
+    ApplyStepText,
+    PendingStepText,
+    ReceiveStepText,
   ] = useBaseTranslation(i18ns);
 
   const { control, setValue, handleSubmit } = useForm<Form>();
@@ -52,12 +59,21 @@ export function PrescriptionExchangeForm({ beneficiaryId }: Props) {
       );
   }, [beneficiaries]);
 
+  const steps = [ApplyStepText, PendingStepText, ReceiveStepText];
+
   return (
     <>
-      <Stack mb={5}>
+      <Stack mb={5} flexDirection={"row"} justifyContent={"space-between"}>
         <BTypography variant="h5" fontWeight={"bold"}>
           {PrescriptionExchangeFormText}
         </BTypography>
+        <Stepper activeStep={0} alternativeLabel>
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
       </Stack>
       <Stack mb={4}>
         <BTypography>{DearMembersText}</BTypography>

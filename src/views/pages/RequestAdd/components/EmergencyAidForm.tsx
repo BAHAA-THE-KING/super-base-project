@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Stack } from "@mui/material";
+import { Stack, Step, StepLabel, Stepper } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 import { FormInput, FormSelect } from "src/components";
@@ -27,6 +27,9 @@ const i18ns = [
   "in_date",
   "emergency_aid_form",
   "s.p",
+  "apply_step",
+  "pending_step",
+  "receive_step",
 ];
 export function EmergencyAidForm({ beneficiaryId }: Props) {
   const [
@@ -40,6 +43,9 @@ export function EmergencyAidForm({ beneficiaryId }: Props) {
     InDateText,
     EmergencyAidFormText,
     SPText,
+    ApplyStepText,
+    PendingStepText,
+    ReceiveStepText,
   ] = useBaseTranslation(i18ns);
 
   const { control, setValue, handleSubmit } = useForm<Form>();
@@ -54,12 +60,21 @@ export function EmergencyAidForm({ beneficiaryId }: Props) {
       );
   }, [beneficiaries]);
 
+  const steps = [ApplyStepText, PendingStepText, ReceiveStepText];
+
   return (
     <>
-      <Stack mb={5}>
+      <Stack mb={5} flexDirection={"row"} justifyContent={"space-between"}>
         <BTypography variant="h5" fontWeight={"bold"}>
           {EmergencyAidFormText}
         </BTypography>
+        <Stepper activeStep={0} alternativeLabel>
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
       </Stack>
       <Stack mb={4}>
         <BTypography>{DearMembersText}</BTypography>

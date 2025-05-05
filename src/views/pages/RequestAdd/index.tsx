@@ -39,8 +39,8 @@ export function AddRequest({ requestType }: Props) {
       sx={(theme) => ({
         backgroundColor:
           theme.palette.mode === "dark"
-            ? varAlpha(theme.palette.secondary.darkerChannel, 0.2)
-            : theme.palette.secondary.lighter,
+            ? varAlpha(theme.palette.success.darkerChannel, 0.2)
+            : theme.palette.success.lighter,
       })}
     >
       {Form}
