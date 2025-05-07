@@ -4,6 +4,7 @@ import {
   AccordionSummary,
   Box,
 } from "@mui/material";
+import { Link } from "react-router";
 
 import {
   ExpandMore as ExpandMoreIcon,
@@ -11,8 +12,9 @@ import {
   Settings,
 } from "@mui/icons-material";
 
-import { useBaseTranslation } from "src/hooks";
 import { BButton, BTypography } from "src/components/Base";
+
+import { useBaseTranslation } from "src/hooks";
 
 type Props = {
   group: {
@@ -45,10 +47,6 @@ export function GroupAccordion({ group, open, setSelectedGroupId }: Props) {
     AboutText,
   ] = useBaseTranslation(i18ns);
 
-  const handleEditButton = (e: any) => {
-    e.stopPropagation();
-  };
-
   return (
     <Accordion
       key={group.id}
@@ -60,13 +58,14 @@ export function GroupAccordion({ group, open, setSelectedGroupId }: Props) {
       }}
     >
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <BButton
-          icon={<Settings />}
-          animations={{ gestures: "rotate90" }}
-          color={"secondary"}
-          sx={{ marginInlineEnd: 2, py: 1 }}
-          onClick={handleEditButton}
-        />
+        <Link to={group.id.toString()} onClick={(e) => e.stopPropagation()}>
+          <BButton
+            icon={<Settings />}
+            animations={{ gestures: "rotate90" }}
+            color={"secondary"}
+            sx={{ marginInlineEnd: 2, py: 1 }}
+          />
+        </Link>
         <BTypography
           fontWeight={"bold"}
           variant="h6"

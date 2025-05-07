@@ -9,6 +9,7 @@ import { slideInBottomProps } from "./Transitions/SlideInBottom";
 import { slideInLeftProps } from "./Transitions/SlideInLeft";
 import { slideInRightProps } from "./Transitions/SlideInRight";
 import { wiggleProps } from "./Gestures/Wiggle";
+import { wiggleHarderProps } from "./Gestures/WiggleHarder";
 
 export default {
   gestures: {
@@ -17,6 +18,7 @@ export default {
     rotate90: rotate90Props,
     scale: scaleProps,
     wiggle: wiggleProps,
+    wiggleHarder: wiggleHarderProps,
   },
   transitions: {
     faceInOnce: faceInOnceProps,

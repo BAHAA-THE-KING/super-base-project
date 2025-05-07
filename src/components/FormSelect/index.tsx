@@ -1,5 +1,10 @@
-import { ComponentProps, useMemo } from "react";
-import { Autocomplete, type SxProps, type Theme } from "@mui/material";
+import { ComponentProps, ReactElement, useMemo } from "react";
+import {
+  Autocomplete,
+  AutocompleteRenderOptionState,
+  type SxProps,
+  type Theme,
+} from "@mui/material";
 import {
   Control,
   Controller,
@@ -27,6 +32,14 @@ type Props<
   disabled?: boolean;
   sx?: SxProps<Theme>;
   inputProps?: ComponentProps<typeof BTextField>;
+  renderOption?: (
+    props: React.HTMLAttributes<HTMLLIElement> & { key: any },
+    option: {
+      id: number | string;
+      name: string;
+    },
+    state: AutocompleteRenderOptionState
+  ) => React.ReactNode;
 };
 
 const i18ns = ["you_have_to_choose_the", "no_options"];
@@ -43,6 +56,7 @@ export function FormSelect<
   disabled,
   sx,
   inputProps = {},
+  renderOption,
 }: Props<TFieldValues, TName>) {
   const [YouHaveToChooseThe, NoOptionsText] = useBaseTranslation(i18ns);
   const defaultOption = { id: 0, name: "" };
@@ -100,6 +114,7 @@ export function FormSelect<
             )
           }
           sx={sx}
+          renderOption={renderOption}
         />
       )}
     />

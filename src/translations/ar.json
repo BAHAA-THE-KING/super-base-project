@@ -147,5 +147,11 @@
   "about": "حوالي",
   "apply_step": "طلب جديد",
   "pending_step": "موافقة مجلس الإدارة",
-  "receive_step": "استلام المساعدة"
+  "receive_step": "استلام المساعدة",
+  "group_name": "اسم التصنيف",
+  "general_info": "معلومات عامة",
+  "group_salary": "الراتب الشهري (ل.س)",
+  "group_color": "لون العلامة",
+  "add_new_condition": "إضافة شرط جديد",
+  "delete_group": "حذف التصنيف"
 }

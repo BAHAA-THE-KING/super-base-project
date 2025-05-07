@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { SvgIcon } from "@mui/material";
 
 import {
   Add as AddIcon,
@@ -17,10 +18,10 @@ import {
   ShowBeneficiaryPage,
   ShowBeneficiaryRequestsPage,
   GroupsPage,
+  ShowGroupPage,
 } from "src/views";
 
 import { useBaseTranslation } from "src/hooks";
-import { SvgIcon } from "@mui/material";
 
 /*
   ──────────────────────────────────────
@@ -132,6 +133,12 @@ export function usePublicRoutes() {
           </SvgIcon>
         ),
         title: GroupsInfoText,
+      },
+      {
+        key: "show-groups",
+        path: "/groups/:groupId",
+        element: <ShowGroupPage />,
+        hidden: true,
       },
     ],
     []
