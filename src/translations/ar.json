@@ -153,5 +153,7 @@
   "group_salary": "الراتب الشهري (ل.س)",
   "group_color": "لون العلامة",
   "add_new_condition": "إضافة شرط جديد",
-  "delete_group": "حذف التصنيف"
+  "delete_group": "حذف التصنيف",
+  "save_changes": "حفظ التعديلات",
+  "cancel": "إلغاء"
 }

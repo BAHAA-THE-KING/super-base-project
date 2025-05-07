@@ -21,7 +21,7 @@ import {
 } from "@mui/icons-material";
 
 import { FormInput, FormSelect } from "src/components";
-import { BButton, BTypography } from "src/components/Base";
+import { BButton, BTooltip, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 import { useShowGroupData } from "./hooks";
@@ -46,6 +46,8 @@ const i18ns = [
   "add_new_condition",
   "edit",
   "delete_group",
+  "save_changes",
+  "cancel",
 ];
 export function ShowGroup() {
   const navigate = useNavigate();
@@ -65,9 +67,17 @@ export function ShowGroup() {
     AddNewConditionText,
     EditText,
     DeleteGroupText,
+    SaveChangesText,
+    CancelText,
   ] = useBaseTranslation(i18ns);
 
-  const { reset, handleSubmit, control, getValues } = useForm<Form>({
+  const {
+    reset,
+    handleSubmit,
+    control,
+    getValues,
+    formState: { isDirty },
+  } = useForm<Form>({
     defaultValues: {
       name: "",
       salary: "",
@@ -198,15 +208,12 @@ export function ShowGroup() {
             label={GroupColorText}
             name="color"
             rules={{ required: true }}
-            renderOption={(params, option, { selected }) => (
+            renderOption={(params, option) => (
               <Box
                 {...params}
                 bgcolor={(theme) =>
                   theme.palette[option.name as "primary"].main
                 }
-                sx={{
-                  "&:hover": { bgcolor: "red" },
-                }}
               >
                 {option.name}
               </Box>
@@ -219,6 +226,22 @@ export function ShowGroup() {
             name="salary"
             rules={{ required: true }}
           />
+          <Stack
+            flexDirection={{
+              sx: "column",
+              md: "row",
+            }}
+            justifyContent={{
+              sx: "flex-start",
+              md: "space-between",
+            }}
+            alignItems={"stretch"}
+          >
+            <BButton>{CancelText}</BButton>
+            <BButton variant="contained" disabled={!isDirty}>
+              {SaveChangesText}
+            </BButton>
+          </Stack>
         </CardContent>
       </Card>
       <Card
