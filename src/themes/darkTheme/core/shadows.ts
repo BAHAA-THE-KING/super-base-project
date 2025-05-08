@@ -6,7 +6,7 @@ import { varAlpha } from "src/themes/styles";
 // ----------------------------------------------------------------------
 
 export function shadows(): Shadows {
-  const colorChannel = grey["500Channel"];
+  const colorChannel = grey["900Channel"];
 
   const color1 = varAlpha(colorChannel, 0.2);
   const color2 = varAlpha(colorChannel, 0.14);

@@ -9,3 +9,4 @@ export { FormSlider } from "./FormSlider";
 export { FormCheckbox } from "./FormCheckbox";
 export { FormRadio } from "./FormRadio";
 export { RequestStatusChip } from "./RequestStatusChip";
+export { Popup } from "./Popup";
