@@ -3,7 +3,11 @@ import { useNavigate, useParams } from "react-router";
 import { Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
 
-import { ConditionsGroupInfo, GeneralGroupInfo } from "./components";
+import {
+  ConditionsGroupInfo,
+  GeneralGroupInfo,
+  GroupDeletePopup,
+} from "./components";
 
 import { useShowGroupData } from "./hooks";
 
@@ -28,6 +32,7 @@ export function ShowGroup() {
   const { group, conditions, isLoading } = useShowGroupData(groupId);
   if (!group) return navigate(-1);
 
+  const [wantToDelete, setWantToDelete] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
   const {
@@ -84,7 +89,7 @@ export function ShowGroup() {
         control={control}
         isDirty={isDirty}
         handleSubmit={submit}
-        handleDelete={handleDelete}
+        handleDelete={() => setWantToDelete(true)}
         isAdd={isAdd}
         isEdit={isEdit}
         setIsEdit={setIsEdit}
@@ -95,6 +100,11 @@ export function ShowGroup() {
         getValues={getValues}
         isAdd={isAdd}
         isEdit={isEdit}
+      />
+      <GroupDeletePopup
+        group={wantToDelete ? group : null}
+        handleDelete={handleDelete}
+        close={() => setWantToDelete(false)}
       />
     </Stack>
   );

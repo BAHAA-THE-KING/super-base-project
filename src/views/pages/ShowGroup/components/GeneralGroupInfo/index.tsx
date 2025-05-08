@@ -91,7 +91,12 @@ export function GeneralGroupInfo({
                     {...bindTrigger(popupState)}
                   />
                   <Menu {...bindMenu(popupState)}>
-                    <MenuItem onClick={() => setIsEdit(true)}>
+                    <MenuItem
+                      onClick={() => {
+                        setIsEdit(true);
+                        bindMenu(popupState).onClose();
+                      }}
+                    >
                       <ListItemIcon>
                         <EditIcon fontSize="small" color="primary" />
                       </ListItemIcon>
@@ -99,7 +104,12 @@ export function GeneralGroupInfo({
                         <BTypography variant="body2">{EditText}</BTypography>
                       </ListItemText>
                     </MenuItem>
-                    <MenuItem onClick={handleDelete}>
+                    <MenuItem
+                      onClick={() => {
+                        handleDelete();
+                        bindMenu(popupState).onClose();
+                      }}
+                    >
                       <ListItemIcon>
                         <DeleteIcon fontSize="small" color="error" />
                       </ListItemIcon>

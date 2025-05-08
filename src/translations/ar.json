@@ -155,5 +155,8 @@
   "add_new_condition": "إضافة شرط جديد",
   "delete_group": "حذف التصنيف",
   "save_changes": "حفظ التعديلات",
-  "cancel": "إلغاء"
+  "cancel": "إلغاء",
+  "you_sure_to_delete_group": "هل أنت متأكد أنك تريد حذف هذا التصنيف ؟",
+  "beneficiary_will_be_without_group": "مستفيد سيصبحون بدون تصنيف",
+  "yes_delete_it": "نعم، احذف التصنيف"
 }
