@@ -22,15 +22,21 @@ type Form = {
   conditions: Condition[];
 };
 
-export function ShowGroup() {
+export function GroupShow() {
   const navigate = useNavigate();
   const { groupId: groupIdParam } = useParams();
   const groupId = Number(groupIdParam);
   const isAdd = groupIdParam === "add";
-  if ((!groupId || groupId <= 0) && !isAdd) return navigate(-1);
+  if ((!groupId || groupId <= 0) && !isAdd) {
+    navigate(-1);
+    return <></>;
+  }
 
   const { group, conditions, isLoading } = useShowGroupData(groupId);
-  if (!group) return navigate(-1);
+  if (!group) {
+    navigate(-1);
+    return <></>;
+  }
 
   const [wantToDelete, setWantToDelete] = useState(false);
   const [isEdit, setIsEdit] = useState(false);

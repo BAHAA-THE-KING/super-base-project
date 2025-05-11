@@ -18,7 +18,7 @@ import {
   ShowBeneficiaryPage,
   ShowBeneficiaryRequestsPage,
   GroupsPage,
-  ShowGroupPage,
+  GroupShowPage,
 } from "src/views";
 
 import { useBaseTranslation } from "src/hooks";
@@ -137,7 +137,7 @@ export function usePublicRoutes() {
       {
         key: "show-groups",
         path: "/groups/:groupId",
-        element: <ShowGroupPage />,
+        element: <GroupShowPage />,
         hidden: true,
       },
     ],
