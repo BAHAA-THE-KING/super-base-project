@@ -6,9 +6,11 @@ import {
   People as PeopleIcon,
   Inventory as InventoryIcon,
 } from "@mui/icons-material";
-import { FaHandHoldingUsd as FaHandHoldingUsdIcon } from "react-icons/fa";
-import { FaPrescriptionBottleAlt as FaPrescriptionBottleAltIcon } from "react-icons/fa";
-import { GrGroup as GrGroupIcon } from "react-icons/gr";
+import {
+  FaHandHoldingUsd as FaHandHoldingUsdIcon,
+  FaPrescriptionBottleAlt as FaPrescriptionBottleAltIcon,
+} from "react-icons/fa";
+import { GrGroup as GrGroupIcon, GrPlan as GrPlanIcon } from "react-icons/gr";
 
 import { Route } from "src/types/Route";
 
@@ -19,6 +21,7 @@ import {
   ShowBeneficiaryRequestsPage,
   GroupsPage,
   GroupShowPage,
+  PlansPage,
 } from "src/views";
 
 import { useBaseTranslation } from "src/hooks";
@@ -52,6 +55,7 @@ const i18ns = [
   "prescription_exchange",
   "special_materials",
   "groups_info",
+  "plans_info",
 ];
 export function usePublicRoutes() {
   const [
@@ -61,6 +65,7 @@ export function usePublicRoutes() {
     PrescriptionExchangeText,
     SpecialMaterialsText,
     GroupsInfoText,
+    PlansInfoText,
   ] = useBaseTranslation(i18ns);
   return useMemo<Route[]>(
     () => [
@@ -139,6 +144,17 @@ export function usePublicRoutes() {
         path: "/groups/:groupId",
         element: <GroupShowPage />,
         hidden: true,
+      },
+      {
+        key: "plans",
+        path: "/plans",
+        element: <PlansPage />,
+        icon: () => (
+          <SvgIcon>
+            <GrPlanIcon />
+          </SvgIcon>
+        ),
+        title: PlansInfoText,
       },
     ],
     []

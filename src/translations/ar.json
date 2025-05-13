@@ -158,5 +158,15 @@
   "cancel": "إلغاء",
   "you_sure_to_delete_group": "هل أنت متأكد أنك تريد حذف هذا التصنيف ؟",
   "beneficiary_will_be_without_group": "مستفيد سيصبحون بدون تصنيف",
-  "yes_delete_it": "نعم، احذف التصنيف"
+  "yes_delete_it": "نعم، احذف التصنيف",
+  "plan_name": "اسم الخطة",
+  "plan_description": "وصف الخطة",
+  "plan_status": "حالة الخطة",
+  "finished": "منتهية",
+  "not_finished": "غير منتهية",
+  "plan_portion": "الحصة",
+  "started_at": "تاريخ البداية",
+  "plan_distribution_status": "نسبة الإنجاز",
+  "show_details": "عرض التفاصيل",
+  "plans_info": "معلومات خطط التوزيع"
 }

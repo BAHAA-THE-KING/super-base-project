@@ -6,6 +6,7 @@ import { ShowBeneficiaryRequests } from "./pages/BeneficiaryRequests";
 import { AddRequest } from "./pages/RequestAdd";
 import { Groups } from "./pages/Groups";
 import { GroupShow } from "./pages/GroupShow";
+import { Plans } from "./pages/Plans";
 
 export const NotFoundPage = withNormalLayout(NotFound);
 export const AllBeneficiariesPage = withNormalLayout(AllBeneficiaries);
@@ -14,3 +15,4 @@ export const ShowBeneficiaryRequestsPage = withNormalLayout(ShowBeneficiaryReque
 export const AddRequestPage = withNormalLayout(AddRequest);
 export const GroupsPage = withNormalLayout(Groups);
 export const GroupShowPage = withNormalLayout(GroupShow);
+export const PlansPage = withNormalLayout(Plans);
