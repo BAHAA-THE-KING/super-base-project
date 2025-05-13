@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box } from "@mui/material";
+import { Stack } from "@mui/material";
 
 import { BeneficiariesGrid } from "./components";
 
@@ -15,7 +15,7 @@ export function AllBeneficiaries() {
   const [pageSize, setPageSize] = useState(10);
 
   return (
-    <Box>
+    <Stack width={"100%"} height={"100%"} p={3}>
       <BeneficiariesGrid
         rows={rows}
         columns={columns}
@@ -24,6 +24,6 @@ export function AllBeneficiaries() {
         setPage={setPage}
         setPageSize={setPageSize}
       />
-    </Box>
+    </Stack>
   );
 }
