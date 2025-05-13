@@ -11,6 +11,7 @@ import { TbPackages as TbPackagesIcon } from "react-icons/tb";
 import { BTypography } from "src/components/Base";
 
 import { Plan } from "../../data";
+import { Link } from "react-router";
 
 type Props = {
   plan: Plan;
@@ -27,59 +28,69 @@ export function PlanCard({ plan }: Props) {
       ? "success"
       : "info";
   return (
-    <Card sx={{ width: "100%", height: "100%", textAlign: "center" }}>
-      <CardContent>
-        <Stack width={"100%"} alignItems={"center"}>
-          <Box
-            height={"150px"}
-            width={"150px"}
-            sx={{ aspectRatio: 1 }}
-            position={"relative"}
-            borderRadius={"50%"}
-            display={"flex"}
-            justifyContent={"center"}
-            alignItems={"center"}
-            bgcolor={(theme) => theme.palette[color].lighter}
-          >
+    <Link to={plan.id.toString()}>
+      <Card sx={{ width: "100%", height: "100%", textAlign: "center" }}>
+        <CardContent>
+          <Stack width={"100%"} alignItems={"center"}>
             <Box
-              height={"100px"}
-              width={"100px"}
+              height={"150px"}
+              width={"150px"}
               sx={{ aspectRatio: 1 }}
               position={"relative"}
               borderRadius={"50%"}
-              bgcolor={(theme) => theme.palette[color].light}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              bgcolor={(theme) =>
+                theme.palette.mode === "light"
+                  ? theme.palette[color].lighter
+                  : theme.palette[color].darker
+              }
             >
-              <SvgIcon
-                sx={{
-                  scale: 3,
-                  position: "absolute",
-                }}
-                style={{
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(CALC(-50% / 3), CALC(-50% / 3))",
-                }}
-                color={color}
+              <Box
+                height={"100px"}
+                width={"100px"}
+                sx={{ aspectRatio: 1 }}
+                position={"relative"}
+                borderRadius={"50%"}
+                bgcolor={(theme) =>
+                  theme.palette.mode === "light"
+                    ? theme.palette[color].light
+                    : theme.palette[color].dark
+                }
               >
-                {plan.type === "clothes" ? (
-                  <GiClothesIcon />
-                ) : plan.type === "meat" ? (
-                  <GiMeatIcon />
-                ) : plan.type === "rice" ? (
-                  <FaBowlRiceIcon />
-                ) : plan.type === "food" ? (
-                  <IoFastFoodIcon />
-                ) : (
-                  <TbPackagesIcon />
-                )}
-              </SvgIcon>
+                <SvgIcon
+                  sx={{
+                    scale: 3,
+                    position: "absolute",
+                  }}
+                  style={{
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(CALC(-50% / 3), CALC(-50% / 3))",
+                  }}
+                  color={color}
+                >
+                  {plan.type === "clothes" ? (
+                    <GiClothesIcon />
+                  ) : plan.type === "meat" ? (
+                    <GiMeatIcon />
+                  ) : plan.type === "rice" ? (
+                    <FaBowlRiceIcon />
+                  ) : plan.type === "food" ? (
+                    <IoFastFoodIcon />
+                  ) : (
+                    <TbPackagesIcon />
+                  )}
+                </SvgIcon>
+              </Box>
             </Box>
-          </Box>
-        </Stack>
-      </CardContent>
-      <CardContent>
-        <BTypography>{plan.name}</BTypography>
-      </CardContent>
-    </Card>
+          </Stack>
+        </CardContent>
+        <CardContent>
+          <BTypography>{plan.name}</BTypography>
+        </CardContent>
+      </Card>
+    </Link>
   );
 }
