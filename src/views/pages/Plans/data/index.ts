@@ -1,5 +1,30 @@
 import { useMemo } from "react";
 
+export type PlanAttribute = {
+  id: number;
+  attribute_id: number;
+  attribute: {
+    id: number;
+    name: string;
+  };
+  weight: number;
+};
+
+export type PlanBeneficiary = {
+  id: number;
+  first_name: string;
+  last_name: string;
+  father_name: string;
+  birth_date: string;
+  birth_place: string;
+  national_number: string;
+  score: number;
+  order: number;
+  received_date?: string;
+  due_date?: string;
+  has_taken: boolean;
+};
+
 export type Plan = {
   id: number;
   name: string;
@@ -8,26 +33,8 @@ export type Plan = {
   type: "meat" | "food" | "rice" | "clothes" | "other";
   is_finished: boolean;
   created_at: string;
-  plan_attributes: {
-    id: number;
-    attribute_id: number;
-    attribute: {
-      id: number;
-      name: string;
-    };
-    weight: number;
-  }[];
-  nextBeneficiaries: {
-    id: number;
-    first_name: string;
-    last_name: string;
-    father_name: string;
-    birth_date: string;
-    birth_place: string;
-    national_number: string;
-    score: number;
-    order: number;
-  }[];
+  plan_attributes: PlanAttribute[];
+  nextBeneficiaries: PlanBeneficiary[];
   percent: number;
 };
 export function usePlansData() {
@@ -67,32 +74,27 @@ export function usePlansData() {
             first_name: "John",
             last_name: "Doe",
             father_name: "John",
-            mother_name: "Jane",
             birth_date: "1980-01-01",
             birth_place: "Tehran",
             national_number: "1234567890",
-            full_name: "John Doe",
-            age: 42,
-            gender: "Male",
-            status: "pending",
             score: 75,
             order: 1,
+            received_date: "2025-05-10",
+            due_date: "2025-05-12",
+            has_taken: false,
           },
           {
             id: 202,
             first_name: "Jane",
             last_name: "Smith",
             father_name: "John",
-            mother_name: "Jane",
             birth_date: "1985-01-01",
             birth_place: "Tehran",
             national_number: "0987654321",
-            full_name: "Jane Smith",
-            age: 35,
-            gender: "Female",
-            status: "pending",
             score: 80,
             order: 2,
+            received_date: "2025-05-11",
+            has_taken: true,
           },
         ],
         percent: 65,
@@ -161,6 +163,8 @@ export function usePlansData() {
             national_number: "6677889900",
             score: 92,
             order: 1,
+            due_date: "2025-03-27",
+            has_taken: false,
           },
         ],
         percent: 45,
@@ -192,6 +196,8 @@ export function usePlansData() {
             national_number: "5566778899",
             score: 78,
             order: 1,
+            received_date: "2025-02-15",
+            has_taken: true,
           },
           {
             id: 206,
@@ -203,6 +209,7 @@ export function usePlansData() {
             national_number: "9988776655",
             score: 81,
             order: 2,
+            has_taken: false,
           },
         ],
         percent: 30,

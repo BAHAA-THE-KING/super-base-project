@@ -22,6 +22,7 @@ import {
   GroupsPage,
   GroupShowPage,
   PlansPage,
+  PlanShowPage,
 } from "src/views";
 
 import { useBaseTranslation } from "src/hooks";
@@ -155,6 +156,12 @@ export function usePublicRoutes() {
           </SvgIcon>
         ),
         title: PlansInfoText,
+      },
+      {
+        key: "show-plan",
+        path: "/plans/:planId",
+        element: <PlanShowPage />,
+        hidden: true,
       },
     ],
     []

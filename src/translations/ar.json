@@ -168,5 +168,14 @@
   "started_at": "تاريخ البداية",
   "plan_distribution_status": "نسبة الإنجاز",
   "show_details": "عرض التفاصيل",
-  "plans_info": "معلومات خطط التوزيع"
+  "plans_info": "معلومات خطط التوزيع",
+  "plan_type": "نوع المادة الموزعة",
+  "plan_start_date": "تاريخ بدء الخطة",
+  "delete_plan": "حذف الخطة",
+  "meat": "لحوم",
+  "food": "طعام",
+  "rice": "أرز و بقوليات",
+  "clothes": "ملابس",
+  "other": "غير ذلك",
+  "order": "الدور"
 }
