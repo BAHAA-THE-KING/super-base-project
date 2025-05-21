@@ -95,7 +95,7 @@ export function GeneralPlanInfo({
     OtherText,
   ] = useBaseTranslation(i18ns);
   return (
-    <Card sx={{ m: 1 }}>
+    <Card sx={{ m: 1, P: 1 }}>
       <CardContent>
         <Stack flexDirection={"row"} alignItems={"center"}>
           {isAdd || (

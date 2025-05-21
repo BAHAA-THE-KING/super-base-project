@@ -93,7 +93,7 @@ export function PlanShow() {
       flexDirection={"column"}
       justifyContent={"flex-start"}
       alignItems={"stretch"}
-      p={3}
+      p={2}
       sx={(theme) => ({
         backgroundColor:
           theme.palette.mode === "dark"
