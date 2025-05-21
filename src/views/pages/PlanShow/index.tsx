@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import {
   GeneralPlanInfo,
   NextBeneficiariesPlanInfo,
-  PlanDeletePopup,
+  PlanTerminatePopup,
 } from "./components";
 
 import { useShowPlanData } from "./data";
@@ -47,14 +47,13 @@ export function PlanShow() {
     return <></>;
   }
 
-  const [wantToDelete, setWantToDelete] = useState(false);
+  const [wantToTerminate, setWantToTerminate] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
   const {
     reset,
     handleSubmit,
     control,
-    getValues,
     formState: { isDirty },
   } = useForm<Form>({
     defaultValues: {
@@ -84,7 +83,7 @@ export function PlanShow() {
       console.log(data);
     });
   }
-  function handleDelete() {}
+  function handleTerminate() {}
 
   return (
     <Stack
@@ -106,7 +105,7 @@ export function PlanShow() {
         control={control}
         isDirty={isDirty}
         handleSubmit={submit}
-        handleDelete={() => setWantToDelete(true)}
+        handleTerminate={() => setWantToTerminate(true)}
         isAdd={isAdd}
         isEdit={isEdit}
         setIsEdit={setIsEdit}
@@ -114,11 +113,11 @@ export function PlanShow() {
       {isAdd ? null : (
         <NextBeneficiariesPlanInfo nextBeneficiaries={plan.nextBeneficiaries} />
       )}
-      {/*<PlanDeletePopup
-        plan={wantToDelete ? plan : null}
-        handleDelete={handleDelete}
-        close={() => setWantToDelete(false)}
-      />*/}
+      <PlanTerminatePopup
+        plan={wantToTerminate ? plan : null}
+        handleTerminate={handleTerminate}
+        close={() => setWantToTerminate(false)}
+      />
     </Stack>
   );
 }

@@ -1,3 +1,3 @@
 export { GeneralPlanInfo } from "./GeneralPlanInfo";
 export { NextBeneficiariesPlanInfo } from "./NextBeneficiariesPlanInfo";
-export { PlanDeletePopup } from "./PlanDeletePopup";
+export { PlanTerminatePopup } from "./PlanTerminatePopup";

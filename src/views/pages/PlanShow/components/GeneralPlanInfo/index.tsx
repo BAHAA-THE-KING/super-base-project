@@ -13,7 +13,7 @@ import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import { type Control } from "react-hook-form";
 
 import {
-  Delete as DeleteIcon,
+  DoDisturb as DoDisturbIcon,
   Edit as EditIcon,
   MoreVert as MoreVertIcon,
 } from "@mui/icons-material";
@@ -45,7 +45,7 @@ type Props = {
   control: Control<Form, any>;
   isDirty: boolean;
   handleSubmit: () => void;
-  handleDelete: () => void;
+  handleTerminate: () => void;
   isEdit: boolean;
   setIsEdit: (value: boolean) => void;
   isAdd: boolean;
@@ -59,7 +59,7 @@ const i18ns = [
   "plan_type",
   "plan_start_date",
   "edit",
-  "delete_plan",
+  "terminate_plan",
   "save_changes",
   "cancel",
   "meat",
@@ -72,7 +72,7 @@ export function GeneralPlanInfo({
   control,
   isDirty,
   handleSubmit,
-  handleDelete,
+  handleTerminate,
   isEdit,
   setIsEdit,
   isAdd,
@@ -85,7 +85,7 @@ export function GeneralPlanInfo({
     PlanTypeText,
     PlanStartDateText,
     EditText,
-    DeletePlanText,
+    TerminatePlanText,
     SaveChangesText,
     CancelText,
     MeatText,
@@ -122,16 +122,16 @@ export function GeneralPlanInfo({
                     </MenuItem>
                     <MenuItem
                       onClick={() => {
-                        handleDelete();
+                        handleTerminate();
                         bindMenu(popupState).onClose();
                       }}
                     >
                       <ListItemIcon>
-                        <DeleteIcon fontSize="small" color="error" />
+                        <DoDisturbIcon fontSize="small" color="error" />
                       </ListItemIcon>
                       <ListItemText>
                         <BTypography variant="body2">
-                          {DeletePlanText}
+                          {TerminatePlanText}
                         </BTypography>
                       </ListItemText>
                     </MenuItem>
