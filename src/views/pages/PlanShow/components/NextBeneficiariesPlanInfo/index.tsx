@@ -1,9 +1,9 @@
-import { Avatar } from "@mui/material";
-import { Card, CardContent, Stack } from "@mui/material";
+import { Card, CardContent } from "@mui/material";
 
-import { BCheckbox, BTypography } from "src/components/Base";
+import { BButton, BDataGrid, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
+import { usePlanShowColumns } from "../../hooks";
 
 import { PlanBeneficiary } from "src/views/pages/Plans/data";
 
@@ -11,9 +11,11 @@ type Props = {
   nextBeneficiaries: PlanBeneficiary[];
 };
 
-const i18ns = ["order", "add_new_condition"];
+const i18ns = ["order", "add_selected"];
 export function NextBeneficiariesPlanInfo({ nextBeneficiaries }: Props) {
-  const [OrderText, AddNewConditionText] = useBaseTranslation(i18ns);
+  const [OrderText, AddSelectedText] = useBaseTranslation(i18ns);
+
+  const columns = usePlanShowColumns();
 
   return (
     <Card
@@ -28,27 +30,14 @@ export function NextBeneficiariesPlanInfo({ nextBeneficiaries }: Props) {
         </BTypography>
       </CardContent>
       <CardContent>
-        <Stack>
-          {nextBeneficiaries.map((beneficiary, i) => (
-            <Stack
-              key={beneficiary.id}
-              flexDirection={"row"}
-              justifyContent={"flex-start"}
-              alignItems={"center"}
-              my={1}
-            >
-              <BCheckbox checked={beneficiary.has_taken} />
-              <Avatar src={""} />
-              <BTypography>
-                {beneficiary.first_name +
-                  " " +
-                  beneficiary.father_name +
-                  " " +
-                  beneficiary.last_name}
-              </BTypography>
-            </Stack>
-          ))}
-        </Stack>
+        <BButton variant="contained">{AddSelectedText}</BButton>
+      </CardContent>
+      <CardContent>
+        <BDataGrid
+          columns={columns}
+          rows={nextBeneficiaries}
+          checkboxSelection
+        />
       </CardContent>
     </Card>
   );

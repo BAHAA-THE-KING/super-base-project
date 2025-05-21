@@ -177,5 +177,13 @@
   "rice": "أرز و بقوليات",
   "clothes": "ملابس",
   "other": "غير ذلك",
-  "order": "الدور"
+  "order": "الدور",
+  "add_selected": "السماح للمستفيدين بالاستلام",
+  "beneficiary_order": "الترتيب",
+  "beneficiary_name": "المستفيد",
+  "beneficiary_birth": "تولد المستفيد",
+  "beneficiary_status": "حالة المساعدة",
+  "missed": "متأخر",
+  "not_yet": "لم يحن دوره",
+  "received_date": "تاريخ الاستلام"
 }
