@@ -18,7 +18,7 @@ export function NextBeneficiariesPlanInfo({ nextBeneficiaries }: Props) {
   const columns = usePlanShowColumns();
 
   return (
-    <Card sx={{ m: 1, P: 1 }}>
+    <Card sx={{ m: 1 }}>
       <CardContent>
         <BTypography variant="h5" fontWeight={"bold"}>
           {OrderText}
