@@ -24,8 +24,9 @@ type BDataGridProps = DataGridProps & {
 
 const StyledDataGrid = styled(DataGrid)(({ theme }) =>
   theme.unstable_sx({
-    ".MuiDataGrid-row:nth-child(2n+1)": {},
-    bgcolor: varAlpha(theme.palette.grey["500Channel"], 0.2),
+    ".MuiDataGrid-row:nth-child(2n+1)": {
+      bgcolor: varAlpha(theme.palette.grey["500Channel"], 0.2),
+    },
   })
 );
 
