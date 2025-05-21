@@ -1,19 +1,24 @@
-import { Stack } from "@mui/material";
+import { useState } from "react";
+import { Box } from "@mui/material";
 
+import { BButton } from "src/components/Base";
 import { GroupAccordion } from "./components";
 
 import { useGroupsData } from "./data";
 
 import { varAlpha } from "src/themes/styles";
-import { useState } from "react";
+import { useBaseTranslation } from "src/hooks";
 
+const i18ns = ["add_new_group"];
 export function Groups() {
+  const [AddNewGroupText] = useBaseTranslation(i18ns);
+
   const { groups, isLoading } = useGroupsData();
 
   const [selectedGroupId, setSelectedGroupId] = useState(0);
 
   return (
-    <Stack
+    <Box
       width={"100%"}
       height={"100%"}
       borderRadius={1}
@@ -25,14 +30,24 @@ export function Groups() {
             : theme.palette.secondary.lighter,
       })}
     >
-      {groups.map((group) => (
-        <GroupAccordion
-          key={group.id}
-          group={group}
-          open={selectedGroupId === group.id}
-          setSelectedGroupId={setSelectedGroupId}
-        />
-      ))}
-    </Stack>
+      <BButton
+        variant="contained"
+        size="large"
+        color="secondary"
+        sx={{ my: 2 }}
+      >
+        {AddNewGroupText}
+      </BButton>
+      <Box>
+        {groups.map((group) => (
+          <GroupAccordion
+            key={group.id}
+            group={group}
+            open={selectedGroupId === group.id}
+            setSelectedGroupId={setSelectedGroupId}
+          />
+        ))}
+      </Box>
+    </Box>
   );
 }

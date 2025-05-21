@@ -189,5 +189,6 @@
   "you_sure_to_terminate_plan": "هل أنت متأكد من أنك تريد إيقاف الخطة ؟",
   "the_plan_completeness_is": "نسبة إنجاز الخطة هي",
   "yes_terminate_it": "نعم، إيقاف الخطة",
-  "terminate_plan": "إيقاف الخطة"
+  "terminate_plan": "إيقاف الخطة",
+  "add_new_group": "إضافة تصنيف جديد"
 }
