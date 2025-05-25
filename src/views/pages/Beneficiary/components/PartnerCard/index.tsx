@@ -1,11 +1,13 @@
-import { Card, CardContent, SvgIcon } from "@mui/material";
+import { CardContent, SvgIcon } from "@mui/material";
 import { useForm } from "react-hook-form";
 
-import { FormInput } from "src/components";
-import { BTypography } from "src/components/Base";
-import { useBaseTranslation } from "src/hooks";
 import SvgFather from "src/icons/Father";
 import SvgMother from "src/icons/Mother";
+
+import { FormInput } from "src/components";
+import { BCard, BTypography } from "src/components/Base";
+
+import { useBaseTranslation } from "src/hooks";
 
 import { Partner } from "src/types/data/SingleBeneficiary";
 
@@ -35,7 +37,7 @@ export function PartnerCard({ partner, beneficiaryGender }: Props) {
   const { control } = useForm({ defaultValues: { partner } });
 
   return (
-    <Card sx={{ m: 1, flex: 1 }}>
+    <BCard sx={{ m: 1, flex: 1 }} animations={{ transitions: "slideInBottom" }}>
       <CardContent>
         <SvgIcon
           sx={(theme) => ({
@@ -82,6 +84,6 @@ export function PartnerCard({ partner, beneficiaryGender }: Props) {
           rules={{ required: true }}
         />
       </CardContent>
-    </Card>
+    </BCard>
   );
 }

@@ -11,14 +11,10 @@ type BCardProps = PropsWithAnimations<CardProps> & {
 
 const StyledCard = styled(Card)<BCardProps>(({ theme, color }) =>
   theme.unstable_sx({
-    width: "100%",
-    height: "100%",
     m: 0,
     p: 1,
     color: color ? theme.palette[color].main : "",
-    bgcolor: color
-      ? varAlpha(theme.palette[color]["mainChannel"], 0.2)
-      : "",
+    bgcolor: color ? varAlpha(theme.palette[color]["mainChannel"], 0.2) : "",
     fontWeight: "600",
     border: "none",
     boxShadow: "none",

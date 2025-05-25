@@ -1,9 +1,4 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-} from "@mui/material";
+import { AccordionDetails, AccordionSummary, Box } from "@mui/material";
 import { Link } from "react-router";
 
 import {
@@ -12,7 +7,7 @@ import {
   Settings,
 } from "@mui/icons-material";
 
-import { BButton, BTypography } from "src/components/Base";
+import { BButton, BTypography, BAccordion } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
@@ -48,7 +43,7 @@ export function GroupAccordion({ group, open, setSelectedGroupId }: Props) {
   ] = useBaseTranslation(i18ns);
 
   return (
-    <Accordion
+    <BAccordion
       key={group.id}
       sx={{ p: 1 }}
       slotProps={{ transition: { unmountOnExit: true } }}
@@ -56,6 +51,7 @@ export function GroupAccordion({ group, open, setSelectedGroupId }: Props) {
       onChange={(_, expanded: boolean) => {
         setSelectedGroupId(expanded ? group.id : 0);
       }}
+      animations={{ transitions: "slideInBottom" }}
     >
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
         <Link to={group.id.toString()} onClick={(e) => e.stopPropagation()}>
@@ -103,6 +99,6 @@ export function GroupAccordion({ group, open, setSelectedGroupId }: Props) {
           </Box>
         ))}
       </AccordionDetails>
-    </Accordion>
+    </BAccordion>
   );
 }

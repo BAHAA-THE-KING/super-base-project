@@ -1,8 +1,8 @@
-import { Card, CardContent, SvgIcon } from "@mui/material";
+import { CardContent, SvgIcon } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 import { FormInput, FormSelect } from "src/components";
-import { BTypography } from "src/components/Base";
+import { BCard, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
@@ -39,7 +39,7 @@ export function SupporterCard({ uncle }: Props) {
   const { control } = useForm({ defaultValues: { uncle } });
 
   return (
-    <Card>
+    <BCard animations={{ transitions: "slideInBottom" }}>
       <CardContent>
         <SvgIcon
           sx={(theme) => ({
@@ -98,6 +98,6 @@ export function SupporterCard({ uncle }: Props) {
           multiline
         />
       </CardContent>
-    </Card>
+    </BCard>
   );
 }

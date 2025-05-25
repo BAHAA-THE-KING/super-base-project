@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Card, CardContent, Stack } from "@mui/material";
+import { CardContent, Stack } from "@mui/material";
 import { useFieldArray, useForm, UseFormGetValues } from "react-hook-form";
 import { Control } from "react-hook-form";
 
@@ -9,7 +9,7 @@ import {
 } from "@mui/icons-material";
 
 import { FormSelect } from "src/components";
-import { BButton, BTypography } from "src/components/Base";
+import { BButton, BCard, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
@@ -70,11 +70,12 @@ export function ConditionsGroupInfo({
   }, [watch1()?.condition?.id]);
 
   return (
-    <Card
+    <BCard
       sx={{
         m: 1,
         width: "100%",
       }}
+      animations={{ transitions: "slideInBottom" }}
     >
       <CardContent>
         <BTypography variant="h5" fontWeight={"bold"}>
@@ -150,6 +151,6 @@ export function ConditionsGroupInfo({
           )}
         </Stack>
       </CardContent>
-    </Card>
+    </BCard>
   );
 }

@@ -1,6 +1,6 @@
-import { Card, CardContent } from "@mui/material";
+import { CardContent } from "@mui/material";
 
-import { BButton, BDataGrid, BTypography } from "src/components/Base";
+import { BButton, BCard, BDataGrid, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 import { usePlanShowColumns } from "../../hooks";
@@ -18,7 +18,7 @@ export function NextBeneficiariesPlanInfo({ nextBeneficiaries }: Props) {
   const columns = usePlanShowColumns();
 
   return (
-    <Card sx={{ m: 1 }}>
+    <BCard sx={{ m: 1 }} animations={{ transitions: "slideInBottom" }}>
       <CardContent>
         <BTypography variant="h5" fontWeight={"bold"}>
           {OrderText}
@@ -34,6 +34,6 @@ export function NextBeneficiariesPlanInfo({ nextBeneficiaries }: Props) {
           checkboxSelection
         />
       </CardContent>
-    </Card>
+    </BCard>
   );
 }

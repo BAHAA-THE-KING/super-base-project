@@ -1,4 +1,5 @@
-import { Box, Card, CardContent, Stack, SvgIcon } from "@mui/material";
+import { Box, CardContent, Stack, SvgIcon } from "@mui/material";
+import { Link } from "react-router";
 
 import {
   GiMeat as GiMeatIcon,
@@ -8,10 +9,9 @@ import { FaBowlRice as FaBowlRiceIcon } from "react-icons/fa6";
 import { IoFastFood as IoFastFoodIcon } from "react-icons/io5";
 import { TbPackages as TbPackagesIcon } from "react-icons/tb";
 
-import { BTypography } from "src/components/Base";
+import { BCard, BTypography } from "src/components/Base";
 
 import { Plan } from "../../data";
-import { Link } from "react-router";
 
 type Props = {
   plan: Plan;
@@ -29,7 +29,7 @@ export function PlanCard({ plan }: Props) {
       : "info";
   return (
     <Link to={plan.id.toString()}>
-      <Card sx={{ width: "100%", height: "100%", textAlign: "center" }}>
+      <BCard sx={{ width: "100%", height: "100%", textAlign: "center" }} animations={{ transitions: "slideInBottom" }}>
         <CardContent>
           <Stack width={"100%"} alignItems={"center"}>
             <Box
@@ -90,7 +90,7 @@ export function PlanCard({ plan }: Props) {
         <CardContent>
           <BTypography>{plan.name}</BTypography>
         </CardContent>
-      </Card>
+      </BCard>
     </Link>
   );
 }

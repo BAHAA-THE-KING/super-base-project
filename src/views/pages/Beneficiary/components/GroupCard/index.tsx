@@ -1,10 +1,10 @@
-import { Card, CardContent, Box } from "@mui/material";
+import { CardContent, Box } from "@mui/material";
 import {
   Check as CheckIcon,
   HorizontalRule as HorizontalRuleIcon,
 } from "@mui/icons-material";
 
-import { BTypography } from "src/components/Base";
+import { BCard, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
@@ -32,17 +32,16 @@ export function GroupCard({ group, isActive }: Props) {
   ] = useBaseTranslation(i18ns);
 
   return (
-    <Card
+    <BCard
       sx={(theme) => ({
         minWidth: "auto",
         height: {
           xs: "auto",
           md: 400,
         },
-        border: isActive
-          ? `3px solid ${theme.palette.primary.main}`
-          : "",
+        border: isActive ? `3px solid ${theme.palette.primary.main}` : "",
       })}
+      animations={{ transitions: "slideInBottom" }}
     >
       <Box
         px={2}
@@ -90,6 +89,6 @@ export function GroupCard({ group, isActive }: Props) {
           </Box>
         ))}
       </CardContent>
-    </Card>
+    </BCard>
   );
 }

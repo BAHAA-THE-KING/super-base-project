@@ -1,15 +1,15 @@
-import { Card, CardContent, SvgIcon } from "@mui/material";
+import { CardContent, SvgIcon } from "@mui/material";
 import { useForm } from "react-hook-form";
 
+import SvgSon from "src/icons/Son";
+import SvgDaughter from "src/icons/Daughter";
+
 import { FormCheckbox, FormInput, FormSelect } from "src/components";
-import { BTypography } from "src/components/Base";
+import { BCard, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
 import { Child } from "src/types/data/SingleBeneficiary";
-
-import SvgSon from "src/icons/Son";
-import SvgDaughter from "src/icons/Daughter";
 
 type Props = {
   child: Child;
@@ -44,7 +44,7 @@ export function ChildCard({ child }: Props) {
   const { control } = useForm({ defaultValues: { child } });
 
   return (
-    <Card sx={{ m: 1, flex: 1 }}>
+    <BCard sx={{ m: 1, flex: 1 }} animations={{ transitions: "slideInBottom" }}>
       <CardContent>
         <SvgIcon
           sx={(theme) => ({
@@ -110,6 +110,6 @@ export function ChildCard({ child }: Props) {
           rules={{ required: true }}
         />
       </CardContent>
-    </Card>
+    </BCard>
   );
 }

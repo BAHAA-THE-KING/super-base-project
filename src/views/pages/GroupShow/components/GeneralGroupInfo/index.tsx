@@ -1,6 +1,5 @@
 import {
   Box,
-  Card,
   CardContent,
   ListItemIcon,
   MenuItem,
@@ -18,7 +17,7 @@ import {
 } from "@mui/icons-material";
 
 import { FormInput, FormSelect } from "src/components";
-import { BButton, BTypography } from "src/components/Base";
+import { BButton, BCard, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
@@ -71,7 +70,7 @@ export function GeneralGroupInfo({
     CancelText,
   ] = useBaseTranslation(i18ns);
   return (
-    <Card
+    <BCard
       sx={{
         m: 1,
         width: {
@@ -79,6 +78,7 @@ export function GeneralGroupInfo({
           md: "30%",
         },
       }}
+      animations={{ transitions: "slideInBottom" }}
     >
       <CardContent>
         <Stack flexDirection={"row"} alignItems={"center"}>
@@ -190,6 +190,6 @@ export function GeneralGroupInfo({
           </Stack>
         )}
       </CardContent>
-    </Card>
+    </BCard>
   );
 }

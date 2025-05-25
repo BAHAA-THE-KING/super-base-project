@@ -1,6 +1,5 @@
 import {
   Box,
-  Card,
   CardContent,
   ListItemIcon,
   MenuItem,
@@ -19,7 +18,7 @@ import {
 } from "@mui/icons-material";
 
 import { FormInput, FormSelect } from "src/components";
-import { BButton, BTypography } from "src/components/Base";
+import { BButton, BCard, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
@@ -95,7 +94,7 @@ export function GeneralPlanInfo({
     OtherText,
   ] = useBaseTranslation(i18ns);
   return (
-    <Card sx={{ m: 1 }}>
+    <BCard sx={{ m: 1 }} animations={{ transitions: "slideInBottom" }}>
       <CardContent>
         <Stack flexDirection={"row"} alignItems={"center"}>
           {isAdd || (
@@ -244,6 +243,6 @@ export function GeneralPlanInfo({
           </Stack>
         )}
       </CardContent>
-    </Card>
+    </BCard>
   );
 }
