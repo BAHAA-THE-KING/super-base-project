@@ -21,18 +21,24 @@ import { BButton, BCard, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
-import { Condition } from "src/types/data/SingleBeneficiary";
-
 type Form = {
   name: string;
   salary: string;
   color: string;
-  conditions: Condition[];
+  conditions: {
+    id: number;
+    name: string;
+    params: {
+      op: "<" | ">" | "<=" | ">=" | "==" | "!=";
+      value: number;
+    };
+  }[];
 };
 
 type Props = {
   control: Control<Form>;
   isDirty: boolean;
+  isValid: boolean;
   handleSubmit: () => void;
   handleDelete: () => void;
   isEdit: boolean;
@@ -53,6 +59,7 @@ const i18ns = [
 export function GeneralGroupInfo({
   control,
   isDirty,
+  isValid,
   handleSubmit,
   handleDelete,
   isEdit,
@@ -167,7 +174,7 @@ export function GeneralGroupInfo({
           name="salary"
           rules={{ required: true }}
         />
-        {isEdit && (
+        {(isEdit || isAdd) && (
           <Stack
             flexDirection={{
               sx: "column",
@@ -175,14 +182,16 @@ export function GeneralGroupInfo({
             }}
             justifyContent={{
               sx: "flex-start",
-              md: "space-between",
+              md: isAdd ? "flex-end" : "space-between",
             }}
             alignItems={"stretch"}
           >
-            <BButton onClick={() => setIsEdit(false)}>{CancelText}</BButton>
+            {isEdit && (
+              <BButton onClick={() => setIsEdit(false)}>{CancelText}</BButton>
+            )}
             <BButton
               variant="contained"
-              disabled={!isDirty}
+              disabled={isAdd ? !isValid : !isDirty}
               onClick={handleSubmit}
             >
               {SaveChangesText}

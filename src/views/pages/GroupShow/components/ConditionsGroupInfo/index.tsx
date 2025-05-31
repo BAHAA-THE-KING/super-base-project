@@ -8,23 +8,31 @@ import {
   HorizontalRule as HorizontalRuleIcon,
 } from "@mui/icons-material";
 
-import { FormSelect } from "src/components";
+import { FormInput, FormSelect } from "src/components";
 import { BButton, BCard, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
-
-import { Condition } from "src/types/data/SingleBeneficiary";
 
 type Form = {
   name: string;
   salary: string;
   color: string;
-  conditions: Condition[];
+  conditions: {
+    id: number;
+    name: string;
+    params: {
+      op: "<" | ">" | "<=" | ">=" | "==" | "!=" | "";
+      value: number | "";
+    };
+  }[];
 };
 
 type Props = {
   control: Control<Form>;
-  conditions: Condition[];
+  conditions: {
+    id: number;
+    name: string;
+  }[];
   getValues: UseFormGetValues<Form>;
   isAdd: boolean;
   isEdit: boolean;
@@ -45,7 +53,10 @@ export function ConditionsGroupInfo({
     control: control1,
     watch: watch1,
   } = useForm<{
-    condition: Condition;
+    condition: {
+      id: number;
+      name: string;
+    };
   }>({
     defaultValues: {
       condition: { id: 0, name: "" },
@@ -63,7 +74,13 @@ export function ConditionsGroupInfo({
       const data = watch1();
 
       if (!fields.find((e) => e.id === data.condition.id))
-        append(data.condition);
+        append({
+          ...data.condition,
+          params: {
+            op: "",
+            value: "",
+          },
+        });
 
       reset1();
     }
@@ -87,7 +104,7 @@ export function ConditionsGroupInfo({
           sx={{
             width: {
               sx: "100%",
-              md: "50%",
+              md: "75%",
             },
           }}
         >
@@ -134,7 +151,21 @@ export function ConditionsGroupInfo({
               ) : (
                 <HorizontalRuleIcon />
               )}
-              <BTypography>{field.name}</BTypography>
+              <Stack flexDirection={"row"} alignItems={"center"} gap={2}>
+                <BTypography>{field.name}</BTypography>
+                <FormInput
+                  control={control}
+                  label="test"
+                  name={`conditions.${i}.params.op`}
+                  sx={{ width: "100px" }}
+                />
+                <FormInput
+                  control={control}
+                  label="test"
+                  name={`conditions.${i}.params.value`}
+                  sx={{ width: "100px" }}
+                />
+              </Stack>
             </Stack>
           ))}
           {(isEdit || isAdd) && (

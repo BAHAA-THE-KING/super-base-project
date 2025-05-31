@@ -1,6 +1,5 @@
-import { ComponentProps, ReactElement, useMemo } from "react";
+import { ComponentProps, useMemo } from "react";
 import {
-  Autocomplete,
   AutocompleteRenderOptionState,
   type SxProps,
   type Theme,
@@ -13,7 +12,7 @@ import {
   RegisterOptions,
 } from "react-hook-form";
 
-import { BTextField } from "../Base";
+import { BAutocomplete, BTextField } from "../Base";
 
 import { useBaseTranslation, useVoiceInputHandler } from "src/hooks";
 
@@ -69,15 +68,13 @@ export function FormSelect<
       rules={rules}
       disabled={disabled}
       render={({ field, fieldState: { invalid, error } }) => (
-        <Autocomplete
+        <BAutocomplete
           {...field}
-          value={
-            allOptions.find((e) => e.id === field?.value?.id) || defaultOption
-          }
+          value={allOptions.find((e) => e.id === field?.value) || defaultOption}
           options={allOptions}
           onChange={(_, value, reason) => {
             if (reason === "clear") {
-              field.onChange({ target: { value: defaultOption } });
+              field.onChange({ target: { value: defaultOption.id } });
             } else {
               field.onChange({ target: { value } });
             }

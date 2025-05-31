@@ -13,13 +13,18 @@ import { useShowGroupData } from "./hooks";
 
 import { varAlpha } from "src/themes/styles";
 
-import { Condition } from "src/types/data/SingleBeneficiary";
-
 type Form = {
   name: string;
   salary: string;
   color: string;
-  conditions: Condition[];
+  conditions: {
+    id: number;
+    name: string;
+    params: {
+      op: "<" | ">" | "<=" | ">=" | "==" | "!=" | "";
+      value: number | "";
+    };
+  }[];
 };
 
 export function GroupShow() {
@@ -28,13 +33,14 @@ export function GroupShow() {
   const groupId = Number(groupIdParam);
   const isAdd = groupIdParam === "add";
   if ((!groupId || groupId <= 0) && !isAdd) {
-    navigate(-1);
+    navigate("/groups");
     return <></>;
   }
 
-  const { group, conditions, isLoading } = useShowGroupData(groupId);
-  if (!group) {
-    navigate(-1);
+  const { group, conditions, createGroup, isLoading } =
+    useShowGroupData(groupId);
+  if (!group && !isAdd) {
+    navigate("/groups");
     return <></>;
   }
 
@@ -46,7 +52,7 @@ export function GroupShow() {
     handleSubmit,
     control,
     getValues,
-    formState: { isDirty },
+    formState: { isDirty, isValid },
   } = useForm<Form>({
     defaultValues: {
       name: "",
@@ -66,11 +72,18 @@ export function GroupShow() {
       });
   }, [group, isEdit]);
 
-  function submit() {
-    handleSubmit((data) => {
-      console.log(data);
+  const submit = handleSubmit((data) => {
+    createGroup({
+      data: {
+        ...data,
+        color: data.color.id,
+        conditions: data.conditions.map((e) => ({
+          id: e.id,
+          params: JSON.stringify(e.params),
+        })),
+      },
     });
-  }
+  });
   function handleDelete() {}
 
   return (
@@ -94,6 +107,7 @@ export function GroupShow() {
       <GeneralGroupInfo
         control={control}
         isDirty={isDirty}
+        isValid={isValid}
         handleSubmit={submit}
         handleDelete={() => setWantToDelete(true)}
         isAdd={isAdd}
@@ -108,7 +122,7 @@ export function GroupShow() {
         isEdit={isEdit}
       />
       <GroupDeletePopup
-        group={wantToDelete ? group : null}
+        group={wantToDelete && group ? group : null}
         handleDelete={handleDelete}
         close={() => setWantToDelete(false)}
       />

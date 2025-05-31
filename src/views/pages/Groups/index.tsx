@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { Box } from "@mui/material";
 
 import { BButton } from "src/components/Base";
@@ -13,9 +14,15 @@ const i18ns = ["add_new_group"];
 export function Groups() {
   const [AddNewGroupText] = useBaseTranslation(i18ns);
 
+  const navigate = useNavigate();
+
   const { groups, isLoading } = useGroupsData();
 
   const [selectedGroupId, setSelectedGroupId] = useState(0);
+
+  function addGroup() {
+    navigate("add");
+  }
 
   return (
     <Box
@@ -35,6 +42,7 @@ export function Groups() {
         size="large"
         color="secondary"
         sx={{ my: 2 }}
+        onClick={addGroup}
       >
         {AddNewGroupText}
       </BButton>
