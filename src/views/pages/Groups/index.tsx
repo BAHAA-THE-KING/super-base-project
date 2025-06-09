@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 import { BButton } from "src/components/Base";
 import { GroupAccordion } from "./components";
 
-import { useGroupsData } from "./data";
+import { useGroupsData } from "./hooks";
 
 import { varAlpha } from "src/themes/styles";
 import { useBaseTranslation } from "src/hooks";
