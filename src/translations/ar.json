@@ -190,5 +190,6 @@
   "the_plan_completeness_is": "نسبة إنجاز الخطة هي",
   "yes_terminate_it": "نعم، إيقاف الخطة",
   "terminate_plan": "إيقاف الخطة",
-  "add_new_group": "إضافة تصنيف جديد"
+  "add_new_group": "إضافة تصنيف جديد",
+  "save_new_group": "حفظ التصنيف"
 }

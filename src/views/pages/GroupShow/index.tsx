@@ -37,7 +37,7 @@ export function GroupShow() {
     return <></>;
   }
 
-  const { group, conditions, createGroup, isLoading } =
+  const { group, conditions, createGroup, deleteGroup, isLoading } =
     useShowGroupData(groupId);
   if (!group && !isAdd) {
     navigate("/groups");
@@ -82,9 +82,11 @@ export function GroupShow() {
           params: JSON.stringify(e.params),
         })),
       },
-    });
+    }).then(() => navigate("/groups"));
   });
-  function handleDelete() {}
+  function handleDelete() {
+    return deleteGroup({ id: group?.id });
+  }
 
   return (
     <Stack

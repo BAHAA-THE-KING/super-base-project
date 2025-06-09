@@ -4,7 +4,7 @@ import { useGroup } from "src/views/APIs/useGroup";
 
 export function useShowGroupData(groupId: number) {
   const { getAllConditions } = useConditions();
-  const { createGroup } = useGroup();
+  const { createGroup, deleteGroup } = useGroup();
 
   const { group, isLoading: isLoading2 } = useGroup1(groupId);
 
@@ -14,5 +14,5 @@ export function useShowGroupData(groupId: number) {
 
   const isLoading = isLoading1 || isLoading2;
 
-  return { group, conditions, createGroup, isLoading };
+  return { group, conditions, createGroup, deleteGroup, isLoading };
 }

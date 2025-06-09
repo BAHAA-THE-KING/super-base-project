@@ -55,6 +55,7 @@ const i18ns = [
   "delete_group",
   "save_changes",
   "cancel",
+  "save_new_group",
 ];
 export function GeneralGroupInfo({
   control,
@@ -75,6 +76,7 @@ export function GeneralGroupInfo({
     DeleteGroupText,
     SaveChangesText,
     CancelText,
+    SaveNewGroupText,
   ] = useBaseTranslation(i18ns);
   return (
     <BCard
@@ -194,7 +196,7 @@ export function GeneralGroupInfo({
               disabled={isAdd ? !isValid : !isDirty}
               onClick={handleSubmit}
             >
-              {SaveChangesText}
+              {isAdd ? SaveNewGroupText : SaveChangesText}
             </BButton>
           </Stack>
         )}
