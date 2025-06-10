@@ -23,6 +23,7 @@ import {
   GroupShowPage,
   PlansPage,
   PlanShowPage,
+  MeetsPage,
 } from "src/views";
 
 import { useBaseTranslation } from "src/hooks";
@@ -57,6 +58,7 @@ const i18ns = [
   "special_materials",
   "groups_info",
   "plans_info",
+  "meets_info",
 ];
 export function usePublicRoutes() {
   const [
@@ -67,6 +69,7 @@ export function usePublicRoutes() {
     SpecialMaterialsText,
     GroupsInfoText,
     PlansInfoText,
+    MeetsInfoText,
   ] = useBaseTranslation(i18ns);
   return useMemo<Route[]>(
     () => [
@@ -162,6 +165,22 @@ export function usePublicRoutes() {
         path: "/plans/:planId",
         element: <PlanShowPage />,
         hidden: true,
+      },
+      {
+        key: "divider-2",
+        isDivider: true,
+      },
+      {
+        key: "meets",
+        path: "/meets",
+        element: <MeetsPage />,
+        icon: () => (
+          <SvgIcon>
+            {/* TODO: change the icon */}
+            <GrPlanIcon />
+          </SvgIcon>
+        ),
+        title: MeetsInfoText,
       },
     ],
     []

@@ -191,5 +191,6 @@
   "yes_terminate_it": "نعم، إيقاف الخطة",
   "terminate_plan": "إيقاف الخطة",
   "add_new_group": "إضافة تصنيف جديد",
-  "save_new_group": "حفظ التصنيف"
+  "save_new_group": "حفظ التصنيف",
+  "meets_info": "الاجتماعات"
 }
