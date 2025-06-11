@@ -192,5 +192,9 @@
   "terminate_plan": "إيقاف الخطة",
   "add_new_group": "إضافة تصنيف جديد",
   "save_new_group": "حفظ التصنيف",
-  "meets_info": "الاجتماعات"
+  "meets_info": "الاجتماعات",
+  "is_married": "متزوج",
+  "yes": "نعم",
+  "no": "لا",
+  "number_of_children": "عدد الأبناء"
 }

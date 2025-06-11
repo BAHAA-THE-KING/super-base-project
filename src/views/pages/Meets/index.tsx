@@ -8,7 +8,9 @@ import {
 } from "react-icons/fa";
 import { Inventory as InventoryIcon } from "@mui/icons-material";
 
-import { MeetsTimeline } from "./components";
+import { Data, MeetsTimeline } from "./components";
+import { useMeetData } from "./data";
+import { BCard } from "src/components/Base";
 
 export function Meets() {
   const [steps, setSteps] = useState([
@@ -65,17 +67,37 @@ export function Meets() {
     setActiveStep(activeStep - 1);
   };
 
+  const { membershipRequests, isLoading } = useMeetData();
+
   return (
-    <Stack width={"100%"} height={"100%"} direction={"row"} spacing={2}>
-      <Stack direction={"column"} spacing={2} bgcolor={"blue"} flex={6}></Stack>
-      <Box height={"100%"} flex={1} ml={"0 !important"}>
+    <Stack
+      width={"100%"}
+      maxHeight={"850px"}
+      overflow={"auto"}
+      direction={"row"}
+      spacing={2}
+      mb={1}
+    >
+      <Stack direction={"column"} spacing={2} flex={5}>
+        <Data data={membershipRequests} />
+      </Stack>
+      <BCard
+        sx={{
+          boxShadow: "none",
+          flex: 1,
+          ml: "0 !important",
+          position: "sticky",
+          top: 0,
+          height: "fit-content",
+        }}
+      >
         <MeetsTimeline
           steps={steps}
           activeStep={activeStep}
           handleNext={handleNext}
           handleBack={handleBack}
         />
-      </Box>
+      </BCard>
     </Stack>
   );
 }
