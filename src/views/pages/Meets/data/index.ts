@@ -2,27 +2,29 @@ import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
 
 import image from "./image.png";
 
+export type BeneficiaryRequest = Pick<
+  SingleBeneficiary,
+  | "id"
+  | "image_url"
+  | "first_name"
+  | "last_name"
+  | "birth_date"
+  | "address"
+  | "case_description"
+  | "request_id"
+  | "children"
+  | "partner"
+>;
+
 export function useMeetData() {
-  const membershipRequests: Partial<SingleBeneficiary>[] = [
+  const membershipRequests: Partial<BeneficiaryRequest>[] = [
     {
       id: 135,
       image_url: image,
       first_name: "عمر",
       last_name: "يوسف",
-      father_name: "علي",
-      mother_name: "فاطمة",
       birth_date: "1985-03-15",
-      birth_place: "دمشق",
-      national_number: "198503150001",
-      gender: { id: "male" },
-      job: "كهربائي",
-      health_status: "Suffers from chronic back pain",
-      phone_number: "0112345678",
-      mobile_number: "0798765432",
       address: "Al-Midan, Damascus, Syria",
-      residence_type: { id: "rent" }, // enum: rent, own, host, borrow
-      residence_document_id: 101,
-      monthly_income: 250,
       case_description:
         "Struggles to provide for a family of 5 due to low income and health problems.",
       request_id: 42,
@@ -116,26 +118,6 @@ export function useMeetData() {
           is_alive: true,
           partner_name: "Omar Yousef",
           residence_place: "Al-Midan, Damascus, Syria",
-        },
-      ],
-      uncles: [
-        {
-          id: 1,
-          beneficiary_id: 1,
-          from: { id: "father" }, // enum: father, mother
-          first_name: "Hassan",
-          last_name: "Yousef",
-          job: "Teacher",
-          provided_aid: "Occasionally sends money and food supplies.",
-        },
-        {
-          id: 2,
-          beneficiary_id: 1,
-          from: { id: "mother" },
-          first_name: "Khaled",
-          last_name: "Hussein",
-          job: "Tailor",
-          provided_aid: "Helped with school fees for the children.",
         },
       ],
       partner: {
@@ -153,20 +135,8 @@ export function useMeetData() {
       image_url: image,
       first_name: "يوسف",
       last_name: "عمر",
-      father_name: "علي",
-      mother_name: "فاطمة",
       birth_date: "1985-03-15",
-      birth_place: "دمشق",
-      national_number: "198503150001",
-      gender: { id: "male" },
-      job: "كهربائي",
-      health_status: "Suffers from chronic back pain",
-      phone_number: "0112345678",
-      mobile_number: "0798765432",
       address: "Al-Midan, Damascus, Syria",
-      residence_type: { id: "rent" }, // enum: rent, own, host, borrow
-      residence_document_id: 101,
-      monthly_income: 250,
       case_description:
         "Struggles to provide for a family of 5 due to low income and health problems.",
       request_id: 42,
@@ -262,26 +232,6 @@ export function useMeetData() {
           residence_place: "Al-Midan, Damascus, Syria",
         },
       ],
-      uncles: [
-        {
-          id: 1,
-          beneficiary_id: 1,
-          from: { id: "father" }, // enum: father, mother
-          first_name: "Hassan",
-          last_name: "Yousef",
-          job: "Teacher",
-          provided_aid: "Occasionally sends money and food supplies.",
-        },
-        {
-          id: 2,
-          beneficiary_id: 1,
-          from: { id: "mother" },
-          first_name: "Khaled",
-          last_name: "Hussein",
-          job: "Tailor",
-          provided_aid: "Helped with school fees for the children.",
-        },
-      ],
       partner: {
         id: 1,
         beneficiary_id: 1,
@@ -297,34 +247,11 @@ export function useMeetData() {
       image_url: image,
       first_name: "محمد",
       last_name: "علي",
-      father_name: "علي",
-      mother_name: "محمد",
       birth_date: "1985-03-15",
-      birth_place: "دمشق",
-      national_number: "198503150001",
-      gender: { id: "male" },
-      job: "موظف",
-      health_status: "Suffers from chronic back pain",
-      phone_number: "0112345678",
-      mobile_number: "0798765432",
       address: "Al-Midan, Damascus, Syria",
-      residence_type: { id: "rent" }, // enum: rent, own, host, borrow
-      residence_document_id: 101,
-      monthly_income: 250,
       case_description:
         "Struggles to provide for a family of 5 due to low income and health problems.",
       request_id: 42,
-      uncles: [
-        {
-          id: 2,
-          beneficiary_id: 1,
-          from: { id: "mother" },
-          first_name: "Khaled",
-          last_name: "Hussein",
-          job: "Tailor",
-          provided_aid: "Helped with school fees for the children.",
-        },
-      ],
     },
   ];
 

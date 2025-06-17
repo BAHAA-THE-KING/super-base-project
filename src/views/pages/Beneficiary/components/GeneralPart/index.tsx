@@ -13,6 +13,7 @@ type Props = {
   tabs: { name: string; label: string; external?: boolean; link?: string }[];
   currentTab: number;
   setCurrentTab: (tab: number) => void;
+  requestMode: boolean;
 };
 
 export function GeneralPart({
@@ -23,6 +24,7 @@ export function GeneralPart({
   tabs,
   setCurrentTab,
   currentTab,
+  requestMode,
 }: Props) {
   return (
     <Stack width={"20%"} flexDirection={"column"}>
@@ -54,7 +56,7 @@ export function GeneralPart({
         </Stack>
         <Stack mx={3} flexDirection={"row"} justifyContent={"center"}>
           <BTypography variant="h3">{name}</BTypography>
-          <BChip color={group_color} label={group_name} />
+          {requestMode ? null : <BChip color={group_color} label={group_name} />}
         </Stack>
       </Stack>
       <Box width={"100%"} mt={3}>

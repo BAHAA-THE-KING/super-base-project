@@ -1,13 +1,24 @@
 import { useState } from "react";
-import { Box, ButtonGroup, Grid2, Stack, SvgIcon } from "@mui/material";
+import { ButtonGroup, Grid2, Stack, SvgIcon, useTheme } from "@mui/material";
+
 import { LuLayoutList as LuLayoutListIcon } from "react-icons/lu";
 import { PiCards as PiCardsIcon } from "react-icons/pi";
+import {
+  NavigateBefore as NavigateBeforeIcon,
+  NavigateNext as NavigateNextIcon,
+} from "@mui/icons-material";
 
 import { BButton, BCard, BTypography } from "src/components/Base";
+import { DynamicCard } from "..";
 
 import { useBaseTranslation } from "src/hooks";
 
-import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
+import { BeneficiaryRequest } from "src/views/pages/Meets/data";
+
+type Props = {
+  dataType: "BeneficiaryRequest";
+  data: Partial<BeneficiaryRequest>[];
+};
 
 const i18ns = [
   "is_married",
@@ -15,16 +26,24 @@ const i18ns = [
   "no",
   "number_of_children",
   "case_description",
+  "previous_case",
+  "next_case",
 ];
-export function Data({ data }: { data: Partial<SingleBeneficiary>[] }) {
+export function Data({ data, dataType }: Props) {
   const [
     IsMarriedText,
     YesText,
     NoText,
     NumberOfChildrenText,
     CaseDescriptionText,
+    PreviousCaseText,
+    NextCaseText,
   ] = useBaseTranslation(i18ns);
+  const { direction } = useTheme();
+  const rtl = direction === "rtl";
+
   const [view, setView] = useState<"list" | "grid">("list");
+  const [selectedCase, setSelectedCase] = useState<number>(0);
 
   return (
     <Stack>
@@ -125,18 +144,37 @@ export function Data({ data }: { data: Partial<SingleBeneficiary>[] }) {
           ))}
         </Grid2>
       ) : (
-        <Grid2 container spacing={2}>
-          {data.map((item) => (
-            <Grid2 size={{ xs: 12, sm: 6, md: 4 }} key={item.id}>
-              <Box key={item.id}>
-                <BTypography>{item.first_name}</BTypography>
-                <BTypography>{item.last_name}</BTypography>
-                <BTypography>{item.birth_date}</BTypography>
-                <BTypography>{item.address}</BTypography>
-              </Box>
-            </Grid2>
-          ))}
-        </Grid2>
+        <Stack>
+          <DynamicCard
+            requestType={dataType}
+            requestId={data[selectedCase].id!}
+          />
+          <Stack>
+            <Stack
+              direction="row"
+              spacing={2}
+              justifyContent="center"
+              alignItems="center"
+            >
+              <BButton
+                variant="outlined"
+                disabled={selectedCase === 0}
+                onClick={() => setSelectedCase(selectedCase - 1)}
+                startIcon={rtl ? <NavigateNextIcon /> : <NavigateBeforeIcon />}
+              >
+                {PreviousCaseText}
+              </BButton>
+              <BButton
+                variant="outlined"
+                disabled={selectedCase === data.length - 1}
+                onClick={() => setSelectedCase(selectedCase + 1)}
+                endIcon={rtl ? <NavigateBeforeIcon /> : <NavigateNextIcon />}
+              >
+                {NextCaseText}
+              </BButton>
+            </Stack>
+          </Stack>
+        </Stack>
       )}
     </Stack>
   );

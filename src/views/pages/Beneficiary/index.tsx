@@ -15,6 +15,11 @@ import { useBaseTranslation } from "src/hooks";
 
 import { useData } from "./data";
 
+type Props = {
+  requestMode?: boolean;
+  requestId?: number;
+};
+
 const i18ns = [
   "personal_info",
   "family_info",
@@ -23,7 +28,7 @@ const i18ns = [
   "available_aids",
   "requests",
 ];
-export function ShowBeneficiary() {
+export function ShowBeneficiary({ requestMode = false, requestId = 0 }: Props) {
   const [
     PersonalInfoText,
     FamilyInfoText,
@@ -32,50 +37,57 @@ export function ShowBeneficiary() {
     AvailableAidsText,
     RequestsText,
   ] = useBaseTranslation(i18ns);
-  const { beneficiaryId } = useParams();
+  const beneficiaryId = requestId ? requestId : useParams().beneficiaryId;
   const { hash } = useLocation();
   const navigate = useNavigate();
   const beneficiary = useData(Number(beneficiaryId));
 
   const tabs = useMemo(
-    () => [
-      {
-        name: "personal",
-        label: PersonalInfoText,
-        element: <PersonalInfo beneficiary={beneficiary} />,
-        color: "primary",
-      },
-      {
-        name: "family",
-        label: FamilyInfoText,
-        element: <FamilyInfo beneficiary={beneficiary} />,
-        color: "primary",
-      },
-      {
-        name: "supporters",
-        label: SupportersInfoText,
-        element: <SupportersInfo beneficiary={beneficiary} />,
-        color: "primary",
-      },
-      {
-        name: "group",
-        label: GroupInfoText,
-        element: <GroupInfo beneficiary={beneficiary} />,
-        color: "secondary",
-      },
-      {
-        name: "aids",
-        label: AvailableAidsText,
-        element: <AvailableAids beneficiary_id={beneficiary.id} />,
-      },
-      {
-        name: "requests",
-        label: RequestsText,
-        external: true,
-        link: `/beneficiary/${beneficiary.id}/requests`,
-      },
-    ],
-    []
+    () =>
+      [
+        {
+          name: "personal",
+          label: PersonalInfoText,
+          element: <PersonalInfo beneficiary={beneficiary} />,
+          color: "primary",
+        },
+        {
+          name: "family",
+          label: FamilyInfoText,
+          element: <FamilyInfo beneficiary={beneficiary} />,
+          color: "primary",
+        },
+        {
+          name: "supporters",
+          label: SupportersInfoText,
+          element: <SupportersInfo beneficiary={beneficiary} />,
+          color: "primary",
+        },
+        requestMode
+          ? null
+          : {
+              name: "group",
+              label: GroupInfoText,
+              element: <GroupInfo beneficiary={beneficiary} />,
+              color: "secondary",
+            },
+        requestMode
+          ? null
+          : {
+              name: "aids",
+              label: AvailableAidsText,
+              element: <AvailableAids beneficiary_id={beneficiary.id} />,
+            },
+        requestMode
+          ? null
+          : {
+              name: "requests",
+              label: RequestsText,
+              external: true,
+              link: `/beneficiary/${beneficiary.id}/requests`,
+            },
+      ].filter((e) => e !== null),
+    [requestMode]
   );
 
   const [currentTab, setCurrentTab] = useState(
@@ -97,6 +109,7 @@ export function ShowBeneficiary() {
           navigate("#" + tabs[newTab].name, { replace: true });
           setCurrentTab(newTab);
         }}
+        requestMode={requestMode}
       />
       <InformationPart
         element={tabs[currentTab].element}

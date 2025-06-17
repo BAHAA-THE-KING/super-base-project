@@ -79,7 +79,7 @@ export function Meets() {
       mb={1}
     >
       <Stack direction={"column"} spacing={2} flex={5}>
-        <Data data={membershipRequests} />
+        <Data data={membershipRequests} dataType="BeneficiaryRequest"/>
       </Stack>
       <BCard
         sx={{
