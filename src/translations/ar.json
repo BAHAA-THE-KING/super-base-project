@@ -198,5 +198,10 @@
   "no": "لا",
   "number_of_children": "عدد الأبناء",
   "previous_case": "الحالة السابقة",
-  "next_case": "الحالة التالية"
+  "next_case": "الحالة التالية",
+  "do_you_accept_request_que": "هل تقبل الطلب؟",
+  "membership_requests": "طلبات الانتساب",
+  "emergency_assistance": "المساعدات الفورية",
+  "medical_prescriptions": "الوصفات الطبية",
+  "withdrawal_orders": "أوامر الصرف"
 }
