@@ -203,5 +203,7 @@
   "membership_requests": "طلبات الانتساب",
   "emergency_assistance": "المساعدات الفورية",
   "medical_prescriptions": "الوصفات الطبية",
-  "withdrawal_orders": "أوامر الصرف"
+  "withdrawal_orders": "أوامر الصرف",
+  "services_department": "قسم الخدمات",
+  "clinic_department": "قسم العيادة"
 }

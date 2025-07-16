@@ -5,6 +5,7 @@ import {
   styled,
   Typography,
 } from "@mui/material";
+import { BTypography } from "../Base";
 
 export const BaseDrawer = styled(Drawer, {
   shouldForwardProp: (prop) =>
@@ -128,5 +129,11 @@ export const BaseSidebarDivider = styled(Divider)(({ theme }) =>
     my: 1,
     mx: 0,
     bgcolor: theme.palette.text.primary,
+  })
+);
+
+export const BaseSidebarTitle = styled(BTypography)(({ theme }) =>
+  theme.unstable_sx({
+    ".MuiTypography-root": { fontWeight: 900 },
   })
 );

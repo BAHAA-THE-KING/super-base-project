@@ -4,6 +4,7 @@ import { List } from "@mui/material";
 import SidebarItem from "./SidebarItem";
 import SidebarDivider from "./SidebarDivider";
 import SidebarCollapse from "./SidebarCollapse";
+import SidebarTitle from "./SidebarTitle";
 
 import { Route } from "src/types/Route";
 
@@ -26,7 +27,7 @@ const SidebarList: React.FC<Props> = ({ routes, isExpanded }) => {
             children={route.children}
             isExpanded={isExpanded}
           />
-        ) : (
+        ) : route.path ? (
           <SidebarItem
             key={route.key}
             path={route.path!}
@@ -34,6 +35,12 @@ const SidebarList: React.FC<Props> = ({ routes, isExpanded }) => {
             icon={route.icon!}
             isExpanded={isExpanded}
             hidden={route.hidden}
+          />
+        ) : (
+          <SidebarTitle
+            key={route.key}
+            title={route.title!}
+            isExpanded={isExpanded}
           />
         )
       )}

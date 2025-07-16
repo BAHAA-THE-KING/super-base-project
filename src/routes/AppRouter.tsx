@@ -14,9 +14,9 @@ export function AppRouter() {
       <React.Fragment key={route.key}>
         {route.isDivider ? null : route?.children?.length ? (
           mapRoutes(route.children)
-        ) : (
+        ) : route.path ? (
           <Route key={route.key!} path={route.path!} element={route.element!} />
-        )}
+        ) : null}
       </React.Fragment>
     ));
   return (

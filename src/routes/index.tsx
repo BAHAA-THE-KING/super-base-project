@@ -48,6 +48,10 @@ import { useBaseTranslation } from "src/hooks";
   - title
   - children
   ──────────────────────────────────────
+  Title
+  - key
+  - title
+  ──────────────────────────────────────
 */
 
 const i18ns = [
@@ -59,6 +63,8 @@ const i18ns = [
   "groups_info",
   "plans_info",
   "meets_info",
+  "services_department",
+  "clinic_department",
 ];
 export function usePublicRoutes() {
   const [
@@ -70,9 +76,15 @@ export function usePublicRoutes() {
     GroupsInfoText,
     PlansInfoText,
     MeetsInfoText,
+    ServicesDepartmentText,
+    ClinicDepartmentText,
   ] = useBaseTranslation(i18ns);
   return useMemo<Route[]>(
     () => [
+      {
+        key: "services-department",
+        title: ServicesDepartmentText,
+      },
       {
         icon: PeopleIcon,
         key: "all-beneficiaries",
@@ -181,6 +193,10 @@ export function usePublicRoutes() {
           </SvgIcon>
         ),
         title: MeetsInfoText,
+      },
+      {
+        key: "clinic-department",
+        title: ClinicDepartmentText,
       },
     ],
     []
