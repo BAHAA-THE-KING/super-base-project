@@ -13,11 +13,14 @@ import {
 
 import { FormInput } from "src/components";
 import { BButton, BCard, BChip, BTypography } from "src/components/Base";
-import { DynamicCard } from "..";
+import { DynamicCard, DynamicList } from "..";
 
 import { useBaseTranslation } from "src/hooks";
 
-import { BeneficiaryRequest } from "src/views/pages/Meets/data";
+import {
+  BeneficiaryRequest,
+  EmergencyAssistanceRequest,
+} from "src/views/pages/Meets/data";
 
 type AcceptanceForm = {
   status?: boolean;
@@ -25,17 +28,14 @@ type AcceptanceForm = {
 }[];
 
 type Props = {
-  dataType: "BeneficiaryRequest";
-  data: Partial<BeneficiaryRequest>[];
+  dataType: "BeneficiaryRequest" | "EmergencyAssistanceRequest";
+  data: Partial<BeneficiaryRequest | EmergencyAssistanceRequest>[];
   formInstance: UseFormReturn<AcceptanceForm>;
 };
 
 const i18ns = [
-  "is_married",
   "yes",
   "no",
-  "number_of_children",
-  "case_description",
   "previous_case",
   "next_case",
   "do_you_accept_request_que",
@@ -43,14 +43,12 @@ const i18ns = [
   "accepted",
   "rejected",
   "pending",
+  "request_status",
 ];
 export function Data({ data, dataType, formInstance }: Props) {
   const [
-    IsMarriedText,
     YesText,
     NoText,
-    NumberOfChildrenText,
-    CaseDescriptionText,
     PreviousCaseText,
     NextCaseText,
     DoYouAcceptRequestQueText,
@@ -58,6 +56,7 @@ export function Data({ data, dataType, formInstance }: Props) {
     AcceptedText,
     RejectedText,
     PendingText,
+    RequestStatusText,
   ] = useBaseTranslation(i18ns);
   const { direction } = useTheme();
   const rtl = direction === "rtl";
@@ -65,7 +64,7 @@ export function Data({ data, dataType, formInstance }: Props) {
   const [view, setView] = useState<"list" | "grid">("list");
   const [selectedCase, setSelectedCase] = useState<number>(0);
 
-  const { control, setValue, watch, getValues } = formInstance;
+  const { control, setValue, watch } = formInstance;
 
   return (
     <Stack>
@@ -126,52 +125,33 @@ export function Data({ data, dataType, formInstance }: Props) {
                 container
                 sx={{ p: 3 }}
               >
-                <Grid2
-                  height={"100px"}
-                  borderRadius={"50%"}
-                  overflow={"hidden"}
-                  sx={(theme) => ({
-                    width: "100px",
-                    border: `3px solid ${theme.palette.primary.main}`,
-                  })}
-                >
-                  <img
-                    src={request.image_url || ""}
-                    alt={request.first_name}
-                    style={{
-                      objectFit: "contain",
-                      width: "100%",
-                      aspectRatio: 1,
-                    }}
-                  />
-                </Grid2>
-                <Grid2 size={{ xs: 12, sm: 2 }}>
+                {dataType === "BeneficiaryRequest" ? (
+                  <DynamicList request={{ type: dataType, ...request }} />
+                ) : null}
+                <Grid2 size={{ xs: 2 }}>
                   <BTypography variant="h6">
-                    {request.first_name} {request.last_name}
-                  </BTypography>
-                  <BTypography>{request.birth_date}</BTypography>
-                  <BTypography>{request.address}</BTypography>
-                  <BTypography>
-                    {IsMarriedText}:{" "}
-                    {Boolean(request.partner) ? YesText : NoText}
-                  </BTypography>
-                  <BTypography>
-                    {NumberOfChildrenText}: {request.children?.length}
+                    {RequestStatusText}:{" "}
+                    {watch(`${request.id!}.status`) === true ? (
+                      <BChip
+                        label={AcceptedText}
+                        color="success"
+                        variant="slight"
+                      />
+                    ) : watch(`${request.id!}.status`) === false ? (
+                      <BChip
+                        label={RejectedText}
+                        color="error"
+                        variant="slight"
+                      />
+                    ) : (
+                      <BChip
+                        label={PendingText}
+                        color="warning"
+                        variant="slight"
+                      />
+                    )}
                   </BTypography>
                 </Grid2>
-                <Grid2 size={{ xs: 12, sm: "auto" }}>
-                  <BTypography variant="h6">{CaseDescriptionText}:</BTypography>
-                  <BTypography>{request.case_description}</BTypography>
-                </Grid2>
-              </Grid2>
-              <Grid2 size={{ xs: 2 }}>
-                {watch(`${request.id!}.status`) === true ? (
-                  <BChip label={AcceptedText} color="success" />
-                ) : watch(`${request.id!}.status`) === false ? (
-                  <BChip label={RejectedText} color="error" />
-                ) : (
-                  <BChip label={PendingText} color="warning" />
-                )}
               </Grid2>
             </React.Fragment>
           ))}

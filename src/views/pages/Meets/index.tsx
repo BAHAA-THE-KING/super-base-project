@@ -111,7 +111,7 @@ export function Meets() {
           : { ...step }
       )
     );
-  }, [formInstance.getValues()]);
+  }, [JSON.stringify(formInstance.getValues())]);
 
   return (
     <Stack

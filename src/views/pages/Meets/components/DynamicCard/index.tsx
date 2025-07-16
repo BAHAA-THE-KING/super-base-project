@@ -3,7 +3,7 @@ import { BCard } from "src/components/Base";
 import { ShowBeneficiary } from "src/views/pages/Beneficiary";
 
 type Props = {
-  requestType: "BeneficiaryRequest";
+  requestType: "BeneficiaryRequest" | "EmergencyAssistanceRequest";
   requestId: number;
 };
 

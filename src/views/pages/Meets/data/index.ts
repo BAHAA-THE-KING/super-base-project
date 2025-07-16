@@ -1,4 +1,5 @@
 import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
+import { AidRequest } from "../../RequestAdd/hooks/useShowRequestData";
 
 import image from "./image.png";
 
@@ -15,6 +16,8 @@ export type BeneficiaryRequest = Pick<
   | "children"
   | "partner"
 >;
+
+export type EmergencyAssistanceRequest = AidRequest;
 
 export function useMeetData() {
   const membershipRequests: Partial<BeneficiaryRequest>[] = [
