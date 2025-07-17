@@ -1,5 +1,6 @@
 import {
   CardContent,
+  Grid2,
   ListItemIcon,
   ListItemText,
   Menu,
@@ -25,13 +26,12 @@ type Form = {
   address: string;
   birth: string;
   mobile: string;
-  specification: string;
-  price: string;
-  attendance_schedules: {
+  salary: string;
+  attendance_schedule: {
     from: string;
     to: string;
     days: string[];
-  }[];
+  };
 };
 
 type Props = {
@@ -46,22 +46,21 @@ type Props = {
 };
 
 const i18ns = [
-  "doctor_name",
-  "doctor_address",
-  "doctor_birth_info",
-  "doctor_mobile",
-  "doctor_price",
-  "doctor_specification",
+  "secretary_name",
+  "secretary_address",
+  "secretary_birth_info",
+  "secretary_mobile",
+  "secretary_salary",
   "edit",
-  "terminate_doctor",
+  "terminate_secretary",
   "save_changes",
   "cancel",
-  "save_new_doctor",
-  "add_new_doctor",
-  "edit_doctor",
+  "save_new_secretary",
+  "add_new_secretary",
+  "edit_secretary",
 ];
 
-export function PersonalDoctorInfo({
+export function PersonalSecretaryInfo({
   control,
   isAdd,
   isEdit,
@@ -72,29 +71,25 @@ export function PersonalDoctorInfo({
   handleDelete,
 }: Props) {
   const [
-    DoctorNameText,
-    DoctorAddressText,
-    DoctorBirthInfoText,
-    DoctorMobileText,
-    DoctorPriceText,
-    DoctorSpecificationText,
+    SecretaryNameText,
+    SecretaryAddressText,
+    SecretaryBirthInfoText,
+    SecretaryMobileText,
+    SecretarySalaryText,
     EditText,
-    TerminateDoctorText,
+    TerminateSecretaryText,
     SaveChangesText,
     CancelText,
-    SaveNewDoctorText,
-    AddNewDoctorText,
-    EditDoctorText,
+    SaveNewSecretaryText,
+    AddNewSecretaryText,
+    EditSecretaryText,
   ] = useBaseTranslation(i18ns);
 
   return (
     <BCard
       sx={{
         m: 1,
-        width: {
-          xs: "100%",
-          md: "30%",
-        },
+        width: "100%",
       }}
       animations={{ transitions: "slideInBottom" }}
     >
@@ -133,7 +128,7 @@ export function PersonalDoctorInfo({
                       </ListItemIcon>
                       <ListItemText>
                         <BTypography variant="body2">
-                          {TerminateDoctorText}
+                          {TerminateSecretaryText}
                         </BTypography>
                       </ListItemText>
                     </MenuItem>
@@ -143,77 +138,87 @@ export function PersonalDoctorInfo({
             </PopupState>
           )}
           <BTypography variant="h5" fontWeight={"bold"}>
-            {isAdd ? AddNewDoctorText : EditDoctorText}
+            {isAdd ? AddNewSecretaryText : EditSecretaryText}
           </BTypography>
         </Stack>
       </CardContent>
       <CardContent>
-        <FormInput
-          sx={{ my: 1 }}
-          control={control}
-          label={DoctorNameText}
-          name="name"
-          rules={{ required: true }}
-        />
-        <FormInput
-          sx={{ my: 1 }}
-          control={control}
-          label={DoctorAddressText}
-          name="address"
-          rules={{ required: true }}
-        />
-        <FormInput
-          sx={{ my: 1 }}
-          control={control}
-          label={DoctorBirthInfoText}
-          name="birth"
-          rules={{ required: true }}
-        />
-        <FormInput
-          sx={{ my: 1 }}
-          control={control}
-          label={DoctorMobileText}
-          name="mobile"
-          rules={{ required: true }}
-        />
-        <FormInput
-          sx={{ my: 1 }}
-          control={control}
-          label={DoctorSpecificationText}
-          name="specification"
-          rules={{ required: true }}
-        />
-        <FormInput
-          sx={{ my: 1 }}
-          control={control}
-          label={DoctorPriceText}
-          name="price"
-          rules={{ required: true }}
-        />
-        {(isEdit || isAdd) && (
-          <Stack
-            flexDirection={{
-              sx: "column",
-              md: "row",
-            }}
-            justifyContent={{
-              sx: "flex-start",
-              md: isAdd ? "flex-end" : "space-between",
-            }}
-            alignItems={"stretch"}
-          >
-            {isEdit && (
-              <BButton onClick={() => setIsEdit(false)}>{CancelText}</BButton>
+        <Grid2 container spacing={3}>
+          <Grid2 size={{ xs: 4 }}>
+            <FormInput
+              sx={{ my: 1 }}
+              control={control}
+              label={SecretaryNameText}
+              name="name"
+              rules={{ required: true }}
+            />
+          </Grid2>
+          <Grid2 size={{ xs: 4 }}>
+            <FormInput
+              sx={{ my: 1 }}
+              control={control}
+              label={SecretaryAddressText}
+              name="address"
+              rules={{ required: true }}
+            />
+          </Grid2>
+          <Grid2 size={{ xs: 4 }}>
+            <FormInput
+              sx={{ my: 1 }}
+              control={control}
+              label={SecretaryBirthInfoText}
+              name="birth"
+              rules={{ required: true }}
+            />
+          </Grid2>
+          <Grid2 size={{ xs: 4 }}>
+            <FormInput
+              sx={{ my: 1 }}
+              control={control}
+              label={SecretaryMobileText}
+              name="mobile"
+              rules={{ required: true }}
+            />
+          </Grid2>
+          <Grid2 size={{ xs: 4 }}>
+            <FormInput
+              sx={{ my: 1 }}
+              control={control}
+              label={SecretarySalaryText}
+              name="salary"
+              rules={{ required: true }}
+            />
+          </Grid2>
+          <Grid2 size={{ xs: 12 }}></Grid2>
+          <Grid2 size={{ xs: 'auto' }}>
+            {(isEdit || isAdd) && (
+              <Stack
+                flexDirection={{
+                  sx: "column",
+                  md: "row",
+                }}
+                justifyContent={{
+                  sx: "flex-start",
+                  md: isAdd ? "flex-end" : "space-between",
+                }}
+                alignItems={"stretch"}
+              >
+                {isEdit && (
+                  <BButton onClick={() => setIsEdit(false)}>
+                    {CancelText}
+                  </BButton>
+                )}
+                <BButton
+                  variant="contained"
+                  disabled={isAdd ? !isValid : !isDirty}
+                  onClick={submit}
+                >
+                  {isAdd ? SaveNewSecretaryText : SaveChangesText}
+                </BButton>
+              </Stack>
             )}
-            <BButton
-              variant="contained"
-              disabled={isAdd ? !isValid : !isDirty}
-              onClick={submit}
-            >
-              {isAdd ? SaveNewDoctorText : SaveChangesText}
-            </BButton>
-          </Stack>
-        )}
+          </Grid2>
+        </Grid2>
       </CardContent>
     </BCard>
   );

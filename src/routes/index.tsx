@@ -26,6 +26,8 @@ import {
   MeetsPage,
   DoctorsPage,
   DoctorsShowPage,
+  SecretaryPage,
+  SecretaryShowPage,
 } from "src/views";
 
 import { useBaseTranslation } from "src/hooks";
@@ -68,6 +70,7 @@ const i18ns = [
   "services_department",
   "clinic_department",
   "doctors",
+  "secretary",
 ];
 export function usePublicRoutes() {
   const [
@@ -82,6 +85,7 @@ export function usePublicRoutes() {
     ServicesDepartmentText,
     ClinicDepartmentText,
     DoctorsText,
+    SecretaryText,
   ] = useBaseTranslation(i18ns);
   return useMemo<Route[]>(
     () => [
@@ -218,6 +222,30 @@ export function usePublicRoutes() {
         key: "show-doctors",
         path: "/doctors/:doctorId",
         element: <DoctorsShowPage />,
+        icon: () => (
+          <SvgIcon>
+            {/* TODO: change the icon */}
+            <GrPlanIcon />
+          </SvgIcon>
+        ),
+        hidden: true,
+      },
+      {
+        key: "secretary",
+        path: "/secretary",
+        element: <SecretaryPage />,
+        icon: () => (
+          <SvgIcon>
+            {/* TODO: change the icon */}
+            <GrPlanIcon />
+          </SvgIcon>
+        ),
+        title: SecretaryText,
+      },
+      {
+        key: "show-secretary",
+        path: "/secretary/:secretaryId",
+        element: <SecretaryShowPage />,
         icon: () => (
           <SvgIcon>
             {/* TODO: change the icon */}

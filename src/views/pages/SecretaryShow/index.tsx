@@ -3,13 +3,9 @@ import { useNavigate, useParams } from "react-router";
 import { Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
 
-import {
-  DoctorAttendanceInfo,
-  DoctorDeletePopup,
-  PersonalDoctorInfo,
-} from "./components";
+import { SecretaryDeletePopup, PersonalSecretaryInfo } from "./components";
 
-import { useDoctorsData } from "../Doctors/data";
+import { useSecretaryData } from "../Secretary/data";
 
 import { varAlpha } from "src/themes/styles";
 
@@ -18,31 +14,35 @@ type Form = {
   address: string;
   birth: string;
   mobile: string;
-  specification: string;
-  price: string;
-  attendance_schedules: {
+  salary: string;
+  attendance_schedule: {
     from: string;
     to: string;
     days: string[];
-  }[];
+  };
 };
 
-export function DoctorsShow() {
+export function SecretaryShow() {
   const navigate = useNavigate();
-  const { doctorId: doctorIdParam } = useParams();
-  const doctorId = Number(doctorIdParam);
-  const isAdd = doctorIdParam === "add";
-  if ((!doctorId || doctorId <= 0) && !isAdd) {
-    navigate("/doctors");
+  const { secretaryId: secretaryIdParam } = useParams();
+  const secretaryId = Number(secretaryIdParam);
+  const isAdd = secretaryIdParam === "add";
+  if ((!secretaryId || secretaryId <= 0) && !isAdd) {
+    navigate("/secretary");
     return <></>;
   }
 
   const [wantToDelete, setWantToDelete] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
-  const { doctors, isLoading, createDoctor, editDoctor, deleteDoctor } =
-    useDoctorsData();
-  const doctor = doctors.find((e) => e.id === doctorId)!;
+  const {
+    secretaries,
+    isLoading,
+    createSecretary,
+    editSecretary,
+    deleteSecretary,
+  } = useSecretaryData();
+  const secretary = secretaries.find((e) => e.id === secretaryId)!;
 
   const {
     reset,
@@ -55,31 +55,30 @@ export function DoctorsShow() {
       address: "",
       birth: "",
       mobile: "",
-      specification: "",
-      price: "",
-      attendance_schedules: [],
+      salary: "",
+      attendance_schedule: {
+        from: "",
+        to: "",
+        days: [],
+      },
     },
   });
 
   useEffect(() => {
-    if (doctor) reset(doctor);
-  }, [doctor, isEdit]);
+    if (secretary) reset(secretary);
+  }, [secretary, isEdit]);
 
   const submit = handleSubmit((data) => {
     if (isEdit) {
-      createDoctor({
-        data: {
-          ...data,
-        },
-      }).then(() => navigate("/doctors"));
+      createSecretary({ data }).then(() => navigate("/secretary"));
     } else {
-      editDoctor({
+      editSecretary({
         data: data,
-      }).then(() => navigate("/doctors"));
+      }).then(() => navigate("/secretary"));
     }
   });
   function handleDelete() {
-    return deleteDoctor({ id: doctor?.id });
+    return deleteSecretary({ id: secretary?.id });
   }
 
   return (
@@ -100,7 +99,7 @@ export function DoctorsShow() {
             : theme.palette.primary.lighter,
       })}
     >
-      <PersonalDoctorInfo
+      <PersonalSecretaryInfo
         control={control}
         isAdd={isAdd}
         isEdit={isEdit}
@@ -110,9 +109,8 @@ export function DoctorsShow() {
         submit={submit}
         handleDelete={handleDelete}
       />
-      <DoctorAttendanceInfo control={control} isAdd={isAdd} isEdit={isEdit} />
-      <DoctorDeletePopup
-        doctor={wantToDelete && doctor ? doctor : null}
+      <SecretaryDeletePopup
+        secretary={wantToDelete && secretary ? secretary : null}
         handleDelete={handleDelete}
         close={() => setWantToDelete(false)}
       />

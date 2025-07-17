@@ -234,5 +234,16 @@
   "wednesday": "الأربعاء",
   "thursday": "الخميس",
   "friday": "الجمعة",
-  "saturday": "السبت"
+  "saturday": "السبت",
+  "secretary": "السكرتيرة",
+  "secretary_name": "اسم السكرتيرة",
+  "add_new_secretary": "إضافة سكرتية جديدة",
+  "you_sure_to_terminate_secretary": "هل أنت متأكد من أنك تريد فصل السكرتيرة",
+  "secretary_address": "عنوان السكرتيرة",
+  "secretary_birth_info": "معلومات التولد",
+  "secretary_mobile": "هاتف السكرتيرة",
+  "secretary_salary": "راتب السكرتيرة",
+  "terminate_secretary": "فصل السكرتيرة",
+  "save_new_secretary": "حفظ معلومات السكرتيرة",
+  "edit_secretary": "تعديل معلومات السكرتيرة"
 }

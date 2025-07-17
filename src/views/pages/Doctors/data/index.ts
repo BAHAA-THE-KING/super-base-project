@@ -1,71 +1,370 @@
 import { useMemo } from "react";
 import { Doctor } from "src/types/data/Doctor";
 
-function generateRandomDoctor(): Doctor {
-  const names = [
-    "Dr. Smith Layla",
-    "Dr. Ali Smith",
-    "Dr. Fatima Ali",
-    "Dr. John Fatima",
-    "Dr. Layla John",
-  ];
-  const specifications = [
-    "Cardiologist",
-    "Pediatrician",
-    "Dentist",
-    "Surgeon",
-    "General",
-  ];
-  const schedules = [
-    {
-      from: "09:00",
-      to: "13:00",
-      days: ["mon", "tue", "wed"],
-    },
-    {
-      from: "14:00",
-      to: "18:00",
-      days: ["tue", "thu"],
-    },
-    {
-      from: "10:00",
-      to: "16:00",
-      days: ["fri"],
-    },
-    {
-      from: "08:00",
-      to: "12:00",
-      days: ["sat", "sun"],
-    },
-    {
-      from: "13:00",
-      to: "17:00",
-      days: ["mon", "tue", "wed", "thu", "fri"],
-    },
-  ];
-  const mobiles = [
-    "0987569844",
-    "0932584765",
-    "0978415624",
-    "0965884756",
-    "0932268444",
-  ];
-  const random = (arr: any[]) => arr[Math.floor(Math.random() * arr.length)];
-  return {
-    id: Math.floor(Math.random() * 10000),
-    name: random(names),
-    attendance_schedules: schedules,
-    address: "Somewhere far away in the woods",
-    birth: "Damascus 1990/01/01",
-    mobile: random(mobiles),
-    price: (Math.random() * 10000).toFixed(2) + "$",
-    specification: random(specifications),
-  };
-}
-
 export function useDoctorsData() {
   const doctors = useMemo<Doctor[]>(
-    () => Array.from({ length: 10 }, generateRandomDoctor),
+    () => [
+      {
+        id: 6584,
+        name: "Dr. Smith Layla",
+        attendance_schedules: [
+          {
+            from: "09:00",
+            to: "13:00",
+            days: ["mon", "tue", "wed"],
+          },
+          {
+            from: "14:00",
+            to: "18:00",
+            days: ["tue", "thu"],
+          },
+          {
+            from: "10:00",
+            to: "16:00",
+            days: ["fri"],
+          },
+          {
+            from: "08:00",
+            to: "12:00",
+            days: ["sat", "sun"],
+          },
+          {
+            from: "13:00",
+            to: "17:00",
+            days: ["mon", "tue", "wed", "thu", "fri"],
+          },
+        ],
+        address: "Somewhere far away in the woods",
+        birth: "Damascus 1990/01/01",
+        mobile: "0932584765",
+        price: "7503.14$",
+        specification: "Cardiologist",
+      },
+      {
+        id: 3887,
+        name: "Dr. Fatima Ali",
+        attendance_schedules: [
+          {
+            from: "09:00",
+            to: "13:00",
+            days: ["mon", "tue", "wed"],
+          },
+          {
+            from: "14:00",
+            to: "18:00",
+            days: ["tue", "thu"],
+          },
+          {
+            from: "10:00",
+            to: "16:00",
+            days: ["fri"],
+          },
+          {
+            from: "08:00",
+            to: "12:00",
+            days: ["sat", "sun"],
+          },
+          {
+            from: "13:00",
+            to: "17:00",
+            days: ["mon", "tue", "wed", "thu", "fri"],
+          },
+        ],
+        address: "Somewhere far away in the woods",
+        birth: "Damascus 1990/01/01",
+        mobile: "0932268444",
+        price: "5733.72$",
+        specification: "General",
+      },
+      {
+        id: 1383,
+        name: "Dr. Fatima Ali",
+        attendance_schedules: [
+          {
+            from: "09:00",
+            to: "13:00",
+            days: ["mon", "tue", "wed"],
+          },
+          {
+            from: "14:00",
+            to: "18:00",
+            days: ["tue", "thu"],
+          },
+          {
+            from: "10:00",
+            to: "16:00",
+            days: ["fri"],
+          },
+          {
+            from: "08:00",
+            to: "12:00",
+            days: ["sat", "sun"],
+          },
+          {
+            from: "13:00",
+            to: "17:00",
+            days: ["mon", "tue", "wed", "thu", "fri"],
+          },
+        ],
+        address: "Somewhere far away in the woods",
+        birth: "Damascus 1990/01/01",
+        mobile: "0987569844",
+        price: "5226.60$",
+        specification: "Cardiologist",
+      },
+      {
+        id: 4571,
+        name: "Dr. Ali Smith",
+        attendance_schedules: [
+          {
+            from: "09:00",
+            to: "13:00",
+            days: ["mon", "tue", "wed"],
+          },
+          {
+            from: "14:00",
+            to: "18:00",
+            days: ["tue", "thu"],
+          },
+          {
+            from: "10:00",
+            to: "16:00",
+            days: ["fri"],
+          },
+          {
+            from: "08:00",
+            to: "12:00",
+            days: ["sat", "sun"],
+          },
+          {
+            from: "13:00",
+            to: "17:00",
+            days: ["mon", "tue", "wed", "thu", "fri"],
+          },
+        ],
+        address: "Somewhere far away in the woods",
+        birth: "Damascus 1990/01/01",
+        mobile: "0932268444",
+        price: "2100.54$",
+        specification: "Dentist",
+      },
+      {
+        id: 7689,
+        name: "Dr. Ali Smith",
+        attendance_schedules: [
+          {
+            from: "09:00",
+            to: "13:00",
+            days: ["mon", "tue", "wed"],
+          },
+          {
+            from: "14:00",
+            to: "18:00",
+            days: ["tue", "thu"],
+          },
+          {
+            from: "10:00",
+            to: "16:00",
+            days: ["fri"],
+          },
+          {
+            from: "08:00",
+            to: "12:00",
+            days: ["sat", "sun"],
+          },
+          {
+            from: "13:00",
+            to: "17:00",
+            days: ["mon", "tue", "wed", "thu", "fri"],
+          },
+        ],
+        address: "Somewhere far away in the woods",
+        birth: "Damascus 1990/01/01",
+        mobile: "0987569844",
+        price: "8595.36$",
+        specification: "Cardiologist",
+      },
+      {
+        id: 8325,
+        name: "Dr. Fatima Ali",
+        attendance_schedules: [
+          {
+            from: "09:00",
+            to: "13:00",
+            days: ["mon", "tue", "wed"],
+          },
+          {
+            from: "14:00",
+            to: "18:00",
+            days: ["tue", "thu"],
+          },
+          {
+            from: "10:00",
+            to: "16:00",
+            days: ["fri"],
+          },
+          {
+            from: "08:00",
+            to: "12:00",
+            days: ["sat", "sun"],
+          },
+          {
+            from: "13:00",
+            to: "17:00",
+            days: ["mon", "tue", "wed", "thu", "fri"],
+          },
+        ],
+        address: "Somewhere far away in the woods",
+        birth: "Damascus 1990/01/01",
+        mobile: "0978415624",
+        price: "6979.83$",
+        specification: "Pediatrician",
+      },
+      {
+        id: 9589,
+        name: "Dr. John Fatima",
+        attendance_schedules: [
+          {
+            from: "09:00",
+            to: "13:00",
+            days: ["mon", "tue", "wed"],
+          },
+          {
+            from: "14:00",
+            to: "18:00",
+            days: ["tue", "thu"],
+          },
+          {
+            from: "10:00",
+            to: "16:00",
+            days: ["fri"],
+          },
+          {
+            from: "08:00",
+            to: "12:00",
+            days: ["sat", "sun"],
+          },
+          {
+            from: "13:00",
+            to: "17:00",
+            days: ["mon", "tue", "wed", "thu", "fri"],
+          },
+        ],
+        address: "Somewhere far away in the woods",
+        birth: "Damascus 1990/01/01",
+        mobile: "0978415624",
+        price: "3336.52$",
+        specification: "Surgeon",
+      },
+      {
+        id: 2644,
+        name: "Dr. Fatima Ali",
+        attendance_schedules: [
+          {
+            from: "09:00",
+            to: "13:00",
+            days: ["mon", "tue", "wed"],
+          },
+          {
+            from: "14:00",
+            to: "18:00",
+            days: ["tue", "thu"],
+          },
+          {
+            from: "10:00",
+            to: "16:00",
+            days: ["fri"],
+          },
+          {
+            from: "08:00",
+            to: "12:00",
+            days: ["sat", "sun"],
+          },
+          {
+            from: "13:00",
+            to: "17:00",
+            days: ["mon", "tue", "wed", "thu", "fri"],
+          },
+        ],
+        address: "Somewhere far away in the woods",
+        birth: "Damascus 1990/01/01",
+        mobile: "0932584765",
+        price: "434.40$",
+        specification: "General",
+      },
+      {
+        id: 9508,
+        name: "Dr. Fatima Ali",
+        attendance_schedules: [
+          {
+            from: "09:00",
+            to: "13:00",
+            days: ["mon", "tue", "wed"],
+          },
+          {
+            from: "14:00",
+            to: "18:00",
+            days: ["tue", "thu"],
+          },
+          {
+            from: "10:00",
+            to: "16:00",
+            days: ["fri"],
+          },
+          {
+            from: "08:00",
+            to: "12:00",
+            days: ["sat", "sun"],
+          },
+          {
+            from: "13:00",
+            to: "17:00",
+            days: ["mon", "tue", "wed", "thu", "fri"],
+          },
+        ],
+        address: "Somewhere far away in the woods",
+        birth: "Damascus 1990/01/01",
+        mobile: "0978415624",
+        price: "482.45$",
+        specification: "General",
+      },
+      {
+        id: 5970,
+        name: "Dr. John Fatima",
+        attendance_schedules: [
+          {
+            from: "09:00",
+            to: "13:00",
+            days: ["mon", "tue", "wed"],
+          },
+          {
+            from: "14:00",
+            to: "18:00",
+            days: ["tue", "thu"],
+          },
+          {
+            from: "10:00",
+            to: "16:00",
+            days: ["fri"],
+          },
+          {
+            from: "08:00",
+            to: "12:00",
+            days: ["sat", "sun"],
+          },
+          {
+            from: "13:00",
+            to: "17:00",
+            days: ["mon", "tue", "wed", "thu", "fri"],
+          },
+        ],
+        address: "Somewhere far away in the woods",
+        birth: "Damascus 1990/01/01",
+        mobile: "0932584765",
+        price: "5546.21$",
+        specification: "Dentist",
+      },
+    ],
     []
   );
   return {
