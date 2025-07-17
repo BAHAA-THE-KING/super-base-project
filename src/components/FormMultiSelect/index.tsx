@@ -25,6 +25,7 @@ type Props<
     "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"
   >;
   disabled?: boolean;
+  enableNew?: boolean;
 };
 
 const i18ns = ["you_have_to_enter_the", "no_options"];
@@ -39,6 +40,7 @@ export function FormMultiSelect<
   name,
   rules,
   disabled,
+  enableNew = true,
 }: Props<TFieldValues, TName>) {
   const [YouHaveToChooseThe, NoOptionsText] = useBaseTranslation(i18ns);
 
@@ -53,15 +55,26 @@ export function FormMultiSelect<
         <Autocomplete
           {...field}
           multiple
-          freeSolo
+          freeSolo={enableNew}
           options={options}
           disabled={disabled}
           onChange={(_, value) => {
-            const updatedValue = value.map((item) =>
-              typeof item === "string"
-                ? { id: -++newOptionsCount.current, name: item }
-                : item
-            );
+            const set: any = {};
+            const updatedValue = value
+              .filter((item) => {
+                if (typeof item === "string" && set[item]) return false;
+                else if (typeof item !== "string" && set[item.id]) return false;
+
+                if (typeof item === "string") set[item] = 1;
+                else set[item.id] = 1;
+
+                return true;
+              })
+              .map((item) =>
+                typeof item === "string"
+                  ? { id: -++newOptionsCount.current, name: item }
+                  : item
+              );
             field.onChange(updatedValue);
           }}
           renderTags={(value, getTagProps) =>

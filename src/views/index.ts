@@ -9,6 +9,8 @@ import { GroupShow } from "./pages/GroupShow";
 import { Plans } from "./pages/Plans";
 import { PlanShow } from "./pages/PlanShow";
 import { Meets } from "./pages/Meets";
+import { Doctors } from "./pages/Doctors";
+import { DoctorsShow } from "./pages/DoctorsShow";
 
 export const NotFoundPage = withNormalLayout(NotFound);
 export const AllBeneficiariesPage = withNormalLayout(AllBeneficiaries);
@@ -20,3 +22,5 @@ export const GroupShowPage = withNormalLayout(GroupShow);
 export const PlansPage = withNormalLayout(Plans);
 export const PlanShowPage = withNormalLayout(PlanShow);
 export const MeetsPage = withNormalLayout(Meets);
+export const DoctorsPage = withNormalLayout(Doctors);
+export const DoctorsShowPage = withNormalLayout(DoctorsShow);

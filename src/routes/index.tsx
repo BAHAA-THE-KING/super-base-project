@@ -24,6 +24,8 @@ import {
   PlansPage,
   PlanShowPage,
   MeetsPage,
+  DoctorsPage,
+  DoctorsShowPage,
 } from "src/views";
 
 import { useBaseTranslation } from "src/hooks";
@@ -65,6 +67,7 @@ const i18ns = [
   "meets_info",
   "services_department",
   "clinic_department",
+  "doctors",
 ];
 export function usePublicRoutes() {
   const [
@@ -78,6 +81,7 @@ export function usePublicRoutes() {
     MeetsInfoText,
     ServicesDepartmentText,
     ClinicDepartmentText,
+    DoctorsText,
   ] = useBaseTranslation(i18ns);
   return useMemo<Route[]>(
     () => [
@@ -197,6 +201,30 @@ export function usePublicRoutes() {
       {
         key: "clinic-department",
         title: ClinicDepartmentText,
+      },
+      {
+        key: "doctor",
+        path: "/doctors",
+        element: <DoctorsPage />,
+        icon: () => (
+          <SvgIcon>
+            {/* TODO: change the icon */}
+            <GrPlanIcon />
+          </SvgIcon>
+        ),
+        title: DoctorsText,
+      },
+      {
+        key: "show-doctors",
+        path: "/doctors/:doctorId",
+        element: <DoctorsShowPage />,
+        icon: () => (
+          <SvgIcon>
+            {/* TODO: change the icon */}
+            <GrPlanIcon />
+          </SvgIcon>
+        ),
+        hidden: true,
       },
     ],
     []
