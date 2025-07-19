@@ -70,13 +70,13 @@ export function FormSelect<
       render={({ field, fieldState: { invalid, error } }) => (
         <BAutocomplete
           {...field}
-          value={allOptions.find((e) => e.id === field?.value) || defaultOption}
+          value={allOptions.find((e) => e.id === field?.value) ?? defaultOption}
           options={allOptions}
-          onChange={(_, value, reason) => {
+          onChange={(_, value: { id: number; name: string }, reason) => {
             if (reason === "clear") {
               field.onChange({ target: { value: defaultOption.id } });
             } else {
-              field.onChange({ target: { value } });
+              field.onChange({ target: { value: value.id } });
             }
           }}
           renderInput={(params) => {

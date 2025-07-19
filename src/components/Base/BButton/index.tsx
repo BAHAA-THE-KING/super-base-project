@@ -65,7 +65,7 @@ export const BButton = ({
   children,
   ...props
 }: BButtonProps) => {
-  const animationsProps = useAnimation(animations);
+  const animationsProps = useAnimation(animations, true);
   return (
     <StyledButton
       centerRipple={Boolean(icon)}

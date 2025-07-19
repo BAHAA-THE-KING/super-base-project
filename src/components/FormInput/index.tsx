@@ -1,4 +1,4 @@
-import { ComponentProps } from "react";
+import { ComponentProps, useState } from "react";
 import {
   Control,
   Controller,
@@ -45,6 +45,7 @@ export function FormInput<
   inputProps = {},
 }: Props<TFieldValues, TName>) {
   const [YouHaveToEnterThe] = useBaseTranslation(i18ns);
+  const [lineNum, setLineNum] = useState(3);
 
   return (
     <Controller
@@ -64,7 +65,7 @@ export function FormInput<
             sx={sx}
             variant="standard"
             multiline={multiline}
-            rows={multiline ? 3 : 1}
+            rows={multiline ? lineNum : 1}
             label={label}
             error={Boolean(invalid || error)}
             helperText={
@@ -72,6 +73,15 @@ export function FormInput<
                 ? error?.message || YouHaveToEnterThe + " " + label
                 : ""
             }
+            onChange={(e) => {
+              field.onChange(e);
+              setLineNum(
+                Math.max(
+                  e.target.value.split("").filter((e) => e === "\n").length + 1,
+                  3
+                )
+              );
+            }}
             inputRef={inputRef}
             {...inputProps}
           />

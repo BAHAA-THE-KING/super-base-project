@@ -17,7 +17,7 @@ const i18ns = [
   "mobile_number",
   "specification",
   "attendance_schedules",
-  "price_per_reservation",
+  "price_per_appointment",
 ];
 export function useDoctorsColumns(onEdit: (id: number) => void) {
   const [
@@ -27,7 +27,7 @@ export function useDoctorsColumns(onEdit: (id: number) => void) {
     MobileNumberText,
     SpecificationText,
     AttendanceSchedulesText,
-    PricePerReservationText,
+    PricePerAppointmentText,
   ] = useBaseTranslation(i18ns);
 
   return useMemo<GridColDef<Doctor>[]>(
@@ -59,7 +59,7 @@ export function useDoctorsColumns(onEdit: (id: number) => void) {
       },
       {
         field: "price",
-        headerName: PricePerReservationText,
+        headerName: PricePerAppointmentText,
         flex: 1,
       },
       {

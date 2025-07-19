@@ -1,7 +1,7 @@
 import { type Variants } from "motion/react";
 
-export const scaleProps: Variants = {
+export const scaleSmallerProps: Variants = {
   initial: { scale: 1 },
-  whileHover: { scale: 1.1 },
+  whileHover: { scale: 1.05 },
   whileTap: { scale: 0.9 },
 };

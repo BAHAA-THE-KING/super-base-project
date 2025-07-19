@@ -19,11 +19,6 @@ export function useDoctorsData() {
             days: ["tue", "thu"],
           },
           {
-            from: "10:00",
-            to: "16:00",
-            days: ["fri"],
-          },
-          {
             from: "08:00",
             to: "12:00",
             days: ["sat", "sun"],
@@ -31,7 +26,7 @@ export function useDoctorsData() {
           {
             from: "13:00",
             to: "17:00",
-            days: ["mon", "tue", "wed", "thu", "fri"],
+            days: ["mon", "tue"],
           },
         ],
         address: "Somewhere far away in the woods",

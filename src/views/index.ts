@@ -13,6 +13,9 @@ import { Doctors } from "./pages/Doctors";
 import { DoctorsShow } from "./pages/DoctorsShow";
 import { Secretary } from "./pages/Secretary";
 import { SecretaryShow } from "./pages/SecretaryShow";
+import { Appointments } from "./pages/Appointments";
+import { AppointmentsDate } from "./pages/AppointmentsDate";
+import { AppointmentsShow } from "./pages/AppointmentsShow";
 
 export const NotFoundPage = withNormalLayout(NotFound);
 export const AllBeneficiariesPage = withNormalLayout(AllBeneficiaries);
@@ -28,3 +31,6 @@ export const DoctorsPage = withNormalLayout(Doctors);
 export const DoctorsShowPage = withNormalLayout(DoctorsShow);
 export const SecretaryPage = withNormalLayout(Secretary);
 export const SecretaryShowPage = withNormalLayout(SecretaryShow);
+export const AppointmentsPage = withNormalLayout(Appointments);
+export const AppointmentsDatePage = withNormalLayout(AppointmentsDate);
+export const AppointmentsShowPage = withNormalLayout(AppointmentsShow);
