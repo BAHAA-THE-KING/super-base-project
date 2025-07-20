@@ -9,6 +9,7 @@ import { useBaseTranslation } from "src/hooks";
 
 import { AppointmentCreate } from "src/types/data/AppointmentCreate";
 import { AppointmentTable } from "src/types/data/AppointmentTable";
+import { NewPatientPopup } from "../NewPatientPopup";
 
 type Form = AppointmentCreate &
   AppointmentTable & { showWantDiscount: boolean };
@@ -44,6 +45,7 @@ const i18ns = [
   "save_new_appointment",
   "add_new_appointment",
   "discount_reason",
+  "new_patient",
 ];
 
 export function AppointmentForm({
@@ -68,6 +70,7 @@ export function AppointmentForm({
     SaveNewAppointmentText,
     AddNewAppointmentText,
     DiscountReasonText,
+    NewPatientText,
   ] = useBaseTranslation(i18ns);
 
   const [doctorAttendanceSchedules, setDoctorAttendanceSchedules] = useState<{
@@ -104,162 +107,185 @@ export function AppointmentForm({
     );
   }, [watch("from")]);
 
+  const [showPopup, setShowPopup] = useState(false);
+  const setPatientId = (id: number) => {
+    setValue("beneficiary_id", id);
+  };
+
   return (
-    <BCard
-      sx={{
-        m: 1,
-        width: "100%",
-      }}
-      animations={{ transitions: "slideInBottom" }}
-    >
-      <CardContent>
-        <Stack flexDirection={"row"} alignItems={"center"}>
-          <BTypography variant="h5" fontWeight={"bold"}>
-            {AddNewAppointmentText}
-          </BTypography>
-        </Stack>
-      </CardContent>
-      <CardContent>
-        <Grid2 container spacing={3}>
-          <Grid2 size={4}>
-            <FormSelect
-              sx={{ my: 1 }}
-              control={control}
-              label={BeneficiaryNameText}
-              name="beneficiary_id"
-              rules={{ required: true }}
-              options={beneficiaries}
-            />
-          </Grid2>
-          <Grid2 size={4}>
-            <FormInput
-              sx={{ my: 1 }}
-              control={control}
-              label={BeneficiaryNationalNumberText}
-              name="beneficiary_national_number"
-              inputProps={{
-                slotProps: {
-                  input: {
-                    readOnly: true,
+    <>
+      <BCard
+        sx={{ m: 1, width: "100%" }}
+        animations={{ transitions: "slideInBottom" }}
+      >
+        <CardContent>
+          <Stack flexDirection={"row"} alignItems={"center"}>
+            <BTypography variant="h5" fontWeight={"bold"}>
+              {AddNewAppointmentText}
+            </BTypography>
+          </Stack>
+        </CardContent>
+        <CardContent>
+          <Grid2 container spacing={3}>
+            <Grid2 size={4}>
+              <FormSelect
+                sx={{ my: 1 }}
+                control={control}
+                label={BeneficiaryNameText}
+                name="beneficiary_id"
+                rules={{ required: true }}
+                options={beneficiaries}
+              />
+            </Grid2>
+            <Grid2 size={4}>
+              <FormInput
+                sx={{ my: 1 }}
+                control={control}
+                label={BeneficiaryNationalNumberText}
+                name="beneficiary_national_number"
+                inputProps={{
+                  slotProps: {
+                    input: {
+                      readOnly: true,
+                    },
                   },
-                },
-              }}
-            />
-          </Grid2>
-          <Grid2 size={12}></Grid2>
-          <Grid2 size={3}>
-            <FormSelect
-              sx={{ my: 1 }}
-              control={control}
-              label={DoctorNameText}
-              name="doctor_id"
-              options={doctors}
-              rules={{ required: true }}
-            />
-          </Grid2>
-          <Grid2 size={3}>
-            <FormSelect
-              sx={{ my: 1 }}
-              control={control}
-              label={DateText}
-              name="date"
-              rules={{ required: true }}
-              options={
-                Object.keys(doctorAttendanceSchedules)?.map((e, i) => ({
-                  id: i + 1,
-                  name: e,
-                })) ?? []
-              }
-            />
-          </Grid2>
-          <Grid2 size={3}>
-            <FormSelect
-              sx={{ my: 1 }}
-              control={control}
-              label={FromHourText}
-              name="from"
-              rules={{ required: true }}
-              options={
-                Object.entries(doctorAttendanceSchedules)?.[
-                  Number(watch("date")) - 1
-                ]?.[1]?.map((e, i) => ({
-                  id: i + 1,
-                  name: e.from,
-                })) ?? []
-              }
-            />
-          </Grid2>
-          <Grid2 size={3}>
-            <FormInput
-              sx={{ my: 1 }}
-              control={control}
-              label={ToHourText}
-              name="to"
-              inputProps={{
-                slotProps: {
-                  input: {
-                    readOnly: true,
-                  },
-                },
-              }}
-            />
-          </Grid2>
-          <Grid2 size={12}></Grid2>
-          <Grid2 size={4}>
-            <FormInput
-              sx={{ my: 1 }}
-              control={control}
-              label={ReasonText}
-              name="reason"
-            />
-          </Grid2>
-          <Grid2
-            size={2}
-            display={"flex"}
-            justifyContent={"flex-start"}
-            alignItems={"center"}
-          >
-            <FormCheckbox
-              sx={{ my: 1 }}
-              control={control}
-              label={NeedDiscountText}
-              name="showWantDiscount"
-            />
-          </Grid2>
-          {Boolean(watch("showWantDiscount")) && (
+                }}
+              />
+            </Grid2>
+            <Grid2
+              size={4}
+              display={"flex"}
+              justifyContent={"flex-start"}
+              alignItems={"flex-end"}
+            >
+              <BButton
+                color="primary"
+                variant="text"
+                onClick={() => setShowPopup(true)}
+              >
+                {NewPatientText}
+              </BButton>
+            </Grid2>
+            <Grid2 size={12}></Grid2>
+            <Grid2 size={3}>
+              <FormSelect
+                sx={{ my: 1 }}
+                control={control}
+                label={DoctorNameText}
+                name="doctor_id"
+                options={doctors}
+                rules={{ required: true }}
+              />
+            </Grid2>
+            <Grid2 size={3}>
+              <FormSelect
+                sx={{ my: 1 }}
+                control={control}
+                label={DateText}
+                name="date"
+                rules={{ required: true }}
+                options={
+                  Object.keys(doctorAttendanceSchedules)?.map((e, i) => ({
+                    id: i + 1,
+                    name: e,
+                  })) ?? []
+                }
+              />
+            </Grid2>
+            <Grid2 size={3}>
+              <FormSelect
+                sx={{ my: 1 }}
+                control={control}
+                label={FromHourText}
+                name="from"
+                rules={{ required: true }}
+                options={
+                  Object.entries(doctorAttendanceSchedules)?.[
+                    Number(watch("date")) - 1
+                  ]?.[1]?.map((e, i) => ({
+                    id: i + 1,
+                    name: e.from,
+                  })) ?? []
+                }
+              />
+            </Grid2>
             <Grid2 size={3}>
               <FormInput
                 sx={{ my: 1 }}
                 control={control}
-                label={DiscountReasonText}
-                name="wantDiscount"
+                label={ToHourText}
+                name="to"
+                inputProps={{
+                  slotProps: {
+                    input: {
+                      readOnly: true,
+                    },
+                  },
+                }}
               />
             </Grid2>
-          )}
-          <Grid2 size={12}></Grid2>
-          <Grid2 size={{ xs: "auto" }}>
-            <Stack
-              flexDirection={{
-                sx: "column",
-                md: "row",
-              }}
-              justifyContent={{
-                sx: "flex-start",
-                md: "flex-end",
-              }}
-              alignItems={"stretch"}
+            <Grid2 size={12}></Grid2>
+            <Grid2 size={4}>
+              <FormInput
+                sx={{ my: 1 }}
+                control={control}
+                label={ReasonText}
+                name="reason"
+              />
+            </Grid2>
+            <Grid2
+              size={2}
+              display={"flex"}
+              justifyContent={"flex-start"}
+              alignItems={"center"}
             >
-              <BButton
-                variant="contained"
-                disabled={true ? !isValid : !isDirty}
-                onClick={submit}
+              <FormCheckbox
+                sx={{ my: 1 }}
+                control={control}
+                label={NeedDiscountText}
+                name="showWantDiscount"
+              />
+            </Grid2>
+            {Boolean(watch("showWantDiscount")) && (
+              <Grid2 size={3}>
+                <FormInput
+                  sx={{ my: 1 }}
+                  control={control}
+                  label={DiscountReasonText}
+                  name="wantDiscount"
+                />
+              </Grid2>
+            )}
+            <Grid2 size={12}></Grid2>
+            <Grid2 size={{ xs: "auto" }}>
+              <Stack
+                flexDirection={{
+                  sx: "column",
+                  md: "row",
+                }}
+                justifyContent={{
+                  sx: "flex-start",
+                  md: "flex-end",
+                }}
+                alignItems={"stretch"}
               >
-                {SaveNewAppointmentText}
-              </BButton>
-            </Stack>
+                <BButton
+                  variant="contained"
+                  disabled={true ? !isValid : !isDirty}
+                  onClick={submit}
+                >
+                  {SaveNewAppointmentText}
+                </BButton>
+              </Stack>
+            </Grid2>
           </Grid2>
-        </Grid2>
-      </CardContent>
-    </BCard>
+        </CardContent>
+      </BCard>
+      <NewPatientPopup
+        open={showPopup}
+        close={() => setShowPopup(false)}
+        setPatientId={setPatientId}
+      />
+    </>
   );
 }

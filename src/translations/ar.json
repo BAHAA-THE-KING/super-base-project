@@ -270,5 +270,9 @@
   "save": "حفظ",
   "appointment_status": "حالة الموعد",
   "reset_value": "إلغاء التعديلات",
-  "update": "تحديث"
+  "update": "تحديث",
+  "new_patient": "مريض من خارج الجمعية ؟",
+  "create_new_patient": "إضافة معلومات المريض",
+  "marital_status": "الحالة الاجتماعية",
+  "save_new_patient": "حفظ معلومات المريض"
 }
