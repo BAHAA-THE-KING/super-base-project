@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { RestoreOutlined } from "@mui/icons-material";
 import {
   Box,
   CardContent,
@@ -10,6 +9,19 @@ import {
 } from "@mui/material";
 import PopupState, { bindMenu, bindTrigger } from "material-ui-popup-state";
 import { useForm } from "react-hook-form";
+import {
+  Timeline,
+  TimelineItem,
+  TimelineSeparator,
+  TimelineDot,
+  TimelineConnector,
+  TimelineContent,
+  TimelineOppositeContent,
+  timelineContentClasses,
+  timelineItemClasses,
+} from "@mui/lab";
+
+import { RestoreOutlined } from "@mui/icons-material";
 
 import { FormInput } from "src/components";
 
@@ -20,11 +32,11 @@ import {
   BTooltip,
   BTypography,
 } from "src/components/Base";
+import { AppointmentStatusChip } from "src/views/pages/AppointmentsDate/components";
 
 import { useBaseTranslation } from "src/hooks";
 
 import { AppointmentTable } from "src/types/data/AppointmentTable";
-import { AppointmentStatusChip } from "src/views/pages/AppointmentsDate/components";
 
 type Props = {
   appointment: AppointmentTable;
@@ -33,6 +45,9 @@ type Props = {
   }) => void;
   editHealthInfo: (params: {
     data: { id: number; healthInfo: string };
+  }) => void;
+  addAppointmentResult: (params: {
+    data: { id: number; appointmentResult: string };
   }) => void;
 };
 
@@ -58,12 +73,14 @@ const i18ns = [
   "appointment_status",
   "reset_value",
   "update",
+  "appointment_result",
 ];
 
 export function AppointmentDetails({
   appointment,
   editAppointment,
   editHealthInfo,
+  addAppointmentResult,
 }: Props) {
   const [
     BeneficiaryNameText,
@@ -87,6 +104,7 @@ export function AppointmentDetails({
     AppointmentStatusText,
     ResetValueText,
     UpdateText,
+    AppointmentResultText,
   ] = useBaseTranslation(i18ns);
 
   const days = [
@@ -99,186 +117,305 @@ export function AppointmentDetails({
     SaturdayText,
   ];
 
-  const { control, reset, handleSubmit } = useForm<{ healthInfo: string }>({
+  const {
+    control: controlHealthInfo,
+    reset: resetHealthInfo,
+    handleSubmit: handleSubmitHealthInfo,
+  } = useForm<{ healthInfo: string }>({
     defaultValues: { healthInfo: "" },
   });
 
+  const {
+    control: controlAppointmentResult,
+    reset: resetAppointmentResult,
+    handleSubmit: handleSubmitAppointmentResult,
+  } = useForm<{ appointmentResult: string }>({
+    defaultValues: { appointmentResult: "" },
+  });
+
   useEffect(() => {
-    reset({ healthInfo: appointment.healthInfo });
+    resetHealthInfo({ healthInfo: appointment.healthInfo });
+  }, [appointment]);
+  useEffect(() => {
+    resetAppointmentResult({ appointmentResult: appointment.result });
   }, [appointment]);
 
   return (
-    <>
-      <BCard
-        sx={{ m: 1, width: "50%" }}
-        animations={{ transitions: "slideInRight" }}
+    <Stack
+      width={"100%"}
+      flexDirection={"column"}
+      justifyContent={"flex-start"}
+    >
+      <Stack
+        width={"100%"}
+        height={{ xs: "auto", md: "50%" }}
+        maxHeight={{ xs: "auto", md: 500 }}
+        flexDirection={{
+          sx: "column",
+          md: "row",
+        }}
+        justifyContent={"space-between"}
       >
-        <CardContent>
-          <Stack>
-            <BTypography variant="h5" fontWeight={"bold"}>
-              {AppointmentInfoText +
-                " " +
-                days[new Date(appointment.date).getDay()] +
-                " " +
-                appointment.date +
-                " " +
-                AtHourText +
-                " " +
-                appointment.from +
-                " " +
-                ToText +
-                " " +
-                appointment.to}
-            </BTypography>
-            <BTypography variant="h5" fontWeight={"bold"}>
-              {WithDoctorText + " " + appointment.doctor_name}
-            </BTypography>
-          </Stack>
-        </CardContent>
-        <CardContent>
-          <Stack spacing={3} mt={3}>
-            <Box
-              display={"flex"}
-              gap={1}
-              justifyContent={"flex-start"}
-              alignItems={"center"}
-            >
-              <BTypography variant="h6">{BeneficiaryNameText}: </BTypography>
-              <BTypography>{appointment.beneficiary_name}</BTypography>
-            </Box>
-            <Box
-              display={"flex"}
-              gap={1}
-              justifyContent={"flex-start"}
-              alignItems={"center"}
-            >
-              <BTypography variant="h6">
-                {BeneficiaryNationalNumberText}:{" "}
+        <BCard
+          sx={{
+            m: 1,
+            width: {
+              xs: "100%",
+              md: "50%",
+            },
+          }}
+          animations={{ transitions: "slideInRight" }}
+        >
+          <CardContent>
+            <Stack>
+              <BTypography variant="h5" fontWeight={"bold"}>
+                {AppointmentInfoText +
+                  " " +
+                  days[new Date(appointment.date).getDay()] +
+                  " " +
+                  appointment.date +
+                  " " +
+                  AtHourText +
+                  " " +
+                  appointment.from +
+                  " " +
+                  ToText +
+                  " " +
+                  appointment.to}
               </BTypography>
-              <BTypography>
-                {appointment.beneficiary_national_number}
+              <BTypography variant="h5" fontWeight={"bold"}>
+                {WithDoctorText + " " + appointment.doctor_name}
               </BTypography>
-            </Box>
-            {appointment.reason && (
+            </Stack>
+          </CardContent>
+          <CardContent>
+            <Stack spacing={3} mt={3}>
               <Box
                 display={"flex"}
                 gap={1}
                 justifyContent={"flex-start"}
                 alignItems={"center"}
               >
-                <BTypography variant="h6">{ReasonText}: </BTypography>
-                <BTypography>{appointment.reason}</BTypography>
+                <BTypography variant="h6">{BeneficiaryNameText}: </BTypography>
+                <BTypography>{appointment.beneficiary_name}</BTypography>
               </Box>
-            )}
-            <Box
-              display={"flex"}
-              gap={1}
-              justifyContent={"flex-start"}
-              alignItems={"center"}
-            >
-              <BCheckbox checked={Boolean(appointment.wantDiscount)} />
-              <BTypography>{NeedDiscountText}</BTypography>
-            </Box>
-            {appointment.wantDiscount && (
               <Box
                 display={"flex"}
                 gap={1}
                 justifyContent={"flex-start"}
                 alignItems={"center"}
               >
-                <BTypography variant="h6">{DiscountReasonText}: </BTypography>
-                <BTypography>{appointment.wantDiscount}</BTypography>
+                <BTypography variant="h6">
+                  {BeneficiaryNationalNumberText}:{" "}
+                </BTypography>
+                <BTypography>
+                  {appointment.beneficiary_national_number}
+                </BTypography>
               </Box>
-            )}
-            <Box
-              display={"flex"}
-              gap={1}
-              justifyContent={"flex-start"}
-              alignItems={"flex-end"}
-            >
-              <BTypography variant="h6">{AppointmentStatusText}: </BTypography>
-              <AppointmentStatusChip status={appointment.status} />
-            </Box>
-            {appointment.status === "pending" && (
+              {appointment.reason && (
+                <Box
+                  display={"flex"}
+                  gap={1}
+                  justifyContent={"flex-start"}
+                  alignItems={"center"}
+                >
+                  <BTypography variant="h6">{ReasonText}: </BTypography>
+                  <BTypography>{appointment.reason}</BTypography>
+                </Box>
+              )}
+              <Box
+                display={"flex"}
+                gap={1}
+                justifyContent={"flex-start"}
+                alignItems={"center"}
+              >
+                <BCheckbox checked={Boolean(appointment.wantDiscount)} />
+                <BTypography>{NeedDiscountText}</BTypography>
+              </Box>
+              {appointment.wantDiscount && (
+                <Box
+                  display={"flex"}
+                  gap={1}
+                  justifyContent={"flex-start"}
+                  alignItems={"center"}
+                >
+                  <BTypography variant="h6">{DiscountReasonText}: </BTypography>
+                  <BTypography>{appointment.wantDiscount}</BTypography>
+                </Box>
+              )}
               <Box
                 display={"flex"}
                 gap={1}
                 justifyContent={"flex-start"}
                 alignItems={"flex-end"}
               >
-                <PopupState variant="popover">
-                  {(popupState) => (
-                    <>
-                      <BButton {...bindTrigger(popupState)}>
-                        {UpdateText}
-                      </BButton>
-                      <Menu {...bindMenu(popupState)}>
-                        {(["finished", "canceled", "missed"] as const).map(
-                          (status) => (
-                            <MenuItem
-                              onClick={() => {
-                                editAppointment({
-                                  data: { id: appointment.id, status },
-                                });
-                                bindMenu(popupState).onClose();
-                              }}
-                            >
-                              <ListItemText>
-                                <AppointmentStatusChip status={status} />
-                              </ListItemText>
-                            </MenuItem>
-                          )
-                        )}
-                      </Menu>
-                    </>
-                  )}
-                </PopupState>
+                <BTypography variant="h6">
+                  {AppointmentStatusText}:{" "}
+                </BTypography>
+                <AppointmentStatusChip status={appointment.status} />
               </Box>
-            )}
-          </Stack>
-        </CardContent>
-      </BCard>
+              {appointment.status === "pending" && (
+                <Box
+                  display={"flex"}
+                  gap={1}
+                  justifyContent={"flex-start"}
+                  alignItems={"flex-end"}
+                >
+                  <PopupState variant="popover">
+                    {(popupState) => (
+                      <>
+                        <BButton {...bindTrigger(popupState)}>
+                          {UpdateText}
+                        </BButton>
+                        <Menu {...bindMenu(popupState)}>
+                          {(["finished", "canceled", "missed"] as const).map(
+                            (status) => (
+                              <MenuItem
+                                onClick={() => {
+                                  editAppointment({
+                                    data: { id: appointment.id, status },
+                                  });
+                                  bindMenu(popupState).onClose();
+                                }}
+                              >
+                                <ListItemText>
+                                  <AppointmentStatusChip status={status} />
+                                </ListItemText>
+                              </MenuItem>
+                            )
+                          )}
+                        </Menu>
+                      </>
+                    )}
+                  </PopupState>
+                </Box>
+              )}
+            </Stack>
+          </CardContent>
+        </BCard>
+        <BCard
+          sx={{
+            m: 1,
+            width: {
+              xs: "100%",
+              md: "50%",
+            },
+            overflowY: "auto",
+          }}
+          animations={{ transitions: "slideInLeft" }}
+        >
+          <CardContent>
+            <Stack gap={2} justifyContent={"flex-start"}>
+              <FormInput
+                control={controlHealthInfo}
+                label={HealthInfoText}
+                name="healthInfo"
+                multiline
+                inputProps={{
+                  variant: "outlined",
+                }}
+              />
+              <Box display={"flex"} justifyContent={"space-between"}>
+                {/* TODO: You've edited the past things, Are you sure ? */}
+                <BButton
+                  variant="contained"
+                  onClick={handleSubmitHealthInfo((data) => {
+                    editHealthInfo({
+                      data: {
+                        id: appointment.id,
+                        healthInfo: data.healthInfo,
+                      },
+                    });
+                  })}
+                >
+                  {SaveText}
+                </BButton>
+                <BTooltip title={ResetValueText}>
+                  <BButton
+                    color="info"
+                    onClick={() =>
+                      resetHealthInfo({ healthInfo: appointment.healthInfo })
+                    }
+                    icon={<RestoreOutlined />}
+                  />
+                </BTooltip>
+              </Box>
+            </Stack>
+          </CardContent>
+        </BCard>
+      </Stack>
       <BCard
-        sx={{ m: 1, width: "50%" }}
-        animations={{ transitions: "slideInLeft" }}
+        sx={{ m: 1, width: { xs: "100%", md: "auto" } }}
+        animations={{ transitions: "slideInBottom" }}
       >
         <CardContent>
           <Stack gap={2} justifyContent={"flex-start"}>
             <FormInput
-              control={control}
-              label={HealthInfoText}
-              name="healthInfo"
+              control={controlAppointmentResult}
+              label={AppointmentResultText}
+              name="appointmentResult"
               multiline
               inputProps={{
                 variant: "outlined",
               }}
             />
-            <Box display={"flex"} justifyContent={"space-between"}>
-              {/* TODO: You've edited the past things, Are you sure ? */}
+            <Box>
               <BButton
                 variant="contained"
-                onClick={handleSubmit((data) => {
-                  editHealthInfo({
+                onClick={handleSubmitAppointmentResult((data) => {
+                  addAppointmentResult({
                     data: {
                       id: appointment.id,
-                      healthInfo: data.healthInfo,
+                      appointmentResult: data.appointmentResult,
                     },
                   });
                 })}
               >
                 {SaveText}
               </BButton>
-              <BTooltip title={ResetValueText}>
-                <BButton
-                  color="info"
-                  onClick={() => reset({ healthInfo: appointment.healthInfo })}
-                  icon={<RestoreOutlined />}
-                />
-              </BTooltip>
+            </Box>
+            <Box
+              width={"10%"}
+              overflow={"visible"}
+              sx={{ wordBreak: "keep-all", whiteSpace: "nowrap" }}
+            >
+              <Timeline position="right">
+                {appointment.history?.map((app, i) => (
+                  <TimelineItem key={app.id} sx={{ width: "100%" }}>
+                    <TimelineOppositeContent>
+                      <BTypography fontWeight={"bold"}>{app.date}</BTypography>
+                    </TimelineOppositeContent>
+                    <TimelineSeparator>
+                      <TimelineDot
+                        color={
+                          app.status === "pending"
+                            ? "warning"
+                            : app.status === "finished"
+                            ? "success"
+                            : app.status === "missed"
+                            ? "error"
+                            : "secondary"
+                        }
+                      />
+                      {(appointment.history?.length ?? 0) - 1 === i || (
+                        <TimelineConnector />
+                      )}
+                    </TimelineSeparator>
+                    <TimelineContent>
+                      <BTypography fontWeight={"bold"}>
+                        {app.doctor_name}
+                      </BTypography>
+                      <BTypography fontWeight={"bold"}>
+                        {app.result}
+                      </BTypography>
+                    </TimelineContent>
+                  </TimelineItem>
+                ))}
+              </Timeline>
             </Box>
           </Stack>
         </CardContent>
       </BCard>
-    </>
+    </Stack>
   );
 }

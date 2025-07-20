@@ -1,13 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
 
-import {
-  AppointmentDeletePopup,
-  AppointmentForm,
-  AppointmentDetails,
-} from "./components";
+import { AppointmentForm, AppointmentDetails } from "./components";
 
 import { useAppointmentsData } from "../Appointments/data";
 
@@ -37,6 +33,7 @@ export function AppointmentsShow() {
     createAppointment,
     editAppointment,
     editHealthInfo,
+    addAppointmentResult,
   } = useAppointmentsData();
   const appointment = appointments.find((e) => e.id === appointmentId)!;
 
@@ -72,7 +69,7 @@ export function AppointmentsShow() {
   return (
     <Stack
       width={"100%"}
-      height={"100%"}
+      minHeight={"100%"}
       borderRadius={1}
       flexDirection={{
         sx: "column",
@@ -103,6 +100,7 @@ export function AppointmentsShow() {
           appointment={appointment}
           editAppointment={editAppointment}
           editHealthInfo={editHealthInfo}
+          addAppointmentResult={addAppointmentResult}
         />
       )}
     </Stack>

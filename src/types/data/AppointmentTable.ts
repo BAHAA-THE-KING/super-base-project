@@ -13,4 +13,12 @@ export type AppointmentTable = {
   wantDiscount?: string;
   price?: string;
   healthInfo?: string;
+  result?: string;
+  history?: {
+    id: number;
+    doctor_name: string;
+    date: string;
+    status: "pending" | "missed" | "finished" | "canceled";
+    result: string;
+  }[];
 };

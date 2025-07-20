@@ -22,6 +22,22 @@ export function useAppointmentsData() {
         reason: "Consultation",
         wantDiscount: "Low income, needs financial assistance",
         status: "canceled",
+        history: [
+          {
+            id: 35,
+            date: "2025/06/01",
+            status: "finished",
+            doctor_name: "Dr. Smith",
+            result: "Follow-up required",
+          },
+          {
+            id: 87,
+            date: "2025/05/01",
+            status: "missed",
+            doctor_name: "Dr. Smith",
+            result: "Patient did not show up",
+          },
+        ],
       },
       {
         id: 2,
@@ -34,6 +50,22 @@ export function useAppointmentsData() {
         from: "01:00",
         to: "02:00",
         status: "finished",
+        history: [
+          {
+            id: 28,
+            date: "2025/06/15",
+            status: "finished",
+            doctor_name: "Dr. Brown",
+            result: "Routine check",
+          },
+          {
+            id: 78,
+            date: "2025/05/01",
+            status: "missed",
+            doctor_name: "Dr. Smith",
+            result: "Give the patient some citamol",
+          },
+        ],
       },
       {
         id: 3,
@@ -47,6 +79,15 @@ export function useAppointmentsData() {
         to: "03:00",
         reason: "Routine check",
         status: "pending",
+        history: [
+          {
+            id: 39,
+            date: "2025/06/20",
+            status: "canceled",
+            doctor_name: "Dr. Lee",
+            result: "Patient canceled",
+          },
+        ],
       },
       {
         id: 4,
@@ -60,6 +101,15 @@ export function useAppointmentsData() {
         to: "02:00",
         wantDiscount: "Student, cannot afford full price",
         status: "pending",
+        history: [
+          {
+            id: 543,
+            date: "2025/06/18",
+            status: "finished",
+            doctor_name: "Dr. Patel",
+            result: "First visit",
+          },
+        ],
       },
       {
         id: 5,
@@ -72,6 +122,15 @@ export function useAppointmentsData() {
         from: "04:00",
         to: "05:00",
         status: "finished",
+        history: [
+          {
+            id: 56,
+            date: "2025/06/01",
+            status: "missed",
+            doctor_name: "Dr. Kim",
+            result: "No show",
+          },
+        ],
       },
       {
         id: 6,
@@ -84,6 +143,15 @@ export function useAppointmentsData() {
         from: "05:00",
         to: "06:00",
         status: "missed",
+        history: [
+          {
+            id: 78,
+            date: "2025/06/18",
+            status: "finished",
+            doctor_name: "Dr. Chen",
+            result: "Prescribed medication",
+          },
+        ],
       },
       {
         id: 7,
@@ -96,6 +164,15 @@ export function useAppointmentsData() {
         from: "06:00",
         to: "07:00",
         status: "pending",
+        history: [
+          {
+            id: 91,
+            date: "2025/06/18",
+            status: "finished",
+            doctor_name: "Dr. Wilson",
+            result: "Routine check",
+          },
+        ],
       },
       {
         id: 8,
@@ -108,6 +185,15 @@ export function useAppointmentsData() {
         from: "02:00",
         to: "03:00",
         status: "canceled",
+        history: [
+          {
+            id: 136,
+            date: "2025/06/19",
+            status: "pending",
+            doctor_name: "Dr. Clark",
+            result: "Awaiting confirmation",
+          },
+        ],
       },
       {
         id: 9,
@@ -121,6 +207,15 @@ export function useAppointmentsData() {
         to: "09:00",
         wantDiscount: "Unemployed, requests discount",
         status: "pending",
+        history: [
+          {
+            id: 86,
+            date: "2025/06/01",
+            status: "finished",
+            doctor_name: "Dr. Lewis",
+            result: "Follow-up scheduled",
+          },
+        ],
       },
       {
         id: 10,
@@ -134,6 +229,15 @@ export function useAppointmentsData() {
         to: "10:00",
         reason: "Routine check",
         status: "finished",
+        history: [
+          {
+            id: 12,
+            date: "2025/06/01",
+            status: "finished",
+            doctor_name: "Dr. Young",
+            result: "All clear",
+          },
+        ],
       },
     ],
     []
@@ -161,5 +265,8 @@ export function useAppointmentsData() {
     }) => new Promise(() => {}),
     editHealthInfo: (params: { data: { id: number; healthInfo: string } }) =>
       new Promise(() => {}),
+    addAppointmentResult: (params: {
+      data: { id: number; appointmentResult: string };
+    }) => new Promise(() => {}),
   };
 }
