@@ -31,6 +31,7 @@ import {
   AppointmentsPage,
   AppointmentsDatePage,
   AppointmentsShowPage,
+  ClinicBalancePage,
 } from "src/views";
 
 import { useBaseTranslation } from "src/hooks";
@@ -75,6 +76,7 @@ const i18ns = [
   "doctors",
   "secretary",
   "appointments",
+  "clinic_balance",
 ];
 export function usePublicRoutes() {
   const [
@@ -91,6 +93,7 @@ export function usePublicRoutes() {
     DoctorsText,
     SecretaryText,
     AppointmentsText,
+    ClinicBalanceText,
   ] = useBaseTranslation(i18ns);
   return useMemo<Route[]>(
     () => [
@@ -294,6 +297,18 @@ export function usePublicRoutes() {
           </SvgIcon>
         ),
         hidden: true,
+      },
+      {
+        key: "clinic-balance",
+        path: "/clinic-balance",
+        element: <ClinicBalancePage />,
+        icon: () => (
+          <SvgIcon>
+            {/* TODO: change the icon */}
+            <GrPlanIcon />
+          </SvgIcon>
+        ),
+        title: ClinicBalanceText,
       },
     ],
     []

@@ -275,5 +275,9 @@
   "create_new_patient": "إضافة معلومات المريض",
   "marital_status": "الحالة الاجتماعية",
   "save_new_patient": "حفظ معلومات المريض",
-  "appointment_result": "نتيجة الموعد"
+  "appointment_result": "نتيجة الموعد",
+  "clinic_balance": "ميزانية العيادة",
+  "record_number": "رقم الدفعة",
+  "amount": "المبلغ",
+  "person": "صاحب العلاقة"
 }

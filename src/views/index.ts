@@ -16,6 +16,7 @@ import { SecretaryShow } from "./pages/SecretaryShow";
 import { Appointments } from "./pages/Appointments";
 import { AppointmentsDate } from "./pages/AppointmentsDate";
 import { AppointmentsShow } from "./pages/AppointmentsShow";
+import { ClinicBalance } from "./pages/ClinicBalance";
 
 export const NotFoundPage = withNormalLayout(NotFound);
 export const AllBeneficiariesPage = withNormalLayout(AllBeneficiaries);
@@ -34,3 +35,4 @@ export const SecretaryShowPage = withNormalLayout(SecretaryShow);
 export const AppointmentsPage = withNormalLayout(Appointments);
 export const AppointmentsDatePage = withNormalLayout(AppointmentsDate);
 export const AppointmentsShowPage = withNormalLayout(AppointmentsShow);
+export const ClinicBalancePage = withNormalLayout(ClinicBalance);
