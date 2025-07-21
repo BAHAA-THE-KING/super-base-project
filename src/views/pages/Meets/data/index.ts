@@ -1,5 +1,5 @@
 import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
-import { AidRequest } from "../../RequestAdd/hooks/useShowRequestData";
+import { AidRequest } from "../../RequestAdd/data/useShowEmergencyRequestData";
 
 import image from "./image.png";
 

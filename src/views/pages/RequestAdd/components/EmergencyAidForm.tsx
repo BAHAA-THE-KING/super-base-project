@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Stack, Step, StepLabel, Stepper } from "@mui/material";
 import { useForm } from "react-hook-form";
 
@@ -6,11 +6,11 @@ import { FormInput, FormSelect } from "src/components";
 import { BButton, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
-import { useAddRequestData, useShowRequestData } from "../hooks";
+import { useShowEmergencyRequestData } from "../data/useShowEmergencyRequestData";
 
 type Props = { beneficiaryId: number; requestId?: number };
 type Form = {
-  beneficiary: { id: number; name: string };
+  beneficiary_id: number;
   reason: string;
   urgency_level: "low" | "medium" | "high";
   requested_amount: number;
@@ -50,23 +50,18 @@ export function EmergencyAidForm({ beneficiaryId, requestId = 0 }: Props) {
 
   const { control, setValue, handleSubmit, reset } = useForm<Form>();
 
-  const { beneficiaries, isLoading: isBeneficiariesLoading } =
-    useAddRequestData();
-
-  const { request, isLoading: isRequestLoading } = useShowRequestData(
-    requestId,
-    "aid"
-  );
+  const { request, beneficiaries, createEmergencyRequests } =
+    useShowEmergencyRequestData(requestId);
 
   useEffect(() => {
     if (beneficiaryId && beneficiaries && beneficiaries.length)
       setValue(
-        "beneficiary",
-        beneficiaries.find((e) => e.id === beneficiaryId) ?? { id: 0, name: "" }
+        "beneficiary_id",
+        beneficiaries.find((e) => e.id === beneficiaryId)?.id ?? 0
       );
     if (request)
       reset({
-        beneficiary: request.beneficiary!,
+        beneficiary_id: request.beneficiary!.id,
         reason: request.reason!,
         urgency_level: request.urgency_level as "low" | "medium" | "high",
         requested_amount: request.requested_amount!,
@@ -74,6 +69,8 @@ export function EmergencyAidForm({ beneficiaryId, requestId = 0 }: Props) {
   }, [beneficiaries, request]);
 
   const steps = [ApplyStepText, PendingStepText, ReceiveStepText];
+
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <>
@@ -98,7 +95,7 @@ export function EmergencyAidForm({ beneficiaryId, requestId = 0 }: Props) {
         <FormSelect
           control={control}
           label=""
-          name="beneficiary"
+          name="beneficiary_id"
           options={beneficiaries}
           inputProps={{
             fullWidth: false,
@@ -148,9 +145,20 @@ export function EmergencyAidForm({ beneficiaryId, requestId = 0 }: Props) {
       <Stack mt={5} alignItems={"flex-start"}>
         <BButton
           variant="contained"
-          onClick={handleSubmit((data) => {
-            console.log(data);
+          onClick={handleSubmit(async (data) => {
+            setIsLoading(true);
+            await createEmergencyRequests({
+              data: {
+                beneficiary_id: data.beneficiary_id,
+                reason: data.reason,
+                amount: data.requested_amount,
+                // TODO: link when fix
+                // urgency_level: data.urgency_level,
+              },
+            });
+            setIsLoading(false);
           })}
+          loading={isLoading}
         >
           {SubmitText}
         </BButton>

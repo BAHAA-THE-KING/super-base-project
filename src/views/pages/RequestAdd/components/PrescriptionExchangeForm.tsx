@@ -6,7 +6,7 @@ import { FormInput, FormSelect } from "src/components";
 import { BButton, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
-import { useAddRequestData } from "../hooks";
+import { useAddRequestData } from "../data";
 import { Step } from "@mui/material";
 
 type Props = { beneficiaryId: number };

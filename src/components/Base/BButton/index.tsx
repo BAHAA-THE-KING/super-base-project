@@ -5,9 +5,11 @@ import { useAnimation } from "src/animations/hooks";
 
 import { PropsWithAnimations } from "src/animations/types/PropsWithAnimations";
 import { varAlpha } from "src/themes/styles";
+import { BCircularProgress } from "../BCircularProgress";
 
 export type BButtonProps = PropsWithAnimations<ButtonProps> & {
   circular?: boolean;
+  loading?: boolean;
   icon?: React.ReactNode;
 };
 
@@ -62,6 +64,7 @@ const StyledButton = styled(Button, {
 export const BButton = ({
   animations,
   icon,
+  loading,
   children,
   ...props
 }: BButtonProps) => {
@@ -72,7 +75,8 @@ export const BButton = ({
       {...props}
       {...animationsProps}
       icon={icon}
-      children={icon ?? children}
+      children={loading ? <BCircularProgress size={20} /> : icon ?? children}
+      disabled={loading || props.disabled}
     />
   );
 };

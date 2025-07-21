@@ -152,7 +152,7 @@ type DeactivateRequest = {
 
 export function useBeneficiaries() {
   const getAllBeneficiaries = (filters: Partial<AllFilters>) =>
-    useGetAPI<AllResponse>("/beneficiaries", {
+    useGetAPI<AllResponse>("/dashboard/beneficiaries/all", {
       defaultData: {
         message: "wait",
         data: [],
