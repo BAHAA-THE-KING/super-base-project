@@ -1,4 +1,4 @@
-import { Stack } from "@mui/material";
+import { Grid2 } from "@mui/material";
 
 import { PartnerCard, ChildCard } from "../..";
 
@@ -7,52 +7,41 @@ import {
   Partner,
   SingleBeneficiary,
 } from "src/types/data/SingleBeneficiary";
-import { chunkArray } from "src/utils";
-import { Box } from "@mui/material";
 
 type Props = {
   beneficiary: SingleBeneficiary;
 };
 
 export function FamilyInfo({ beneficiary }: Props) {
-  const members = chunkArray(
-    [
-      { key: beneficiary.partner, partner: beneficiary.partner },
-      ...beneficiary.children
-        .sort(
-          (e1, e2) =>
-            new Date(e1.birth_date).getTime() -
-            new Date(e2.birth_date).getTime()
-        )
-        .map((e) => ({ key: e.id, child: e })),
-    ] as { key?: number; child?: Child; partner?: Partner }[],
-    3,
-    true,
-    () => ({ key: new Date().getTime() })
-  );
+  const members = [
+    { key: "partner", partner: beneficiary.partner },
+    ...beneficiary.children
+      .sort(
+        (e1, e2) =>
+          new Date(e1.birth_date).getTime() - new Date(e2.birth_date).getTime()
+      )
+      .map((e) => ({ key: e.id, child: e })),
+  ] as { key?: number; child?: Child; partner?: Partner }[];
 
   return (
-    <Stack flexDirection={"column"}>
+    <Grid2 container>
       {members.map((e) => (
-        <Stack
-          key={e.reduce((p, e) => p + "," + e.key, "")}
-          flexDirection={"row"}
+        <Grid2
+          key={e.key}
+          size={{ xs: 12, md: 4 }}
+          display={"flex"}
+          alignItems={"stretch"}
         >
-          {e.map((e) =>
-            e.partner ? (
-              <PartnerCard
-                key={e.partner.id}
-                partner={e.partner}
-                beneficiaryGender={beneficiary.gender.id}
-              />
-            ) : e.child ? (
-              <ChildCard key={e.child.id} child={e.child} />
-            ) : (
-              <Box key={e.key} flex={1}></Box>
-            )
-          )}
-        </Stack>
+          {e.partner ? (
+            <PartnerCard
+              partner={e.partner}
+              beneficiaryGender={beneficiary.gender.id}
+            />
+          ) : e.child ? (
+            <ChildCard child={e.child} />
+          ) : null}
+        </Grid2>
       ))}
-    </Stack>
+    </Grid2>
   );
 }
