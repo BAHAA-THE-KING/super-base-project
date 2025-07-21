@@ -1,7 +1,11 @@
 import { Chip, type ChipProps, styled } from "@mui/material";
+
+import { useAnimation } from "src/animations/hooks";
+
+import { PropsWithAnimations } from "src/animations/types/PropsWithAnimations";
 import { varAlpha } from "src/themes/styles";
 
-type BChipProps = Omit<ChipProps, "variant"> & {
+type BChipProps = PropsWithAnimations<Omit<ChipProps, "variant">> & {
   variant?: "outlined" | "filled" | "slight";
 };
 
@@ -18,7 +22,7 @@ const StyledChip = styled(Chip, {
   })
 );
 
-export const BChip = ({ ...props }: BChipProps) => {
+export const BChip = ({ animations, ...props }: BChipProps) => {
   let variant: ChipProps["variant"];
   let hasSlightBG = false;
   if (props.variant !== "slight") variant = props.variant;
@@ -26,5 +30,14 @@ export const BChip = ({ ...props }: BChipProps) => {
     variant = "outlined";
     hasSlightBG = true;
   }
-  return <StyledChip {...props} variant={variant} hasSlightBG={hasSlightBG} />;
+  const animationsProps = useAnimation(animations);
+
+  return (
+    <StyledChip
+      {...props}
+      variant={variant}
+      hasSlightBG={hasSlightBG}
+      {...animationsProps}
+    />
+  );
 };

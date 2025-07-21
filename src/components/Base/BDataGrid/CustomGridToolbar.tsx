@@ -109,6 +109,7 @@ export function CustomGridToolbar({ filters, removeFilter, columns }: Props) {
               variant="slight"
               color="primary"
               sx={{ mx: 0.5 }}
+              animations={{ transitions: "popIn" }}
             />
           );
         })}
