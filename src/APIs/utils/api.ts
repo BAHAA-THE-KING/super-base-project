@@ -4,10 +4,10 @@ import Cookies from "js-cookie";
 import { buildUrl } from "./urlBuilder";
 
 const api = new Axios({
-  baseURL: "http://localhost:8000/api/api",
+  baseURL: "http://localhost:8000/api",
   headers: {
     "Content-Type": "application/json",
-    "Accept-Encoding": "application/json",
+    "Accept": "application/json",
   },
 });
 

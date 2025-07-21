@@ -46,3 +46,8 @@ export const voiceInputAtom = atom({
   default: "",
   key: "voice-input",
 });
+
+export const isLoadingAtom = atom({
+  default: false,
+  key: "is-loading",
+});

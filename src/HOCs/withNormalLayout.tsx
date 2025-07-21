@@ -1,7 +1,8 @@
 import React, { ComponentType, useEffect, useRef, useState } from "react";
 import { Stack } from "@mui/material";
 
-import { Header, Sidebar } from "src/components";
+import { Header, LoadingPage, Sidebar } from "src/components";
+import { useLoading } from "src/globals";
 
 export function withNormalLayout<T extends object>(
   Component: ComponentType<T>
@@ -28,6 +29,10 @@ export function withNormalLayout<T extends object>(
       };
     }, []);
 
+    const [loading] = useLoading();
+
+    
+
     return (
       <Stack
         direction={"row"}
@@ -35,6 +40,7 @@ export function withNormalLayout<T extends object>(
         bgcolor={(theme) => theme.palette.background.default}
         overflow={"auto"}
       >
+        {loading && <LoadingPage />}
         <Sidebar ref={sidebarRef} />
         <Stack
           width={`CALC(100% - ${sidebarWidth}px)`}
