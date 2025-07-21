@@ -40,16 +40,17 @@ export function GroupCard({ group, isActive }: Props) {
           md: 400,
         },
         border: isActive ? `3px solid ${theme.palette.primary.main}` : "",
+        p: 0,
       })}
       animations={{ transitions: "slideInBottom" }}
     >
-      <Box
-        px={2}
-        py={1}
-        textAlign={"center"}
-        bgcolor={(theme) => (isActive ? theme.palette.primary.main : "")}
-      >
-        {
+      <CardContent sx={{ p: 0 }}>
+        <Box
+          px={2}
+          py={1}
+          textAlign={"center"}
+          bgcolor={(theme) => (isActive ? theme.palette.primary.main : "")}
+        >
           <BTypography
             fontWeight={"bold"}
             sx={(theme) => ({
@@ -60,9 +61,9 @@ export function GroupCard({ group, isActive }: Props) {
           >
             {isActive ? ActiveText : NotActiveText}
           </BTypography>
-        }
-      </Box>
-      <CardContent>
+        </Box>
+      </CardContent>
+      <CardContent sx={{ p: 3 }}>
         <BTypography variant="h6" fontWeight={"bold"} mb={3}>
           {group.name}
         </BTypography>
@@ -70,7 +71,7 @@ export function GroupCard({ group, isActive }: Props) {
           {ThisGroupReceivesSalaryText}: {group.salary} {SP}
         </BTypography>
       </CardContent>
-      <CardContent>
+      <CardContent sx={{ p: 3 }}>
         <BTypography fontWeight={"bold"}>{ConditionsText}</BTypography>
         {group.group_conditions.map((group_condition) => (
           <Box
