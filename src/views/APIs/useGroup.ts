@@ -47,27 +47,18 @@ type DeleteGroupResponse = {
 
 type AllGroupsResponse = {
   data: {
-    current_page: number;
-    data: {
+    id: number;
+    name: string;
+    salary: number;
+    color: "error" | "primary" | "secondary" | "info" | "success" | "warning";
+    conditions: {
       id: number;
       name: string;
-      salary: number;
-      color: string;
-      conditions: {
-        id: number;
-        name: string;
-        params: string;
-      }[];
-      number_of_beneficiaries: number;
-      percent_of_beneficiaries: number;
+      params: string;
     }[];
-    from: number;
-    last_page: number;
-    path: string;
-    per_page: number;
-    to: number;
-    total: number;
-  };
+    number_of_beneficiaries: number;
+    percent_of_beneficiaries: number;
+  }[];
   message: string;
 };
 
@@ -78,7 +69,14 @@ export function useGroup() {
   const deleteGroup = useDeleteAPI<DeleteGroupResponse, DeleteGroupRequest>(
     "groups/:id"
   ).mutateAsync;
-  const showGroups = () => useGetAPI<AllGroupsResponse>("groups");
+  const showGroups = () =>
+    useGetAPI<AllGroupsResponse>("/dashboard/groups/all", {
+      defaultData: {
+        message: "wait",
+        data: [],
+      },
+      keys: ["groups"],
+    });
 
   return {
     createGroup,

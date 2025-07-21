@@ -1,14 +1,12 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, EffectCards } from "swiper/modules";
-import { Box, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-cards";
 
-import { BCircularProgress } from "src/components/Base";
-
-import { useGroupsData } from "../../../data";
+import { useData } from "../../../data";
 
 import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
 import { GroupCard } from "../../GroupCard";
@@ -18,18 +16,13 @@ type Props = {
 };
 
 export function GroupInfo({ beneficiary }: Props) {
-  const { isLoading, groups } = useGroupsData();
+  const { groups } = useData(beneficiary.id);
   const orderedGroups = groups.sort((e1, e2) =>
     e1.id === beneficiary.group.id ? -1 : e2.id === beneficiary.group.id ? 1 : 0
   );
 
   return (
     <Box overflow={"hidden"} height={"100%"} pt={3}>
-      {isLoading ? (
-        <Stack justifyContent={"center"} alignItems={"center"}>
-          <BCircularProgress />
-        </Stack>
-      ) : null}
       <Swiper
         dir="rtl"
         spaceBetween={25}
@@ -48,7 +41,7 @@ export function GroupInfo({ beneficiary }: Props) {
         {orderedGroups.map((group) => (
           <SwiperSlide
             key={group.id}
-            style={{ filter: "drop-shadow(0 10px 5px grey)" }}
+            style={{ filter: "drop-shadow(0 10px 5px #222)" }}
           >
             <GroupCard
               group={group}

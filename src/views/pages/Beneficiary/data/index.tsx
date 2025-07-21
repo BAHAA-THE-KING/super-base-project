@@ -1,186 +1,113 @@
-import { useMemo } from "react";
-
-import image from "./image.png";
+import { useBeneficiaries } from "src/views/APIs";
+import { useLoading } from "src/globals";
 
 import { Group, SingleBeneficiary } from "src/types/data/SingleBeneficiary";
+import { useMemo } from "react";
 import { Aid } from "src/types/data/Aid";
-import { Request } from "src/types/data/Request";
+import { useGroup } from "src/views/APIs/useGroup";
 
 export function useData(id: number) {
-  return useMemo<SingleBeneficiary>(
-    () => ({
-      id,
-      image_url: image,
-      first_name: "عمر",
-      last_name: "يوسف",
-      father_name: "علي",
-      mother_name: "فاطمة",
-      birth_date: "1985-03-15",
-      birth_place: "دمشق",
-      national_number: "198503150001",
-      gender: { id: "male" },
-      job: "كهربائي",
-      health_status: "Suffers from chronic back pain",
-      phone_number: "0112345678",
-      mobile_number: "0798765432",
-      address: "Al-Midan, Damascus, Syria",
-      residence_type: { id: "rent" }, // enum: rent, own, host, borrow
-      residence_document_id: 101,
-      monthly_income: 250,
-      case_description:
-        "Struggles to provide for a family of 5 due to low income and health problems.",
-      request_id: 42,
-      request_status: "accepted", // enum: accepted, rejected
-      children: [
-        {
-          id: 1,
-          beneficiary_id: 1,
-          name: "Layla Yousef",
-          birth_date: "2010-06-10",
-          gender: { id: "female" }, // enum: male, female
-          is_alive: true,
-          partner_name: "Omar Yousef",
-          residence_place: "Al-Midan, Damascus, Syria",
-        },
-        {
-          id: 11,
-          beneficiary_id: 1,
-          name: "Layla Yousef",
-          birth_date: "2010-06-10",
-          gender: { id: "female" }, // enum: male, female
-          is_alive: true,
-          partner_name: "Omar Yousef",
-          residence_place: "Al-Midan, Damascus, Syria",
-        },
-        {
-          id: 12,
-          beneficiary_id: 1,
-          name: "Layla Yousef",
-          birth_date: "2010-06-10",
-          gender: { id: "female" }, // enum: male, female
-          is_alive: true,
-          partner_name: "Omar Yousef",
-          residence_place: "Al-Midan, Damascus, Syria",
-        },
-        {
-          id: 15,
-          beneficiary_id: 1,
-          name: "Layla Yousef",
-          birth_date: "2010-06-10",
-          gender: { id: "female" }, // enum: male, female
-          is_alive: true,
-          partner_name: "Omar Yousef",
-          residence_place: "Al-Midan, Damascus, Syria",
-        },
-        {
-          id: 2,
-          beneficiary_id: 1,
-          name: "Ahmad Yousef",
-          birth_date: "2012-11-23",
+  const { getSingleBeneficiary } = useBeneficiaries();
+  const { data: beneficiaryResponse } = getSingleBeneficiary(id);
+
+  const responseData = beneficiaryResponse?.data;
+
+  const beneficiary: SingleBeneficiary | null = responseData
+    ? {
+        id: responseData.id,
+        // TODO: add missing field
+        image_url: "",
+        first_name: responseData.first_name,
+        last_name: responseData.last_name,
+        father_name: responseData.father_name,
+        mother_name: responseData.mother_name,
+        birth_date: responseData.birth_date,
+        birth_place: responseData.birth_place,
+        national_number: responseData.national_number,
+        // TODO: add missing field
+        gender: { id: "male" },
+        job: responseData.job,
+        health_status: responseData.health_status,
+        phone_number: responseData.phone_number,
+        // TODO: add missing field
+        mobile_number: "",
+        address: responseData.address,
+        residence_type: { id: responseData.residence_type },
+        // TODO: add missing field
+        residence_document_id: 0,
+        children: responseData.children.map((e) => ({
+          id: e.id,
+          beneficiary_id: responseData.id,
+          name: e.name,
+          birth_date: e.birth_date,
+          gender: { id: e.gender },
+          is_alive: e.is_alive,
+          partner_name: e.partner_name,
+          residence_place: e.residence_place,
+        })),
+        uncles: responseData.uncles.map((e) => ({
+          id: e.id,
+          beneficiary_id: responseData.id,
+          from: { id: e.from },
+          first_name: e.first_name,
+          last_name: e.last_name,
+          job: e.job,
+          provided_aid: e.provided_aid,
+        })),
+        // TODO: add missing field
+        partner: {
+          id: 0,
+          beneficiary_id: 0,
+          first_name: "",
+          last_name: "",
+          job: "",
           gender: { id: "male" },
-          is_alive: true,
-          partner_name: "Omar Yousef",
-          residence_place: "Al-Midan, Damascus, Syria",
+          health_status: "",
         },
-        {
-          id: 3,
-          beneficiary_id: 1,
-          name: "Ahmad Yousef",
-          birth_date: "2012-11-23",
-          gender: { id: "male" },
-          is_alive: true,
-          partner_name: "Omar Yousef",
-          residence_place: "Al-Midan, Damascus, Syria",
+        group: {
+          id: responseData.group.id,
+          name: responseData.group.color,
+          salary: responseData.group.salary.toString(),
+          color: responseData.group.color,
+          // TODO: add missing field
+          group_conditions: [],
         },
-        {
-          id: 22,
-          beneficiary_id: 1,
-          name: "Ahmad Yousef",
-          birth_date: "2008-05-03",
-          gender: { id: "male" },
-          is_alive: true,
-          partner_name: "Omar Yousef",
-          residence_place: "Al-Midan, Damascus, Syria",
-        },
-        {
-          id: 21,
-          beneficiary_id: 1,
-          name: "Ahmad Yousef",
-          birth_date: "2015-10-02",
-          gender: { id: "male" },
-          is_alive: true,
-          partner_name: "Omar Yousef",
-          residence_place: "Al-Midan, Damascus, Syria",
-        },
-        {
-          id: 32,
-          beneficiary_id: 1,
-          name: "Ahmad Yousef",
-          birth_date: "2010-11-23",
-          gender: { id: "male" },
-          is_alive: true,
-          partner_name: "Omar Yousef",
-          residence_place: "Al-Midan, Damascus, Syria",
-        },
-      ],
-      uncles: [
-        {
-          id: 1,
-          beneficiary_id: 1,
-          from: { id: "father" }, // enum: father, mother
-          first_name: "Hassan",
-          last_name: "Yousef",
-          job: "Teacher",
-          provided_aid: "Occasionally sends money and food supplies.",
-        },
-        {
-          id: 2,
-          beneficiary_id: 1,
-          from: { id: "mother" },
-          first_name: "Khaled",
-          last_name: "Hussein",
-          job: "Tailor",
-          provided_aid: "Helped with school fees for the children.",
-        },
-      ],
-      partner: {
-        id: 1,
-        beneficiary_id: 1,
-        first_name: "Amina",
-        last_name: "Hassan",
-        job: "Home-based seamstress",
-        gender: { id: "female" },
-        health_status: "Healthy",
-      },
-      group: {
-        id: 3,
-        name: "الفئة 5",
-        salary: "1000000",
-        color: "warning",
-        group_conditions: [
-          {
-            id: 6,
-            params: "5",
-            condition: {
-              id: 9,
-              name: "more than 3 members under 18 years old",
-            },
-            is_satisfied: true,
+        monthly_income: responseData.monthly_income,
+        case_description: responseData.case_description,
+        // TODO: add missing field
+        request_id: 0,
+        request_status: responseData.request_status,
+      }
+    : null;
+
+  const { showGroups } = useGroup();
+  const { data: groupResponse } = showGroups();
+
+  const groups: Group[] =
+    groupResponse?.data?.map((e) => ({
+      id: e.id,
+      name: e.name,
+      salary: e.salary.toString(),
+      color: e.color,
+      // TODO: need to be filled
+      group_conditions:
+        e?.conditions?.map((ee) => ({
+          id: ee.id,
+          params: ee.params,
+          // TODO: need to be filled
+          condition: {
+            id: 0,
+            name: "",
           },
-          {
-            id: 63,
-            params: "8",
-            condition: {
-              id: 85,
-              name: "more than 5 members",
-            },
-            is_satisfied: true,
-          },
-        ],
-      },
-    }),
-    []
-  );
+          // TODO: need to be filled
+          is_satisfied: true,
+        })) ?? [],
+    })) ?? [];
+
+  const [_, setLoading] = useLoading();
+  setLoading(beneficiaryResponse?.message === "wait");
+
+  return { beneficiary, groups };
 }
 
 export function useAidsData(beneficiary_id: number) {
@@ -393,135 +320,4 @@ export function useRequestsData(beneficiary_id: number) {
   );
 
   return { isLoading: false, requests };
-}
-
-export function useGroupsData() {
-  const groups: Group[] = useMemo(
-    () => [
-      {
-        id: 1,
-        name: "الفئة 1",
-        salary: "500000",
-        color: "primary",
-        group_conditions: [
-          {
-            id: 1,
-            params: "2",
-            condition: {
-              id: 1,
-              name: "more than 1 member under 18 years old",
-            },
-            is_satisfied: true,
-          },
-          {
-            id: 2,
-            params: "600000",
-            condition: {
-              id: 2,
-              name: "monthly income less than 500000",
-            },
-            is_satisfied: false,
-          },
-        ],
-      },
-      {
-        id: 2,
-        name: "الفئة 2",
-        salary: "700000",
-        color: "secondary",
-        group_conditions: [
-          {
-            id: 3,
-            params: "4",
-            condition: {
-              id: 3,
-              name: "more than 2 members",
-            },
-            is_satisfied: true,
-          },
-          {
-            id: 4,
-            params: "0",
-            condition: {
-              id: 4,
-              name: "more than 1 disabled member",
-            },
-            is_satisfied: false,
-          },
-        ],
-      },
-      {
-        id: 5,
-        name: "الفئة 3",
-        salary: "900000",
-        color: "success",
-        group_conditions: [
-          {
-            id: 5,
-            params: "600000",
-            condition: {
-              id: 5,
-              name: "monthly income more than 700000",
-            },
-            is_satisfied: false,
-          },
-        ],
-      },
-      {
-        id: 4,
-        name: "الفئة 4",
-        salary: "1200000",
-        color: "error",
-        group_conditions: [
-          {
-            id: 6,
-            params: "6",
-            condition: {
-              id: 6,
-              name: "more than 3 members under 18 years old",
-            },
-            is_satisfied: true,
-          },
-          {
-            id: 7,
-            params: "1",
-            condition: {
-              id: 7,
-              name: "more than 2 elderly members",
-            },
-            is_satisfied: false,
-          },
-        ],
-      },
-      {
-        id: 3,
-        name: "الفئة 5",
-        salary: "1000000",
-        color: "warning",
-        group_conditions: [
-          {
-            id: 6,
-            params: "5",
-            condition: {
-              id: 9,
-              name: "more than 3 members under 18 years old",
-            },
-            is_satisfied: true,
-          },
-          {
-            id: 63,
-            params: "8",
-            condition: {
-              id: 85,
-              name: "more than 5 members",
-            },
-            is_satisfied: true,
-          },
-        ],
-      },
-    ],
-    []
-  );
-
-  return { isLoading: false, groups };
 }

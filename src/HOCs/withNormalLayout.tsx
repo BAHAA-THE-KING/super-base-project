@@ -31,8 +31,6 @@ export function withNormalLayout<T extends object>(
 
     const [loading] = useLoading();
 
-    
-
     return (
       <Stack
         direction={"row"}

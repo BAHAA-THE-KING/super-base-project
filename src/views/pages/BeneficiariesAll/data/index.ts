@@ -12,7 +12,7 @@ export function useData(filters: {}): {
   const [_, setLoading] = useLoading();
   setLoading(response?.message === "wait");
 
-  const beneficiaries =
+  const beneficiaries: BeneficiaryTable[] =
     response?.data?.data?.map((e) => ({
       id: e.id,
       first_name: e.first_name,
