@@ -57,7 +57,15 @@ export function FormCheckbox<
             alignItems={"center"}
           >
             <BCheckbox {...field} checked={field.value} {...checkboxProps} />
-            <BTypography>{label}</BTypography>
+            <BTypography
+              sx={{ cursor: "pointer" }}
+              onClick={() =>
+                !field.disabled &&
+                field.onChange({ target: { value: !field.value } })
+              }
+            >
+              {label}
+            </BTypography>
           </Stack>
           {Boolean(invalid || error) ? (
             <BTypography color="error" variant="caption">

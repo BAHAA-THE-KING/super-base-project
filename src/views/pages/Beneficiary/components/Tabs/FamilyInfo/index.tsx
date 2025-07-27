@@ -10,9 +10,10 @@ import {
 
 type Props = {
   beneficiary: SingleBeneficiary;
+  isEditable: boolean;
 };
 
-export function FamilyInfo({ beneficiary }: Props) {
+export function FamilyInfo({ beneficiary, isEditable }: Props) {
   const members = [
     { key: "partner", partner: beneficiary.partner },
     ...beneficiary.children
@@ -36,9 +37,10 @@ export function FamilyInfo({ beneficiary }: Props) {
             <PartnerCard
               partner={e.partner}
               beneficiaryGender={beneficiary.gender.id}
+              isEditable={isEditable}
             />
           ) : e.child ? (
-            <ChildCard child={e.child} />
+            <ChildCard child={e.child} isEditable={isEditable} />
           ) : null}
         </Grid2>
       ))}

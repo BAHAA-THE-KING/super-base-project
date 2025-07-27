@@ -12,6 +12,7 @@ import SvgUncle from "src/icons/Uncle";
 
 type Props = {
   uncle: Uncle;
+  isEditable: boolean;
 };
 
 const i18ns = [
@@ -24,7 +25,7 @@ const i18ns = [
   "job",
   "provided_aid",
 ];
-export function SupporterCard({ uncle }: Props) {
+export function SupporterCard({ uncle, isEditable }: Props) {
   const [
     SupporterInfoText,
     FirstNameText,
@@ -58,6 +59,7 @@ export function SupporterCard({ uncle }: Props) {
       </CardContent>
       <CardContent>
         <FormInput
+          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
           sx={{ my: 1 }}
           control={control}
           label={FirstNameText}
@@ -65,6 +67,7 @@ export function SupporterCard({ uncle }: Props) {
           rules={{ required: true }}
         />
         <FormInput
+          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
           sx={{ my: 1 }}
           control={control}
           label={LastNameText}
@@ -72,6 +75,7 @@ export function SupporterCard({ uncle }: Props) {
           rules={{ required: true }}
         />
         <FormSelect
+          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
           sx={{ my: 1 }}
           control={control}
           label={KinshipText}
@@ -83,6 +87,7 @@ export function SupporterCard({ uncle }: Props) {
           ]}
         />
         <FormInput
+          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
           sx={{ my: 1 }}
           control={control}
           label={JobText}
@@ -90,6 +95,7 @@ export function SupporterCard({ uncle }: Props) {
           rules={{ required: true }}
         />
         <FormInput
+          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
           sx={{ my: 1 }}
           control={control}
           label={ProvidedAidText}

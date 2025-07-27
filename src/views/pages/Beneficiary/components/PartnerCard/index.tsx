@@ -14,6 +14,7 @@ import { Partner } from "src/types/data/SingleBeneficiary";
 type Props = {
   partner: Partner;
   beneficiaryGender: "male" | "female";
+  isEditable: boolean;
 };
 
 const i18ns = [
@@ -24,7 +25,7 @@ const i18ns = [
   "job",
   "health_status",
 ];
-export function PartnerCard({ partner, beneficiaryGender }: Props) {
+export function PartnerCard({ partner, beneficiaryGender, isEditable }: Props) {
   const [
     HusbandInfoText,
     WifeInfoText,
@@ -56,6 +57,7 @@ export function PartnerCard({ partner, beneficiaryGender }: Props) {
       </CardContent>
       <CardContent>
         <FormInput
+          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
           sx={{ my: 1 }}
           control={control}
           label={FirstNameText}
@@ -63,6 +65,7 @@ export function PartnerCard({ partner, beneficiaryGender }: Props) {
           rules={{ required: true }}
         />
         <FormInput
+          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
           sx={{ my: 1 }}
           control={control}
           label={LastNameText}
@@ -70,6 +73,7 @@ export function PartnerCard({ partner, beneficiaryGender }: Props) {
           rules={{ required: true }}
         />
         <FormInput
+          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
           sx={{ my: 1 }}
           control={control}
           label={JobText}
@@ -77,6 +81,7 @@ export function PartnerCard({ partner, beneficiaryGender }: Props) {
           rules={{ required: true }}
         />
         <FormInput
+          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
           sx={{ my: 1 }}
           control={control}
           label={HealthStatusText}

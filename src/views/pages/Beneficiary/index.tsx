@@ -50,19 +50,34 @@ export function ShowBeneficiary({ requestMode = false, requestId = 0 }: Props) {
             {
               name: "personal",
               label: PersonalInfoText,
-              element: <PersonalInfo beneficiary={beneficiary} />,
+              element: (
+                <PersonalInfo
+                  beneficiary={beneficiary}
+                  isEditable={requestMode}
+                />
+              ),
               color: "primary",
             },
             {
               name: "family",
               label: FamilyInfoText,
-              element: <FamilyInfo beneficiary={beneficiary} />,
+              element: (
+                <FamilyInfo
+                  beneficiary={beneficiary}
+                  isEditable={requestMode}
+                />
+              ),
               color: "primary",
             },
             {
               name: "supporters",
               label: SupportersInfoText,
-              element: <SupportersInfo beneficiary={beneficiary} />,
+              element: (
+                <SupportersInfo
+                  beneficiary={beneficiary}
+                  isEditable={requestMode}
+                />
+              ),
               color: "primary",
             },
             requestMode

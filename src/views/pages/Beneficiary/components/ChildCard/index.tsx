@@ -13,6 +13,7 @@ import { Child } from "src/types/data/SingleBeneficiary";
 
 type Props = {
   child: Child;
+  isEditable: boolean;
 };
 
 const i18ns = [
@@ -27,7 +28,7 @@ const i18ns = [
   "son_info",
   "daughter_info",
 ];
-export function ChildCard({ child }: Props) {
+export function ChildCard({ child, isEditable }: Props) {
   const [
     NameText,
     GenderText,
@@ -63,6 +64,7 @@ export function ChildCard({ child }: Props) {
       </CardContent>
       <CardContent>
         <FormInput
+          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
           sx={{ my: 1 }}
           control={control}
           label={NameText}
@@ -70,6 +72,7 @@ export function ChildCard({ child }: Props) {
           rules={{ required: true }}
         />
         <FormSelect
+          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
           sx={{ my: 1 }}
           control={control}
           label={GenderText}
@@ -81,6 +84,7 @@ export function ChildCard({ child }: Props) {
           ]}
         />
         <FormInput
+          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
           sx={{ my: 1 }}
           control={control}
           label={BirthDateText}
@@ -92,9 +96,11 @@ export function ChildCard({ child }: Props) {
           control={control}
           label={IsAliveText}
           name={`child.is_alive`}
+          disabled={!isEditable}
         />
         {child.gender.id === "female" ? (
           <FormInput
+            inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
             sx={{ my: 1 }}
             control={control}
             label={PartnerNameText}
@@ -103,6 +109,7 @@ export function ChildCard({ child }: Props) {
           />
         ) : null}
         <FormInput
+          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
           sx={{ my: 1 }}
           control={control}
           label={ResidencePlaceText}
