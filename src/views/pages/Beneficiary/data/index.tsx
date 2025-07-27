@@ -21,7 +21,7 @@ export function useData(id: number) {
         last_name: responseData.last_name,
         father_name: responseData.father_name,
         mother_name: responseData.mother_name,
-        birth_date: responseData.birth_date,
+        birth_date: responseData.birth_date.split("T")[0],
         birth_place: responseData.birth_place,
         national_number: responseData.national_number,
         // TODO: add missing field
@@ -39,7 +39,7 @@ export function useData(id: number) {
           id: e.id,
           beneficiary_id: responseData.id,
           name: e.name,
-          birth_date: e.birth_date,
+          birth_date: e.birth_date.split("T")[0],
           gender: { id: e.gender },
           is_alive: e.is_alive,
           partner_name: e.partner_name,

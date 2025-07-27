@@ -19,7 +19,7 @@ export function useData(filters: {}): {
       last_name: e.last_name,
       father_name: e.father_name,
       mother_name: e.mother_name,
-      birth_date: e.birth_date,
+      birth_date: e.birth_date.split("T")[0],
       birth_place: e.birth_place,
       national_number: e.national_number,
       job: e.job,
