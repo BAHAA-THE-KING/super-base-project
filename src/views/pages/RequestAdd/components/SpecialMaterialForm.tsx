@@ -6,14 +6,14 @@ import { FormInput, FormSelect } from "src/components";
 import { BButton, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
-import { useAddRequestData } from "../data";
+import { useAddSpecialMaterialRequestData } from "../data";
 
 type Props = { beneficiaryId: number };
 type Form = {
-  beneficiary: { id: number; name: string };
+  beneficiary_id: number;
   reason: string;
   urgency_level: "low" | "medium" | "high";
-  requested_item: { id: number; name: string };
+  requested_item: string;
 };
 
 const i18ns = [
@@ -50,13 +50,14 @@ export function SpecialMaterialForm({ beneficiaryId }: Props) {
 
   const { control, setValue, handleSubmit } = useForm<Form>();
 
-  const { beneficiaries, items, isLoading } = useAddRequestData(true);
+  const { beneficiaries, createSpecialMaterialsRequest, isLoading } =
+    useAddSpecialMaterialRequestData();
 
   useEffect(() => {
     if (beneficiaryId && beneficiaries && beneficiaries.length)
       setValue(
-        "beneficiary",
-        beneficiaries.find((e) => e.id === beneficiaryId) ?? { id: 0, name: "" }
+        "beneficiary_id",
+        beneficiaries.find((e) => e.id === beneficiaryId)?.id ?? 0
       );
   }, [beneficiaries]);
 
@@ -85,20 +86,19 @@ export function SpecialMaterialForm({ beneficiaryId }: Props) {
         <FormSelect
           control={control}
           label=""
-          name="beneficiary"
+          name="beneficiary_id"
           options={beneficiaries}
           inputProps={{
             fullWidth: false,
             sx: {
-              width: "200px",
+              width: "500px",
             },
           }}
         />
       </Stack>
       <Stack flexDirection={"row"} flexWrap={"wrap"} mt={2}>
         <BTypography marginInlineEnd={1}>{INeedThisItemText}</BTypography>
-        <FormSelect
-          options={items}
+        <FormInput
           control={control}
           label=""
           name="requested_item"
@@ -107,13 +107,6 @@ export function SpecialMaterialForm({ beneficiaryId }: Props) {
             sx: {
               minWidth: "300px",
               maxWidth: "500px",
-            },
-            slotProps: {
-              htmlInput: {
-                style: {
-                  fieldSizing: "content",
-                },
-              },
             },
           }}
         />
@@ -154,7 +147,10 @@ export function SpecialMaterialForm({ beneficiaryId }: Props) {
         <BButton
           variant="contained"
           onClick={handleSubmit((data) => {
-            console.log(data);
+            createSpecialMaterialsRequest({
+              beneficiary_id: data.beneficiary_id,
+              item: data.requested_item,
+            });
           })}
         >
           {SubmitText}

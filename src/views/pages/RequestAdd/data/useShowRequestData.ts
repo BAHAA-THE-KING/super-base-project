@@ -22,7 +22,7 @@ export type MaterialRequest = {
   beneficiary: { id: number; name: string };
   reason: string;
   urgency_level: "low" | "medium" | "high";
-  requested_item: { id: number; name: string };
+  requested_item: string;
 };
 
 export function useShowRequestData(
@@ -62,7 +62,7 @@ export function useShowRequestData(
               beneficiary: { id: 1, name: "John Doe" },
               reason: "I need help",
               urgency_level: "low",
-              requested_item: { id: 1, name: "Item 1" },
+              requested_item: "Item 1",
             } as MaterialRequest)
           : null,
       [type]

@@ -1,9 +1,10 @@
 import { useMemo } from "react";
 
-import { useBeneficiaries } from "src/views/APIs";
+import { useBeneficiaries, useSpecialMaterialRequest } from "src/views/APIs";
 
-export function useAddRequestData() {
+export function useAddSpecialMaterialRequestData() {
   const { getAllBeneficiaries } = useBeneficiaries();
+  const { createSpecialMaterials } = useSpecialMaterialRequest();
 
   const { data: beneficiariesData, isLoading: isLoading1 } =
     getAllBeneficiaries({});
@@ -24,7 +25,15 @@ export function useAddRequestData() {
     [beneficiariesData]
   );
 
+  const createSpecialMaterialsRequest = ({
+    beneficiary_id,
+    item,
+  }: {
+    beneficiary_id: number;
+    item: string;
+  }) => createSpecialMaterials({ data: { beneficiary_id, item } });
+
   const isLoading = isLoading1;
 
-  return { beneficiaries, isLoading };
+  return { beneficiaries, isLoading, createSpecialMaterialsRequest };
 }

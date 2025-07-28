@@ -28,7 +28,7 @@ export type MaterialRequest = {
   beneficiary: { id: number; name: string };
   reason: string;
   urgency_level: "low" | "medium" | "high";
-  requested_item: { id: number; name: string };
+  requested_item: string
 };
 
 export function useShowEmergencyRequestData(
