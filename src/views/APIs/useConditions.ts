@@ -18,7 +18,7 @@ type AllConditionsResponse = {
 };
 
 export function useConditions() {
-  const getAllConditions = () => useGetAPI<AllConditionsResponse>("conditions");
+  const getAllConditions = () => useGetAPI<AllConditionsResponse>("/dashboard/conditions");
 
   return {
     getAllConditions,

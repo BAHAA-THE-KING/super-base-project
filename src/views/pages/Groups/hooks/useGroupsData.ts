@@ -6,8 +6,11 @@ export function useGroupsData() {
   const { data: groupsResponse, isLoading: isLoading1 } = showGroups();
 
   const groups =
-    groupsResponse?.data.data.map((e) => ({
-      ...e,
+    groupsResponse?.data.map((e) => ({
+      id: e.id,
+      name: e.name,
+      salary: e.salary,
+      // TODO: Fix
       number_of_beneficiaries: 10,
       percent_of_beneficiaries: 1,
       conditions: [],

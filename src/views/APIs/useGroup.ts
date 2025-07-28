@@ -49,7 +49,7 @@ type AllGroupsResponse = {
   data: {
     id: number;
     name: string;
-    salary: number;
+    salary: string;
     color: "error" | "primary" | "secondary" | "info" | "success" | "warning";
     conditions: {
       id: number;

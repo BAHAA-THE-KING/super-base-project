@@ -10,7 +10,7 @@ export function useShowGroupData(groupId: number) {
 
   const { data: conditionsData, isLoading: isLoading1 } = getAllConditions();
 
-  const conditions = conditionsData?.data.data ?? [];
+  const conditions = conditionsData?.data ?? [];
 
   const isLoading = isLoading1 || isLoading2;
 

@@ -37,7 +37,7 @@ export function GroupShow() {
     return <></>;
   }
 
-  const { group, conditions, createGroup, deleteGroup, isLoading } =
+  const { group, conditions, createGroup, deleteGroup } =
     useShowGroupData(groupId);
   if (!group && !isAdd) {
     navigate("/groups");
@@ -76,7 +76,7 @@ export function GroupShow() {
     createGroup({
       data: {
         ...data,
-        color: data.color.id,
+        color: data.color,
         conditions: data.conditions.map((e) => ({
           id: e.id,
           params: JSON.stringify(e.params),

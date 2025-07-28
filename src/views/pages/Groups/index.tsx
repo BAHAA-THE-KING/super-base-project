@@ -5,10 +5,10 @@ import { Box } from "@mui/material";
 import { BButton } from "src/components/Base";
 import { GroupAccordion } from "./components";
 
+import { useBaseTranslation } from "src/hooks";
 import { useGroupsData } from "./hooks";
 
 import { varAlpha } from "src/themes/styles";
-import { useBaseTranslation } from "src/hooks";
 
 const i18ns = ["add_new_group"];
 export function Groups() {
@@ -16,7 +16,7 @@ export function Groups() {
 
   const navigate = useNavigate();
 
-  const { groups, isLoading } = useGroupsData();
+  const { groups } = useGroupsData();
 
   const [selectedGroupId, setSelectedGroupId] = useState(0);
 
