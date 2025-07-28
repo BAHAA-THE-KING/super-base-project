@@ -1,17 +1,16 @@
-import { useEffect } from "react";
-import { Stack, StepLabel, Stepper } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Stack, StepLabel, Stepper, Step } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 import { FormInput, FormSelect } from "src/components";
 import { BButton, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
-import { useAddRequestData } from "../data";
-import { Step } from "@mui/material";
+import { useAddPrescriptionRequestData } from "../data";
 
 type Props = { beneficiaryId: number };
 type Form = {
-  beneficiary: { id: number; name: string };
+  beneficiary_id: number;
   reason: string;
   urgency_level: "low" | "medium" | "high";
   what_exchanged: string;
@@ -49,17 +48,20 @@ export function PrescriptionExchangeForm({ beneficiaryId }: Props) {
 
   const { control, setValue, handleSubmit } = useForm<Form>();
 
-  const { beneficiaries, isLoading } = useAddRequestData();
+  const { beneficiaries, createPrescriptionRequest } =
+    useAddPrescriptionRequestData();
 
   useEffect(() => {
     if (beneficiaryId && beneficiaries && beneficiaries.length)
       setValue(
-        "beneficiary",
-        beneficiaries.find((e) => e.id === beneficiaryId) ?? { id: 0, name: "" }
+        "beneficiary_id",
+        beneficiaries.find((e) => e.id === beneficiaryId)?.id ?? 0
       );
   }, [beneficiaries]);
 
   const steps = [ApplyStepText, PendingStepText, ReceiveStepText];
+
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <>
@@ -84,8 +86,9 @@ export function PrescriptionExchangeForm({ beneficiaryId }: Props) {
         <FormSelect
           control={control}
           label=""
-          name="beneficiary"
+          name="beneficiary_id"
           options={beneficiaries}
+          rules={{ required: true }}
           inputProps={{
             fullWidth: false,
             sx: {
@@ -97,6 +100,7 @@ export function PrescriptionExchangeForm({ beneficiaryId }: Props) {
       <Stack flexDirection={"row"} flexWrap={"wrap"} mt={2}>
         <BTypography marginInlineEnd={1}>{INeedThisMedicinesText}</BTypography>
         <FormInput
+          rules={{ required: true }}
           control={control}
           label=""
           name="what_exchanged"
@@ -117,6 +121,7 @@ export function PrescriptionExchangeForm({ beneficiaryId }: Props) {
         />
         <BTypography mx={1}>{TheDoctorSaidText},</BTypography>
         <FormInput
+          rules={{ required: true }}
           control={control}
           label=""
           name="reason"
@@ -147,8 +152,13 @@ export function PrescriptionExchangeForm({ beneficiaryId }: Props) {
       <Stack mt={5} alignItems={"flex-start"}>
         <BButton
           variant="contained"
+          loading={isLoading}
           onClick={handleSubmit((data) => {
-            console.log(data);
+            setIsLoading(true);
+            createPrescriptionRequest({
+              beneficiary_id: data.beneficiary_id,
+              description: data.what_exchanged,
+            }).finally(() => setIsLoading(false));
           })}
         >
           {SubmitText}
