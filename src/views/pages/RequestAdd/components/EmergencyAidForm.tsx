@@ -8,7 +8,9 @@ import { BButton, BTypography } from "src/components/Base";
 import { useBaseTranslation } from "src/hooks";
 import { useShowEmergencyRequestData } from "../data/useShowEmergencyRequestData";
 
-type Props = { beneficiaryId: number; requestId?: number };
+type Props = {
+  beneficiaryId: number;
+};
 type Form = {
   beneficiary_id: number;
   reason: string;
@@ -31,7 +33,7 @@ const i18ns = [
   "pending_step",
   "receive_step",
 ];
-export function EmergencyAidForm({ beneficiaryId, requestId = 0 }: Props) {
+export function EmergencyAidForm({ beneficiaryId }: Props) {
   const [
     SubmitText,
     DearMembersText,
@@ -48,10 +50,17 @@ export function EmergencyAidForm({ beneficiaryId, requestId = 0 }: Props) {
     ReceiveStepText,
   ] = useBaseTranslation(i18ns);
 
-  const { control, setValue, handleSubmit, reset } = useForm<Form>();
+  const { control, setValue, handleSubmit } = useForm<Form>({
+    defaultValues: {
+      reason: "",
+      beneficiary_id: 0,
+      requested_amount: 0,
+      urgency_level: "medium",
+    },
+  });
 
-  const { request, beneficiaries, createEmergencyRequests } =
-    useShowEmergencyRequestData(requestId);
+  const { beneficiaries, createEmergencyRequests } =
+    useShowEmergencyRequestData();
 
   useEffect(() => {
     if (beneficiaryId && beneficiaries && beneficiaries.length)
@@ -59,14 +68,7 @@ export function EmergencyAidForm({ beneficiaryId, requestId = 0 }: Props) {
         "beneficiary_id",
         beneficiaries.find((e) => e.id === beneficiaryId)?.id ?? 0
       );
-    if (request)
-      reset({
-        beneficiary_id: request.beneficiary!.id,
-        reason: request.reason!,
-        urgency_level: request.urgency_level as "low" | "medium" | "high",
-        requested_amount: request.requested_amount!,
-      });
-  }, [beneficiaries, request]);
+  }, [beneficiaries]);
 
   const steps = [ApplyStepText, PendingStepText, ReceiveStepText];
 

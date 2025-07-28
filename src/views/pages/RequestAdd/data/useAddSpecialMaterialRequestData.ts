@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useLoading } from "src/globals";
 
 import { useBeneficiaries, useSpecialMaterialRequest } from "src/views/APIs";
 
@@ -6,8 +7,7 @@ export function useAddSpecialMaterialRequestData() {
   const { getAllBeneficiaries } = useBeneficiaries();
   const { createSpecialMaterials } = useSpecialMaterialRequest();
 
-  const { data: beneficiariesData, isLoading: isLoading1 } =
-    getAllBeneficiaries({});
+  const { data: beneficiariesData } = getAllBeneficiaries({});
 
   const beneficiaries = useMemo(
     () =>
@@ -33,7 +33,9 @@ export function useAddSpecialMaterialRequestData() {
     item: string;
   }) => createSpecialMaterials({ data: { beneficiary_id, item } });
 
-  const isLoading = isLoading1;
+  const isLoading = beneficiariesData?.message === "wait";
+  const [_, setLoading] = useLoading();
+  setLoading(isLoading);
 
-  return { beneficiaries, isLoading, createSpecialMaterialsRequest };
+  return { beneficiaries, createSpecialMaterialsRequest };
 }

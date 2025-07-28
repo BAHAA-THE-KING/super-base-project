@@ -10,13 +10,11 @@ export type AidRequest = {
   requested_amount: number;
 };
 
-export function useShowEmergencyRequestData(requestId: number) {
+export function useShowEmergencyRequestData() {
   const { getAllBeneficiaries } = useBeneficiaries();
-  const { getSingleEmergencyRequests, createEmergencyRequests } =
-    useEmergencyRequests();
+  const { createEmergencyRequests } = useEmergencyRequests();
 
-  const { data: beneficiariesData, isLoading: isLoading1 } =
-    getAllBeneficiaries({});
+  const { data: beneficiariesData } = getAllBeneficiaries({});
   const beneficiaries = useMemo(
     () =>
       beneficiariesData?.data?.map((e) => ({
@@ -26,33 +24,9 @@ export function useShowEmergencyRequestData(requestId: number) {
     [beneficiariesData]
   );
 
-  const { data: responseRequest } = getSingleEmergencyRequests(requestId);
-
-  const requestData = responseRequest?.data;
-  const request: AidRequest | null = useMemo(
-    () =>
-      requestData
-        ? {
-            id: requestData.id,
-            beneficiary: {
-              id: requestData.beneficiary.id,
-              name:
-                requestData.beneficiary.first_name +
-                " " +
-                requestData.beneficiary.last_name,
-            },
-            reason: requestData.reason,
-            // TODO: fill later
-            urgency_level: "low",
-            requested_amount: requestData.amount,
-          }
-        : null,
-    [requestData]
-  );
-
-  const isLoading = isLoading1 || responseRequest?.message === "wait";
+  const isLoading = beneficiariesData?.message === "wait";
   const [_, setLoading] = useLoading();
   setLoading(isLoading);
 
-  return { request, createEmergencyRequests, beneficiaries };
+  return { createEmergencyRequests, beneficiaries };
 }
