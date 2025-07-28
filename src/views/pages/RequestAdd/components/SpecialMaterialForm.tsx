@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Stack, Step, StepLabel, Stepper } from "@mui/material";
 import { useForm } from "react-hook-form";
 
@@ -50,7 +50,7 @@ export function SpecialMaterialForm({ beneficiaryId }: Props) {
 
   const { control, setValue, handleSubmit } = useForm<Form>();
 
-  const { beneficiaries, createSpecialMaterialsRequest, isLoading } =
+  const { beneficiaries, createSpecialMaterialsRequest } =
     useAddSpecialMaterialRequestData();
 
   useEffect(() => {
@@ -62,6 +62,8 @@ export function SpecialMaterialForm({ beneficiaryId }: Props) {
   }, [beneficiaries]);
 
   const steps = [ApplyStepText, PendingStepText, ReceiveStepText];
+
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <>
@@ -84,6 +86,7 @@ export function SpecialMaterialForm({ beneficiaryId }: Props) {
       <Stack flexDirection={"row"}>
         <BTypography marginInlineEnd={1}>{IAmApplicantText}</BTypography>
         <FormSelect
+          rules={{ required: true }}
           control={control}
           label=""
           name="beneficiary_id"
@@ -99,6 +102,7 @@ export function SpecialMaterialForm({ beneficiaryId }: Props) {
       <Stack flexDirection={"row"} flexWrap={"wrap"} mt={2}>
         <BTypography marginInlineEnd={1}>{INeedThisItemText}</BTypography>
         <FormInput
+          rules={{ required: true }}
           control={control}
           label=""
           name="requested_item"
@@ -112,6 +116,7 @@ export function SpecialMaterialForm({ beneficiaryId }: Props) {
         />
         <BTypography mx={1}>{MyConditionsText},</BTypography>
         <FormInput
+          rules={{ required: true }}
           control={control}
           label=""
           name="reason"
@@ -147,11 +152,13 @@ export function SpecialMaterialForm({ beneficiaryId }: Props) {
         <BButton
           variant="contained"
           onClick={handleSubmit((data) => {
+            setIsLoading(true);
             createSpecialMaterialsRequest({
               beneficiary_id: data.beneficiary_id,
               item: data.requested_item,
-            });
+            }).finally(() => setIsLoading(false));
           })}
+          loading={isLoading}
         >
           {SubmitText}
         </BButton>

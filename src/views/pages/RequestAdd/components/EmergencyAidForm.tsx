@@ -95,6 +95,7 @@ export function EmergencyAidForm({ beneficiaryId }: Props) {
       <Stack flexDirection={"row"}>
         <BTypography marginInlineEnd={1}>{IAmApplicantText}</BTypography>
         <FormSelect
+          rules={{ required: true }}
           control={control}
           label=""
           name="beneficiary_id"
@@ -112,6 +113,7 @@ export function EmergencyAidForm({ beneficiaryId }: Props) {
           {ThisRequestWillHelpWithText}
         </BTypography>
         <FormInput
+          rules={{ required: true }}
           control={control}
           label=""
           name="reason"
@@ -124,6 +126,7 @@ export function EmergencyAidForm({ beneficiaryId }: Props) {
         />
         <BTypography mx={1}>{BecauseICannotAffordText}</BTypography>
         <FormInput
+          rules={{ required: true }}
           control={control}
           label=""
           name="requested_amount"
@@ -147,9 +150,9 @@ export function EmergencyAidForm({ beneficiaryId }: Props) {
       <Stack mt={5} alignItems={"flex-start"}>
         <BButton
           variant="contained"
-          onClick={handleSubmit(async (data) => {
+          onClick={handleSubmit((data) => {
             setIsLoading(true);
-            await createEmergencyRequests({
+            createEmergencyRequests({
               data: {
                 beneficiary_id: data.beneficiary_id,
                 reason: data.reason,
@@ -157,8 +160,7 @@ export function EmergencyAidForm({ beneficiaryId }: Props) {
                 // TODO: link when fix
                 // urgency_level: data.urgency_level,
               },
-            });
-            setIsLoading(false);
+            }).finally(() => setIsLoading(false));
           })}
           loading={isLoading}
         >
