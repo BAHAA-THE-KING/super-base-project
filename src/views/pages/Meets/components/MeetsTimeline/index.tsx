@@ -2,7 +2,9 @@ import { Box, Stepper, Step, StepLabel, SvgIcon } from "@mui/material";
 import { FaCheck as FaCheckIcon } from "react-icons/fa";
 
 import { BButton } from "src/components/Base";
+import { useBaseTranslation } from "src/hooks";
 
+const i18ns = ["next", "back", "finish_meet"];
 function MeetsTimeline({
   steps,
   activeStep,
@@ -14,6 +16,8 @@ function MeetsTimeline({
   handleNext: () => void;
   handleBack: () => void;
 }) {
+  const [NextText, BackText, FinishMeetText] = useBaseTranslation(i18ns);
+
   return (
     <Box dir="ltr">
       <Stepper activeStep={activeStep} orientation="vertical" sx={{ p: 3 }}>
@@ -62,10 +66,10 @@ function MeetsTimeline({
           disabled={activeStep === steps.length}
           onClick={handleNext}
         >
-          Next
+          {activeStep === steps.length - 1 ? FinishMeetText : NextText}
         </BButton>
         <BButton disabled={activeStep === 0} onClick={handleBack}>
-          Back
+          {BackText}
         </BButton>
       </Box>
     </Box>

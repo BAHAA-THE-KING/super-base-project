@@ -284,5 +284,8 @@
   "urgency_level": "مستوى الحاجة",
   "requested_amount": "المبلغ المطلوب",
   "what_exchanged": "الأدوية المطلوب صرفها",
-  "requested_item": "المادة المطلوبة"
+  "requested_item": "المادة المطلوبة",
+  "next": "التالي",
+  "back": "السابق",
+  "finish_meet": "إنهاء الاجتماع"
 }
