@@ -3,9 +3,10 @@ import { useLoading } from "src/globals";
 
 import { useBeneficiaries, useSpecialMaterialRequest } from "src/views/APIs";
 
-export function useAddSpecialMaterialRequestData() {
+export function useAddSpecialMaterialRequestData(requestId: number) {
   const { getAllBeneficiaries } = useBeneficiaries();
-  const { createSpecialMaterials } = useSpecialMaterialRequest();
+  const { createSpecialMaterials, getSingleSpecialMaterials } =
+    useSpecialMaterialRequest();
 
   const { data: beneficiariesData } = getAllBeneficiaries({});
 
@@ -33,9 +34,23 @@ export function useAddSpecialMaterialRequestData() {
     item: string;
   }) => createSpecialMaterials({ data: { beneficiary_id, item } });
 
+  const { data: specialMaterialResponse } =
+    getSingleSpecialMaterials(requestId);
+  const specialMaterialData = specialMaterialResponse?.data;
+
+  const request = specialMaterialData
+    ? {
+        id: specialMaterialData.id,
+        beneficiary_id: specialMaterialData.beneficiary.id,
+        reason: "",
+        urgency_level: "medium" as const,
+        requested_item: specialMaterialData.item,
+      }
+    : null;
+
   const isLoading = beneficiariesData?.message === "wait";
   const [_, setLoading] = useLoading();
   setLoading(isLoading);
 
-  return { beneficiaries, createSpecialMaterialsRequest };
+  return { beneficiaries, createSpecialMaterialsRequest, request };
 }

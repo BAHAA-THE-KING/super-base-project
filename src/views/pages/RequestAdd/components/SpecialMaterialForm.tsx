@@ -8,7 +8,11 @@ import { BButton, BTypography } from "src/components/Base";
 import { useBaseTranslation } from "src/hooks";
 import { useAddSpecialMaterialRequestData } from "../data";
 
-type Props = { beneficiaryId: number };
+type Props = {
+  beneficiaryId: number;
+  requestMode?: boolean;
+  requestId?: number;
+};
 type Form = {
   beneficiary_id: number;
   reason: string;
@@ -31,7 +35,11 @@ const i18ns = [
   "pending_step",
   "receive_step",
 ];
-export function SpecialMaterialForm({ beneficiaryId }: Props) {
+export function SpecialMaterialForm({
+  beneficiaryId,
+  requestMode,
+  requestId,
+}: Props) {
   const [
     SubmitText,
     DearMembersText,
@@ -48,18 +56,26 @@ export function SpecialMaterialForm({ beneficiaryId }: Props) {
     ReceiveStepText,
   ] = useBaseTranslation(i18ns);
 
-  const { control, setValue, handleSubmit } = useForm<Form>();
+  const { control, setValue, handleSubmit, reset } = useForm<Form>();
 
-  const { beneficiaries, createSpecialMaterialsRequest } =
-    useAddSpecialMaterialRequestData();
+  const { beneficiaries, createSpecialMaterialsRequest, request } =
+    useAddSpecialMaterialRequestData(requestId ?? 0);
 
   useEffect(() => {
-    if (beneficiaryId && beneficiaries && beneficiaries.length)
+    if (requestMode) {
+      if (request)
+        reset({
+          beneficiary_id: request.beneficiary_id,
+          reason: request.reason,
+          requested_item: request.requested_item,
+          urgency_level: request.urgency_level,
+        });
+    } else if (beneficiaryId && beneficiaries && beneficiaries.length)
       setValue(
         "beneficiary_id",
         beneficiaries.find((e) => e.id === beneficiaryId)?.id ?? 0
       );
-  }, [beneficiaries]);
+  }, [beneficiaries, request]);
 
   const steps = [ApplyStepText, PendingStepText, ReceiveStepText];
 
@@ -71,7 +87,7 @@ export function SpecialMaterialForm({ beneficiaryId }: Props) {
         <BTypography variant="h5" fontWeight={"bold"}>
           {SpecialMaterialFormText}
         </BTypography>
-        <Stepper activeStep={0} alternativeLabel>
+        <Stepper activeStep={0 + Number(requestMode)} alternativeLabel>
           {steps.map((label) => (
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
@@ -148,21 +164,23 @@ export function SpecialMaterialForm({ beneficiaryId }: Props) {
           {InDateText}: {new Date().toLocaleDateString("fr-Ca")}
         </BTypography>
       </Stack>
-      <Stack mt={5} alignItems={"flex-start"}>
-        <BButton
-          variant="contained"
-          onClick={handleSubmit((data) => {
-            setIsLoading(true);
-            createSpecialMaterialsRequest({
-              beneficiary_id: data.beneficiary_id,
-              item: data.requested_item,
-            }).finally(() => setIsLoading(false));
-          })}
-          loading={isLoading}
-        >
-          {SubmitText}
-        </BButton>
-      </Stack>
+      {requestMode || (
+        <Stack mt={5} alignItems={"flex-start"}>
+          <BButton
+            variant="contained"
+            onClick={handleSubmit((data) => {
+              setIsLoading(true);
+              createSpecialMaterialsRequest({
+                beneficiary_id: data.beneficiary_id,
+                item: data.requested_item,
+              }).finally(() => setIsLoading(false));
+            })}
+            loading={isLoading}
+          >
+            {SubmitText}
+          </BButton>
+        </Stack>
+      )}
     </>
   );
 }

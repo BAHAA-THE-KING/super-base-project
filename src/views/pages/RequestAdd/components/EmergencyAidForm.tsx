@@ -10,6 +10,8 @@ import { useShowEmergencyRequestData } from "../data/useShowEmergencyRequestData
 
 type Props = {
   beneficiaryId: number;
+  requestId?: number;
+  requestMode?: boolean;
 };
 type Form = {
   beneficiary_id: number;
@@ -33,7 +35,11 @@ const i18ns = [
   "pending_step",
   "receive_step",
 ];
-export function EmergencyAidForm({ beneficiaryId }: Props) {
+export function EmergencyAidForm({
+  beneficiaryId,
+  requestMode,
+  requestId,
+}: Props) {
   const [
     SubmitText,
     DearMembersText,
@@ -50,7 +56,7 @@ export function EmergencyAidForm({ beneficiaryId }: Props) {
     ReceiveStepText,
   ] = useBaseTranslation(i18ns);
 
-  const { control, setValue, handleSubmit } = useForm<Form>({
+  const { control, setValue, handleSubmit, reset } = useForm<Form>({
     defaultValues: {
       reason: "",
       beneficiary_id: 0,
@@ -59,16 +65,24 @@ export function EmergencyAidForm({ beneficiaryId }: Props) {
     },
   });
 
-  const { beneficiaries, createEmergencyRequests } =
-    useShowEmergencyRequestData();
+  const { beneficiaries, request, createEmergencyRequests } =
+    useShowEmergencyRequestData(requestId ?? 0);
 
   useEffect(() => {
-    if (beneficiaryId && beneficiaries && beneficiaries.length)
+    if (requestMode) {
+      if (request)
+        reset({
+          beneficiary_id: request.beneficiary.id,
+          reason: request.reason,
+          requested_amount: request.requested_amount,
+          urgency_level: request.urgency_level,
+        });
+    } else if (beneficiaryId && beneficiaries && beneficiaries.length)
       setValue(
         "beneficiary_id",
         beneficiaries.find((e) => e.id === beneficiaryId)?.id ?? 0
       );
-  }, [beneficiaries]);
+  }, [beneficiaries, request]);
 
   const steps = [ApplyStepText, PendingStepText, ReceiveStepText];
 
@@ -80,7 +94,7 @@ export function EmergencyAidForm({ beneficiaryId }: Props) {
         <BTypography variant="h5" fontWeight={"bold"}>
           {EmergencyAidFormText}
         </BTypography>
-        <Stepper activeStep={0} alternativeLabel>
+        <Stepper activeStep={0 + Number(Boolean(requestMode))} alternativeLabel>
           {steps.map((label) => (
             <Step key={label}>
               <StepLabel>{label}</StepLabel>
@@ -147,26 +161,28 @@ export function EmergencyAidForm({ beneficiaryId }: Props) {
           {InDateText}: {new Date().toLocaleDateString("fr-Ca")}
         </BTypography>
       </Stack>
-      <Stack mt={5} alignItems={"flex-start"}>
-        <BButton
-          variant="contained"
-          onClick={handleSubmit((data) => {
-            setIsLoading(true);
-            createEmergencyRequests({
-              data: {
-                beneficiary_id: data.beneficiary_id,
-                reason: data.reason,
-                amount: data.requested_amount,
-                // TODO: link when fix
-                // urgency_level: data.urgency_level,
-              },
-            }).finally(() => setIsLoading(false));
-          })}
-          loading={isLoading}
-        >
-          {SubmitText}
-        </BButton>
-      </Stack>
+      {requestMode || (
+        <Stack mt={5} alignItems={"flex-start"}>
+          <BButton
+            variant="contained"
+            onClick={handleSubmit((data) => {
+              setIsLoading(true);
+              createEmergencyRequests({
+                data: {
+                  beneficiary_id: data.beneficiary_id,
+                  reason: data.reason,
+                  amount: data.requested_amount,
+                  // TODO: link when fix
+                  // urgency_level: data.urgency_level,
+                },
+              }).finally(() => setIsLoading(false));
+            })}
+            loading={isLoading}
+          >
+            {SubmitText}
+          </BButton>
+        </Stack>
+      )}
     </>
   );
 }

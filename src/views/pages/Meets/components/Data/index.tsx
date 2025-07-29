@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { UseFormReturn } from "react-hook-form";
-import { ButtonGroup, Grid2, Stack, SvgIcon, useTheme } from "@mui/material";
+import { ButtonGroup, Stack, SvgIcon, useTheme } from "@mui/material";
 
 import { LuLayoutList as LuLayoutListIcon } from "react-icons/lu";
 import { PiCards as PiCardsIcon } from "react-icons/pi";
@@ -20,7 +20,9 @@ import { useBaseTranslation } from "src/hooks";
 import {
   BeneficiaryRequest,
   EmergencyAssistanceRequest,
-} from "src/views/pages/Meets/data";
+  SpecialMaterialRequest,
+  WithdrawalOrderRequest,
+} from "../../data";
 
 type AcceptanceForm = {
   status?: boolean;
@@ -28,8 +30,17 @@ type AcceptanceForm = {
 }[];
 
 type Props = {
-  dataType: "BeneficiaryRequest" | "EmergencyAssistanceRequest";
-  data: Partial<BeneficiaryRequest | EmergencyAssistanceRequest>[];
+  dataType:
+    | "BeneficiaryRequest"
+    | "EmergencyAssistanceRequest"
+    | "SpecialMaterialRequest"
+    | "WithdrawalOrderRequest";
+  data: Partial<
+    | BeneficiaryRequest
+    | EmergencyAssistanceRequest
+    | SpecialMaterialRequest
+    | WithdrawalOrderRequest
+  >[];
   formInstance: UseFormReturn<AcceptanceForm>;
 };
 
@@ -116,19 +127,21 @@ export function Data({ data, dataType, formInstance }: Props) {
         </ButtonGroup>
       </Stack>
       {view === "list" ? (
-        <Grid2 container spacing={2} m={1}>
+        <Stack spacing={2} m={1}>
           {data.map((request) => (
-            <React.Fragment key={request.id}>
-              <Grid2
-                size={{ xs: 10 }}
+            <React.Fragment key={dataType + " " + request.id}>
+              <Stack
                 component={BCard}
-                container
-                sx={{ p: 3 }}
+                p={3}
+                flexDirection={"row"}
+                justifyContent={"space-between"}
               >
-                {dataType === "BeneficiaryRequest" ? (
-                  <DynamicList request={{ type: dataType, ...request }} />
-                ) : null}
-                <Grid2 size={{ xs: 2 }}>
+                <DynamicList request={{ type: dataType, ...request } as any} />
+                <Stack
+                  flexDirection={"row"}
+                  width={"30%"}
+                  whiteSpace={"nowrap"}
+                >
                   <BTypography variant="h6">
                     {RequestStatusText}:{" "}
                     {watch(`${request.id!}.status`) === true ? (
@@ -151,16 +164,17 @@ export function Data({ data, dataType, formInstance }: Props) {
                       />
                     )}
                   </BTypography>
-                </Grid2>
-              </Grid2>
+                </Stack>
+              </Stack>
             </React.Fragment>
           ))}
-        </Grid2>
+        </Stack>
       ) : (
         <Stack>
           <DynamicCard
             requestType={dataType}
             requestId={data[selectedCase].id!}
+            request={data[selectedCase]}
           />
           <Stack>
             <BCard sx={{ p: 2, m: 1, width: "45%" }}>
@@ -230,6 +244,9 @@ export function Data({ data, dataType, formInstance }: Props) {
               >
                 {PreviousCaseText}
               </BButton>
+              <BTypography>
+                {selectedCase + 1}/{data.length}
+              </BTypography>
               <BButton
                 variant="outlined"
                 disabled={selectedCase === data.length - 1}

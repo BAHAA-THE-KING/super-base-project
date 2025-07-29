@@ -279,5 +279,10 @@
   "clinic_balance": "ميزانية العيادة",
   "record_number": "رقم الدفعة",
   "amount": "المبلغ",
-  "person": "صاحب العلاقة"
+  "person": "صاحب العلاقة",
+  "beneficiary": "المستفيد",
+  "urgency_level": "مستوى الحاجة",
+  "requested_amount": "المبلغ المطلوب",
+  "what_exchanged": "الأدوية المطلوب صرفها",
+  "requested_item": "المادة المطلوبة"
 }

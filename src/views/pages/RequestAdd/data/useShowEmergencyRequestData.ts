@@ -10,9 +10,10 @@ export type AidRequest = {
   requested_amount: number;
 };
 
-export function useShowEmergencyRequestData() {
+export function useShowEmergencyRequestData(requestId: number) {
   const { getAllBeneficiaries } = useBeneficiaries();
-  const { createEmergencyRequests } = useEmergencyRequests();
+  const { createEmergencyRequests, getSingleEmergencyRequests } =
+    useEmergencyRequests();
 
   const { data: beneficiariesData } = getAllBeneficiaries({});
   const beneficiaries = useMemo(
@@ -24,9 +25,30 @@ export function useShowEmergencyRequestData() {
     [beneficiariesData]
   );
 
+  const { data: singleEmergencyRequestResponse } =
+    getSingleEmergencyRequests(requestId);
+  const singleEmergencyRequestResponseData =
+    singleEmergencyRequestResponse?.data;
+
+  const request = singleEmergencyRequestResponseData
+    ? {
+        id: singleEmergencyRequestResponseData.id,
+        beneficiary: {
+          id: singleEmergencyRequestResponseData.beneficiary.id,
+          name:
+            singleEmergencyRequestResponseData.beneficiary.first_name +
+            " " +
+            singleEmergencyRequestResponseData.beneficiary.last_name,
+        },
+        reason: singleEmergencyRequestResponseData.reason,
+        urgency_level: "medium" as const,
+        requested_amount: singleEmergencyRequestResponseData.amount,
+      }
+    : null;
+
   const isLoading = beneficiariesData?.message === "wait";
   const [_, setLoading] = useLoading();
   setLoading(isLoading);
 
-  return { createEmergencyRequests, beneficiaries };
+  return { createEmergencyRequests, beneficiaries, request };
 }
