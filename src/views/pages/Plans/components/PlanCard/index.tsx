@@ -29,7 +29,15 @@ export function PlanCard({ plan }: Props) {
       : "info";
   return (
     <Link to={plan.id.toString()}>
-      <BCard sx={{ width: "100%", height: "100%", textAlign: "center" }} animations={{ transitions: "slideInBottom" }}>
+      <BCard
+        sx={{
+          width: "100%",
+          height: "100%",
+          textAlign: "center",
+          cursor: "pointer",
+        }}
+        animations={{ transitions: "slideInBottom" }}
+      >
         <CardContent>
           <Stack width={"100%"} alignItems={"center"}>
             <Box

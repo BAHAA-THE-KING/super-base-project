@@ -11,7 +11,7 @@ import { usePlansData } from "./data";
 import { varAlpha } from "src/themes/styles";
 
 export function Plans() {
-  const { plans, isLoading } = usePlansData();
+  const { plans } = usePlansData();
 
   const top5Plans = useMemo(
     () => plans.filter((plan) => !plan.is_finished).slice(0, 5),
