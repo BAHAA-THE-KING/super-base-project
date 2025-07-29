@@ -137,11 +137,7 @@ export function Data({ data, dataType, formInstance }: Props) {
                 justifyContent={"space-between"}
               >
                 <DynamicList request={{ type: dataType, ...request } as any} />
-                <Stack
-                  flexDirection={"row"}
-                  width={"30%"}
-                  whiteSpace={"nowrap"}
-                >
+                <Stack width={"30%"} whiteSpace={"nowrap"}>
                   <BTypography variant="h6">
                     {RequestStatusText}:{" "}
                     {watch(`${request.id!}.status`) === true ? (
@@ -164,6 +160,7 @@ export function Data({ data, dataType, formInstance }: Props) {
                       />
                     )}
                   </BTypography>
+                  <BTypography>{watch(`${request.id!}.reason`)}</BTypography>
                 </Stack>
               </Stack>
             </React.Fragment>
