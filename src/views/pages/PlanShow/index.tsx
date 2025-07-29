@@ -41,7 +41,7 @@ export function PlanShow() {
     return <></>;
   }
 
-  const { plan, isLoading } = useShowPlanData(planId);
+  const { plan } = useShowPlanData(planId);
   if (!plan) {
     navigate(-1);
     return <></>;
