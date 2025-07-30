@@ -7,13 +7,13 @@ import { Aid } from "src/types/data/Aid";
 import { useGroup } from "src/views/APIs/useGroup";
 
 export function useData(id: number) {
-  const { getSingleBeneficiary } = useBeneficiaries();
+  const { getSingleBeneficiary, addBeneficiary } = useBeneficiaries();
   const { data: beneficiaryResponse } = getSingleBeneficiary(id);
 
   const responseData = beneficiaryResponse?.data;
 
-  const beneficiary: SingleBeneficiary | null = responseData
-    ? {
+  const beneficiary = responseData
+    ? ({
         id: responseData.id,
         // TODO: add missing field
         image_url: "",
@@ -25,22 +25,22 @@ export function useData(id: number) {
         birth_place: responseData.birth_place,
         national_number: responseData.national_number,
         // TODO: add missing field
-        gender: { id: "male" },
+        gender: "male",
         job: responseData.job,
         health_status: responseData.health_status,
         phone_number: responseData.phone_number,
         // TODO: add missing field
         mobile_number: "",
         address: responseData.address,
-        residence_type: { id: responseData.residence_type },
+        residence_type: responseData.residence_type,
         // TODO: add missing field
-        residence_document_id: 0,
+        residence_document_url: "",
         children: responseData.children.map((e) => ({
           id: e.id,
           beneficiary_id: responseData.id,
           name: e.name,
           birth_date: e.birth_date.split("T")[0],
-          gender: { id: e.gender },
+          gender: e.gender,
           is_alive: e.is_alive,
           partner_name: e.partner_name,
           residence_place: e.residence_place,
@@ -48,7 +48,7 @@ export function useData(id: number) {
         uncles: responseData.uncles.map((e) => ({
           id: e.id,
           beneficiary_id: responseData.id,
-          from: { id: e.from },
+          from: e.from,
           first_name: e.first_name,
           last_name: e.last_name,
           job: e.job,
@@ -61,7 +61,7 @@ export function useData(id: number) {
           first_name: "",
           last_name: "",
           job: "",
-          gender: { id: "male" },
+          gender: "male",
           health_status: "",
         },
         group: {
@@ -77,7 +77,7 @@ export function useData(id: number) {
         // TODO: add missing field
         request_id: 0,
         request_status: responseData.request_status,
-      }
+      } as SingleBeneficiary)
     : null;
 
   const { showGroups } = useGroup();
@@ -104,10 +104,58 @@ export function useData(id: number) {
         })) ?? [],
     })) ?? [];
 
-  const [_, setLoading] = useLoading();
-  setLoading(beneficiaryResponse?.message === "wait");
+  const createBeneficiary = (b: SingleBeneficiary) =>
+    addBeneficiary({
+      data: {
+        first_name: b.first_name,
+        last_name: b.last_name,
+        father_name: b.father_name,
+        mother_name: b.mother_name,
+        birth_date: b.birth_date,
+        birth_place: b.birth_place,
+        national_number: b.national_number,
+        gender: b.gender,
+        job: b.job,
+        health_status: b.health_status,
+        phone_number: b.phone_number,
+        mobile_number: b.mobile_number,
+        address: b.address,
+        residence_type: b.residence_type,
+        "residence_document[file]": b.residence_document_url,
+        "image_url[file]": b.image_url,
+        monthly_income: b.monthly_income,
+        case_description: b.case_description,
+        partners: [
+          {
+            first_name: b.partner.first_name,
+            last_name: b.partner.last_name,
+            gender: b.gender === "female" ? "male" : "female",
+            job: b.partner.job,
+            health_status: b.partner.health_status,
+          },
+        ],
+        children: b.children.map((e) => ({
+          name: e.name,
+          gender: e.gender,
+          is_alive: Number(e.is_alive) as 0 | 1,
+          partner_name: e.gender === "female" ? e.partner_name : "",
+          residence_place: e.residence_place,
+          birth_date: e.birth_date,
+        })),
+        uncles: b.uncles.map((e) => ({
+          first_name: e.first_name,
+          last_name: e.last_name,
+          from: e.from,
+          job: e.job,
+          provided_aid: e.provided_aid,
+        })),
+      },
+    });
 
-  return { beneficiary, groups };
+  const [_, setLoading] = useLoading();
+  setLoading(beneficiaryResponse?.message === "wait" && id !== 0);
+
+  return { beneficiary, groups, createBeneficiary };
 }
 
 export function useAidsData(beneficiary_id: number) {

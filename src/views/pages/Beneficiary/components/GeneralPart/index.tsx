@@ -1,31 +1,33 @@
 import { Box, Stack } from "@mui/material";
+import { Control, useWatch } from "react-hook-form";
 
 import { BChip, BTypography } from "src/components/Base";
 import { BeneficiaryTabList } from "../BeneficiaryTabList";
 
-import { Group } from "src/types/data/SingleBeneficiary";
+import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
 
 type Props = {
-  name: string;
-  group_name: string;
-  group_color: Group["color"];
-  image_url: string;
   tabs: { name: string; label: string; external?: boolean; link?: string }[];
   currentTab: number;
   setCurrentTab: (tab: number) => void;
   requestMode: boolean;
+  createMode: boolean;
+  control: Control<SingleBeneficiary>;
+  handleSubmit: () => void;
 };
 
 export function GeneralPart({
-  group_name,
-  group_color,
-  name,
-  image_url,
   tabs,
   setCurrentTab,
   currentTab,
   requestMode,
+  createMode,
+  control,
+  handleSubmit,
 }: Props) {
+  const { image_url, first_name, last_name, group } = useWatch({ control });
+  const name = first_name + " " + last_name;
+
   return (
     <Stack width={"20%"} flexDirection={"column"}>
       <Stack
@@ -56,7 +58,9 @@ export function GeneralPart({
         </Stack>
         <Stack mx={3} flexDirection={"row"} justifyContent={"center"}>
           <BTypography variant="h3">{name}</BTypography>
-          {requestMode ? null : <BChip color={group_color} label={group_name} />}
+          {requestMode || createMode ? null : (
+            <BChip color={group?.color} label={group?.name} />
+          )}
         </Stack>
       </Stack>
       <Box width={"100%"} mt={3}>
@@ -64,6 +68,8 @@ export function GeneralPart({
           tabs={tabs}
           currentTab={currentTab}
           setCurrentTab={setCurrentTab}
+          createMode={createMode}
+          handleSubmit={handleSubmit}
         />
       </Box>
     </Stack>

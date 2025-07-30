@@ -1,5 +1,5 @@
 import { CardContent, SvgIcon } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { Control, useWatch } from "react-hook-form";
 
 import SvgSon from "src/icons/Son";
 import SvgDaughter from "src/icons/Daughter";
@@ -9,11 +9,12 @@ import { BCard, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
-import { Child } from "src/types/data/SingleBeneficiary";
+import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
 
 type Props = {
-  child: Child;
+  control: Control<SingleBeneficiary>;
   isEditable: boolean;
+  idx: number;
 };
 
 const i18ns = [
@@ -28,7 +29,7 @@ const i18ns = [
   "son_info",
   "daughter_info",
 ];
-export function ChildCard({ child, isEditable }: Props) {
+export function ChildCard({ control, isEditable, idx }: Props) {
   const [
     NameText,
     GenderText,
@@ -42,10 +43,10 @@ export function ChildCard({ child, isEditable }: Props) {
     DaughterInfoText,
   ] = useBaseTranslation(i18ns);
 
-  const { control } = useForm({ defaultValues: { child } });
-
+  const { children } = useWatch({ control });
+  const child = children![idx];
   return (
-    <BCard sx={{ m: 1, flex: 1 }} animations={{ transitions: "slideInBottom" }}>
+    <BCard sx={{ flex: 1 }} animations={{ transitions: "slideInBottom" }}>
       <CardContent>
         <SvgIcon
           sx={(theme) => ({
@@ -56,10 +57,10 @@ export function ChildCard({ child, isEditable }: Props) {
             float: "inline-end",
           })}
         >
-          {child.gender.id === "male" ? <SvgSon /> : <SvgDaughter />}
+          {child.gender === "male" ? <SvgSon /> : <SvgDaughter />}
         </SvgIcon>
         <BTypography variant="body2" fontWeight={"bold"}>
-          {child.gender.id === "male" ? SonInfoText : DaughterInfoText}
+          {child.gender === "male" ? SonInfoText : DaughterInfoText}
         </BTypography>
       </CardContent>
       <CardContent>
@@ -68,15 +69,15 @@ export function ChildCard({ child, isEditable }: Props) {
           sx={{ my: 1 }}
           control={control}
           label={NameText}
-          name={`child.name`}
+          name={`children.${idx}.name`}
           rules={{ required: true }}
         />
         <FormSelect
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          // inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
           sx={{ my: 1 }}
           control={control}
           label={GenderText}
-          name={`child.gender`}
+          name={`children.${idx}.gender`}
           rules={{ required: true }}
           options={[
             { id: "male", name: MaleText },
@@ -88,23 +89,23 @@ export function ChildCard({ child, isEditable }: Props) {
           sx={{ my: 1 }}
           control={control}
           label={BirthDateText}
-          name={`child.birth_date`}
+          name={`children.${idx}.birth_date`}
           rules={{ required: true }}
         />
         <FormCheckbox
           sx={{ my: 1 }}
           control={control}
           label={IsAliveText}
-          name={`child.is_alive`}
+          name={`children.${idx}.is_alive`}
           disabled={!isEditable}
         />
-        {child.gender.id === "female" ? (
+        {child.gender === "female" ? (
           <FormInput
             inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
             sx={{ my: 1 }}
             control={control}
             label={PartnerNameText}
-            name={`child.partner_name`}
+            name={`children.${idx}.partner_name`}
             rules={{ required: true }}
           />
         ) : null}
@@ -113,7 +114,7 @@ export function ChildCard({ child, isEditable }: Props) {
           sx={{ my: 1 }}
           control={control}
           label={ResidencePlaceText}
-          name={`child.residence_place`}
+          name={`children.${idx}.residence_place`}
           rules={{ required: true }}
         />
       </CardContent>

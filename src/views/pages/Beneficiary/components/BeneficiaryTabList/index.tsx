@@ -4,6 +4,8 @@ import { Launch as LaunchIcon } from "@mui/icons-material";
 
 import { varAlpha } from "src/themes/styles";
 import { useNavigate } from "react-router";
+import { BButton } from "src/components/Base";
+import { useBaseTranslation } from "src/hooks";
 
 const ListItem = styled(Button)<{ selected: boolean }>(({ theme, selected }) =>
   theme.unstable_sx({
@@ -38,9 +40,19 @@ type Props = {
   tabs: { name: string; label: string; external?: boolean; link?: string }[];
   currentTab: number;
   setCurrentTab: (index: number) => void;
+  createMode: boolean;
+  handleSubmit: () => void;
 };
 
-export function BeneficiaryTabList({ tabs, currentTab, setCurrentTab }: Props) {
+const i18ns = ["save_request"];
+export function BeneficiaryTabList({
+  tabs,
+  currentTab,
+  setCurrentTab,
+  createMode,
+  handleSubmit,
+}: Props) {
+  const [SaveRequestText] = useBaseTranslation(i18ns);
   const navigate = useNavigate();
 
   return (
@@ -67,6 +79,18 @@ export function BeneficiaryTabList({ tabs, currentTab, setCurrentTab }: Props) {
           )}
         </ListItem>
       ))}
+      {createMode && (
+        <ListItem selected={false} sx={{ mt: 5 }}>
+          <BButton
+            variant="contained"
+            color="primary"
+            fullWidth
+            onClick={handleSubmit}
+          >
+            {SaveRequestText}
+          </BButton>
+        </ListItem>
+      )}
     </Stack>
   );
 }

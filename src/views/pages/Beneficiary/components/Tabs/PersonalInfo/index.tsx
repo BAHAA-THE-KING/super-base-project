@@ -1,5 +1,5 @@
 import { Grid2 } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { Control, useWatch } from "react-hook-form";
 
 import { BTypography } from "src/components/Base";
 import { FormInput, FormSelect, RequestStatusChip } from "src/components";
@@ -9,7 +9,7 @@ import { useBaseTranslation } from "src/hooks";
 import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
 
 type Props = {
-  beneficiary: SingleBeneficiary;
+  control: Control<SingleBeneficiary>;
   isEditable: boolean;
 };
 
@@ -43,7 +43,7 @@ const i18ns = [
   "host",
   "borrow",
 ];
-export function PersonalInfo({ beneficiary, isEditable }: Props) {
+export function PersonalInfo({ control, isEditable }: Props) {
   const [
     IdentityInfoText,
     FirstNameText,
@@ -75,9 +75,7 @@ export function PersonalInfo({ beneficiary, isEditable }: Props) {
     BorrowText,
   ] = useBaseTranslation(i18ns);
 
-  const { control } = useForm<SingleBeneficiary>({
-    defaultValues: beneficiary,
-  });
+  const { request_status } = useWatch({ control });
 
   return (
     <Grid2
@@ -137,7 +135,7 @@ export function PersonalInfo({ beneficiary, isEditable }: Props) {
           rules={{ required: true }}
         />
         <FormSelect
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          // inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
           sx={{ my: 1 }}
           control={control}
           label={GenderText}
@@ -179,7 +177,7 @@ export function PersonalInfo({ beneficiary, isEditable }: Props) {
           {ResidenceInfoText}
         </BTypography>
         <FormSelect
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          // inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
           sx={{ my: 1 }}
           control={control}
           label={ResidenceTypeText}
@@ -205,7 +203,7 @@ export function PersonalInfo({ beneficiary, isEditable }: Props) {
           sx={{ my: 1 }}
           control={control}
           label={ResidenceDocumentText}
-          name="residence_document_id"
+          name="residence_document_url"
           rules={{ required: true }}
         />
         <BTypography variant="h6" fontWeight={"bold"} mt={3}>
@@ -270,8 +268,7 @@ export function PersonalInfo({ beneficiary, isEditable }: Props) {
           }}
         />
         <BTypography my={2}>
-          {RequestStatusText}:{" "}
-          <RequestStatusChip status={beneficiary.request_status} />
+          {RequestStatusText}: <RequestStatusChip status={request_status!} />
         </BTypography>
       </Grid2>
     </Grid2>

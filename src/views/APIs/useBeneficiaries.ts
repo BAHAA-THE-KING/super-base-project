@@ -122,10 +122,53 @@ type ShowResponse = {
   message: string;
 };
 
-type AddRequest = {
-  id: number;
+type Partner = {
+  first_name: string;
+  last_name: string;
+  job: string;
+  gender: string;
+  health_status: string;
+};
+
+type Uncle = {
+  first_name: string;
+  last_name: string;
+  from: string; // e.g., "father" or "mother"
+  job: string;
+  provided_aid: string;
+};
+
+type Child = {
   name: string;
-  age: number;
+  birth_date: string; // ISO format date
+  gender: string;
+  is_alive: 0 | 1;
+  partner_name: string;
+  residence_place: string;
+};
+
+type AddRequest = {
+  "residence_document[file]": any;
+  "image_url[file]": any;
+  first_name: string;
+  last_name: string;
+  father_name: string;
+  mother_name: string;
+  gender: string;
+  national_number: string;
+  birth_date: string;
+  birth_place: string;
+  job: string;
+  health_status: string;
+  phone_number: string;
+  mobile_number: string;
+  address: string;
+  residence_type: string;
+  monthly_income: number;
+  case_description: string;
+  partners: Partner[];
+  uncles: Uncle[];
+  children: Child[];
 };
 
 type AddResponse = {
@@ -181,9 +224,10 @@ export function useBeneficiaries() {
         id,
       },
       keys: ["beneficiaries"],
+      enabled: Boolean(id),
     });
 
-  const addBeneficiary = usePostAPI<AddResponse, AddRequest>("/create", {
+  const addBeneficiary = usePostAPI<AddResponse, AddRequest>("/dashboard/beneficiaries/create", {
     invalidateKeys: ["beneficiaries"],
   }).mutateAsync;
 

@@ -104,9 +104,15 @@ export function usePublicRoutes() {
       {
         icon: PeopleIcon,
         key: "all-beneficiaries",
-        path: "/",
+        path: "/beneficiary",
         title: AllBeneficiariesText,
         element: <AllBeneficiariesPage />,
+      },
+      {
+        key: "add-beneficiary",
+        path: "/beneficiary/add",
+        element: <ShowBeneficiaryPage createMode />,
+        hidden: true,
       },
       {
         key: "show-beneficiary",

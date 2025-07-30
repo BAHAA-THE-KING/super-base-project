@@ -1,5 +1,5 @@
 import { CardContent, SvgIcon } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { Control, useForm, useWatch } from "react-hook-form";
 
 import SvgFather from "src/icons/Father";
 import SvgMother from "src/icons/Mother";
@@ -9,11 +9,11 @@ import { BCard, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
-import { Partner } from "src/types/data/SingleBeneficiary";
+import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
 
 type Props = {
-  partner: Partner;
-  beneficiaryGender: "male" | "female";
+  control: Control<SingleBeneficiary>;
+  beneficiaryGender: "male" | "female" | "";
   isEditable: boolean;
 };
 
@@ -25,7 +25,7 @@ const i18ns = [
   "job",
   "health_status",
 ];
-export function PartnerCard({ partner, beneficiaryGender, isEditable }: Props) {
+export function PartnerCard({ control, beneficiaryGender, isEditable }: Props) {
   const [
     HusbandInfoText,
     WifeInfoText,
@@ -35,10 +35,10 @@ export function PartnerCard({ partner, beneficiaryGender, isEditable }: Props) {
     HealthStatusText,
   ] = useBaseTranslation(i18ns);
 
-  const { control } = useForm({ defaultValues: { partner } });
+  const { partner } = useWatch({ control });
 
   return (
-    <BCard sx={{ m: 1, flex: 1 }} animations={{ transitions: "slideInBottom" }}>
+    <BCard sx={{ flex: 1 }} animations={{ transitions: "slideInBottom" }}>
       <CardContent>
         <SvgIcon
           sx={(theme) => ({
@@ -49,7 +49,7 @@ export function PartnerCard({ partner, beneficiaryGender, isEditable }: Props) {
             float: "inline-end",
           })}
         >
-          {partner.gender.id === "male" ? <SvgFather /> : <SvgMother />}
+          {partner!.gender === "male" ? <SvgFather /> : <SvgMother />}
         </SvgIcon>
         <BTypography variant="body2" fontWeight={"bold"}>
           {beneficiaryGender === "male" ? WifeInfoText : HusbandInfoText}

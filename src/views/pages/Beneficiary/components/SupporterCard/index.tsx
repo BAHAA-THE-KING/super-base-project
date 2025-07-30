@@ -1,18 +1,19 @@
 import { CardContent, SvgIcon } from "@mui/material";
-import { useForm } from "react-hook-form";
+import { Control } from "react-hook-form";
 
 import { FormInput, FormSelect } from "src/components";
 import { BCard, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
-import { Uncle } from "src/types/data/SingleBeneficiary";
+import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
 
 import SvgUncle from "src/icons/Uncle";
 
 type Props = {
-  uncle: Uncle;
+  control: Control<SingleBeneficiary>;
   isEditable: boolean;
+  idx: number;
 };
 
 const i18ns = [
@@ -25,7 +26,7 @@ const i18ns = [
   "job",
   "provided_aid",
 ];
-export function SupporterCard({ uncle, isEditable }: Props) {
+export function SupporterCard({ control, isEditable, idx }: Props) {
   const [
     SupporterInfoText,
     FirstNameText,
@@ -36,8 +37,6 @@ export function SupporterCard({ uncle, isEditable }: Props) {
     JobText,
     ProvidedAidText,
   ] = useBaseTranslation(i18ns);
-
-  const { control } = useForm({ defaultValues: { uncle } });
 
   return (
     <BCard animations={{ transitions: "slideInBottom" }}>
@@ -63,7 +62,7 @@ export function SupporterCard({ uncle, isEditable }: Props) {
           sx={{ my: 1 }}
           control={control}
           label={FirstNameText}
-          name={`uncle.first_name`}
+          name={`uncles.${idx}.first_name`}
           rules={{ required: true }}
         />
         <FormInput
@@ -71,15 +70,15 @@ export function SupporterCard({ uncle, isEditable }: Props) {
           sx={{ my: 1 }}
           control={control}
           label={LastNameText}
-          name={`uncle.last_name`}
+          name={`uncles.${idx}.last_name`}
           rules={{ required: true }}
         />
         <FormSelect
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          // inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
           sx={{ my: 1 }}
           control={control}
           label={KinshipText}
-          name={`uncle.from`}
+          name={`uncles.${idx}.from`}
           rules={{ required: true }}
           options={[
             { id: "mother", name: MaternalUncleText },
@@ -91,7 +90,7 @@ export function SupporterCard({ uncle, isEditable }: Props) {
           sx={{ my: 1 }}
           control={control}
           label={JobText}
-          name={`uncle.job`}
+          name={`uncles.${idx}.job`}
           rules={{ required: true }}
         />
         <FormInput
@@ -99,7 +98,7 @@ export function SupporterCard({ uncle, isEditable }: Props) {
           sx={{ my: 1 }}
           control={control}
           label={ProvidedAidText}
-          name={`uncle.provided_aid`}
+          name={`uncles.${idx}.provided_aid`}
           rules={{ required: true }}
           multiline
         />

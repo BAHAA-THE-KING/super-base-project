@@ -10,15 +10,17 @@ import { useData } from "../../../data";
 
 import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
 import { GroupCard } from "../../GroupCard";
+import { Control, useWatch } from "react-hook-form";
 
 type Props = {
-  beneficiary: SingleBeneficiary;
+  control: Control<SingleBeneficiary>;
 };
 
-export function GroupInfo({ beneficiary }: Props) {
-  const { groups } = useData(beneficiary.id);
+export function GroupInfo({ control }: Props) {
+  const { id, group } = useWatch({ control });
+  const { groups } = useData(id!);
   const orderedGroups = groups.sort((e1, e2) =>
-    e1.id === beneficiary.group.id ? -1 : e2.id === beneficiary.group.id ? 1 : 0
+    e1.id === group?.id ? -1 : e2.id === group?.id ? 1 : 0
   );
 
   return (
@@ -38,14 +40,14 @@ export function GroupInfo({ beneficiary }: Props) {
           rotate: false,
         }}
       >
-        {orderedGroups.map((group) => (
+        {orderedGroups.map((orderedGroup) => (
           <SwiperSlide
-            key={group.id}
+            key={orderedGroup.id}
             style={{ filter: "drop-shadow(0 10px 5px #222)" }}
           >
             <GroupCard
-              group={group}
-              isActive={group.id === beneficiary.group.id}
+              group={orderedGroup}
+              isActive={orderedGroup.id === group?.id}
             />
           </SwiperSlide>
         ))}

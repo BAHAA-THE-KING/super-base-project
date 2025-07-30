@@ -287,5 +287,7 @@
   "requested_item": "المادة المطلوبة",
   "next": "التالي",
   "back": "السابق",
-  "finish_meet": "إنهاء الاجتماع"
+  "finish_meet": "إنهاء الاجتماع",
+  "add_beneficiary": "إضافة مستفيد جديد",
+  "save_request": "حفظ الطلب للمراجعة"
 }
