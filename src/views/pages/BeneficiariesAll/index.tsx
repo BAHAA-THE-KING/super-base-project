@@ -9,6 +9,7 @@ import { useData } from "./data";
 import { BButton } from "src/components/Base";
 import { useBaseTranslation } from "src/hooks";
 import { useNavigate } from "react-router";
+import { Add } from "@mui/icons-material";
 
 const i18ns = ["add_beneficiary"];
 export function AllBeneficiaries() {
@@ -33,6 +34,7 @@ export function AllBeneficiaries() {
         <BButton
           variant="contained"
           onClick={() => navigate("/beneficiary/add")}
+          startIcon={<Add />}
         >
           {AddBeneficiaryText}
         </BButton>
