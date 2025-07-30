@@ -49,15 +49,16 @@ type AllGroupsResponse = {
   data: {
     id: number;
     name: string;
-    salary: string;
-    color: "error" | "primary" | "secondary" | "info" | "success" | "warning";
+    salary: number;
+    color: string;
     conditions: {
       id: number;
       name: string;
-      params: string;
+      param: string;
     }[];
-    number_of_beneficiaries: number;
-    percent_of_beneficiaries: number;
+    // TODO: Missing
+    // number_of_beneficiaries: number;
+    // percent_of_beneficiaries: number;
   }[];
   message: string;
 };

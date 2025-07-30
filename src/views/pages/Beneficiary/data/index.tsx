@@ -90,26 +90,27 @@ export function useData(id: number) {
   const { showGroups } = useGroup();
   const { data: groupResponse } = showGroups();
 
-  const groups: Group[] =
-    groupResponse?.data?.map((e) => ({
-      id: e.id,
-      name: e.name,
-      salary: e.salary.toString(),
-      color: e.color,
-      // TODO: need to be filled
-      group_conditions:
-        e?.conditions?.map((ee) => ({
-          id: ee.id,
-          params: ee.params,
-          // TODO: need to be filled
-          condition: {
-            id: 0,
-            name: "",
-          },
-          // TODO: need to be filled
-          is_satisfied: true,
-        })) ?? [],
-    })) ?? [];
+  const groups: Group[] = useMemo(
+    () =>
+      groupResponse?.data?.map((e) => ({
+        id: e.id,
+        name: e.name,
+        salary: e.salary.toString(),
+        color: e.color,
+        group_conditions:
+          e?.conditions?.map((ee) => ({
+            id: ee.id,
+            params: ee.param,
+            condition: {
+              id: ee.id,
+              name: ee.name,
+            },
+            // TODO: need to be filled
+            is_satisfied: false,
+          })) ?? [],
+      })) ?? [],
+    [groupResponse]
+  );
 
   const createBeneficiary = (b: SingleBeneficiary) =>
     addBeneficiary({
