@@ -289,5 +289,9 @@
   "back": "السابق",
   "finish_meet": "إنهاء الاجتماع",
   "add_beneficiary": "إضافة مستفيد جديد",
-  "save_request": "حفظ الطلب للمراجعة"
+  "save_request": "حفظ الطلب للمراجعة",
+  "add_new_plan": "إضافة خطة توزيع جديدة",
+  "criteria": "المعايير",
+  "criterion": "معيار",
+  "weight": "التثقيل"
 }

@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { Grid2, Stack } from "@mui/material";
 
 import { BDataGrid } from "src/components/Base";
-import { PlanCard } from "./components";
+import { AddPlanCard, PlanCard } from "./components";
 
 import { usePlansColumns } from "./hooks";
 
@@ -39,6 +39,7 @@ export function Plans() {
             <PlanCard plan={plan} />
           </Grid2>
         ))}
+        <AddPlanCard />
       </Grid2>
       <BDataGrid columns={columns} rows={plans} />
     </Stack>

@@ -6,3 +6,4 @@ export { useSpecialMaterialRequest } from "./useSpecialMaterialRequest";
 export { usePrescriptionRequest } from "./usePrescriptionRequest";
 export { usePlans } from "./usePlans";
 export { useMeet } from "./useMeet";
+export { useAttributes } from "./useAttributes";

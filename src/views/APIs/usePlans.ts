@@ -1,4 +1,4 @@
-import { useGetAPI } from "src/APIs";
+import { useGetAPI, usePostAPI, usePutAPI } from "src/APIs";
 
 type PlanAttribute = {
   id: number;
@@ -46,6 +46,57 @@ type PlanResponse = {
   message: string;
 };
 
+type AddPlanRequest = {
+  name: string;
+  description: string;
+  portion: string;
+  date: string; // ISO date string, e.g. "2025-08-15"
+  attributes: {
+    id: number;
+    weight: number;
+  }[];
+};
+
+type AddPlanResponse = {
+  data: {
+    id: number;
+    name: string;
+    description: string;
+    portion: string;
+    is_finished: number; // 0 or 1
+    date: string; // ISO date string
+    attributes: {
+      id: number;
+      name: string;
+      weight: number;
+    }[];
+  };
+  message: string;
+};
+
+type EditPlanRequest = {
+  name: string;
+  description: string;
+  portion: string;
+};
+
+type EditPlanResponse = {
+  data: {
+    id: number;
+    name: string;
+    description: string;
+    portion: string;
+    is_finished: number; // 0 or 1
+    date: string; // ISO date string
+    attributes: {
+      id: number;
+      name: string;
+      weight: number;
+    }[];
+  };
+  message: string;
+};
+
 export function usePlans() {
   const getIndexPlans = () =>
     useGetAPI<IndexPlansResponse>("/dashboard/plans/index", {
@@ -71,6 +122,22 @@ export function usePlans() {
         },
       },
       keys: ["plans"],
+      enabled: Boolean(planId),
     });
-  return { getIndexPlans, getPlan };
+
+  const addPlan = usePostAPI<AddPlanResponse, AddPlanRequest>(
+    "/dashboard/plans/create",
+    {
+      invalidateKeys: ["plans"],
+    }
+  ).mutateAsync;
+
+  const editPlan = usePutAPI<EditPlanResponse, EditPlanRequest>(
+    "/dashboard/plans/:id",
+    {
+      invalidateKeys: ["plans"],
+    }
+  ).mutateAsync;
+
+  return { getIndexPlans, getPlan, addPlan, editPlan };
 }

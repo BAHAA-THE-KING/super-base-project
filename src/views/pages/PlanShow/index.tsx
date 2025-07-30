@@ -21,7 +21,7 @@ type Form = {
   is_finished: boolean;
   created_at: string;
   plan_attributes: {
-    id: number;
+    id: number | string;
     attribute_id: number;
     attribute: {
       id: number;
@@ -34,21 +34,22 @@ type Form = {
 export function PlanShow() {
   const navigate = useNavigate();
   const { planId: planIdParam } = useParams();
-  const planId = Number(planIdParam);
+  const planId = Number(planIdParam) ?? 0;
   const isAdd = planIdParam === "add";
   if ((!planId || planId <= 0) && !isAdd) {
     navigate(-1);
     return <></>;
   }
 
-  const { plan } = useShowPlanData(planId);
-  if (!plan) {
-    navigate(-1);
-    return <></>;
-  }
+  const { plan, createPlan, updatePlan, attributes } = useShowPlanData(planId);
 
   const [wantToTerminate, setWantToTerminate] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+
+  if (isEdit && !plan) {
+    navigate(-1);
+    return <></>;
+  }
 
   const {
     reset,
@@ -78,11 +79,18 @@ export function PlanShow() {
       });
   }, [plan, isEdit]);
 
-  function submit() {
-    handleSubmit((data) => {
-      console.log(data);
-    });
-  }
+  const submit = handleSubmit(async (data) => {
+    if (isAdd) {
+      await createPlan(data as any);
+    } else if (isEdit) {
+      await updatePlan({
+        id: planId,
+        name: data.name,
+        description: data.description,
+        portion: data.portion,
+      });
+    }
+  });
   function handleTerminate() {}
 
   return (
@@ -109,6 +117,7 @@ export function PlanShow() {
         isAdd={isAdd}
         isEdit={isEdit}
         setIsEdit={setIsEdit}
+        attributes={attributes}
       />
       {isAdd ? null : (
         <NextBeneficiariesPlanInfo nextBeneficiaries={plan.nextBeneficiaries} />

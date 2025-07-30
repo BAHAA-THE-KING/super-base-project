@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { usePlans } from "src/views/APIs";
+import { useAttributes, usePlans } from "src/views/APIs";
 
 export type PlanAttribute = {
   id: number;
@@ -38,8 +38,18 @@ export type Plan = {
   nextBeneficiaries: PlanBeneficiary[];
   percent: number;
 };
+export type RawPlan = {
+  id?: number;
+  name: string;
+  description: string;
+  portion: string;
+  type: string;
+  created_at: string;
+  plan_attributes: PlanAttribute[];
+};
 export function useShowPlanData(planId: number) {
-  const { getPlan } = usePlans();
+  const { getPlan, addPlan, editPlan } = usePlans();
+  const { getAllAttributes } = useAttributes();
   const { data: plansResponse } = getPlan(planId);
   const planData = plansResponse!.data;
   const plan = useMemo(
@@ -67,5 +77,38 @@ export function useShowPlanData(planId: number) {
     [plansResponse]
   );
 
-  return { plan };
+  const createPlan = (data: RawPlan) =>
+    addPlan({
+      data: {
+        name: data.name,
+        date: data.created_at,
+        description: data.description,
+        portion: data.portion,
+        attributes: data.plan_attributes.map((e) => ({
+          id: e.attribute_id,
+          weight: e.weight,
+        })),
+      },
+    });
+
+  const updatePlan = (data: {
+    id: number;
+    name: string;
+    description: string;
+    portion: string;
+  }) =>
+    editPlan({
+      data: {
+        name: data.name,
+        description: data.description,
+        portion: data.portion,
+      },
+      params: { id: data.id },
+    });
+
+  const { data: attributesResponse } = getAllAttributes();
+
+  const attributes = attributesResponse?.data ? attributesResponse.data : [];
+
+  return { plan, createPlan, updatePlan, attributes };
 }
