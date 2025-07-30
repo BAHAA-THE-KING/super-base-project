@@ -2,7 +2,12 @@ import { Grid2 } from "@mui/material";
 import { Control, useWatch } from "react-hook-form";
 
 import { BTypography } from "src/components/Base";
-import { FormInput, FormSelect, RequestStatusChip } from "src/components";
+import {
+  FormImage,
+  FormInput,
+  FormSelect,
+  RequestStatusChip,
+} from "src/components";
 
 import { useBaseTranslation } from "src/hooks";
 
@@ -198,9 +203,9 @@ export function PersonalInfo({ control, isEditable }: Props) {
           name="address"
           rules={{ required: true }}
         />
-        <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
-          sx={{ my: 1 }}
+        <FormImage
+          // inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          // sx={{ my: 1 }}
           control={control}
           label={ResidenceDocumentText}
           name="residence_document_url"

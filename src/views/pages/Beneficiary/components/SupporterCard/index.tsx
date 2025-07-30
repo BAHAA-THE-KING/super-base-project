@@ -2,18 +2,20 @@ import { CardContent, SvgIcon } from "@mui/material";
 import { Control } from "react-hook-form";
 
 import { FormInput, FormSelect } from "src/components";
-import { BCard, BTypography } from "src/components/Base";
+import { BButton, BCard, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
 import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
 
 import SvgUncle from "src/icons/Uncle";
+import { Delete } from "@mui/icons-material";
 
 type Props = {
   control: Control<SingleBeneficiary>;
   isEditable: boolean;
   idx: number;
+  remove: (i: number) => void;
 };
 
 const i18ns = [
@@ -26,7 +28,7 @@ const i18ns = [
   "job",
   "provided_aid",
 ];
-export function SupporterCard({ control, isEditable, idx }: Props) {
+export function SupporterCard({ control, isEditable, idx, remove }: Props) {
   const [
     SupporterInfoText,
     FirstNameText,
@@ -53,6 +55,13 @@ export function SupporterCard({ control, isEditable, idx }: Props) {
           <SvgUncle />
         </SvgIcon>
         <BTypography variant="body2" fontWeight={"bold"}>
+          {isEditable && (
+            <BButton
+              color="error"
+              icon={<Delete />}
+              onClick={() => remove(idx)}
+            />
+          )}
           {SupporterInfoText}
         </BTypography>
       </CardContent>

@@ -17,7 +17,7 @@ export interface SingleBeneficiary {
   mobile_number: string;
   address: string;
   residence_type: "" | "rent" | "own" | "host" | "borrow";
-  residence_document_url: string;
+  residence_document_url: (string | File)[];
   children: Child[];
   uncles: Uncle[];
   partner: Partner;

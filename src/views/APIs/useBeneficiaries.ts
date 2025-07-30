@@ -80,44 +80,97 @@ type ShowResponse = {
     job: string;
     health_status: string;
     phone_number: string;
+    mobile_number: string;
     address: string;
-    residence_type: "rent" | "own" | "host" | "borrow";
+    residence_type: string;
+    residence_document_id: number;
     monthly_income: number;
     case_description: string;
     group_id: number;
-    request_status: "accepted" | "pending" | "rejected";
-    partners: Array<{
+    request_id: number;
+    request_status: string;
+
+    personalImage: {
+      id: number;
+      file: string;
+      extension: string;
+    };
+
+    residenceDocument: {
+      id: number;
+      file: string;
+      extension: string;
+    };
+
+    partners: {
       id: number;
       first_name: string;
       last_name: string;
       job: string;
-      gender: "male" | "female";
+      gender: string;
       health_status: string;
-    }>;
-    uncles: Array<{
+    }[];
+
+    uncles: {
       id: number;
-      from: "father" | "mother";
+      from: string;
       first_name: string;
       last_name: string;
       job: string;
       provided_aid: string;
-    }>;
-    children: Array<{
+    }[];
+
+    children: {
       id: number;
       name: string;
       birth_date: string;
-      gender: "male" | "female";
+      gender: string;
       is_alive: boolean;
       partner_name: string;
       residence_place: string;
-    }>;
+    }[];
+
     group: {
       id: number;
       name: string;
       salary: number;
-      color: "error" | "warning" | "primary" | "secondary" | "info" | "success";
+      color: string;
+      conditions: {
+        id: number;
+        name: string;
+        param: string;
+      }[];
     };
-    request: any | null;
+
+    request: {
+      id: number;
+      status: string;
+      reason: string | null;
+      request_type: string;
+      entity: {
+        entity_type: string;
+        id: number;
+        first_name: string;
+        last_name: string;
+        father_name: string;
+        mother_name: string;
+        birth_date: string;
+        birth_place: string;
+        national_number: string;
+        job: string;
+        health_status: string;
+        phone_number: string;
+        mobile_number: string;
+        address: string;
+        residence_type: string;
+        residence_document_id: number;
+        monthly_income: number;
+        case_description: string;
+        group_id: number;
+        request_id: number;
+        request_status: string;
+      };
+    };
   };
   message: string;
 };
@@ -149,7 +202,7 @@ type Child = {
 
 type AddRequest = {
   "residence_document[file]": any;
-  "image_url[file]": any;
+  "personal_image[file]": any;
   first_name: string;
   last_name: string;
   father_name: string;
@@ -227,9 +280,12 @@ export function useBeneficiaries() {
       enabled: Boolean(id),
     });
 
-  const addBeneficiary = usePostAPI<AddResponse, AddRequest>("/dashboard/beneficiaries/create", {
-    invalidateKeys: ["beneficiaries"],
-  }).mutateAsync;
+  const addBeneficiary = usePostAPI<AddResponse, AddRequest>(
+    "/dashboard/beneficiaries/create",
+    {
+      invalidateKeys: ["beneficiaries"],
+    }
+  ).mutateAsync;
 
   const editBeneficiary = usePutAPI<EditResponse, EditRequest>("/update", {
     invalidateKeys: ["beneficiaries"],

@@ -5,6 +5,7 @@ import { Group, SingleBeneficiary } from "src/types/data/SingleBeneficiary";
 import { useMemo } from "react";
 import { Aid } from "src/types/data/Aid";
 import { useGroup } from "src/views/APIs/useGroup";
+import { jsonToFormdata } from "src/utils";
 
 export function useData(id: number) {
   const { getSingleBeneficiary, addBeneficiary } = useBeneficiaries();
@@ -12,73 +13,79 @@ export function useData(id: number) {
 
   const responseData = beneficiaryResponse?.data;
 
-  const beneficiary = responseData
-    ? ({
-        id: responseData.id,
-        // TODO: add missing field
-        image_url: "",
-        first_name: responseData.first_name,
-        last_name: responseData.last_name,
-        father_name: responseData.father_name,
-        mother_name: responseData.mother_name,
-        birth_date: responseData.birth_date.split("T")[0],
-        birth_place: responseData.birth_place,
-        national_number: responseData.national_number,
-        // TODO: add missing field
-        gender: "male",
-        job: responseData.job,
-        health_status: responseData.health_status,
-        phone_number: responseData.phone_number,
-        // TODO: add missing field
-        mobile_number: "",
-        address: responseData.address,
-        residence_type: responseData.residence_type,
-        // TODO: add missing field
-        residence_document_url: "",
-        children: responseData.children.map((e) => ({
-          id: e.id,
-          beneficiary_id: responseData.id,
-          name: e.name,
-          birth_date: e.birth_date.split("T")[0],
-          gender: e.gender,
-          is_alive: e.is_alive,
-          partner_name: e.partner_name,
-          residence_place: e.residence_place,
-        })),
-        uncles: responseData.uncles.map((e) => ({
-          id: e.id,
-          beneficiary_id: responseData.id,
-          from: e.from,
-          first_name: e.first_name,
-          last_name: e.last_name,
-          job: e.job,
-          provided_aid: e.provided_aid,
-        })),
-        // TODO: add missing field
-        partner: {
-          id: 0,
-          beneficiary_id: 0,
-          first_name: "",
-          last_name: "",
-          job: "",
-          gender: "male",
-          health_status: "",
-        },
-        group: {
-          id: responseData.group.id,
-          name: responseData.group.color,
-          salary: responseData.group.salary.toString(),
-          color: responseData.group.color,
-          // TODO: add missing field
-          group_conditions: [],
-        },
-        monthly_income: responseData.monthly_income,
-        case_description: responseData.case_description,
-        // TODO: add missing field
-        request_id: 0,
-        request_status: responseData.request_status,
-      } as SingleBeneficiary)
-    : null;
+  const beneficiary = useMemo(
+    () =>
+      responseData
+        ? ({
+            id: responseData.id,
+            image_url: responseData.personalImage.file,
+            first_name: responseData.first_name,
+            last_name: responseData.last_name,
+            father_name: responseData.father_name,
+            mother_name: responseData.mother_name,
+            birth_date: responseData.birth_date.split("T")[0],
+            birth_place: responseData.birth_place,
+            national_number: responseData.national_number,
+            // TODO: add missing field
+            gender: "male",
+            job: responseData.job,
+            health_status: responseData.health_status,
+            phone_number: responseData.phone_number,
+            mobile_number: responseData.mobile_number,
+            address: responseData.address,
+            residence_type: responseData.residence_type,
+            // TODO: add missing field
+            residence_document_url: [responseData.residenceDocument.file],
+            children: responseData.children.map((e) => ({
+              id: e.id,
+              beneficiary_id: responseData.id,
+              name: e.name,
+              birth_date: e.birth_date.split("T")[0],
+              gender: e.gender,
+              is_alive: e.is_alive,
+              partner_name: e.partner_name,
+              residence_place: e.residence_place,
+            })),
+            uncles: responseData.uncles.map((e) => ({
+              id: e.id,
+              beneficiary_id: responseData.id,
+              from: e.from,
+              first_name: e.first_name,
+              last_name: e.last_name,
+              job: e.job,
+              provided_aid: e.provided_aid,
+            })),
+            partner: {
+              id: responseData.partners[0]?.id ?? "",
+              beneficiary_id: responseData.id,
+              first_name: responseData.partners[0]?.first_name ?? "",
+              last_name: responseData.partners[0]?.last_name ?? "",
+              job: responseData.partners[0]?.job ?? "",
+              gender: responseData.partners[0]?.gender ?? "",
+              health_status: responseData.partners[0]?.health_status ?? "",
+            },
+            group: {
+              id: responseData.group.id,
+              name: responseData.group.color,
+              salary: responseData.group.salary.toString(),
+              color: responseData.group.color,
+              group_conditions: responseData.group.conditions.map((e) => ({
+                id: e.id,
+                condition: {
+                  id: e.id,
+                  name: e.name,
+                },
+                params: e.param,
+              })),
+            },
+            monthly_income: responseData.monthly_income,
+            case_description: responseData.case_description,
+            request_id: responseData.request_id,
+            request_status: responseData.request_status,
+          } as SingleBeneficiary)
+        : null,
+    [responseData]
+  );
 
   const { showGroups } = useGroup();
   const { data: groupResponse } = showGroups();
@@ -106,7 +113,7 @@ export function useData(id: number) {
 
   const createBeneficiary = (b: SingleBeneficiary) =>
     addBeneficiary({
-      data: {
+      data: jsonToFormdata({
         first_name: b.first_name,
         last_name: b.last_name,
         father_name: b.father_name,
@@ -121,8 +128,8 @@ export function useData(id: number) {
         mobile_number: b.mobile_number,
         address: b.address,
         residence_type: b.residence_type,
-        "residence_document[file]": b.residence_document_url,
-        "image_url[file]": b.image_url,
+        "residence_document[file]": b.residence_document_url[0],
+        "personal_image[file]": b.image_url,
         monthly_income: b.monthly_income,
         case_description: b.case_description,
         partners: [
@@ -149,7 +156,7 @@ export function useData(id: number) {
           job: e.job,
           provided_aid: e.provided_aid,
         })),
-      },
+      }),
     });
 
   const [_, setLoading] = useLoading();

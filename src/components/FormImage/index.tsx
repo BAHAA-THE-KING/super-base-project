@@ -31,6 +31,7 @@ type Props<
   >;
   disabled?: boolean;
   label: string;
+  maxFiles?: number;
 };
 
 const i18ns = ["you_have_to_upload_at_least_one_image", "click_to_add_image"];
@@ -38,7 +39,14 @@ const i18ns = ["you_have_to_upload_at_least_one_image", "click_to_add_image"];
 export function FormImage<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
->({ control, label, name, rules, disabled }: Props<TFieldValues, TName>) {
+>({
+  control,
+  label,
+  name,
+  rules,
+  disabled,
+  maxFiles = 1,
+}: Props<TFieldValues, TName>) {
   const [YouHaveToUploadAtLeastOneImageText, ClickToAddImageText] =
     useBaseTranslation(i18ns);
 
@@ -89,10 +97,14 @@ export function FormImage<
                             onClick={(e) => {
                               e.stopPropagation();
                               onChange(
-                                value.filter((_: any, i: number) => i !== index)
+                                value
+                                  .filter((_: any, i: number) => i !== index)
+                                  .slice(0, maxFiles)
                               );
                               setPreviews(
-                                previews.filter((_, i) => i !== index)
+                                previews
+                                  .filter((_, i) => i !== index)
+                                  .slice(0, maxFiles)
                               );
                             }}
                           >

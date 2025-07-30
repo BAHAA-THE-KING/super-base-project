@@ -48,7 +48,7 @@ export function FormCheckbox<
       name={name}
       control={control}
       rules={rules}
-      disabled={disabled}
+      // disabled={disabled}
       render={({ field, fieldState: { invalid, error } }) => (
         <Stack>
           <Stack

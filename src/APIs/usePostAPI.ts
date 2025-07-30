@@ -19,25 +19,26 @@ export function usePostAPI<R, T, P = any, TPath extends string = string>(
       data,
       params,
     }: {
-      data: T;
+      data: T | FormData;
       params?:
         | ExtractPathParams<TPath>
         | P
         | {
             [key: string]: string | number;
           };
-    }) =>
-      (
+    }) => {
+      const headers: any = {};
+      if (data instanceof FormData) {
+        headers["Content-Type"] = "application/json";
+      }
+
+      return (
         await api.post<R>(path, data, {
           params,
-          headers: {
-            "Content-Type":
-              data instanceof FormData
-                ? "application/x-www-form-urlencoded"
-                : "application/json",
-          },
+          headers,
         })
-      ).data,
+      ).data;
+    },
     {
       onSuccess: () => {
         console.log("Query Success, invalidating:", invalidateKeys);

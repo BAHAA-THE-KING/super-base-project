@@ -15,7 +15,11 @@ type Props = {
 
 export function SupportersInfo({ control, isEditable }: Props) {
   const { id } = useWatch({ control });
-  const { append, fields: uncles } = useFieldArray({ control, name: "uncles" });
+  const {
+    append,
+    remove,
+    fields: uncles,
+  } = useFieldArray({ control, name: "uncles" });
   return (
     <Grid2 container spacing={3}>
       {uncles?.map((uncle, idx) => (
@@ -25,6 +29,7 @@ export function SupportersInfo({ control, isEditable }: Props) {
               control={control}
               isEditable={isEditable}
               idx={idx}
+              remove={remove}
             />
           </Grid2>
         </React.Fragment>

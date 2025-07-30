@@ -1,20 +1,23 @@
 import { CardContent, SvgIcon } from "@mui/material";
-import { Control, useWatch } from "react-hook-form";
+import { Control } from "react-hook-form";
 
 import SvgSon from "src/icons/Son";
 import SvgDaughter from "src/icons/Daughter";
 
 import { FormCheckbox, FormInput, FormSelect } from "src/components";
-import { BCard, BTypography } from "src/components/Base";
+import { BButton, BCard, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
-import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
+import { Child, SingleBeneficiary } from "src/types/data/SingleBeneficiary";
+import { Delete } from "@mui/icons-material";
 
 type Props = {
+  child: Child;
   control: Control<SingleBeneficiary>;
   isEditable: boolean;
   idx: number;
+  remove: (i: number) => void;
 };
 
 const i18ns = [
@@ -29,7 +32,7 @@ const i18ns = [
   "son_info",
   "daughter_info",
 ];
-export function ChildCard({ control, isEditable, idx }: Props) {
+export function ChildCard({ child, control, isEditable, idx, remove }: Props) {
   const [
     NameText,
     GenderText,
@@ -43,8 +46,6 @@ export function ChildCard({ control, isEditable, idx }: Props) {
     DaughterInfoText,
   ] = useBaseTranslation(i18ns);
 
-  const { children } = useWatch({ control });
-  const child = children![idx];
   return (
     <BCard sx={{ flex: 1 }} animations={{ transitions: "slideInBottom" }}>
       <CardContent>
@@ -60,6 +61,13 @@ export function ChildCard({ control, isEditable, idx }: Props) {
           {child.gender === "male" ? <SvgSon /> : <SvgDaughter />}
         </SvgIcon>
         <BTypography variant="body2" fontWeight={"bold"}>
+          {isEditable && (
+            <BButton
+              color="error"
+              icon={<Delete />}
+              onClick={() => remove(idx)}
+            />
+          )}
           {child.gender === "male" ? SonInfoText : DaughterInfoText}
         </BTypography>
       </CardContent>

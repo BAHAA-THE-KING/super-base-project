@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Grid2 } from "@mui/material";
 import { Control, useFieldArray, useWatch } from "react-hook-form";
 
@@ -5,7 +6,7 @@ import { PartnerCard, ChildCard, AddCard } from "../..";
 
 import { v4 as uuidv4 } from "uuid";
 
-import { Child, SingleBeneficiary } from "src/types/data/SingleBeneficiary";
+import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
 
 type Props = {
   control: Control<SingleBeneficiary>;
@@ -13,20 +14,20 @@ type Props = {
 };
 
 export function FamilyInfo({ control, isEditable }: Props) {
-  const { gender, id } = useWatch({ control });
-  const { append, fields: children } = useFieldArray({
+  const { gender, id, children } = useWatch({ control });
+  const { append, remove } = useFieldArray({
     control,
     name: "children",
   });
-  const members = [
-    ...(children ?? [])
-      .sort(
+  const members = useMemo(
+    () =>
+      children!.sort(
         (e1, e2) =>
           new Date(e1?.birth_date ?? "").getTime() -
           new Date(e2?.birth_date ?? "").getTime()
-      )
-      .map((e) => ({ key: e.id.toString(), child: e })),
-  ] as { key: number | string; child: Child }[];
+      ),
+    [children, children!.length, JSON.stringify(children)]
+  );
 
   return (
     <Grid2 container spacing={3}>
@@ -39,12 +40,18 @@ export function FamilyInfo({ control, isEditable }: Props) {
       </Grid2>
       {members.map((e, idx) => (
         <Grid2
-          key={e.key}
+          key={e.id}
           size={{ xs: 12, md: 4 }}
           display={"flex"}
           alignItems={"stretch"}
         >
-          <ChildCard control={control} isEditable={isEditable} idx={idx} />
+          <ChildCard
+            child={e}
+            control={control}
+            isEditable={isEditable}
+            idx={idx}
+            remove={remove}
+          />
         </Grid2>
       ))}
       {isEditable && (
