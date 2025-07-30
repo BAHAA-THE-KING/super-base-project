@@ -3,9 +3,7 @@ import { useBeneficiaries } from "src/views/APIs";
 
 import { BeneficiaryTable } from "src/types/data/BeneficiaryTable";
 
-export function useData(filters: {}): {
-  beneficiaries: BeneficiaryTable[];
-} {
+export function useData(filters: {}) {
   const { getIndexedBeneficiaries } = useBeneficiaries();
   const { data: response } = getIndexedBeneficiaries(filters);
 
@@ -34,6 +32,7 @@ export function useData(filters: {}): {
       monthly_income: e.monthly_income,
       request_status: e.request_status,
     })) ?? [];
+  const totalRows = response?.data.total ?? 0;
 
-  return { beneficiaries };
+  return { beneficiaries, totalRows };
 }

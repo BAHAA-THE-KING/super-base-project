@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Stack } from "@mui/material";
 
 import { BeneficiariesGrid } from "./components";
@@ -18,16 +18,22 @@ export function AllBeneficiaries() {
 
   const columns = useBeneficiariesColumns();
 
-  const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(10);
+  const [page, setPage] = useState(1);
   const [filters, setFilters] = useState<any>({});
 
-  const { beneficiaries } = useData(filters);
+  useEffect(() => {
+    setFilters((f: any) => ({ ...f, page: page + 1 }));
+  }, [page]);
+
+  const { beneficiaries, totalRows } = useData(filters);
 
   return (
     <Stack width={"100%"} height={"100%"} p={3}>
       <Box width={"100%"} mb={2}>
-        <BButton variant="contained" onClick={() => navigate("/beneficiary/add")}>
+        <BButton
+          variant="contained"
+          onClick={() => navigate("/beneficiary/add")}
+        >
           {AddBeneficiaryText}
         </BButton>
       </Box>
@@ -35,10 +41,9 @@ export function AllBeneficiaries() {
         rows={beneficiaries}
         columns={columns}
         page={page}
-        pageSize={pageSize}
         setPage={setPage}
-        setPageSize={setPageSize}
         setFilters={setFilters}
+        totalRows={totalRows}
       />
     </Stack>
   );

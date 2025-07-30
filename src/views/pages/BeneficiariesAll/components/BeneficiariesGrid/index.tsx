@@ -6,9 +6,10 @@ type Props = {
   rows: any[];
   columns: GridColDef[];
   page: number;
-  pageSize: number;
+  totalRows: number;
+  pageSize?: number;
   setPage: (page: number) => void;
-  setPageSize: (pageSize: number) => void;
+  setPageSize?: (pageSize: number) => void;
   setFilters: (filters: any) => void;
 };
 
@@ -16,9 +17,10 @@ export function BeneficiariesGrid({
   rows,
   columns,
   page,
-  pageSize,
+  totalRows,
+  pageSize = 15,
   setPage,
-  setPageSize,
+  setPageSize = () => {},
   setFilters,
 }: Props) {
   const [columnVisibilityModel, setColumnVisibilityModel] =
@@ -37,7 +39,9 @@ export function BeneficiariesGrid({
       rows={rows}
       columns={columns}
       //pagination
-      pageSizeOptions={[10, 20, 30]}
+      pagination
+      paginationMode="server"
+      pageSizeOptions={[15]}
       paginationModel={{
         page,
         pageSize,
@@ -46,6 +50,7 @@ export function BeneficiariesGrid({
         setPage(page);
         setPageSize(pageSize);
       }}
+      rowCount={totalRows}
       //column visibility
       columnVisibilityModel={columnVisibilityModel}
       onColumnVisibilityModelChange={setColumnVisibilityModel}
