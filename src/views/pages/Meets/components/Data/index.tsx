@@ -140,13 +140,13 @@ export function Data({ data, dataType, formInstance }: Props) {
                 <Stack width={"30%"} whiteSpace={"nowrap"}>
                   <BTypography variant="h6">
                     {RequestStatusText}:{" "}
-                    {watch(`${request.id!}.status`) === true ? (
+                    {watch(`${request.id as number}.status`) === true ? (
                       <BChip
                         label={AcceptedText}
                         color="success"
                         variant="slight"
                       />
-                    ) : watch(`${request.id!}.status`) === false ? (
+                    ) : watch(`${request.id as number}.status`) === false ? (
                       <BChip
                         label={RejectedText}
                         color="error"
@@ -160,7 +160,9 @@ export function Data({ data, dataType, formInstance }: Props) {
                       />
                     )}
                   </BTypography>
-                  <BTypography>{watch(`${request.id!}.reason`)}</BTypography>
+                  <BTypography>
+                    {watch(`${request.id as number}.reason`)}
+                  </BTypography>
                 </Stack>
               </Stack>
             </React.Fragment>
@@ -170,7 +172,7 @@ export function Data({ data, dataType, formInstance }: Props) {
         <Stack>
           <DynamicCard
             requestType={dataType}
-            requestId={data[selectedCase].id!}
+            requestId={data[selectedCase].id as number}
             request={data[selectedCase]}
           />
           <Stack>
@@ -187,35 +189,43 @@ export function Data({ data, dataType, formInstance }: Props) {
                   </BTypography>
                   <BButton
                     variant={
-                      watch(`${data[selectedCase].id!}.status`) === true
+                      watch(`${data[selectedCase].id as number}.status`) ===
+                      true
                         ? "contained"
                         : "outlined"
                     }
                     color="success"
                     startIcon={<CheckIcon />}
                     onClick={() => {
-                      setValue(`${data[selectedCase].id!}.status`, true);
+                      setValue(
+                        `${data[selectedCase].id as number}.status`,
+                        true
+                      );
                     }}
                   >
                     {YesText}
                   </BButton>
                   <BButton
                     variant={
-                      watch(`${data[selectedCase].id!}.status`) === false
+                      watch(`${data[selectedCase].id as number}.status`) ===
+                      false
                         ? "contained"
                         : "outlined"
                     }
                     color="error"
                     startIcon={<CloseIcon />}
                     onClick={() => {
-                      setValue(`${data[selectedCase].id!}.status`, false);
+                      setValue(
+                        `${data[selectedCase].id as number}.status`,
+                        false
+                      );
                     }}
                   >
                     {NoText}
                   </BButton>
                 </Stack>
                 <FormInput
-                  name={`${data[selectedCase].id!}.reason`}
+                  name={`${data[selectedCase].id as number}.reason`}
                   control={control}
                   multiline
                   label={ReasonText}
