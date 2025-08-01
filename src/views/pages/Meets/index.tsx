@@ -90,7 +90,25 @@ export function Meets() {
     specialMaterialRequests,
     withdrawalOrderRequests,
     isLoading,
+    createMeet,
+    pendingMeets,
+    submitMeet,
   } = useMeetData();
+
+  const [meetId, setMeetId] = useState(0);
+
+  useEffect(() => {
+    if (meetId === 0) return;
+    if (!pendingMeets) return;
+    if (pendingMeets.length === 0) {
+      createMeet({
+        name: new Date().toLocaleDateString("en-ZA"),
+        date: new Date().toLocaleDateString("en-ZA"),
+      }).then((res) => setMeetId(res.data.id));
+    } else {
+      setMeetId(pendingMeets[0].id);
+    }
+  }, [pendingMeets]);
 
   const formInstance = useForm<AcceptanceForm>({
     defaultValues: [],
@@ -120,9 +138,27 @@ export function Meets() {
           dataType: "WithdrawalOrderRequest" as const,
         };
       default:
-        // TODO: Send meet summery to api
-        // Some popup are you sure
-        throw new Error("unknown step");
+        formInstance.handleSubmit((data) => {
+          submitMeet({
+            meetId,
+            requests: Object(data)
+              .entries()
+              .map(
+                (
+                  e: [
+                    number,
+                    { status: "pending" | "rejected"; reason: string }
+                  ]
+                ) => ({
+                  request_id: e[0],
+                  status: e[1].status,
+                  reason: e[1].reason,
+                })
+              ),
+          });
+        })();
+        return { data: [], dataType: "none" };
+      // Some popup summery
     }
   };
 
@@ -130,7 +166,8 @@ export function Meets() {
 
   useEffect(() => {
     const isAllRequestsAccepted = currentStepData.data.every(
-      (request) => formInstance.getValues()[request.id!]?.status !== undefined
+      (request) =>
+        formInstance.getValues()[request.id as number]?.status !== undefined
     );
 
     setSteps(

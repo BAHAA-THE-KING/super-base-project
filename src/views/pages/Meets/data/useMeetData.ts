@@ -42,20 +42,20 @@ export function useMeetData(meetId: number = 1) {
     getEmergencyAssistanceRequests,
     getSpecialMaterialRequests,
     getWithdrawalOrderRequests,
+    addMeet,
+    getAllMeets,
+    submitMeet: submitMeetAPI,
   } = useMeet();
 
   // Get requests for each type
-  const { data: membershipRequestsData, isLoading: isLoadingMembership } =
-    getCreateBeneficiaryRequests(meetId);
+  const { data: membershipRequestsData } = getCreateBeneficiaryRequests(meetId);
 
-  const { data: emergencyAssistanceData, isLoading: isLoadingEmergency } =
+  const { data: emergencyAssistanceData } =
     getEmergencyAssistanceRequests(meetId);
 
-  const { data: specialMaterialsData, isLoading: isLoadingSpecial } =
-    getSpecialMaterialRequests(meetId);
+  const { data: specialMaterialsData } = getSpecialMaterialRequests(meetId);
 
-  const { data: withdrawalOrdersData, isLoading: isLoadingWithdrawal } =
-    getWithdrawalOrderRequests(meetId);
+  const { data: withdrawalOrdersData } = getWithdrawalOrderRequests(meetId);
 
   // Map API data to component data structures
   const membershipRequests: Partial<BeneficiaryRequest>[] =
@@ -108,17 +108,37 @@ export function useMeetData(meetId: number = 1) {
       requested_amount: request.entity.amount,
     })) || [];
 
+  const createMeet = (data: { name: string; date: string }) =>
+    addMeet({ data });
+
+  const submitMeet = (data: {
+    meetId: number;
+    requests: {
+      request_id: number;
+      status: "accepted" | "rejected";
+      reason: string;
+    }[];
+  }) => submitMeetAPI({ data });
+
+  const { data: pendingMeetsResponse } = getAllMeets({ status: "pending" });
+
+  const pendingMeets = pendingMeetsResponse?.data;
+
   const isLoading =
-    isLoadingMembership ||
-    isLoadingEmergency ||
-    isLoadingSpecial ||
-    isLoadingWithdrawal;
+    membershipRequestsData?.message === "wait" ||
+    emergencyAssistanceData?.message === "wait" ||
+    specialMaterialsData?.message === "wait" ||
+    withdrawalOrdersData?.message === "wait" ||
+    pendingMeetsResponse?.message === "wait";
 
   return {
     membershipRequests,
     emergencyAssistanceRequests,
     specialMaterialRequests,
     withdrawalOrderRequests,
+    createMeet,
+    pendingMeets,
     isLoading,
+    submitMeet,
   };
 }

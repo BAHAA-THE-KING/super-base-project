@@ -1,4 +1,4 @@
-import { useGetAPI, usePostAPI } from "src/APIs";
+import { useGetAPI, usePostAPI, usePutAPI } from "src/APIs";
 
 // Base types for all request types
 type MeetPartner = {
@@ -157,6 +157,25 @@ type CreateMeetResponse = {
   message: string;
 };
 
+type AllMeetResponse = {
+  data: {
+    id: number;
+    name: string;
+    status: string;
+    date: string;
+  }[];
+  message: string;
+};
+
+type SubmitMeetRequest = {
+  requests: {
+    request_id: number;
+    status: "accepted" | "rejected";
+    reason: string;
+  }[];
+};
+type SubmitMeetResponse = {};
+
 export function useMeet() {
   // Generic function to get requests for any meet type
   const getRequestsForMeet = <T extends MeetRequest = MeetRequest>(
@@ -185,9 +204,24 @@ export function useMeet() {
   const getWithdrawalOrderRequests = (meetId: number) =>
     getRequestsForMeet<WithdrawalOrderRequest>(meetId, "withdrawal_orders");
 
-  const createMeet = usePostAPI<CreateMeetResponse, CreateMeetRequest>(
-    "/dashboard/meets",
-    {}
+  const addMeet = usePostAPI<CreateMeetResponse, CreateMeetRequest>(
+    "/dashboard/meets/create",
+    { invalidateKeys: ["meets"] }
+  ).mutateAsync;
+
+  const getAllMeets = (params: { status: string }) =>
+    useGetAPI<AllMeetResponse>("/dashboard/meets/all", {
+      params,
+      keys: ["meets"],
+      defaultData: {
+        data: [],
+        message: "wait",
+      },
+    });
+
+  const submitMeet = usePutAPI<SubmitMeetResponse, SubmitMeetRequest>(
+    "/dashboard/meets/:meetId/submit-results",
+    { invalidateKeys: ["meets"] }
   ).mutateAsync;
 
   return {
@@ -196,6 +230,8 @@ export function useMeet() {
     getEmergencyAssistanceRequests,
     getSpecialMaterialRequests,
     getWithdrawalOrderRequests,
-    createMeet,
+    addMeet,
+    getAllMeets,
+    submitMeet,
   };
 }
