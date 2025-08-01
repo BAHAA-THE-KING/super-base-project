@@ -255,19 +255,31 @@ export function Meets() {
         formInstance.handleSubmit((data) => {
           submitMeet({
             meetId,
-            requests: Object(data)
-              .entries()
-              .map(
-                (
-                  e: [
-                    number,
-                    { status: "pending" | "rejected"; reason: string }
-                  ]
-                ) => ({
-                  request_id: e[0],
-                  status: e[1].status,
-                  reason: e[1].reason,
-                })
+            requests: data.BeneficiaryRequest.map((e) => ({
+              request_id: e.requestId,
+              status: e.status as "accepted" | "rejected",
+              reason: e.reason,
+            }))
+              .concat(
+                data.EmergencyAssistanceRequest.map((e) => ({
+                  request_id: e.requestId,
+                  status: e.status as "accepted" | "rejected",
+                  reason: e.reason,
+                }))
+              )
+              .concat(
+                data.SpecialMaterialRequest.map((e) => ({
+                  request_id: e.requestId,
+                  status: e.status as "accepted" | "rejected",
+                  reason: e.reason,
+                }))
+              )
+              .concat(
+                data.WithdrawalOrderRequest.map((e) => ({
+                  request_id: e.requestId,
+                  status: e.status as "accepted" | "rejected",
+                  reason: e.reason,
+                }))
               ),
           });
         })();
