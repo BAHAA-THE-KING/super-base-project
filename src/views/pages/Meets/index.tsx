@@ -150,9 +150,10 @@ export function Meets() {
   };
 
   const [meetId, setMeetId] = useState(0);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
-    if (meetId === 0) return;
+    if (meetId !== 0) return;
     if (!pendingMeets) return;
     if (pendingMeets.length === 0) {
       createMeet({
@@ -232,58 +233,54 @@ export function Meets() {
   const getCurrentStepData = () => {
     switch (activeStep) {
       case 0: // membershipRequests
-        return {
-          data: steps[activeStep].data,
-          dataType: steps[activeStep].dataType,
-        };
       case 1: // emergencyAssistance
-        return {
-          data: steps[activeStep].data,
-          dataType: steps[activeStep].dataType,
-        };
       case 2: // specialMaterials
-        return {
-          data: steps[activeStep].data,
-          dataType: steps[activeStep].dataType,
-        };
       case 3: // withdrawalOrders
         return {
           data: steps[activeStep].data,
           dataType: steps[activeStep].dataType,
         };
+
       default:
-        formInstance.handleSubmit((data) => {
-          submitMeet({
-            meetId,
-            requests: data.BeneficiaryRequest.map((e) => ({
-              request_id: e.requestId,
-              status: e.status as "accepted" | "rejected",
-              reason: e.reason,
-            }))
-              .concat(
-                data.EmergencyAssistanceRequest.map((e) => ({
-                  request_id: e.requestId,
-                  status: e.status as "accepted" | "rejected",
-                  reason: e.reason,
-                }))
-              )
-              .concat(
-                data.SpecialMaterialRequest.map((e) => ({
-                  request_id: e.requestId,
-                  status: e.status as "accepted" | "rejected",
-                  reason: e.reason,
-                }))
-              )
-              .concat(
-                data.WithdrawalOrderRequest.map((e) => ({
-                  request_id: e.requestId,
-                  status: e.status as "accepted" | "rejected",
-                  reason: e.reason,
-                }))
-              ),
-          });
-        })();
-        return { data: [], dataType: "none" };
+        if (!isSubmitted) {
+          setIsSubmitted(true);
+          formInstance.handleSubmit((data) => {
+            submitMeet({
+              meetId,
+              requests: data.BeneficiaryRequest.map((e) => ({
+                request_id: e.requestId,
+                status: e.status as "accepted" | "rejected",
+                reason: e.reason,
+              }))
+                .concat(
+                  data.EmergencyAssistanceRequest.map((e) => ({
+                    request_id: e.requestId,
+                    status: e.status as "accepted" | "rejected",
+                    reason: e.reason,
+                  }))
+                )
+                .concat(
+                  data.SpecialMaterialRequest.map((e) => ({
+                    request_id: e.requestId,
+                    status: e.status as "accepted" | "rejected",
+                    reason: e.reason,
+                  }))
+                )
+                .concat(
+                  data.WithdrawalOrderRequest.map((e) => ({
+                    request_id: e.requestId,
+                    status: e.status as "accepted" | "rejected",
+                    reason: e.reason,
+                  }))
+                ),
+            }).catch(() => setIsSubmitted(false));
+          })();
+          setActiveStep(activeStep - 1);
+        }
+        return {
+          data: steps[activeStep - 1].data,
+          dataType: steps[activeStep - 1].dataType,
+        };
       // Some popup summery
     }
   };

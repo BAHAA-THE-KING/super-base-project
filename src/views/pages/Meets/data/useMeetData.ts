@@ -132,7 +132,7 @@ export function useMeetData(meetId: number = 1) {
       status: "accepted" | "rejected";
       reason: string;
     }[];
-  }) => submitMeetAPI({ data });
+  }) => submitMeetAPI({ data, params: { meetId } });
 
   const { data: pendingMeetsResponse } = getAllMeets({ status: "pending" });
 
