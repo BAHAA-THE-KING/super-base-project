@@ -9,7 +9,8 @@ type Props = {
     | "BeneficiaryRequest"
     | "EmergencyAssistanceRequest"
     | "SpecialMaterialRequest"
-    | "WithdrawalOrderRequest";
+    | "WithdrawalOrderRequest"
+    | "none";
   requestId: number;
   request: any;
 };

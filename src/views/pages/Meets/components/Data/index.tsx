@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { UseFormReturn } from "react-hook-form";
+import { useFieldArray, UseFormReturn } from "react-hook-form";
 import { ButtonGroup, Stack, SvgIcon, useTheme } from "@mui/material";
 
 import { LuLayoutList as LuLayoutListIcon } from "react-icons/lu";
@@ -25,9 +25,28 @@ import {
 } from "../../data";
 
 type AcceptanceForm = {
-  status?: boolean;
-  reason?: string;
-}[];
+  BeneficiaryRequest: {
+    requestId: number;
+    status: "accepted" | "rejected" | "";
+    reason: string;
+  }[];
+  EmergencyAssistanceRequest: {
+    requestId: number;
+    status: "accepted" | "rejected" | "";
+    reason: string;
+  }[];
+  SpecialMaterialRequest: {
+    requestId: number;
+    status: "accepted" | "rejected" | "";
+    reason: string;
+  }[];
+  WithdrawalOrderRequest: {
+    requestId: number;
+    status: "accepted" | "rejected" | "";
+    reason: string;
+  }[];
+  none: any[];
+};
 
 type Props = {
   dataType:
@@ -75,7 +94,10 @@ export function Data({ data, dataType, formInstance }: Props) {
   const [view, setView] = useState<"list" | "grid">("list");
   const [selectedCase, setSelectedCase] = useState<number>(0);
 
-  const { control, setValue, watch } = formInstance;
+  const { control, getValues } = formInstance;
+
+  const { update } = useFieldArray({ control, name: dataType });
+  const fields = getValues(dataType);
 
   return (
     <Stack>
@@ -128,25 +150,27 @@ export function Data({ data, dataType, formInstance }: Props) {
       </Stack>
       {view === "list" ? (
         <Stack spacing={2} m={1}>
-          {data.map((request) => (
-            <React.Fragment key={dataType + " " + request.id}>
+          {fields.map((request, idx) => (
+            <React.Fragment key={dataType + " " + request.requestId}>
               <Stack
                 component={BCard}
                 p={3}
                 flexDirection={"row"}
                 justifyContent={"space-between"}
               >
-                <DynamicList request={{ type: dataType, ...request } as any} />
+                <DynamicList
+                  request={{ type: dataType, ...data[idx] } as any}
+                />
                 <Stack width={"30%"} whiteSpace={"nowrap"}>
                   <BTypography variant="h6">
                     {RequestStatusText}:{" "}
-                    {watch(`${request.id as number}.status`) === true ? (
+                    {request.status === "accepted" ? (
                       <BChip
                         label={AcceptedText}
                         color="success"
                         variant="slight"
                       />
-                    ) : watch(`${request.id as number}.status`) === false ? (
+                    ) : request.status === "rejected" ? (
                       <BChip
                         label={RejectedText}
                         color="error"
@@ -160,9 +184,7 @@ export function Data({ data, dataType, formInstance }: Props) {
                       />
                     )}
                   </BTypography>
-                  <BTypography>
-                    {watch(`${request.id as number}.reason`)}
-                  </BTypography>
+                  <BTypography>{request.reason}</BTypography>
                 </Stack>
               </Stack>
             </React.Fragment>
@@ -170,100 +192,106 @@ export function Data({ data, dataType, formInstance }: Props) {
         </Stack>
       ) : (
         <Stack>
-          <DynamicCard
-            requestType={dataType}
-            requestId={data[selectedCase].id as number}
-            request={data[selectedCase]}
-          />
-          <Stack>
-            <BCard sx={{ p: 2, m: 1, width: "45%" }}>
-              <Stack gap={2}>
+          {fields.length ? (
+            <>
+              <DynamicCard
+                requestType={dataType}
+                requestId={fields[selectedCase].requestId}
+                request={data[selectedCase]}
+              />
+              <Stack>
+                <BCard sx={{ p: 2, m: 1, width: "45%" }}>
+                  <Stack gap={2}>
+                    <Stack
+                      gap={2}
+                      flexDirection={"row"}
+                      justifyContent={"flex-start"}
+                      alignItems={"center"}
+                    >
+                      <BTypography variant="h6" textAlign="center">
+                        {DoYouAcceptRequestQueText}
+                      </BTypography>
+                      <BButton
+                        variant={
+                          fields[selectedCase].status === "accepted"
+                            ? "contained"
+                            : "outlined"
+                        }
+                        color="success"
+                        startIcon={<CheckIcon />}
+                        onClick={() =>
+                          update(selectedCase, {
+                            ...fields[selectedCase],
+                            status: "accepted",
+                          })
+                        }
+                      >
+                        {YesText}
+                      </BButton>
+                      <BButton
+                        variant={
+                          fields[selectedCase].status === "rejected"
+                            ? "contained"
+                            : "outlined"
+                        }
+                        color="error"
+                        startIcon={<CloseIcon />}
+                        onClick={() =>
+                          update(selectedCase, {
+                            ...fields[selectedCase],
+                            status: "rejected",
+                          })
+                        }
+                      >
+                        {NoText}
+                      </BButton>
+                    </Stack>
+                    <FormInput
+                      name={`${dataType}.${selectedCase}.reason`}
+                      control={control}
+                      multiline
+                      label={ReasonText}
+                      inputProps={{
+                        variant: "outlined",
+                      }}
+                    />
+                  </Stack>
+                </BCard>
+              </Stack>
+              <Stack m={1}>
                 <Stack
-                  gap={2}
-                  flexDirection={"row"}
-                  justifyContent={"flex-start"}
-                  alignItems={"center"}
+                  direction="row"
+                  spacing={2}
+                  justifyContent="center"
+                  alignItems="center"
                 >
-                  <BTypography variant="h6" textAlign="center">
-                    {DoYouAcceptRequestQueText}
+                  <BButton
+                    variant="outlined"
+                    disabled={selectedCase === 0}
+                    onClick={() => setSelectedCase(selectedCase - 1)}
+                    startIcon={
+                      rtl ? <NavigateNextIcon /> : <NavigateBeforeIcon />
+                    }
+                  >
+                    {PreviousCaseText}
+                  </BButton>
+                  <BTypography>
+                    {selectedCase + 1}/{data.length}
                   </BTypography>
                   <BButton
-                    variant={
-                      watch(`${data[selectedCase].id as number}.status`) ===
-                      true
-                        ? "contained"
-                        : "outlined"
+                    variant="outlined"
+                    disabled={selectedCase === data.length - 1}
+                    onClick={() => setSelectedCase(selectedCase + 1)}
+                    endIcon={
+                      rtl ? <NavigateBeforeIcon /> : <NavigateNextIcon />
                     }
-                    color="success"
-                    startIcon={<CheckIcon />}
-                    onClick={() => {
-                      setValue(
-                        `${data[selectedCase].id as number}.status`,
-                        true
-                      );
-                    }}
                   >
-                    {YesText}
-                  </BButton>
-                  <BButton
-                    variant={
-                      watch(`${data[selectedCase].id as number}.status`) ===
-                      false
-                        ? "contained"
-                        : "outlined"
-                    }
-                    color="error"
-                    startIcon={<CloseIcon />}
-                    onClick={() => {
-                      setValue(
-                        `${data[selectedCase].id as number}.status`,
-                        false
-                      );
-                    }}
-                  >
-                    {NoText}
+                    {NextCaseText}
                   </BButton>
                 </Stack>
-                <FormInput
-                  name={`${data[selectedCase].id as number}.reason`}
-                  control={control}
-                  multiline
-                  label={ReasonText}
-                  inputProps={{
-                    variant: "outlined",
-                  }}
-                />
               </Stack>
-            </BCard>
-          </Stack>
-          <Stack m={1}>
-            <Stack
-              direction="row"
-              spacing={2}
-              justifyContent="center"
-              alignItems="center"
-            >
-              <BButton
-                variant="outlined"
-                disabled={selectedCase === 0}
-                onClick={() => setSelectedCase(selectedCase - 1)}
-                startIcon={rtl ? <NavigateNextIcon /> : <NavigateBeforeIcon />}
-              >
-                {PreviousCaseText}
-              </BButton>
-              <BTypography>
-                {selectedCase + 1}/{data.length}
-              </BTypography>
-              <BButton
-                variant="outlined"
-                disabled={selectedCase === data.length - 1}
-                onClick={() => setSelectedCase(selectedCase + 1)}
-                endIcon={rtl ? <NavigateBeforeIcon /> : <NavigateNextIcon />}
-              >
-                {NextCaseText}
-              </BButton>
-            </Stack>
-          </Stack>
+            </>
+          ) : null}
         </Stack>
       )}
     </Stack>

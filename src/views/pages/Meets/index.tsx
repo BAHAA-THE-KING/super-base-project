@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import { Stack, SvgIcon } from "@mui/material";
 import { useForm } from "react-hook-form";
 
@@ -13,12 +13,37 @@ import { BCard } from "src/components/Base";
 import { Data, MeetsTimeline } from "./components";
 
 import { useBaseTranslation } from "src/hooks";
-import { useMeetData } from "./data";
+import {
+  useMeetData,
+  BeneficiaryRequest,
+  EmergencyAssistanceRequest,
+  SpecialMaterialRequest,
+  WithdrawalOrderRequest,
+} from "./data";
 
 type AcceptanceForm = {
-  status?: boolean;
-  reason?: string;
-}[];
+  BeneficiaryRequest: {
+    requestId: number;
+    status: "accepted" | "rejected" | "";
+    reason: string;
+  }[];
+  EmergencyAssistanceRequest: {
+    requestId: number;
+    status: "accepted" | "rejected" | "";
+    reason: string;
+  }[];
+  SpecialMaterialRequest: {
+    requestId: number;
+    status: "accepted" | "rejected" | "";
+    reason: string;
+  }[];
+  WithdrawalOrderRequest: {
+    requestId: number;
+    status: "accepted" | "rejected" | "";
+    reason: string;
+  }[];
+  none: any[];
+};
 
 const i18ns = [
   "membership_requests",
@@ -35,7 +60,39 @@ export function Meets() {
     WithdrawalOrdersText,
   ] = useBaseTranslation(i18ns);
 
-  const [steps, setSteps] = useState([
+  const {
+    membershipRequests,
+    emergencyAssistanceRequests,
+    specialMaterialRequests,
+    withdrawalOrderRequests,
+    isLoading,
+    createMeet,
+    pendingMeets,
+    submitMeet,
+  } = useMeetData();
+
+  const [steps, setSteps] = useState<
+    {
+      name:
+        | "membershipRequests"
+        | "emergencyAssistance"
+        | "specialMaterials"
+        | "withdrawalOrders";
+      label: string;
+      icon: ReactElement;
+      isFinished: boolean;
+      dataType:
+        | "BeneficiaryRequest"
+        | "EmergencyAssistanceRequest"
+        | "SpecialMaterialRequest"
+        | "WithdrawalOrderRequest";
+      data:
+        | Partial<BeneficiaryRequest>[]
+        | Partial<EmergencyAssistanceRequest>[]
+        | Partial<SpecialMaterialRequest>[]
+        | Partial<WithdrawalOrderRequest>[];
+    }[]
+  >([
     {
       name: "membershipRequests",
       label: MembershipRequestsText,
@@ -45,6 +102,8 @@ export function Meets() {
         </SvgIcon>
       ),
       isFinished: false,
+      dataType: "BeneficiaryRequest",
+      data: membershipRequests,
     },
     {
       name: "emergencyAssistance",
@@ -55,12 +114,16 @@ export function Meets() {
         </SvgIcon>
       ),
       isFinished: false,
+      dataType: "EmergencyAssistanceRequest",
+      data: emergencyAssistanceRequests,
     },
     {
       name: "specialMaterials",
       label: SpecialMaterialsText,
       icon: <InventoryIcon />,
       isFinished: false,
+      dataType: "SpecialMaterialRequest",
+      data: specialMaterialRequests,
     },
     {
       name: "withdrawalOrders",
@@ -71,6 +134,8 @@ export function Meets() {
         </SvgIcon>
       ),
       isFinished: false,
+      dataType: "WithdrawalOrderRequest",
+      data: withdrawalOrderRequests,
     },
   ]);
 
@@ -83,17 +148,6 @@ export function Meets() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
-
-  const {
-    membershipRequests,
-    emergencyAssistanceRequests,
-    specialMaterialRequests,
-    withdrawalOrderRequests,
-    isLoading,
-    createMeet,
-    pendingMeets,
-    submitMeet,
-  } = useMeetData();
 
   const [meetId, setMeetId] = useState(0);
 
@@ -111,31 +165,91 @@ export function Meets() {
   }, [pendingMeets]);
 
   const formInstance = useForm<AcceptanceForm>({
-    defaultValues: [],
+    defaultValues: {
+      BeneficiaryRequest: [],
+      EmergencyAssistanceRequest: [],
+      SpecialMaterialRequest: [],
+      WithdrawalOrderRequest: [],
+    },
   });
+
+  useEffect(() => {
+    if (
+      membershipRequests &&
+      emergencyAssistanceRequests &&
+      specialMaterialRequests &&
+      withdrawalOrderRequests
+    ) {
+      formInstance.reset({
+        BeneficiaryRequest: membershipRequests.map((e) => ({
+          requestId: Number(e.request_id),
+          status: "",
+          reason: "",
+        })),
+        EmergencyAssistanceRequest: emergencyAssistanceRequests.map((e) => ({
+          requestId: Number(e.id),
+          status: "",
+          reason: "",
+        })),
+        SpecialMaterialRequest: specialMaterialRequests.map((e) => ({
+          requestId: Number(e.id),
+          status: "",
+          reason: "",
+        })),
+        WithdrawalOrderRequest: withdrawalOrderRequests.map((e) => ({
+          requestId: Number(e.id),
+          status: "",
+          reason: "",
+        })),
+      });
+      setSteps([
+        {
+          ...steps[0],
+          data: membershipRequests,
+        },
+        {
+          ...steps[1],
+          data: emergencyAssistanceRequests,
+        },
+        {
+          ...steps[2],
+          data: specialMaterialRequests,
+        },
+        {
+          ...steps[3],
+          data: withdrawalOrderRequests,
+        },
+      ]);
+    }
+  }, [
+    membershipRequests,
+    emergencyAssistanceRequests,
+    specialMaterialRequests,
+    withdrawalOrderRequests,
+  ]);
 
   // Get current step data based on active step
   const getCurrentStepData = () => {
     switch (activeStep) {
       case 0: // membershipRequests
         return {
-          data: membershipRequests,
-          dataType: "BeneficiaryRequest" as const,
+          data: steps[activeStep].data,
+          dataType: steps[activeStep].dataType,
         };
       case 1: // emergencyAssistance
         return {
-          data: emergencyAssistanceRequests,
-          dataType: "EmergencyAssistanceRequest" as const,
+          data: steps[activeStep].data,
+          dataType: steps[activeStep].dataType,
         };
       case 2: // specialMaterials
         return {
-          data: specialMaterialRequests,
-          dataType: "SpecialMaterialRequest" as const,
+          data: steps[activeStep].data,
+          dataType: steps[activeStep].dataType,
         };
       case 3: // withdrawalOrders
         return {
-          data: withdrawalOrderRequests,
-          dataType: "WithdrawalOrderRequest" as const,
+          data: steps[activeStep].data,
+          dataType: steps[activeStep].dataType,
         };
       default:
         formInstance.handleSubmit((data) => {
@@ -165,19 +279,15 @@ export function Meets() {
   const currentStepData = getCurrentStepData();
 
   useEffect(() => {
-    const isAllRequestsAccepted = currentStepData.data.every(
-      (request) =>
-        formInstance.getValues()[request.id as number]?.status !== undefined
-    );
-
     setSteps(
-      steps.map((step, index) =>
-        index === activeStep
-          ? { ...step, isFinished: isAllRequestsAccepted }
-          : { ...step }
-      )
+      steps.map((step) => ({
+        ...step,
+        isFinished: formInstance
+          .getValues(step.dataType)
+          .every((req) => Boolean(req.status)),
+      }))
     );
-  }, [JSON.stringify(formInstance.getValues()), activeStep]);
+  }, [JSON.stringify(formInstance.watch())]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -194,7 +304,13 @@ export function Meets() {
       <Stack direction={"column"} spacing={2} flex={5}>
         <Data
           data={currentStepData.data}
-          dataType={currentStepData.dataType}
+          dataType={
+            currentStepData.dataType as
+              | "BeneficiaryRequest"
+              | "EmergencyAssistanceRequest"
+              | "SpecialMaterialRequest"
+              | "WithdrawalOrderRequest"
+          }
           formInstance={formInstance}
         />
       </Stack>
