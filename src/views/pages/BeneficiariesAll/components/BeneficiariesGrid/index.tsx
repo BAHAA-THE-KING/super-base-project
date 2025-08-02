@@ -50,9 +50,9 @@ export function BeneficiariesGrid({
         page,
         pageSize,
       }}
-      onPaginationModelChange={({ page, pageSize }) => {
-        setPage(page);
-        setPageSize(pageSize);
+      onPaginationModelChange={({ page: newPage, pageSize: newPageSize }) => {
+        if (newPage !== page) setPage(newPage);
+        if (newPageSize !== pageSize) setPageSize(newPageSize);
       }}
       rowCount={totalRows}
       //column visibility

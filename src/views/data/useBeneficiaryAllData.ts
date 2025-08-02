@@ -1,7 +1,7 @@
 import { useBeneficiaries } from "src/views/APIs";
 
 import { BeneficiaryTable } from "src/types/data/BeneficiaryTable";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 
 export function useBeneficiaryAllData(filters: any) {
   const { getIndexedBeneficiaries } = useBeneficiaries();
@@ -32,9 +32,17 @@ export function useBeneficiaryAllData(filters: any) {
       })),
     [response?.data?.data, response?.data?.data?.length]
   );
-  const totalRows = response?.data.total ?? 0;
+  const totalRows = useRef(0);
+
+  if (response?.data?.total !== undefined) {
+    totalRows.current = response.data.total;
+  }
 
   const getBeneficiariesLoading = !response || response?.message === "wait";
 
-  return { beneficiaries, totalRows, getBeneficiariesLoading };
+  return {
+    beneficiaries,
+    totalRows: totalRows.current,
+    getBeneficiariesLoading,
+  };
 }
