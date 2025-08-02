@@ -8,6 +8,7 @@ import { usePreferredLanguage } from "src/globals";
 import { varAlpha } from "src/themes/styles";
 
 import { CustomGridToolbar } from "./CustomGridToolbar";
+import { CustomLoadingOverlay } from "./CustomLoadingOverlay";
 import { BTooltip } from "..";
 
 type BDataGridProps = DataGridProps & {
@@ -65,6 +66,7 @@ export function BDataGrid({
         slots={{
           toolbar: CustomGridToolbar,
           baseTooltip: BTooltip,
+          loadingOverlay: CustomLoadingOverlay,
         }}
         slotProps={{
           toolbar: {

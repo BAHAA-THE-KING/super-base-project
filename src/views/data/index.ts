@@ -1,1 +1,1 @@
-export { useHomePageData } from "./useHomePageData";
+export { useBeneficiaryAllData } from "./useBeneficiaryAllData";

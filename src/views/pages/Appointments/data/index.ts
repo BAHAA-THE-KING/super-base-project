@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { useData } from "../../BeneficiariesAll/data";
+import { useBeneficiaryAllData } from "src/views/data";
 
 import { AppointmentCreate } from "src/types/data/AppointmentCreate";
 import { AppointmentTable } from "src/types/data/AppointmentTable";
@@ -242,7 +242,7 @@ export function useAppointmentsData() {
     ],
     []
   );
-  const beneficiaries = useData().map((e) => ({
+  const beneficiaries = useBeneficiaryAllData({}).beneficiaries.map((e) => ({
     id: e.id,
     name: e.first_name + " " + e.last_name,
     national_number: e.national_number,

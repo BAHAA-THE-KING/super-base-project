@@ -27,6 +27,7 @@ type Beneficiary = {
   job: string;
   health_status: string;
   phone_number: string;
+  mobile_number: string;
   address: string;
   residence_type: "rent" | "own" | "host" | "borrow";
   monthly_income: number;

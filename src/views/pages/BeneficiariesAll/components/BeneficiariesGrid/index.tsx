@@ -1,10 +1,12 @@
-import { GridColDef, GridColumnVisibilityModel } from "@mui/x-data-grid";
 import { useState } from "react";
+import { GridColDef, GridColumnVisibilityModel } from "@mui/x-data-grid";
+
 import { BDataGrid } from "src/components/Base";
 
 type Props = {
   rows: any[];
   columns: GridColDef[];
+  loading?: boolean;
   page: number;
   totalRows: number;
   pageSize?: number;
@@ -16,6 +18,7 @@ type Props = {
 export function BeneficiariesGrid({
   rows,
   columns,
+  loading = false,
   page,
   totalRows,
   pageSize = 15,
@@ -38,6 +41,7 @@ export function BeneficiariesGrid({
       //basic
       rows={rows}
       columns={columns}
+      loading={loading}
       //pagination
       pagination
       paginationMode="server"

@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
 import { Box, Stack } from "@mui/material";
+import { useNavigate } from "react-router";
 
+import { Add } from "@mui/icons-material";
+
+import { BButton } from "src/components/Base";
 import { BeneficiariesGrid } from "./components";
 
+import { useBaseTranslation } from "src/hooks";
 import { useBeneficiariesColumns } from "./columns";
 
-import { useData } from "./data";
-import { BButton } from "src/components/Base";
-import { useBaseTranslation } from "src/hooks";
-import { useNavigate } from "react-router";
-import { Add } from "@mui/icons-material";
+import { useBeneficiaryAllData } from "src/views/data";
 
 const i18ns = ["add_beneficiary"];
 export function AllBeneficiaries() {
@@ -19,17 +20,26 @@ export function AllBeneficiaries() {
 
   const columns = useBeneficiariesColumns();
 
-  const [page, setPage] = useState(1);
-  const [filters, setFilters] = useState<any>({});
+  const [page, setPage] = useState(0);
+  const [filters, setFilters] = useState<
+    {
+      id: string | number;
+      field: string;
+      operator: string;
+      value: string | number;
+    }[]
+  >([]);
 
-  useEffect(() => {
-    setFilters((f: any) => ({ ...f, page: page + 1 }));
-  }, [page]);
+  const params = [
+    ...filters,
+    { id: "page", field: "page", operator: "=", value: page + 1 },
+  ].reduce((p, e) => ({ ...p, [e.field]: e.value }), {});
 
-  const { beneficiaries, totalRows } = useData(filters);
+  const { beneficiaries, totalRows, getBeneficiariesLoading } =
+    useBeneficiaryAllData(params);
 
   return (
-    <Stack width={"100%"} height={"100%"} p={3}>
+    <Stack height={"100%"} p={3} justifyContent={"stretch"}>
       <Box width={"100%"} mb={2}>
         <BButton
           variant="contained"
@@ -42,6 +52,7 @@ export function AllBeneficiaries() {
       <BeneficiariesGrid
         rows={beneficiaries}
         columns={columns}
+        loading={getBeneficiariesLoading}
         page={page}
         setPage={setPage}
         setFilters={setFilters}
