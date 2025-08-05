@@ -1,4 +1,3 @@
-import { useMutation } from "@tanstack/react-query";
 import { useGetAPI, usePostAPI } from "src/APIs";
 
 type Beneficiary = {

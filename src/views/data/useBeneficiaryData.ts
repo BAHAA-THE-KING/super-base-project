@@ -1,11 +1,12 @@
 import { useMemo, useState } from "react";
 
+import { useGroup } from "src/views/APIs/useGroup";
 import { useBeneficiaries } from "src/views/APIs";
+
+import { jsonToFormdata } from "src/utils";
 
 import { Group, SingleBeneficiary } from "src/types/data/SingleBeneficiary";
 import { Aid } from "src/types/data/Aid";
-import { useGroup } from "src/views/APIs/useGroup";
-import { jsonToFormdata } from "src/utils";
 
 export function useBeneficiaryData(id: number) {
   const { getSingleBeneficiary, addBeneficiary } = useBeneficiaries();
@@ -96,11 +97,17 @@ export function useBeneficiaryData(id: number) {
         id: e.id,
         name: e.name,
         salary: e.salary.toString(),
-        color: e.color,
+        color: e.color as
+          | "primary"
+          | "secondary"
+          | "error"
+          | "info"
+          | "success"
+          | "warning",
         group_conditions:
           e?.conditions?.map((ee) => ({
             id: ee.id,
-            params: ee.param,
+            params: JSON.parse(ee.param),
             condition: {
               id: ee.id,
               name: ee.name,

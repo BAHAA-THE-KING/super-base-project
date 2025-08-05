@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import { SvgIcon } from "@mui/material";
 
-import { GiReturnArrow as GiReturnArrowIcon } from "react-icons/gi";
+import { RiArrowGoBackFill as RiArrowGoBackFillIcon } from "react-icons/ri";
 
 import { BTooltip } from "../Base";
 import { BaseIconButton } from "./Base";
@@ -20,10 +20,10 @@ export default function GoBack() {
       <BaseIconButton onClick={() => navigate(-1)}>
         <SvgIcon
           sx={(theme) => ({
-            scale: theme.direction === "rtl" ? "-1 -1" : "1 -1",
+            scale: theme.direction === "rtl" ? "-1 1" : "1 1",
           })}
         >
-          <GiReturnArrowIcon />
+          <RiArrowGoBackFillIcon />
         </SvgIcon>
       </BaseIconButton>
     </BTooltip>

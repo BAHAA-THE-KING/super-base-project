@@ -11,15 +11,10 @@ import { BButton, BTypography, BAccordion } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
+import { GroupAll } from "src/types/data/GroupAll";
+
 type Props = {
-  group: {
-    id: number;
-    name: string;
-    salary: string;
-    conditions: { id: number; name: string }[];
-    number_of_beneficiaries: number;
-    percent_of_beneficiaries: number;
-  };
+  group: GroupAll;
   open: boolean;
   setSelectedGroupId: (groupId: number) => void;
 };
@@ -65,7 +60,7 @@ export function GroupAccordion({ group, open, setSelectedGroupId }: Props) {
         <BTypography
           fontWeight={"bold"}
           variant="h6"
-          sx={{ width: "7%", py: 1 }}
+          sx={{ width: "20%", py: 1 }}
         >
           {group.name}
         </BTypography>

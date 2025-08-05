@@ -184,7 +184,7 @@ export function useMeet() {
   ) =>
     useGetAPI<GetMeetResponse<T>>("/dashboard/meets/:id/requests", {
       params: { id: meetId, request_type },
-      keys: ["meets", request_type],
+      keys: ["meets"],
       defaultData: {
         message: "wait",
         data: [],

@@ -13,6 +13,8 @@ import { BButton, BCard, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
+import { Condition } from "src/types/data/SingleBeneficiary";
+
 type Form = {
   name: string;
   salary: string;
@@ -20,7 +22,7 @@ type Form = {
   conditions: {
     id: number;
     name: string;
-    params: {
+    param: {
       op: "<" | ">" | "<=" | ">=" | "==" | "!=" | "";
       value: number | "";
     };
@@ -29,16 +31,24 @@ type Form = {
 
 type Props = {
   control: Control<Form>;
-  conditions: {
-    id: number;
-    name: string;
-  }[];
+  conditions: Condition[];
   getValues: UseFormGetValues<Form>;
   isAdd: boolean;
   isEdit: boolean;
 };
 
-const i18ns = ["conditions", "add_new_condition"];
+const i18ns = [
+  "conditions",
+  "add_new_condition",
+  "condition",
+  "value",
+  "less_than",
+  "greater_than",
+  "less_than_or_equal",
+  "greater_than_or_equal",
+  "equals",
+  "not_equals",
+];
 export function ConditionsGroupInfo({
   control,
   conditions,
@@ -46,20 +56,28 @@ export function ConditionsGroupInfo({
   isAdd,
   isEdit,
 }: Props) {
-  const [ConditionsText, AddNewConditionText] = useBaseTranslation(i18ns);
+  const [
+    ConditionsText,
+    AddNewConditionText,
+    ConditionText,
+    ValueText,
+    LessThanText,
+    GreaterThanText,
+    LessThanOrEqualText,
+    GreaterThanOrEqualText,
+    EqualsText,
+    NotEqualsText,
+  ] = useBaseTranslation(i18ns);
 
   const {
     reset: reset1,
     control: control1,
     watch: watch1,
   } = useForm<{
-    condition: {
-      id: number;
-      name: string;
-    };
+    condition: number;
   }>({
     defaultValues: {
-      condition: { id: 0, name: "" },
+      condition: 0,
     },
   });
 
@@ -70,28 +88,28 @@ export function ConditionsGroupInfo({
   });
 
   useEffect(() => {
-    if (watch1()?.condition?.id) {
+    if (watch1()?.condition) {
       const data = watch1();
 
-      if (!fields.find((e) => e.id === data.condition.id))
+      const condition = conditions.find((e) => e.id === data.condition);
+
+      if (!fields.find((e) => e.id === data.condition) && condition)
         append({
-          ...data.condition,
-          params: {
+          id: data.condition,
+          name: condition.name,
+          param: {
             op: "",
             value: "",
           },
         });
 
-      reset1();
+      reset1({ condition: 0 });
     }
-  }, [watch1()?.condition?.id]);
+  }, [watch1()?.condition]);
 
   return (
     <BCard
-      sx={{
-        m: 1,
-        width: "100%",
-      }}
+      sx={{ m: 1, width: "100%" }}
       animations={{ transitions: "slideInBottom" }}
     >
       <CardContent>
@@ -144,26 +162,37 @@ export function ConditionsGroupInfo({
                       <CloseIcon color={"error"} />
                     </>
                   }
-                  onClick={() => {
-                    remove(i);
-                  }}
+                  onClick={() => remove(i)}
                 />
               ) : (
                 <HorizontalRuleIcon />
               )}
               <Stack flexDirection={"row"} alignItems={"center"} gap={2}>
                 <BTypography>{field.name}</BTypography>
-                <FormInput
+                <FormSelect
                   control={control}
-                  label="test"
-                  name={`conditions.${i}.params.op`}
-                  sx={{ width: "100px" }}
+                  options={[
+                    { id: "<", name: LessThanText },
+                    { id: ">", name: GreaterThanText },
+                    { id: "<=", name: LessThanOrEqualText },
+                    { id: ">=", name: GreaterThanOrEqualText },
+                    { id: "==", name: EqualsText },
+                    { id: "!=", name: NotEqualsText },
+                  ]}
+                  label={ConditionText}
+                  name={`conditions.${i}.param.op`}
+                  sx={{ width: "200px" }}
                 />
                 <FormInput
                   control={control}
-                  label="test"
-                  name={`conditions.${i}.params.value`}
-                  sx={{ width: "100px" }}
+                  label={ValueText}
+                  name={`conditions.${i}.param.value`}
+                  sx={{ width: "200px" }}
+                  inputProps={{
+                    slotProps: {
+                      input: { readOnly: !(isEdit || isAdd) },
+                    },
+                  }}
                 />
               </Stack>
             </Stack>

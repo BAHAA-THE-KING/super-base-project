@@ -274,9 +274,7 @@ export function useBeneficiaries() {
       defaultData: {
         message: "wait",
       },
-      params: {
-        id,
-      },
+      params: { id },
       keys: ["beneficiaries"],
       enabled: Boolean(id),
     });

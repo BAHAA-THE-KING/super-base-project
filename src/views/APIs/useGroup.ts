@@ -1,15 +1,12 @@
-import { useDeleteAPI, useGetAPI, usePostAPI } from "src/APIs";
+import { useDeleteAPI, useGetAPI, usePostAPI, usePutAPI } from "src/APIs";
 
 type CreateGroupRequest = {
   name: string;
   salary: string;
   color: string;
   conditions: {
-    id: string;
-    params: {
-      op: "<" | ">" | "<=" | ">=" | "==" | "!=";
-      value: string;
-    };
+    id: number;
+    params: string;
   }[];
 };
 
@@ -56,19 +53,73 @@ type AllGroupsResponse = {
       name: string;
       param: string;
     }[];
-    // TODO: Missing
-    // number_of_beneficiaries: number;
-    // percent_of_beneficiaries: number;
+    number_of_beneficiaries: number;
+    percentage_of_beneficiaries: number;
   }[];
   message: string;
 };
 
+type ShowGroupResponse = {
+  data?: {
+    id: number;
+    name: string;
+    salary: number;
+    color: "primary" | "secondary" | "info" | "success" | "warning" | "error";
+    number_of_beneficiaries: number;
+    percentage_of_beneficiaries: number;
+    conditions: {
+      id: number;
+      name: string;
+      param: string;
+    }[];
+  };
+  message: string;
+};
+
+type EditGroupResponse = {
+  data: {
+    id: number;
+    name: string;
+    salary: string;
+    color: string;
+    number_of_beneficiaries: number;
+    percentage_of_beneficiaries: number;
+    conditions: {
+      id: number;
+      name: string;
+      param: string;
+    }[];
+  };
+  message: string;
+};
+type EditGroupRequest = {
+  name?: string;
+  salary?: number;
+  color?: string;
+  conditions?: {
+    id: number;
+    params: string;
+  }[];
+};
+
 export function useGroup() {
-  const createGroup = usePostAPI<CreateGroupResponse, CreateGroupRequest>(
-    "groups"
+  const createGroupAPI = usePostAPI<CreateGroupResponse, CreateGroupRequest>(
+    "/dashboard/groups/create",
+    {
+      invalidateKeys: ["groups"],
+    }
+  ).mutateAsync;
+  const editGroupAPI = usePutAPI<EditGroupResponse, EditGroupRequest>(
+    "/dashboard/groups/update/:groupId",
+    {
+      invalidateKeys: ["groups"],
+    }
   ).mutateAsync;
   const deleteGroup = useDeleteAPI<DeleteGroupResponse, DeleteGroupRequest>(
-    "groups/:id"
+    "/dashboard/groups/:id",
+    {
+      invalidateKeys: ["groups"],
+    }
   ).mutateAsync;
   const showGroups = () =>
     useGetAPI<AllGroupsResponse>("/dashboard/groups/all", {
@@ -78,10 +129,21 @@ export function useGroup() {
       },
       keys: ["groups"],
     });
+  const showGroup = (groupId: number) =>
+    useGetAPI<ShowGroupResponse>("/dashboard/groups/show/:groupId", {
+      defaultData: {
+        message: "wait",
+      },
+      params: { groupId },
+      enabled: Boolean(groupId),
+      keys: ["groups"],
+    });
 
   return {
-    createGroup,
+    createGroupAPI,
     deleteGroup,
     showGroups,
+    showGroup,
+    editGroupAPI,
   };
 }

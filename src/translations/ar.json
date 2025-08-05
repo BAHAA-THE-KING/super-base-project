@@ -293,5 +293,18 @@
   "add_new_plan": "إضافة خطة توزيع جديدة",
   "criteria": "المعايير",
   "criterion": "معيار",
-  "weight": "التثقيل"
+  "weight": "التثقيل",
+  "condition": "الشرط",
+  "value": "القيمة",
+  "less_than": "أصغر من",
+  "greater_than": "أكبر من",
+  "less_than_or_equal": "أصغر أو يساوي",
+  "greater_than_or_equal": "أكبر أو يساوي",
+  "not_equals": "لا يساوي",
+  "color_1": "لون 1",
+  "color_2": "لون 2",
+  "color_3": "لون 3",
+  "color_4": "لون 4",
+  "color_5": "لون 5",
+  "color_6": "لون 6"
 }

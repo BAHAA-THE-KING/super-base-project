@@ -28,9 +28,9 @@ type Form = {
   conditions: {
     id: number;
     name: string;
-    params: {
-      op: "<" | ">" | "<=" | ">=" | "==" | "!=";
-      value: number;
+    param: {
+      op: "<" | ">" | "<=" | ">=" | "==" | "!=" | "";
+      value: number | "";
     };
   }[];
 };
@@ -56,6 +56,12 @@ const i18ns = [
   "save_changes",
   "cancel",
   "save_new_group",
+  "color_1",
+  "color_2",
+  "color_3",
+  "color_4",
+  "color_5",
+  "color_6",
 ];
 export function GeneralGroupInfo({
   control,
@@ -77,6 +83,12 @@ export function GeneralGroupInfo({
     SaveChangesText,
     CancelText,
     SaveNewGroupText,
+    Color1Text,
+    Color2Text,
+    Color3Text,
+    Color4Text,
+    Color5Text,
+    Color6Text,
   ] = useBaseTranslation(i18ns);
   return (
     <BCard
@@ -145,15 +157,20 @@ export function GeneralGroupInfo({
           label={GroupNameText}
           name="name"
           rules={{ required: true }}
+          inputProps={{
+            slotProps: {
+              input: { readOnly: !(isEdit || isAdd) },
+            },
+          }}
         />
         <FormSelect
           options={[
-            { id: "primary", name: "primary" },
-            { id: "secondary", name: "secondary" },
-            { id: "info", name: "info" },
-            { id: "success", name: "success" },
-            { id: "warning", name: "warning" },
-            { id: "error", name: "error" },
+            { id: "primary", name: Color1Text },
+            { id: "secondary", name: Color2Text },
+            { id: "info", name: Color3Text },
+            { id: "success", name: Color4Text },
+            { id: "warning", name: Color5Text },
+            { id: "error", name: Color6Text },
           ]}
           sx={{ my: 1 }}
           control={control}
@@ -162,8 +179,9 @@ export function GeneralGroupInfo({
           rules={{ required: true }}
           renderOption={(params, option) => (
             <Box
-              {...params}
-              bgcolor={(theme) => theme.palette[option.name as "primary"].main}
+              {...(params as any)}
+              data-focus="true"
+              bgcolor={(theme) => theme.palette[option.id as "primary"].main}
             >
               {option.name}
             </Box>
@@ -175,6 +193,11 @@ export function GeneralGroupInfo({
           label={GroupSalaryText}
           name="salary"
           rules={{ required: true }}
+          inputProps={{
+            slotProps: {
+              input: { readOnly: !(isEdit || isAdd) },
+            },
+          }}
         />
         {(isEdit || isAdd) && (
           <Stack
