@@ -179,12 +179,13 @@ type SubmitMeetResponse = {};
 export function useMeet() {
   // Generic function to get requests for any meet type
   const getRequestsForMeet = <T extends MeetRequest = MeetRequest>(
-    meetId: number,
-    request_type: RequestType
+    request_type: RequestType,
+    meetId?: number
   ) =>
     useGetAPI<GetMeetResponse<T>>("/dashboard/meets/:id/requests", {
       params: { id: meetId, request_type },
       keys: ["meets"],
+      enabled: Boolean(meetId),
       defaultData: {
         message: "wait",
         data: [],
@@ -192,17 +193,17 @@ export function useMeet() {
     });
 
   // Specific functions for each request type for better type safety
-  const getCreateBeneficiaryRequests = (meetId: number) =>
-    getRequestsForMeet<CreateBeneficiaryRequest>(meetId, "create_beneficiary");
+  const getCreateBeneficiaryRequests = (meetId?: number) =>
+    getRequestsForMeet<CreateBeneficiaryRequest>("create_beneficiary", meetId);
 
-  const getEmergencyAssistanceRequests = (meetId: number) =>
-    getRequestsForMeet<EmergencyAssistanceRequest>(meetId, "instant_aid");
+  const getEmergencyAssistanceRequests = (meetId?: number) =>
+    getRequestsForMeet<EmergencyAssistanceRequest>("instant_aid", meetId);
 
-  const getSpecialMaterialRequests = (meetId: number) =>
-    getRequestsForMeet<SpecialMaterialRequest>(meetId, "need_request");
+  const getSpecialMaterialRequests = (meetId?: number) =>
+    getRequestsForMeet<SpecialMaterialRequest>("need_request", meetId);
 
-  const getWithdrawalOrderRequests = (meetId: number) =>
-    getRequestsForMeet<WithdrawalOrderRequest>(meetId, "withdrawal_orders");
+  const getWithdrawalOrderRequests = (meetId?: number) =>
+    getRequestsForMeet<WithdrawalOrderRequest>("withdrawal_orders", meetId);
 
   const addMeet = usePostAPI<CreateMeetResponse, CreateMeetRequest>(
     "/dashboard/meets/create",

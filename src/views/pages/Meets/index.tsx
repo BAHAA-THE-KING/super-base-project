@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from "react";
-import { Stack, SvgIcon } from "@mui/material";
+import { Skeleton, Stack, SvgIcon } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 import {
@@ -19,7 +19,7 @@ import {
   EmergencyAssistanceRequest,
   SpecialMaterialRequest,
   WithdrawalOrderRequest,
-} from "./data";
+} from "src/views/data";
 
 type AcceptanceForm = {
   BeneficiaryRequest: {
@@ -60,6 +60,9 @@ export function Meets() {
     WithdrawalOrdersText,
   ] = useBaseTranslation(i18ns);
 
+  const [meetId, setMeetId] = useState(0);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   const {
     membershipRequests,
     emergencyAssistanceRequests,
@@ -69,7 +72,8 @@ export function Meets() {
     createMeet,
     pendingMeets,
     submitMeet,
-  } = useMeetData();
+    submitMeetLoading,
+  } = useMeetData(meetId);
 
   const [steps, setSteps] = useState<
     {
@@ -148,9 +152,6 @@ export function Meets() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
-
-  const [meetId, setMeetId] = useState(0);
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
     if (meetId !== 0) return;
@@ -299,7 +300,18 @@ export function Meets() {
   }, [JSON.stringify(formInstance.watch())]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Stack width={"100%"} alignItems={"stretch"} gap={2} flex={5}>
+        <Stack flexDirection={"row"} gap={2}>
+          <Stack width={"100%"} gap={2} pt={10}>
+            <Skeleton width={"100%"} height={150} variant="rounded" />
+            <Skeleton width={"100%"} height={150} variant="rounded" />
+            <Skeleton width={"100%"} height={150} variant="rounded" />
+          </Stack>
+          <Skeleton width={"20%"} height={500} variant="rounded" />
+        </Stack>
+      </Stack>
+    );
   }
 
   return (
@@ -337,6 +349,7 @@ export function Meets() {
           activeStep={activeStep}
           handleNext={handleNext}
           handleBack={handleBack}
+          submitMeetLoading={submitMeetLoading}
         />
       </BCard>
     </Stack>

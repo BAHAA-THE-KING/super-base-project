@@ -1,9 +1,9 @@
-import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
-import { AidRequest } from "../../RequestAdd/data/useShowEmergencyRequestData";
-import { useMeet } from "src/views/APIs";
+import { useMemo, useState } from "react";
 
-import image from "./image.png";
-import { useMemo } from "react";
+import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
+import { AidRequest } from "../pages/RequestAdd/data/useShowEmergencyRequestData";
+
+import { useMeet } from "src/views/APIs";
 
 export type BeneficiaryRequest = Pick<
   SingleBeneficiary,
@@ -37,7 +37,7 @@ export type WithdrawalOrderRequest = {
   requested_amount: number;
 };
 
-export function useMeetData(meetId: number = 1) {
+export function useMeetData(meetId?: number) {
   const {
     getCreateBeneficiaryRequests,
     getEmergencyAssistanceRequests,
@@ -63,7 +63,7 @@ export function useMeetData(meetId: number = 1) {
     () =>
       membershipRequestsData?.data?.map((request: any) => ({
         id: request.entity.id,
-        image_url: image, // Default image for now
+        image_url: request.entity.image_url,
         first_name: request.entity.first_name,
         last_name: request.entity.last_name,
         birth_date: request.entity.birth_date.split("T")[0],
@@ -122,8 +122,14 @@ export function useMeetData(meetId: number = 1) {
     [withdrawalOrdersData?.data]
   );
 
-  const createMeet = (data: { name: string; date: string }) =>
-    addMeet({ data });
+  const [createMeetLoading, setCreateMeetLoading] = useState(false);
+
+  const createMeet = (data: { name: string; date: string }) => {
+    setCreateMeetLoading(true);
+    return addMeet({ data }).finally(() => setCreateMeetLoading(false));
+  };
+
+  const [submitMeetLoading, setSubmitMeetLoading] = useState(false);
 
   const submitMeet = (data: {
     meetId: number;
@@ -132,7 +138,12 @@ export function useMeetData(meetId: number = 1) {
       status: "accepted" | "rejected";
       reason: string;
     }[];
-  }) => submitMeetAPI({ data, params: { meetId } });
+  }) => {
+    setSubmitMeetLoading(true);
+    return submitMeetAPI({ data, params: { meetId } }).finally(() =>
+      setSubmitMeetLoading(false)
+    );
+  };
 
   const { data: pendingMeetsResponse } = getAllMeets({ status: "pending" });
 
@@ -143,8 +154,8 @@ export function useMeetData(meetId: number = 1) {
     emergencyAssistanceData?.message === "wait" ||
     specialMaterialsData?.message === "wait" ||
     withdrawalOrdersData?.message === "wait" ||
-    pendingMeetsResponse?.message === "wait";
-
+    pendingMeetsResponse?.message === "wait" ||
+    createMeetLoading;
   return {
     membershipRequests,
     emergencyAssistanceRequests,
@@ -154,5 +165,6 @@ export function useMeetData(meetId: number = 1) {
     pendingMeets,
     isLoading,
     submitMeet,
+    submitMeetLoading,
   };
 }

@@ -10,11 +10,13 @@ function MeetsTimeline({
   activeStep,
   handleNext,
   handleBack,
+  submitMeetLoading,
 }: {
   steps: any[];
   activeStep: number;
   handleNext: () => void;
   handleBack: () => void;
+  submitMeetLoading: boolean;
 }) {
   const [NextText, BackText, FinishMeetText] = useBaseTranslation(i18ns);
 
@@ -65,6 +67,7 @@ function MeetsTimeline({
           variant="contained"
           disabled={activeStep === steps.length}
           onClick={handleNext}
+          loading={submitMeetLoading}
         >
           {activeStep === steps.length - 1 ? FinishMeetText : NextText}
         </BButton>
