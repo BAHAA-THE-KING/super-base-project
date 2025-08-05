@@ -45,6 +45,9 @@ export function GroupShow() {
     editGroup,
     getGroupLoading,
     getConditionsLoading,
+    createGroupLoading,
+    editGroupLoading,
+    deleteGroupLoading,
   } = useGroupData(groupId);
   if (!group && !getGroupLoading && !isAdd) {
     navigate("/groups");
@@ -119,10 +122,10 @@ export function GroupShow() {
           name: e.name,
           params: `{"op":"${e.param.op}","value":${e.param.value}}`,
         })),
-      }).then(() => navigate("/groups"));
+      });
   });
   function handleDelete() {
-    return deleteGroup({ id: group?.id });
+    if (group) return deleteGroup(group.id);
   }
 
   return (
@@ -161,6 +164,7 @@ export function GroupShow() {
             isAdd={isAdd}
             isEdit={isEdit}
             setIsEdit={setIsEdit}
+            isLoading={createGroupLoading || editGroupLoading}
           />
           <ConditionsGroupInfo
             control={control}
@@ -173,6 +177,7 @@ export function GroupShow() {
       )}
       <GroupDeletePopup
         group={wantToDelete && group ? group : null}
+        deleteGroupLoading={deleteGroupLoading}
         handleDelete={handleDelete}
         close={() => setWantToDelete(false)}
       />

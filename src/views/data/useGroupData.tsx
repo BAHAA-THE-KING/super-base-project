@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import { useGroup } from "src/views/APIs/useGroup";
 import { useConditions } from "../APIs/useConditions";
@@ -7,7 +7,8 @@ import { Group } from "src/types/data/Group";
 import { Condition } from "src/types/data/SingleBeneficiary";
 
 export function useGroupData(groupId: number) {
-  const { showGroup, createGroupAPI, deleteGroup, editGroupAPI } = useGroup();
+  const { showGroup, createGroupAPI, deleteGroupAPI, editGroupAPI } =
+    useGroup();
   const { getAllConditions } = useConditions();
 
   const { data: groupResponse } = showGroup(groupId);
@@ -47,6 +48,10 @@ export function useGroupData(groupId: number) {
     [conditionsResponse]
   );
 
+  const [createGroupLoading, setCreateGroupLoading] = useState(false);
+  const [editGroupLoading, setEditGroupLoading] = useState(false);
+  const [deleteGroupLoading, setDeleteGroupLoading] = useState(false);
+
   const createGroup = (group: {
     name: string;
     salary: string;
@@ -55,7 +60,12 @@ export function useGroupData(groupId: number) {
       id: number;
       params: string;
     }[];
-  }) => createGroupAPI({ data: group });
+  }) => {
+    setCreateGroupLoading(true);
+    return createGroupAPI({ data: group }).finally(() =>
+      setCreateGroupLoading(false)
+    );
+  };
 
   const editGroup = (
     groupId: number,
@@ -68,8 +78,9 @@ export function useGroupData(groupId: number) {
         params: string;
       }[];
     }
-  ) =>
-    editGroupAPI({
+  ) => {
+    setEditGroupLoading(true);
+    return editGroupAPI({
       params: { groupId },
       data: {
         name: group.name,
@@ -79,7 +90,13 @@ export function useGroupData(groupId: number) {
           params: e.params,
         })),
       },
-    });
+    }).finally(() => setEditGroupLoading(false));
+  };
+
+  const deleteGroup = (id: number) => {
+    setDeleteGroupLoading(true);
+    return deleteGroupAPI({ id }).finally(() => setDeleteGroupLoading(false));
+  };
 
   const getGroupLoading = groupResponse?.message === "wait";
   const getConditionsLoading = conditionsResponse?.message === "wait";
@@ -92,5 +109,8 @@ export function useGroupData(groupId: number) {
     conditions,
     getGroupLoading,
     getConditionsLoading,
+    createGroupLoading,
+    editGroupLoading,
+    deleteGroupLoading,
   };
 }

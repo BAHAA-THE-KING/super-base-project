@@ -44,6 +44,7 @@ type Props = {
   isEdit: boolean;
   setIsEdit: (value: boolean) => void;
   isAdd: boolean;
+  isLoading: boolean;
 };
 
 const i18ns = [
@@ -72,6 +73,7 @@ export function GeneralGroupInfo({
   isEdit,
   setIsEdit,
   isAdd,
+  isLoading,
 }: Props) {
   const [
     GeneralInfoText,
@@ -218,6 +220,7 @@ export function GeneralGroupInfo({
               variant="contained"
               disabled={isAdd ? !isValid : !isDirty}
               onClick={handleSubmit}
+              loading={isLoading}
             >
               {isAdd ? SaveNewGroupText : SaveChangesText}
             </BButton>

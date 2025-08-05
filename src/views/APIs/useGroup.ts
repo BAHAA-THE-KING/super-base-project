@@ -115,7 +115,7 @@ export function useGroup() {
       invalidateKeys: ["groups"],
     }
   ).mutateAsync;
-  const deleteGroup = useDeleteAPI<DeleteGroupResponse, DeleteGroupRequest>(
+  const deleteGroupAPI = useDeleteAPI<DeleteGroupResponse, DeleteGroupRequest>(
     "/dashboard/groups/delete/:id",
     {
       invalidateKeys: ["groups"],
@@ -141,7 +141,7 @@ export function useGroup() {
 
   return {
     createGroupAPI,
-    deleteGroup,
+    deleteGroupAPI,
     showGroups,
     showGroup,
     editGroupAPI,

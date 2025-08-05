@@ -12,6 +12,7 @@ type Props = {
     number_of_beneficiaries: number;
     percent_of_beneficiaries: number;
   } | null;
+  deleteGroupLoading: boolean;
   handleDelete: () => void;
   close: () => void;
 };
@@ -22,7 +23,12 @@ const i18ns = [
   "beneficiary_will_be_without_group",
   "yes_delete_it",
 ];
-export function GroupDeletePopup({ group, handleDelete, close }: Props) {
+export function GroupDeletePopup({
+  group,
+  deleteGroupLoading,
+  handleDelete,
+  close,
+}: Props) {
   const [
     YouSureDoDeleteGroupText,
     AboutText,
@@ -40,7 +46,12 @@ export function GroupDeletePopup({ group, handleDelete, close }: Props) {
         {BeneficiaryWillBeWithoutGroupText}.
       </BTypography>
       <Box mt={5}>
-        <BButton variant="contained" color="error" onClick={handleDelete}>
+        <BButton
+          variant="contained"
+          color="error"
+          onClick={handleDelete}
+          loading={deleteGroupLoading}
+        >
           {YesDeleteItText}
         </BButton>
       </Box>
