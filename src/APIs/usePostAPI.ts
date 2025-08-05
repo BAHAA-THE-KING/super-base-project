@@ -19,7 +19,7 @@ export function usePostAPI<R, T, P = any, TPath extends string = string>(
       data,
       params,
     }: {
-      data: T;// | FormData;
+      data: T; // | FormData;
       params?:
         | ExtractPathParams<TPath>
         | P

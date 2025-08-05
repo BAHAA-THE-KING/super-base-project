@@ -35,8 +35,10 @@ export function useGetAPI<R, TPath extends string = string>(
       enabled,
       placeholderData: defaultData,
       onSuccess: () => {
+        console.log(invalidateKeys);
+
         if (invalidateKeys) {
-          queryClient.invalidateQueries(invalidateKeys);
+          queryClient.invalidateQueries({ queryKey: invalidateKeys });
         }
       },
     }

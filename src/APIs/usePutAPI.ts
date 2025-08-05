@@ -28,7 +28,7 @@ export function usePutAPI<R, T, P = any, TPath extends string = string>(
     {
       onSuccess: () => {
         if (invalidateKeys) {
-          queryClient.invalidateQueries(invalidateKeys);
+          queryClient.invalidateQueries({ queryKey: invalidateKeys });
         }
       },
     }
