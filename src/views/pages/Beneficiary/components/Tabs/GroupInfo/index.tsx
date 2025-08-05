@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-cards";
 
-import { useData } from "../../../data";
+import { useBeneficiaryData } from "src/views/data/useBeneficiaryData";
 
 import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
 import { GroupCard } from "../../GroupCard";
@@ -18,7 +18,7 @@ type Props = {
 
 export function GroupInfo({ control }: Props) {
   const { id, group } = useWatch({ control });
-  const { groups } = useData(id!);
+  const { groups } = useBeneficiaryData(id!);
   const orderedGroups = groups.sort((e1, e2) =>
     e1.id === group?.id ? -1 : e2.id === group?.id ? 1 : 0
   );

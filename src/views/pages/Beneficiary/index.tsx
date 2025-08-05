@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router";
-import { Stack } from "@mui/material";
+import { Skeleton, Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 import { InformationPart, GeneralPart } from "./components";
@@ -13,7 +13,7 @@ import {
 } from "./components/Tabs";
 
 import { useBaseTranslation } from "src/hooks";
-import { useData } from "./data";
+import { useBeneficiaryData } from "src/views/data";
 
 import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
 
@@ -54,7 +54,8 @@ export function ShowBeneficiary({
     : params.beneficiaryId;
   const { hash } = useLocation();
 
-  const { beneficiary, createBeneficiary } = useData(Number(beneficiaryId));
+  const { beneficiary, createBeneficiary, getBeneficiaryLoading } =
+    useBeneficiaryData(Number(beneficiaryId));
 
   const { control, handleSubmit, reset } = useForm<SingleBeneficiary>({
     defaultValues: {
@@ -166,27 +167,48 @@ export function ShowBeneficiary({
 
   return (
     <Stack direction={"row"} height={"100%"} mb={2}>
-      {(beneficiary || createMode) && (
-        <>
-          <GeneralPart
-            control={control}
-            tabs={tabs}
-            currentTab={currentTab}
-            setCurrentTab={(newTab) => {
-              navigate("#" + tabs[newTab].name, { replace: true });
-              setCurrentTab(newTab);
-            }}
-            requestMode={requestMode}
-            createMode={createMode}
-            handleSubmit={onSubmit}
-          />
-          <InformationPart
-            element={tabs[currentTab].element}
-            color={
-              tabs[currentTab].color as "primary" | "secondary" | undefined
-            }
-          />
-        </>
+      {getBeneficiaryLoading && !createMode ? (
+        <Stack width={"100%"} flexDirection={"row"} gap={5}>
+          <Stack width={"100%"} alignItems={"center"} gap={2} flex={1}>
+            <Skeleton width={250} height={250} variant="rounded" />
+            <Skeleton width={"100%"} height={25} variant="rounded" />
+            <Skeleton width={"100%"} height={25} variant="rounded" />
+            <Skeleton width={"100%"} height={25} variant="rounded" />
+            <Skeleton width={"100%"} height={25} variant="rounded" />
+          </Stack>
+          <Stack width={"100%"} alignItems={"stretch"} gap={2} flex={5}>
+            {new Array(10).fill(null).map((_, i) => (
+              <Stack flexDirection={"row"} gap={5} key={i}>
+                <Skeleton width={"100%"} height={25} variant="rounded" />
+                <Skeleton width={"100%"} height={25} variant="rounded" />
+                <Skeleton width={"100%"} height={25} variant="rounded" />
+              </Stack>
+            ))}
+          </Stack>
+        </Stack>
+      ) : (
+        (beneficiary || createMode) && (
+          <>
+            <GeneralPart
+              control={control}
+              tabs={tabs}
+              currentTab={currentTab}
+              setCurrentTab={(newTab) => {
+                navigate("#" + tabs[newTab].name, { replace: true });
+                setCurrentTab(newTab);
+              }}
+              requestMode={requestMode}
+              createMode={createMode}
+              handleSubmit={onSubmit}
+            />
+            <InformationPart
+              element={tabs[currentTab].element}
+              color={
+                tabs[currentTab].color as "primary" | "secondary" | undefined
+              }
+            />
+          </>
+        )
       )}
     </Stack>
   );

@@ -3,7 +3,7 @@ import { Stack } from "@mui/material";
 import { BCircularProgress, BDataGrid } from "src/components/Base";
 
 import { useAvailableAidsColumns } from "../../../hooks";
-import { useAidsData } from "../../../data";
+import { useAidsData } from "src/views/data/useBeneficiaryData";
 
 type Props = {
   beneficiary_id: number;
