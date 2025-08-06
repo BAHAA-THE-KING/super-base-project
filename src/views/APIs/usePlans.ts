@@ -9,6 +9,7 @@ type PlanAttribute = {
 type Plan = {
   id: number;
   name: string;
+  type: "meat" | "food" | "rice" | "clothes" | "other";
   description: string;
   portion: string;
   is_finished: number;
@@ -42,7 +43,7 @@ type IndexPlansResponse = {
 };
 
 type PlanResponse = {
-  data: Plan;
+  data?: Plan;
   message: string;
 };
 
@@ -50,6 +51,7 @@ type AddPlanRequest = {
   name: string;
   description: string;
   portion: string;
+  type: string;
   date: string; // ISO date string, e.g. "2025-08-15"
   attributes: {
     id: number;
@@ -111,15 +113,6 @@ export function usePlans() {
       params: { id: planId },
       defaultData: {
         message: "wait",
-        data: {
-          id: 0,
-          name: "",
-          description: "",
-          portion: "",
-          is_finished: 0,
-          date: "",
-          attributes: [],
-        },
       },
       keys: ["plans"],
       enabled: Boolean(planId),

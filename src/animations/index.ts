@@ -13,6 +13,7 @@ import { wiggleHarderProps } from "./Gestures/WiggleHarder";
 import { scaleSmallerProps } from "./Gestures/ScaleSmaller";
 import { goStartProps } from "./Gestures/goStart";
 import { goEndProps } from "./Gestures/goEnd";
+import { ElevateProps } from "./Gestures/Elevate";
 
 export default {
   gestures: {
@@ -25,6 +26,7 @@ export default {
     wiggleHarder: wiggleHarderProps,
     goStart: goStartProps,
     goEnd: goEndProps,
+    elevate: ElevateProps,
   },
   transitions: {
     faceInOnce: faceInOnceProps,

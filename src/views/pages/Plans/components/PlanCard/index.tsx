@@ -11,7 +11,7 @@ import { TbPackages as TbPackagesIcon } from "react-icons/tb";
 
 import { BCard, BTypography } from "src/components/Base";
 
-import { Plan } from "../../data";
+import { Plan } from "src/views/data";
 
 type Props = {
   plan: Plan;
@@ -36,7 +36,7 @@ export function PlanCard({ plan }: Props) {
           textAlign: "center",
           cursor: "pointer",
         }}
-        animations={{ transitions: "slideInBottom" }}
+        animations={{ transitions: "slideInBottom", gestures: "elevate" }}
       >
         <CardContent>
           <Stack width={"100%"} alignItems={"center"}>

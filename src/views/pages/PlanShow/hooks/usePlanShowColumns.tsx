@@ -5,7 +5,7 @@ import { BChip, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
-import { PlanBeneficiary } from "../../Plans/data";
+import { ShowPlanBeneficiary } from "src/views/data";
 
 const i18ns = [
   "beneficiary_order",
@@ -31,7 +31,7 @@ export function usePlanShowColumns() {
     ReceivedDateText,
   ] = useBaseTranslation(i18ns);
 
-  return useMemo<GridColDef<PlanBeneficiary>[]>(
+  return useMemo<GridColDef<ShowPlanBeneficiary>[]>(
     () => [
       {
         field: "order",

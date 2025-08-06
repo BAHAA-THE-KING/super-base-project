@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { Stack } from "@mui/material";
+import { Skeleton, Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 import {
@@ -9,7 +9,7 @@ import {
   PlanTerminatePopup,
 } from "./components";
 
-import { useShowPlanData } from "./data";
+import { useShowPlanData } from "src/views/data";
 
 import { varAlpha } from "src/themes/styles";
 
@@ -41,7 +41,14 @@ export function PlanShow() {
     return <></>;
   }
 
-  const { plan, createPlan, updatePlan, attributes } = useShowPlanData(planId);
+  const {
+    plan,
+    createPlan,
+    updatePlan,
+    attributes,
+    getPlanLoading,
+    getAttributesLoading,
+  } = useShowPlanData(planId);
 
   const [wantToTerminate, setWantToTerminate] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -81,7 +88,18 @@ export function PlanShow() {
 
   const submit = handleSubmit(async (data) => {
     if (isAdd) {
-      await createPlan(data as any);
+      const newPlan = await createPlan({
+        name: data.name,
+        description: data.description,
+        portion: data.portion,
+        type: data.type,
+        created_at: data.created_at,
+        plan_attributes: data.plan_attributes.map((e) => ({
+          attribute_id: e.attribute_id,
+          weight: e.weight,
+        })),
+      });
+      navigate("/plans/" + newPlan.data.id, { replace: true });
     } else if (isEdit) {
       await updatePlan({
         id: planId,
@@ -109,24 +127,46 @@ export function PlanShow() {
             : theme.palette.secondary.lighter,
       })}
     >
-      <GeneralPlanInfo
-        control={control}
-        isDirty={isDirty}
-        handleSubmit={submit}
-        handleTerminate={() => setWantToTerminate(true)}
-        isAdd={isAdd}
-        isEdit={isEdit}
-        setIsEdit={setIsEdit}
-        attributes={attributes}
-      />
-      {isAdd ? null : (
-        <NextBeneficiariesPlanInfo nextBeneficiaries={plan.nextBeneficiaries} />
+      {(!isAdd && (getPlanLoading || getAttributesLoading)) ||
+      (isAdd && getAttributesLoading) ? (
+        <>
+          <Skeleton
+            variant="rounded"
+            width={"100%"}
+            height={350}
+            sx={{ my: 1 }}
+          />
+          <Skeleton
+            variant="rounded"
+            width={"100%"}
+            height={400}
+            sx={{ my: 3 }}
+          />
+        </>
+      ) : (
+        <>
+          <GeneralPlanInfo
+            control={control}
+            isDirty={isDirty}
+            handleSubmit={submit}
+            handleTerminate={() => setWantToTerminate(true)}
+            isAdd={isAdd}
+            isEdit={isEdit}
+            setIsEdit={setIsEdit}
+            attributes={attributes}
+          />
+          {isAdd ? null : plan ? (
+            <NextBeneficiariesPlanInfo
+              nextBeneficiaries={plan.nextBeneficiaries}
+            />
+          ) : null}
+          <PlanTerminatePopup
+            plan={wantToTerminate ? plan : null}
+            handleTerminate={handleTerminate}
+            close={() => setWantToTerminate(false)}
+          />
+        </>
       )}
-      <PlanTerminatePopup
-        plan={wantToTerminate ? plan : null}
-        handleTerminate={handleTerminate}
-        close={() => setWantToTerminate(false)}
-      />
     </Stack>
   );
 }

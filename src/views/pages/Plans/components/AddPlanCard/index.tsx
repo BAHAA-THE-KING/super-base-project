@@ -19,7 +19,7 @@ export function AddPlanCard() {
           textAlign: "center",
           cursor: "pointer",
         }}
-        animations={{ transitions: "slideInBottom" }}
+        animations={{ transitions: "slideInLeft", gestures: "elevate" }}
       >
         <CardContent>
           <Stack width={"100%"} alignItems={"center"}>

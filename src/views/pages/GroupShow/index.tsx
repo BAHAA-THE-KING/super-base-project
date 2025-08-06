@@ -106,7 +106,7 @@ export function GroupShow() {
           name: e.name,
           params: `{"op":"${e.param.op}","value":${e.param.value}}`,
         })),
-      }).then((res) => navigate("/groups/" + res.data.id));
+      }).then((res) => navigate("/groups/" + res.data.id, { replace: true }));
     else if (group)
       editGroup(group.id, {
         name: data.name,

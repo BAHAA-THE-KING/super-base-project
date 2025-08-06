@@ -1,20 +1,20 @@
 import { useMemo } from "react";
-import { Grid2, Stack } from "@mui/material";
+import { Grid2, Skeleton, Stack } from "@mui/material";
 
 import { BDataGrid } from "src/components/Base";
 import { AddPlanCard, PlanCard } from "./components";
 
 import { usePlansColumns } from "./hooks";
 
-import { usePlansData } from "./data";
+import { usePlansData } from "src/views/data";
 
 import { varAlpha } from "src/themes/styles";
 
 export function Plans() {
-  const { plans } = usePlansData();
+  const { plans, getPlansLoading } = usePlansData();
 
-  const top5Plans = useMemo(
-    () => plans.filter((plan) => !plan.is_finished).slice(0, 5),
+  const top4Plans = useMemo(
+    () => plans.filter((plan) => !plan.is_finished).slice(0, 4),
     [plans]
   );
 
@@ -34,14 +34,21 @@ export function Plans() {
       })}
     >
       <Grid2 container spacing={3} mb={2}>
-        {top5Plans.map((plan) => (
+        {top4Plans.map((plan) => (
           <Grid2 key={plan.id} size={{ xs: 12, md: 2.4 }}>
             <PlanCard plan={plan} />
           </Grid2>
         ))}
+        {getPlansLoading
+          ? new Array(4).fill(null).map((_, i) => (
+              <Grid2 key={i} size={{ xs: 12, md: 2.4 }}>
+                <Skeleton variant="rounded" width={"100%"} height={240} />
+              </Grid2>
+            ))
+          : null}
         <AddPlanCard />
       </Grid2>
-      <BDataGrid columns={columns} rows={plans} />
+      <BDataGrid columns={columns} rows={plans} loading={getPlansLoading} />
     </Stack>
   );
 }

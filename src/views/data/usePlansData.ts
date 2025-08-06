@@ -48,9 +48,9 @@ export function usePlansData() {
         name: e.name,
         description: e.description,
         portion: e.portion,
-        type: "other",
+        type: e.type,
         is_finished: Boolean(e.is_finished),
-        created_at: "",
+        created_at: e.date,
         plan_attributes: e.attributes.map((ee) => ({
           id: ee.id,
           attribute_id: ee.id,
@@ -60,11 +60,14 @@ export function usePlansData() {
           },
           weight: ee.weight,
         })) as PlanAttribute[],
+        // TODO: Fill them
         nextBeneficiaries: [],
         percent: 0,
       })) as Plan[],
     [plansResponse]
   );
 
-  return { plans };
+  const getPlansLoading = plansResponse?.message === "wait";
+
+  return { plans, getPlansLoading };
 }

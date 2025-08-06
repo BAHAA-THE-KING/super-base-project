@@ -221,9 +221,9 @@ export function GeneralPlanInfo({
               rules={{ required: true }}
             />
             <FormSelect
-              inputProps={{
-                slotProps: { input: { readOnly: !isEdit && !isAdd } },
-              }}
+              // inputProps={{
+              //   slotProps: { input: { readOnly: !isEdit && !isAdd } },
+              // }}
               options={[
                 { id: "meat", name: MeatText },
                 { id: "food", name: FoodText },

@@ -4,10 +4,11 @@ import { BButton, BTypography } from "src/components/Base";
 import { Popup } from "src/components";
 
 import { useBaseTranslation } from "src/hooks";
-import { Plan } from "src/views/pages/Plans/data";
+
+import { ShowPlan } from "src/views/data";
 
 type Props = {
-  plan: Plan | null;
+  plan: ShowPlan | null;
   handleTerminate: () => void;
   close: () => void;
 };

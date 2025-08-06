@@ -5,10 +5,10 @@ import { BButton, BCard, BDataGrid, BTypography } from "src/components/Base";
 import { useBaseTranslation } from "src/hooks";
 import { usePlanShowColumns } from "../../hooks";
 
-import { PlanBeneficiary } from "src/views/pages/Plans/data";
+import { ShowPlanBeneficiary } from "src/views/data";
 
 type Props = {
-  nextBeneficiaries: PlanBeneficiary[];
+  nextBeneficiaries: ShowPlanBeneficiary[];
 };
 
 const i18ns = ["order", "add_selected"];

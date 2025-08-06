@@ -9,7 +9,7 @@ import { ProgressBox } from "../components";
 
 import { useBaseTranslation } from "src/hooks";
 
-import { Plan } from "../data";
+import { Plan } from "src/views/data";
 import { SvgIcon } from "@mui/material";
 
 const i18ns = [
