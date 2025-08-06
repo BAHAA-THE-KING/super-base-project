@@ -30,7 +30,11 @@ export function usePatchAPI<R, T, P = any, TPath extends string = string>(
     {
       onSuccess: () => {
         if (invalidateKeys) {
-          queryClient.invalidateQueries({ queryKey: invalidateKeys });
+          queryClient.invalidateQueries({
+            predicate: ({ queryKey }) => {
+              return invalidateKeys.some((e) => queryKey.includes(e));
+            },
+          });
         }
       },
     }

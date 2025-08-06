@@ -41,9 +41,12 @@ export function usePostAPI<R, T, P = any, TPath extends string = string>(
     },
     {
       onSuccess: () => {
-        console.log("Query Success, invalidating:", invalidateKeys);
         if (invalidateKeys) {
-          queryClient.invalidateQueries({ queryKey: invalidateKeys });
+          queryClient.invalidateQueries({
+            predicate: ({ queryKey }) => {
+              return invalidateKeys.some((e) => queryKey.includes(e));
+            },
+          });
         }
       },
     }

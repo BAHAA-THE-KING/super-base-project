@@ -27,7 +27,11 @@ export function useDeleteAPI<R, P = any, TPath extends string = string>(
     {
       onSuccess: () => {
         if (invalidateKeys) {
-          queryClient.invalidateQueries({ queryKey: invalidateKeys });
+          queryClient.invalidateQueries({
+            predicate: ({ queryKey }) => {
+              return invalidateKeys.some((e) => queryKey.includes(e));
+            },
+          });
         }
       },
     }

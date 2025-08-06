@@ -36,7 +36,11 @@ export function useGetAPI<R, TPath extends string = string>(
       placeholderData: defaultData,
       onSuccess: () => {
         if (invalidateKeys) {
-          queryClient.invalidateQueries({ queryKey: invalidateKeys });
+          queryClient.invalidateQueries({
+            predicate: ({ queryKey }) => {
+              return invalidateKeys.some((e) => queryKey.includes(e));
+            },
+          });
         }
       },
     }
