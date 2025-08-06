@@ -29,7 +29,7 @@ export function useGroupData(groupId: number) {
               id: e.id,
               name: e.name,
               param: {
-                op: JSON.parse(e.param).operation,
+                op: JSON.parse(e.param).op,
                 value: JSON.parse(e.param).value,
               },
             })),
