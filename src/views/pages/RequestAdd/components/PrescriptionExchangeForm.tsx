@@ -6,7 +6,7 @@ import { FormInput, FormSelect } from "src/components";
 import { BButton, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
-import { useAddPrescriptionRequestData } from "../data";
+import { useAddPrescriptionRequestData } from "src/views/data";
 
 type Props = { beneficiaryId: number };
 type Form = {

@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 
 import { useGroup } from "src/views/APIs/useGroup";
-import { useConditions } from "../APIs/useConditions";
+import { useConditions } from "src/views/APIs/useConditions";
 
 import { Group } from "src/types/data/Group";
 import { Condition } from "src/types/data/SingleBeneficiary";

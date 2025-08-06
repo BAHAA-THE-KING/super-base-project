@@ -1,9 +1,10 @@
 import { useMemo, useState } from "react";
 
-import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
-import { AidRequest } from "../pages/RequestAdd/data/useShowEmergencyRequestData";
-
 import { useMeet } from "src/views/APIs";
+
+import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
+import { AidRequest } from "src/types/data/AidRequest";
+
 
 export type BeneficiaryRequest = Pick<
   SingleBeneficiary,
