@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 
 import { usePlans } from "src/views/APIs";
 
@@ -39,9 +39,15 @@ export type Plan = {
   nextBeneficiaries: PlanBeneficiary[];
   percent: number;
 };
-export function usePlansData() {
+export function usePlansData(
+  params: Partial<{
+    type: "meat" | "food" | "rice" | "clothes" | "other";
+    is_finished: boolean;
+    date: string;
+  }>
+) {
   const { getIndexPlans } = usePlans();
-  const { data: plansResponse } = getIndexPlans();
+  const { data: plansResponse } = getIndexPlans(params);
   const plans = useMemo(
     () =>
       plansResponse?.data.data.map((e) => ({
@@ -51,7 +57,7 @@ export function usePlansData() {
         portion: e.portion,
         type: e.type,
         is_finished: Boolean(e.is_finished),
-        created_at: e.date,
+        created_at: e.date.split("T")[0],
         plan_attributes: e.attributes.map((ee) => ({
           id: ee.id,
           attribute_id: ee.id,
@@ -68,7 +74,13 @@ export function usePlansData() {
     [plansResponse]
   );
 
+  const totalRows = useRef(0);
+
+  if (plansResponse?.data?.total !== undefined) {
+    totalRows.current = plansResponse.data.total;
+  }
+
   const getPlansLoading = plansResponse?.message === "wait";
 
-  return { plans, getPlansLoading };
+  return { plans, totalRows: totalRows.current, getPlansLoading };
 }

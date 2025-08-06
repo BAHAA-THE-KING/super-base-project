@@ -1,7 +1,12 @@
 import { useMemo } from "react";
 import { useNavigate } from "react-router";
-import { GridActionsCellItem, GridColDef } from "@mui/x-data-grid";
+import {
+  getGridDateOperators,
+  GridActionsCellItem,
+  GridColDef,
+} from "@mui/x-data-grid";
 
+import { SvgIcon } from "@mui/material";
 import { FaArrowAltCircleLeft as FaArrowAltCircleLeftIcon } from "react-icons/fa";
 
 import { BChip } from "src/components/Base";
@@ -10,7 +15,6 @@ import { ProgressBox } from "../components";
 import { useBaseTranslation } from "src/hooks";
 
 import { Plan } from "src/views/data";
-import { SvgIcon } from "@mui/material";
 
 const i18ns = [
   "plan_name",
@@ -44,21 +48,28 @@ export function usePlansColumns() {
         field: "name",
         headerName: PlanNameText,
         flex: 1,
+        filterable: false,
       },
       {
         field: "description",
         headerName: PlanDescriptionText,
         flex: 1,
+        filterable: false,
       },
       {
         field: "portion",
         headerName: PlanPortionText,
         flex: 1,
+        filterable: false,
       },
       {
-        field: "created_at",
+        field: "date",
         headerName: StartedAtText,
+        valueGetter: (_, { created_at }) => created_at,
         flex: 1,
+        filterOperators: getGridDateOperators(false).filter(
+          (e) => e.value == "is"
+        ),
       },
       {
         field: "is_finished",
@@ -74,12 +85,14 @@ export function usePlansColumns() {
           );
         },
         flex: 1,
+        type: "boolean",
       },
       {
         field: "percent",
         headerName: PlanDistributionStatusText,
         renderCell: ({ value }) => <ProgressBox value={value} />,
         flex: 1,
+        filterable: false,
       },
       {
         field: "id",

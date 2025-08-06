@@ -26,10 +26,10 @@ export function useBeneficiaryAllData(filters: any) {
         residence_type: e.residence_type,
         group_name: e.group.name,
         group_color: e.group.color,
-        // TODO: add missing field
-        family_members: 0,
         monthly_income: e.monthly_income,
         request_status: e.request_status,
+        // TODO: add missing field
+        family_members: 0,
       })),
     [response?.data?.data, response?.data?.data?.length]
   );

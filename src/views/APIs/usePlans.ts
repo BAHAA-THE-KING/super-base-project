@@ -42,6 +42,12 @@ type IndexPlansResponse = {
   message: string;
 };
 
+type IndexPageParams = {
+  type: "meat" | "food" | "rice" | "clothes" | "other";
+  is_finished: boolean;
+  date: string;
+};
+
 type PlanResponse = {
   data?: Plan;
   message: string;
@@ -100,13 +106,14 @@ type EditPlanResponse = {
 };
 
 export function usePlans() {
-  const getIndexPlans = () =>
+  const getIndexPlans = (params: Partial<IndexPageParams>) =>
     useGetAPI<IndexPlansResponse>("/dashboard/plans/index", {
       defaultData: {
         message: "wait",
         data: { data: [] },
       },
       keys: ["plans"],
+      params,
     });
   const getPlan = (planId: number) =>
     useGetAPI<PlanResponse>("/dashboard/plans/show/:id", {

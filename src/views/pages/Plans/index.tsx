@@ -1,8 +1,7 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { Grid2, Skeleton, Stack } from "@mui/material";
 
-import { BDataGrid } from "src/components/Base";
-import { AddPlanCard, PlanCard } from "./components";
+import { AddPlanCard, PlanCard, PlansGrid } from "./components";
 
 import { usePlansColumns } from "./hooks";
 
@@ -11,14 +10,29 @@ import { usePlansData } from "src/views/data";
 import { varAlpha } from "src/themes/styles";
 
 export function Plans() {
-  const { plans, getPlansLoading } = usePlansData();
+  const columns = usePlansColumns();
+
+  const [page, setPage] = useState(0);
+  const [filters, setFilters] = useState<
+    {
+      id: string | number;
+      field: string;
+      operator: string;
+      value: string | number;
+    }[]
+  >([]);
+
+  const params = [
+    ...filters,
+    { id: "page", field: "page", operator: "=", value: page + 1 },
+  ].reduce((p, e) => ({ ...p, [e.field]: e.value }), {});
+
+  const { plans, totalRows, getPlansLoading } = usePlansData(params);
 
   const top4Plans = useMemo(
     () => plans.filter((plan) => !plan.is_finished).slice(0, 4),
     [plans]
   );
-
-  const columns = usePlansColumns();
 
   return (
     <Stack
@@ -48,7 +62,16 @@ export function Plans() {
           : null}
         <AddPlanCard />
       </Grid2>
-      <BDataGrid columns={columns} rows={plans} loading={getPlansLoading} />
+      <PlansGrid
+        columns={columns}
+        rows={plans}
+        loading={getPlansLoading}
+        page={page}
+        setPage={setPage}
+        setFilters={setFilters}
+        totalRows={totalRows}
+        pageSize={15}
+      />
     </Stack>
   );
 }
