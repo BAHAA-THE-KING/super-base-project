@@ -32,14 +32,16 @@ export function useAddSpecialMaterialRequestData(requestId: number) {
   const createSpecialMaterialsRequest = ({
     beneficiary_id,
     item,
+    reason,
   }: {
     beneficiary_id: number;
     item: string;
+    reason: string;
   }) => {
     setCreateSpecialMaterialsRequestLoading(true);
-    return createSpecialMaterials({ data: { beneficiary_id, item } }).finally(
-      () => setCreateSpecialMaterialsRequestLoading(false)
-    );
+    return createSpecialMaterials({
+      data: { beneficiary_id, item, reason },
+    }).finally(() => setCreateSpecialMaterialsRequestLoading(false));
   };
 
   const { data: specialMaterialResponse } =

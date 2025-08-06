@@ -61,6 +61,7 @@ type CreateResponse = {
 };
 type CreateRequest = {
   item: string;
+  reason: string;
   beneficiary_id: number;
 };
 
