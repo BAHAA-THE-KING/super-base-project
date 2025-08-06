@@ -107,6 +107,7 @@ export function PlanShow() {
         description: data.description,
         portion: data.portion,
       });
+      setIsEdit(false);
     }
   });
   function handleTerminate() {}

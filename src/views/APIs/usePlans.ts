@@ -126,7 +126,7 @@ export function usePlans() {
   ).mutateAsync;
 
   const editPlan = usePutAPI<EditPlanResponse, EditPlanRequest>(
-    "/dashboard/plans/:id",
+    "/dashboard/plans/update/:id",
     {
       invalidateKeys: ["plans"],
     }
