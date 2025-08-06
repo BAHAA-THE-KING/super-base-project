@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
-import { Stack, Step, StepLabel, Stepper } from "@mui/material";
+import { useEffect } from "react";
+import { Skeleton, Stack, Step, StepLabel, Stepper } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 import { FormInput, FormSelect } from "src/components";
 import { BButton, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
-import { useShowEmergencyRequestData } from "src/views/data";
+import { useAddEmergencyRequestData } from "src/views/data";
 
 type Props = {
   beneficiaryId: number;
@@ -38,7 +38,7 @@ const i18ns = [
 export function EmergencyAidForm({
   beneficiaryId,
   requestMode,
-  requestId,
+  requestId = 0,
 }: Props) {
   const [
     SubmitText,
@@ -65,8 +65,14 @@ export function EmergencyAidForm({
     },
   });
 
-  const { beneficiaries, request, createEmergencyRequests } =
-    useShowEmergencyRequestData(requestId ?? 0);
+  const {
+    beneficiaries,
+    request,
+    createEmergencyRequests,
+    createEmergencyRequestLoading,
+    getBeneficiariesLoading,
+    getRequestLoading,
+  } = useAddEmergencyRequestData(requestId);
 
   useEffect(() => {
     if (requestMode) {
@@ -86,9 +92,10 @@ export function EmergencyAidForm({
 
   const steps = [ApplyStepText, PendingStepText, ReceiveStepText];
 
-  const [isLoading, setIsLoading] = useState(false);
-
-  return (
+  return (!requestMode && getBeneficiariesLoading) ||
+    (requestMode && getRequestLoading) ? (
+    <Skeleton width={"100%"} height={500} variant="rounded" />
+  ) : (
     <>
       <Stack mb={5} flexDirection={"row"} justifyContent={"space-between"}>
         <BTypography variant="h5" fontWeight={"bold"}>
@@ -165,8 +172,7 @@ export function EmergencyAidForm({
         <Stack mt={5} alignItems={"flex-start"}>
           <BButton
             variant="contained"
-            onClick={handleSubmit((data) => {
-              setIsLoading(true);
+            onClick={handleSubmit((data) =>
               createEmergencyRequests({
                 data: {
                   beneficiary_id: data.beneficiary_id,
@@ -175,9 +181,9 @@ export function EmergencyAidForm({
                   // TODO: link when fix
                   // urgency_level: data.urgency_level,
                 },
-              }).finally(() => setIsLoading(false));
-            })}
-            loading={isLoading}
+              })
+            )}
+            loading={createEmergencyRequestLoading}
           >
             {SubmitText}
           </BButton>

@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import { useBeneficiaries, useSpecialMaterialRequest } from "src/views/APIs";
 
@@ -7,11 +7,11 @@ export function useAddSpecialMaterialRequestData(requestId: number) {
   const { createSpecialMaterials, getSingleSpecialMaterials } =
     useSpecialMaterialRequest();
 
-  const { data: beneficiariesData } = getAllBeneficiaries({});
+  const { data: beneficiariesResponse } = getAllBeneficiaries({});
 
   const beneficiaries = useMemo(
     () =>
-      beneficiariesData?.data?.map((e) => ({
+      beneficiariesResponse?.data?.map((e) => ({
         id: e.id,
         name:
           e.first_name +
@@ -22,16 +22,25 @@ export function useAddSpecialMaterialRequestData(requestId: number) {
           " /" +
           e.national_number,
       })) ?? [],
-    [beneficiariesData]
+    [beneficiariesResponse]
   );
 
+  const [
+    createSpecialMaterialsRequestLoading,
+    setCreateSpecialMaterialsRequestLoading,
+  ] = useState(false);
   const createSpecialMaterialsRequest = ({
     beneficiary_id,
     item,
   }: {
     beneficiary_id: number;
     item: string;
-  }) => createSpecialMaterials({ data: { beneficiary_id, item } });
+  }) => {
+    setCreateSpecialMaterialsRequestLoading(true);
+    return createSpecialMaterials({ data: { beneficiary_id, item } }).finally(
+      () => setCreateSpecialMaterialsRequestLoading(false)
+    );
+  };
 
   const { data: specialMaterialResponse } =
     getSingleSpecialMaterials(requestId);
@@ -47,5 +56,15 @@ export function useAddSpecialMaterialRequestData(requestId: number) {
       }
     : null;
 
-  return { beneficiaries, createSpecialMaterialsRequest, request };
+  const getBeneficiariesLoading = beneficiariesResponse?.message === "wait";
+  const getRequestLoading = specialMaterialResponse?.message === "wait";
+
+  return {
+    beneficiaries,
+    createSpecialMaterialsRequest,
+    request,
+    getBeneficiariesLoading,
+    getRequestLoading,
+    createSpecialMaterialsRequestLoading,
+  };
 }

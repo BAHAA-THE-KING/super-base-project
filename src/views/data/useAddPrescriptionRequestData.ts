@@ -1,6 +1,4 @@
-import { useMemo } from "react";
-
-import { useLoading } from "src/globals";
+import { useMemo, useState } from "react";
 
 import { useBeneficiaries, usePrescriptionRequest } from "src/views/APIs";
 
@@ -8,11 +6,11 @@ export function useAddPrescriptionRequestData() {
   const { getAllBeneficiaries } = useBeneficiaries();
   const { createPrescription } = usePrescriptionRequest();
 
-  const { data: beneficiariesData } = getAllBeneficiaries({});
+  const { data: beneficiariesResponse } = getAllBeneficiaries({});
 
   const beneficiaries = useMemo(
     () =>
-      beneficiariesData?.data?.map((e) => ({
+      beneficiariesResponse?.data?.map((e) => ({
         id: e.id,
         name:
           e.first_name +
@@ -23,20 +21,32 @@ export function useAddPrescriptionRequestData() {
           " /" +
           e.national_number,
       })) ?? [],
-    [beneficiariesData]
+    [beneficiariesResponse]
   );
 
+  const [
+    createPrescriptionRequestLoading,
+    setCreatePrescriptionRequestLoading,
+  ] = useState(false);
   const createPrescriptionRequest = ({
     beneficiary_id,
     description,
   }: {
     beneficiary_id: number;
     description: string;
-  }) => createPrescription({ data: { beneficiary_id, description } });
+  }) => {
+    setCreatePrescriptionRequestLoading(true);
+    return createPrescription({
+      data: { beneficiary_id, description },
+    }).finally(() => setCreatePrescriptionRequestLoading(false));
+  };
 
-  const isLoading = beneficiariesData?.message === "wait";
-  const [_, setLoading] = useLoading();
-  setLoading(isLoading);
+  const getBeneficiariesLoading = beneficiariesResponse?.message === "wait";
 
-  return { beneficiaries, createPrescriptionRequest };
+  return {
+    beneficiaries,
+    createPrescriptionRequest,
+    getBeneficiariesLoading,
+    createPrescriptionRequestLoading,
+  };
 }

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Stack, StepLabel, Stepper, Step } from "@mui/material";
+import { useEffect } from "react";
+import { Stack, StepLabel, Stepper, Step, Skeleton } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 import { FormInput, FormSelect } from "src/components";
@@ -48,8 +48,12 @@ export function PrescriptionExchangeForm({ beneficiaryId }: Props) {
 
   const { control, setValue, handleSubmit } = useForm<Form>();
 
-  const { beneficiaries, createPrescriptionRequest } =
-    useAddPrescriptionRequestData();
+  const {
+    beneficiaries,
+    createPrescriptionRequest,
+    getBeneficiariesLoading,
+    createPrescriptionRequestLoading,
+  } = useAddPrescriptionRequestData();
 
   useEffect(() => {
     if (beneficiaryId && beneficiaries && beneficiaries.length)
@@ -61,9 +65,9 @@ export function PrescriptionExchangeForm({ beneficiaryId }: Props) {
 
   const steps = [ApplyStepText, PendingStepText, ReceiveStepText];
 
-  const [isLoading, setIsLoading] = useState(false);
-
-  return (
+  return getBeneficiariesLoading ? (
+    <Skeleton width={"100%"} height={500} variant="rounded" />
+  ) : (
     <>
       <Stack mb={5} flexDirection={"row"} justifyContent={"space-between"}>
         <BTypography variant="h5" fontWeight={"bold"}>
@@ -91,9 +95,7 @@ export function PrescriptionExchangeForm({ beneficiaryId }: Props) {
           rules={{ required: true }}
           inputProps={{
             fullWidth: false,
-            sx: {
-              width: "200px",
-            },
+            sx: { width: "200px" },
           }}
         />
       </Stack>
@@ -152,14 +154,13 @@ export function PrescriptionExchangeForm({ beneficiaryId }: Props) {
       <Stack mt={5} alignItems={"flex-start"}>
         <BButton
           variant="contained"
-          loading={isLoading}
-          onClick={handleSubmit((data) => {
-            setIsLoading(true);
+          loading={createPrescriptionRequestLoading}
+          onClick={handleSubmit((data) =>
             createPrescriptionRequest({
               beneficiary_id: data.beneficiary_id,
               description: data.what_exchanged,
-            }).finally(() => setIsLoading(false));
-          })}
+            })
+          )}
         >
           {SubmitText}
         </BButton>

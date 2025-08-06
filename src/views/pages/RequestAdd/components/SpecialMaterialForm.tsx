@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Stack, Step, StepLabel, Stepper } from "@mui/material";
+import { useEffect } from "react";
+import { Skeleton, Stack, Step, StepLabel, Stepper } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 import { FormInput, FormSelect } from "src/components";
@@ -38,7 +38,7 @@ const i18ns = [
 export function SpecialMaterialForm({
   beneficiaryId,
   requestMode,
-  requestId,
+  requestId = 0,
 }: Props) {
   const [
     SubmitText,
@@ -58,8 +58,14 @@ export function SpecialMaterialForm({
 
   const { control, setValue, handleSubmit, reset } = useForm<Form>();
 
-  const { beneficiaries, createSpecialMaterialsRequest, request } =
-    useAddSpecialMaterialRequestData(requestId ?? 0);
+  const {
+    beneficiaries,
+    createSpecialMaterialsRequest,
+    request,
+    createSpecialMaterialsRequestLoading,
+    getBeneficiariesLoading,
+    getRequestLoading,
+  } = useAddSpecialMaterialRequestData(requestId);
 
   useEffect(() => {
     if (requestMode) {
@@ -79,9 +85,10 @@ export function SpecialMaterialForm({
 
   const steps = [ApplyStepText, PendingStepText, ReceiveStepText];
 
-  const [isLoading, setIsLoading] = useState(false);
-
-  return (
+  return (!requestMode && getBeneficiariesLoading) ||
+    (requestMode && getRequestLoading) ? (
+    <Skeleton variant="rounded" width={"100%"} height={500} />
+  ) : (
     <>
       <Stack mb={5} flexDirection={"row"} justifyContent={"space-between"}>
         <BTypography variant="h5" fontWeight={"bold"}>
@@ -168,14 +175,13 @@ export function SpecialMaterialForm({
         <Stack mt={5} alignItems={"flex-start"}>
           <BButton
             variant="contained"
-            onClick={handleSubmit((data) => {
-              setIsLoading(true);
+            onClick={handleSubmit((data) =>
               createSpecialMaterialsRequest({
                 beneficiary_id: data.beneficiary_id,
                 item: data.requested_item,
-              }).finally(() => setIsLoading(false));
-            })}
-            loading={isLoading}
+              })
+            )}
+            loading={createSpecialMaterialsRequestLoading}
           >
             {SubmitText}
           </BButton>

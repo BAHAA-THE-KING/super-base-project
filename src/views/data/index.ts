@@ -25,4 +25,4 @@ export {
 
 export { useAddPrescriptionRequestData } from "./useAddPrescriptionRequestData";
 export { useAddSpecialMaterialRequestData } from "./useAddSpecialMaterialRequestData";
-export { useShowEmergencyRequestData } from "./useShowEmergencyRequestData";
+export { useAddEmergencyRequestData } from "./useAddEmergencyRequestData";

@@ -1,6 +1,4 @@
-import { useMemo } from "react";
-
-import { useLoading } from "src/globals";
+import { useMemo, useState } from "react";
 
 import { useBeneficiaries, useEmergencyRequests } from "src/views/APIs";
 
@@ -12,10 +10,12 @@ export type AidRequest = {
   requested_amount: number;
 };
 
-export function useShowEmergencyRequestData(requestId: number) {
+export function useAddEmergencyRequestData(requestId: number) {
   const { getAllBeneficiaries } = useBeneficiaries();
-  const { createEmergencyRequests, getSingleEmergencyRequests } =
-    useEmergencyRequests();
+  const {
+    createEmergencyRequests: createEmergencyRequestAPI,
+    getSingleEmergencyRequests,
+  } = useEmergencyRequests();
 
   const { data: beneficiariesData } = getAllBeneficiaries({});
   const beneficiaries = useMemo(
@@ -48,9 +48,25 @@ export function useShowEmergencyRequestData(requestId: number) {
       }
     : null;
 
-  const isLoading = beneficiariesData?.message === "wait";
-  const [_, setLoading] = useLoading();
-  setLoading(isLoading);
+  const [createEmergencyRequestLoading, setCreateEmergencyRequestLoading] =
+    useState(false);
 
-  return { createEmergencyRequests, beneficiaries, request };
+  const createEmergencyRequests = (data: any) => {
+    setCreateEmergencyRequestLoading(true);
+    return createEmergencyRequestAPI(data).finally(() =>
+      setCreateEmergencyRequestLoading(false)
+    );
+  };
+
+  const getBeneficiariesLoading = beneficiariesData?.message === "wait";
+  const getRequestLoading = singleEmergencyRequestResponse?.message === "wait";
+
+  return {
+    createEmergencyRequests,
+    beneficiaries,
+    request,
+    createEmergencyRequestLoading,
+    getRequestLoading,
+    getBeneficiariesLoading,
+  };
 }
