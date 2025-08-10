@@ -71,6 +71,7 @@ export function Meets() {
     isLoading,
     createMeet,
     pendingMeets,
+    pendingMeetsLoading,
     submitMeet,
     submitMeetLoading,
   } = useMeetData(meetId);
@@ -156,13 +157,14 @@ export function Meets() {
   useEffect(() => {
     if (meetId !== 0) return;
     if (!pendingMeets) return;
+    if (pendingMeetsLoading) return;
     if (pendingMeets.length === 0) {
       createMeet({
         name: new Date().toLocaleDateString("en-ZA"),
         date: new Date().toLocaleDateString("en-ZA"),
       }).then((res) => setMeetId(res.data.id));
     } else {
-      setMeetId(pendingMeets[0].id);
+      if (pendingMeets[0].id) setMeetId(pendingMeets[0].id);
     }
   }, [pendingMeets]);
 

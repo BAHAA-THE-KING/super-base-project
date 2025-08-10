@@ -75,7 +75,7 @@ export function ShowBeneficiary({
       mobile_number: "",
       address: "",
       residence_type: "",
-      residence_document_url: [""],
+      residence_document_url: [],
       children: [],
       uncles: [],
       partner: {

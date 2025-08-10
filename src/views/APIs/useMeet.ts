@@ -158,7 +158,7 @@ type CreateMeetResponse = {
 };
 
 type AllMeetResponse = {
-  data: {
+  data?: {
     id: number;
     name: string;
     status: string;
@@ -215,7 +215,6 @@ export function useMeet() {
       params,
       keys: ["meets"],
       defaultData: {
-        data: [],
         message: "wait",
       },
     });

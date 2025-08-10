@@ -5,7 +5,6 @@ import { useMeet } from "src/views/APIs";
 import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
 import { AidRequest } from "src/types/data/AidRequest";
 
-
 export type BeneficiaryRequest = Pick<
   SingleBeneficiary,
   | "id"
@@ -114,7 +113,7 @@ export function useMeetData(meetId?: number) {
         id: request.entity.id,
         beneficiary: {
           id: request.entity.beneficiary.id,
-          name: `${request.entity.id}`, // You might need to get beneficiary name from elsewhere
+          name: `${request.entity.first_name} ${request.entity.last_name}`, // You might need to get beneficiary name from elsewhere
         },
         reason: request.entity.reason,
         urgency_level: "medium" as const, // Default value
@@ -149,6 +148,7 @@ export function useMeetData(meetId?: number) {
   const { data: pendingMeetsResponse } = getAllMeets({ status: "pending" });
 
   const pendingMeets = pendingMeetsResponse?.data;
+  const pendingMeetsLoading = pendingMeetsResponse?.message === "wait";
 
   const isLoading =
     membershipRequestsData?.message === "wait" ||
@@ -164,6 +164,7 @@ export function useMeetData(meetId?: number) {
     withdrawalOrderRequests,
     createMeet,
     pendingMeets,
+    pendingMeetsLoading,
     isLoading,
     submitMeet,
     submitMeetLoading,
