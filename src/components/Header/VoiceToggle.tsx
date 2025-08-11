@@ -60,6 +60,7 @@ const VoiceToggle: React.FC = () => {
       }
     >
       <BaseIconButton
+        sx={{ zIndex: 10000000 }}
         onClick={() => {
           if (listening) {
             SpeechRecognition.stopListening();

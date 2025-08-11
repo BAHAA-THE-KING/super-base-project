@@ -306,5 +306,9 @@
   "color_3": "لون 3",
   "color_4": "لون 4",
   "color_5": "لون 5",
-  "color_6": "لون 6"
+  "color_6": "لون 6",
+  "total": "المجموع",
+  "add_new_record": "إضافة دفعة جديدة",
+  "save_new_record": "حفظ الدفعة",
+  "appointment_payment": "دفعة للموعد"
 }

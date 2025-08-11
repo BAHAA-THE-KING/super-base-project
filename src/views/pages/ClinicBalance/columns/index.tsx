@@ -35,14 +35,15 @@ export function useAppointmentsColumns() {
                 ? theme.palette["success"].main
                 : theme.palette["error"].main
             }
+            dir="ltr"
           >
-            {value > 0 ? "+" : value < 0 ? "-" : ""}
+            {value > 0 ? "+" : ""}
             {value}
           </Box>
         ),
       },
       {
-        field: "date",
+        field: "reason",
         headerName: ReasonText,
         flex: 1,
       },

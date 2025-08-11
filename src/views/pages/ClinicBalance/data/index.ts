@@ -29,7 +29,7 @@ export function useBalanceData() {
       {
         id: 4,
         date: "2024-06-04",
-        amount: 250.0,
+        amount: -250.0,
         reason: "Surgery",
         person: "Dr. Emily White",
       },
@@ -43,9 +43,13 @@ export function useBalanceData() {
     ],
     []
   );
+  function createRecord(data: Omit<ClinicBalanceRecord, "id">) {}
+  const addRecord = (data: Omit<ClinicBalanceRecord, "id">) =>
+    createRecord(data);
 
   return {
     records,
+    addRecord,
     isLoading: false,
   };
 }

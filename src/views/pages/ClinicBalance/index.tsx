@@ -1,24 +1,38 @@
+import { useMemo, useState } from "react";
 import { Stack } from "@mui/material";
 
 import { Add as AddIcon } from "@mui/icons-material";
 
 import { BButton, BDataGrid } from "src/components/Base";
+import { AddRecordPopup } from "./components";
 
 import { useBaseTranslation } from "src/hooks";
 import { useAppointmentsColumns } from "./columns";
 import { useBalanceData } from "./data";
 
-const i18ns = ["add_new_appointment"];
+const i18ns = ["add_new_record", "total"];
 export function ClinicBalance() {
-  const [AddNewRecordText] = useBaseTranslation(i18ns);
+  const [AddNewRecordText, TotalText] = useBaseTranslation(i18ns);
+
+  const [popupOpen, setPopupOpen] = useState(false);
 
   const columns = useAppointmentsColumns();
 
-  const { records, isLoading } = useBalanceData();
+  const { records, isLoading, addRecord } = useBalanceData();
 
-  function addRecord() {
-    // TODO: popup
-  }
+  const updatedRecords = useMemo(
+    () => [
+      ...records,
+      {
+        id: TotalText,
+        date: "",
+        amount: records.reduce((p, e) => p + e.amount, 0),
+        reason: "",
+        person: "",
+      },
+    ],
+    [records]
+  );
 
   return (
     <Stack width="100%" height="100%" p={3}>
@@ -28,14 +42,18 @@ export function ClinicBalance() {
           size="medium"
           color="primary"
           sx={{ my: 2, width: "max-content" }}
-          onClick={addRecord}
+          onClick={() => setPopupOpen(true)}
           startIcon={<AddIcon />}
         >
           {AddNewRecordText}
         </BButton>
       </Stack>
-      <BDataGrid columns={columns} rows={records} />
-      {/* TODO: add total */}
+      <BDataGrid columns={columns} rows={updatedRecords} />
+      <AddRecordPopup
+        open={popupOpen}
+        close={() => setPopupOpen(false)}
+        onAdd={addRecord}
+      />
     </Stack>
   );
 }

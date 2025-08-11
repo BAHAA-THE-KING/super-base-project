@@ -21,6 +21,7 @@ const ThemeToggle: React.FC = () => {
   return (
     <BTooltip title={ThemeText}>
       <BaseIconButton
+        sx={{ zIndex: 10000000 }}
         onClick={() => setTheme(theme === "light" ? "dark" : "light")}
       >
         {theme === "dark" ? (
