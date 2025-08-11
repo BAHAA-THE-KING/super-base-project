@@ -170,6 +170,7 @@ export function ConditionsGroupInfo({
               <Stack flexDirection={"row"} alignItems={"center"} gap={2}>
                 <BTypography>{field.name}</BTypography>
                 <FormSelect
+                  readOnly={!(isEdit || isAdd)}
                   control={control}
                   options={[
                     { id: "<", name: LessThanText },

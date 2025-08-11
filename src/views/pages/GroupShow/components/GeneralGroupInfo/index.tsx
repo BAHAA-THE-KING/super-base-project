@@ -166,6 +166,7 @@ export function GeneralGroupInfo({
           }}
         />
         <FormSelect
+          readOnly={!(isEdit || isAdd)}
           options={[
             { id: "primary", name: Color1Text },
             { id: "secondary", name: Color2Text },

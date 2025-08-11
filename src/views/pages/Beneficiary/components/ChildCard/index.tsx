@@ -81,7 +81,7 @@ export function ChildCard({ child, control, isEditable, idx, remove }: Props) {
           rules={{ required: true }}
         />
         <FormSelect
-          // inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={GenderText}

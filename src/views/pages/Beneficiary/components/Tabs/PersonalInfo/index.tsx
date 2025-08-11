@@ -140,7 +140,7 @@ export function PersonalInfo({ control, isEditable }: Props) {
           rules={{ required: true }}
         />
         <FormSelect
-          // inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={GenderText}
@@ -182,7 +182,7 @@ export function PersonalInfo({ control, isEditable }: Props) {
           {ResidenceInfoText}
         </BTypography>
         <FormSelect
-          // inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={ResidenceTypeText}
