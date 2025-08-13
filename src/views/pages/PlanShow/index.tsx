@@ -45,9 +45,11 @@ export function PlanShow() {
     plan,
     createPlan,
     updatePlan,
+    proceedPlan,
     attributes,
     getPlanLoading,
     getAttributesLoading,
+    proceedPlanLoading,
   } = useShowPlanData(planId);
 
   const [wantToTerminate, setWantToTerminate] = useState(false);
@@ -159,6 +161,8 @@ export function PlanShow() {
           {isAdd ? null : plan ? (
             <NextBeneficiariesPlanInfo
               nextBeneficiaries={plan.nextBeneficiaries}
+              proceedPlan={() => proceedPlan(planId)}
+              proceedPlanLoading={proceedPlanLoading}
             />
           ) : null}
           <PlanTerminatePopup

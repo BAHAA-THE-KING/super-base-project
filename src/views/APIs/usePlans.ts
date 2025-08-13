@@ -1,5 +1,21 @@
 import { useGetAPI, usePostAPI, usePutAPI } from "src/APIs";
 
+type PlanBeneficiary = {
+  id: number;
+  first_name: string;
+  last_name: string;
+  birth_date: string;
+  birth_place: string;
+  father_name: string;
+  has_taken: true;
+  is_turn: boolean;
+  national_number: string;
+  order: number;
+  received_at: string;
+  score: string;
+  turn_until: string;
+};
+
 type PlanAttribute = {
   id: number;
   name: string;
@@ -14,7 +30,9 @@ type Plan = {
   portion: string;
   is_finished: number;
   date: string;
+  completion_percentage: number;
   attributes: PlanAttribute[];
+  beneficiaries: PlanBeneficiary[];
 };
 
 type PlanLink = {
@@ -105,6 +123,15 @@ type EditPlanResponse = {
   message: string;
 };
 
+type ProceedPlanRequest = {
+  capacity: number;
+  duration_in_days: number;
+};
+
+type ProceedPlanResponse = {
+  message: string;
+};
+
 export function usePlans() {
   const getIndexPlans = (params: Partial<IndexPageParams>) =>
     useGetAPI<IndexPlansResponse>("/dashboard/plans/index", {
@@ -139,5 +166,12 @@ export function usePlans() {
     }
   ).mutateAsync;
 
-  return { getIndexPlans, getPlan, addPlan, editPlan };
+  const proceedPlan = usePostAPI<ProceedPlanResponse, ProceedPlanRequest>(
+    "/dashboard/plans/:planId/next-batch",
+    {
+      invalidateKeys: ["plans"],
+    }
+  ).mutateAsync;
+
+  return { getIndexPlans, getPlan, addPlan, editPlan, proceedPlan };
 }

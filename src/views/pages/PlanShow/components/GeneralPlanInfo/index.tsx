@@ -279,7 +279,7 @@ export function GeneralPlanInfo({
                 <BTypography flex={1}>{e.attribute.name}</BTypography>
                 <FormInput
                   inputProps={{
-                    slotProps: { input: { readOnly: !isEdit && !isAdd } },
+                    slotProps: { input: { readOnly: !isAdd } },
                   }}
                   sx={{ flex: 1 }}
                   control={control}
@@ -289,7 +289,7 @@ export function GeneralPlanInfo({
                 />
               </Box>
             ))}
-            {(isAdd || isEdit) && (
+            {isAdd && (
               <FormSelect
                 control={control1}
                 label={CriterionText}

@@ -67,9 +67,9 @@ export function usePlansData(
           },
           weight: ee.weight,
         })) as PlanAttribute[],
-        // TODO: Fill them
+        percent: e.completion_percentage,
+        // No Need
         nextBeneficiaries: [],
-        percent: 0,
       })) as Plan[],
     [plansResponse]
   );

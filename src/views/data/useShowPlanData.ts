@@ -46,7 +46,12 @@ export type RawPlan = {
 };
 
 export function useShowPlanData(planId: number) {
-  const { getPlan, addPlan, editPlan } = usePlans();
+  const {
+    getPlan,
+    addPlan,
+    editPlan,
+    proceedPlan: proceedPlanAPI,
+  } = usePlans();
   const { getAllAttributes } = useAttributes();
 
   const { data: attributesResponse } = getAllAttributes();
@@ -73,9 +78,21 @@ export function useShowPlanData(planId: number) {
               },
               weight: ee.weight,
             })),
-            // TODO: Fill them
-            nextBeneficiaries: [],
-            percent: 0,
+            percent: planData.completion_percentage,
+            nextBeneficiaries: planData.beneficiaries.map((e) => ({
+              id: e.id,
+              first_name: e.first_name,
+              last_name: e.last_name,
+              father_name: e.father_name,
+              birth_date: e.birth_date.split("T")[0],
+              birth_place: e.birth_place,
+              national_number: e.national_number,
+              score: Number(e.score),
+              order: e.order,
+              received_date: e?.received_at?.split("T")?.[0],
+              due_date: e.turn_until,
+              has_taken: e.has_taken,
+            })),
           }
         : null,
     [plansResponse]
@@ -83,6 +100,7 @@ export function useShowPlanData(planId: number) {
 
   const [createPlanLoading, setCreatePlanLoading] = useState(false);
   const [updatePlanLoading, setUpdatePlanLoading] = useState(false);
+  const [proceedPlanLoading, setProceedPlanLoading] = useState(false);
 
   const createPlan = (data: RawPlan) => {
     setCreatePlanLoading(true);
@@ -118,6 +136,17 @@ export function useShowPlanData(planId: number) {
     }).finally(() => setUpdatePlanLoading(false));
   };
 
+  const proceedPlan = (planId: number) => {
+    setProceedPlanLoading(true);
+    return proceedPlanAPI({
+      data: {
+        capacity: 10,
+        duration_in_days: 2,
+      },
+      params: { planId },
+    }).finally(() => setProceedPlanLoading(false));
+  };
+
   const attributes = attributesResponse?.data ? attributesResponse.data : [];
 
   const getPlanLoading = plansResponse?.message === "wait";
@@ -127,10 +156,12 @@ export function useShowPlanData(planId: number) {
     plan,
     createPlan,
     updatePlan,
+    proceedPlan,
     attributes,
     getPlanLoading,
     createPlanLoading,
     updatePlanLoading,
     getAttributesLoading,
+    proceedPlanLoading,
   };
 }

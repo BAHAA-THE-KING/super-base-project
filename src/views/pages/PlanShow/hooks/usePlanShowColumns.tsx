@@ -37,18 +37,21 @@ export function usePlanShowColumns() {
         field: "order",
         headerName: BeneficiaryOrderText,
         flex: 1,
+        filterable: false,
       },
       {
         field: "first_name",
         headerName: BeneficiaryNameText,
         valueGetter: (value, row) => value + " " + row.last_name,
         flex: 1,
+        filterable: false,
       },
       {
         field: "birth_date",
         headerName: BeneficiaryBirthText,
         valueGetter: (value, row) => row.birth_place + ", " + value,
         flex: 1,
+        filterable: false,
       },
       {
         field: "has_taken",
@@ -86,6 +89,7 @@ export function usePlanShowColumns() {
           );
         },
         flex: 1,
+        filterable: false,
       },
       {
         field: "received_date",
@@ -116,6 +120,7 @@ export function usePlanShowColumns() {
           );
         },
         flex: 1,
+        filterable: false,
       },
     ],
     []
