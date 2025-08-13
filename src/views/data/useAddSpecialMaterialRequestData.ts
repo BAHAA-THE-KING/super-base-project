@@ -4,7 +4,7 @@ import { useBeneficiaries, useSpecialMaterialRequest } from "src/views/APIs";
 
 export function useAddSpecialMaterialRequestData(requestId: number) {
   const { getAllBeneficiaries } = useBeneficiaries();
-  const { createSpecialMaterials, getSingleSpecialMaterials } =
+  const { createSpecialMaterialRequest, getSingleSpecialMaterials } =
     useSpecialMaterialRequest();
 
   const { data: beneficiariesResponse } = getAllBeneficiaries({});
@@ -39,7 +39,7 @@ export function useAddSpecialMaterialRequestData(requestId: number) {
     reason: string;
   }) => {
     setCreateSpecialMaterialsRequestLoading(true);
-    return createSpecialMaterials({
+    return createSpecialMaterialRequest({
       data: { beneficiary_id, item, reason },
     }).finally(() => setCreateSpecialMaterialsRequestLoading(false));
   };

@@ -13,7 +13,7 @@ export type AidRequest = {
 export function useAddEmergencyRequestData(requestId: number) {
   const { getAllBeneficiaries } = useBeneficiaries();
   const {
-    createEmergencyRequests: createEmergencyRequestAPI,
+    createEmergencyRequest: createEmergencyRequestAPI,
     getSingleEmergencyRequests,
   } = useEmergencyRequests();
 
@@ -51,7 +51,7 @@ export function useAddEmergencyRequestData(requestId: number) {
   const [createEmergencyRequestLoading, setCreateEmergencyRequestLoading] =
     useState(false);
 
-  const createEmergencyRequests = (data: any) => {
+  const createEmergencyRequest = (data: any) => {
     setCreateEmergencyRequestLoading(true);
     return createEmergencyRequestAPI(data).finally(() =>
       setCreateEmergencyRequestLoading(false)
@@ -62,7 +62,7 @@ export function useAddEmergencyRequestData(requestId: number) {
   const getRequestLoading = singleEmergencyRequestResponse?.message === "wait";
 
   return {
-    createEmergencyRequests,
+    createEmergencyRequest,
     beneficiaries,
     request,
     createEmergencyRequestLoading,

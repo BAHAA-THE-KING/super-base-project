@@ -68,7 +68,7 @@ export function EmergencyAidForm({
   const {
     beneficiaries,
     request,
-    createEmergencyRequests,
+    createEmergencyRequest,
     createEmergencyRequestLoading,
     getBeneficiariesLoading,
     getRequestLoading,
@@ -173,7 +173,7 @@ export function EmergencyAidForm({
           <BButton
             variant="contained"
             onClick={handleSubmit((data) =>
-              createEmergencyRequests({
+              createEmergencyRequest({
                 data: {
                   beneficiary_id: data.beneficiary_id,
                   reason: data.reason,

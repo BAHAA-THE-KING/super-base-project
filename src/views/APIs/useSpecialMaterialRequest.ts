@@ -77,7 +77,7 @@ export function useSpecialMaterialRequest() {
       keys: ["need-requests"],
       enabled: Boolean(id),
     });
-  const createSpecialMaterials = usePostAPI<CreateResponse, CreateRequest>(
+  const createSpecialMaterialRequest = usePostAPI<CreateResponse, CreateRequest>(
     "/dashboard/need-requests/create",
     {
       invalidateKeys: ["need-requests"],
@@ -86,6 +86,6 @@ export function useSpecialMaterialRequest() {
 
   return {
     getSingleSpecialMaterials,
-    createSpecialMaterials,
+    createSpecialMaterialRequest,
   };
 }

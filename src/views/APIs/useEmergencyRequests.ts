@@ -79,7 +79,7 @@ export function useEmergencyRequests() {
       keys: ["instant-aids"],
       enabled: Boolean(id),
     });
-  const createEmergencyRequests = usePostAPI<CreateResponse, CreateRequest>(
+  const createEmergencyRequest = usePostAPI<CreateResponse, CreateRequest>(
     "/dashboard/instant-aids/create",
     {
       invalidateKeys: ["instant-aids"],
@@ -88,6 +88,6 @@ export function useEmergencyRequests() {
 
   return {
     getSingleEmergencyRequests,
-    createEmergencyRequests,
+    createEmergencyRequest,
   };
 }
