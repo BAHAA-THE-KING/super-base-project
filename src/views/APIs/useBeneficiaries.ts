@@ -36,6 +36,7 @@ type Beneficiary = {
   request_status: "accepted" | "pending" | "rejected";
   group: Group;
   request: any | null;
+  family_members_number: number;
 };
 
 type Link = {

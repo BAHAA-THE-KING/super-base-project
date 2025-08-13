@@ -28,8 +28,7 @@ export function useBeneficiaryAllData(filters: any) {
         group_color: e.group.color,
         monthly_income: e.monthly_income,
         request_status: e.request_status,
-        // TODO: add missing field
-        family_members: 0,
+        family_members: e.family_members_number,
       })),
     [response?.data?.data, response?.data?.data?.length]
   );
