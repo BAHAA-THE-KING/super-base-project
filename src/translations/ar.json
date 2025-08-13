@@ -332,5 +332,10 @@
   "batch_amount": "المبلغ",
   "batch_numbers": "أرقام الصفحات",
   "add_new_batch": "إضافة دفعة جديدة",
-  "batches": "الدفعات"
+  "batches": "الدفعات",
+  "add_new_batch_for_book": "إضافة دفعة جديدة للدفت",
+  "collector": "الجامع",
+  "from": "من",
+  "got_money": "المبلغ المحصل",
+  "save_new_batch": "حفظ الدفعة الجديدة"
 }

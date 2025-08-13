@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { DonationBook } from "src/types/data/DonationBook";
 
-export function useShowBookData(bookId: number) {
+export function useShowBookData(bookId: number = 0) {
   const book: DonationBook = {
     id: 3,
     number: 103,
@@ -32,10 +33,65 @@ export function useShowBookData(bookId: number) {
   const updateBook = (data: any) => {};
   const getBookLoading = false;
 
+  const employees = [
+    {
+      id: 1,
+      image_url: "https://randomuser.me/api/portraits/men/12.jpg",
+      name: "Liam Johnson",
+      national_number: "1122334455",
+    },
+    {
+      id: 2,
+      image_url: "https://randomuser.me/api/portraits/women/45.jpg",
+      name: "Olivia Davis",
+      national_number: "2233445566",
+    },
+    {
+      id: 3,
+      image_url: "https://randomuser.me/api/portraits/men/33.jpg",
+      name: "Noah Miller",
+      national_number: "3344556677",
+    },
+    {
+      id: 4,
+      image_url: "https://randomuser.me/api/portraits/women/22.jpg",
+      name: "Sophia Brown",
+      national_number: "5566778899",
+    },
+    {
+      id: 5,
+      image_url: "https://randomuser.me/api/portraits/men/55.jpg",
+      name: "Ethan Wilson",
+      national_number: "6677889900",
+    },
+    {
+      id: 6,
+      image_url: "https://randomuser.me/api/portraits/women/65.jpg",
+      name: "Ava Taylor",
+      national_number: "7788990011",
+    },
+  ];
+
+  const getEmployeesLoading = false;
+
+  const [createBatchLoading, setCreateBatchLoading] = useState(false);
+  const createNewBatch = (data: {
+    book_id: number;
+    date: string;
+    from: string;
+    to: string;
+    got_money: number;
+    person_id: number;
+  }) => {};
+
   return {
     book,
     createBook,
     updateBook,
     getBookLoading,
+    createNewBatch,
+    employees,
+    getEmployeesLoading,
+    createBatchLoading,
   };
 }

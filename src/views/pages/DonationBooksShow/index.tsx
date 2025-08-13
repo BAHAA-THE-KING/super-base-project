@@ -140,7 +140,7 @@ export function DonationBooksShow() {
             isEdit={isEdit}
             setIsEdit={setIsEdit}
           />
-          {isAdd ? null : book ? <BatchesInfo batches={book.batches} /> : null}
+          {isAdd ? null : book ? <BatchesInfo book={book} /> : null}
           <BookTerminatePopup
             book={wantToTerminate ? book : null}
             handleTerminate={handleTerminate}
