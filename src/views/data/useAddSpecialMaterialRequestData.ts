@@ -33,14 +33,16 @@ export function useAddSpecialMaterialRequestData(requestId: number) {
     beneficiary_id,
     item,
     reason,
+    urgency_level,
   }: {
     beneficiary_id: number;
     item: string;
     reason: string;
+    urgency_level: "low" | "medium" | "high";
   }) => {
     setCreateSpecialMaterialsRequestLoading(true);
     return createSpecialMaterialRequest({
-      data: { beneficiary_id, item, reason },
+      data: { beneficiary_id, item, reason, urgency_level },
     }).finally(() => setCreateSpecialMaterialsRequestLoading(false));
   };
 
@@ -52,8 +54,8 @@ export function useAddSpecialMaterialRequestData(requestId: number) {
     ? {
         id: specialMaterialData.id,
         beneficiary_id: specialMaterialData.beneficiary.id,
-        reason: "",
-        urgency_level: "medium" as const,
+        reason: specialMaterialData.reason,
+        urgency_level: specialMaterialData.urgency_level,
         requested_item: specialMaterialData.item,
       }
     : null;

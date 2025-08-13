@@ -35,6 +35,8 @@ type SpecialMaterialData = {
   beneficiary: Beneficiary;
   request: Request;
   created_at: string;
+  reason: string;
+  urgency_level: "low" | "medium" | "high";
 };
 
 type ShowResponse = {
@@ -48,6 +50,8 @@ type CreateResponse = {
     item: string;
     request_status: "pending" | "rejected" | "accepted";
     received_at: null;
+    reason: string;
+    urgency_level: "low" | "medium" | "high";
   };
   message: string;
 };
@@ -56,6 +60,7 @@ type CreateRequest = {
   item: string;
   reason: string;
   beneficiary_id: number;
+  urgency_level: "low" | "medium" | "high";
 };
 
 type IndexResponse = {

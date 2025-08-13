@@ -1,9 +1,17 @@
 import { useEffect } from "react";
-import { Stack, StepLabel, Stepper, Step, Skeleton } from "@mui/material";
+import {
+  Stack,
+  StepLabel,
+  Stepper,
+  Step,
+  Skeleton,
+  Box,
+  BoxProps,
+} from "@mui/material";
 import { useForm } from "react-hook-form";
 
 import { FormInput, FormSelect } from "src/components";
-import { BButton, BTypography } from "src/components/Base";
+import { BButton, BChip, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 import { useAddPrescriptionRequestData } from "src/views/data";
@@ -29,6 +37,10 @@ const i18ns = [
   "apply_step",
   "pending_step",
   "receive_step",
+  "low",
+  "medium",
+  "high",
+  "urgency_level",
 ];
 export function PrescriptionExchangeForm({ beneficiaryId }: Props) {
   const [
@@ -44,6 +56,10 @@ export function PrescriptionExchangeForm({ beneficiaryId }: Props) {
     ApplyStepText,
     PendingStepText,
     ReceiveStepText,
+    LowText,
+    MediumText,
+    HighText,
+    UrgencyLevelText,
   ] = useBaseTranslation(i18ns);
 
   const { control, setValue, handleSubmit } = useForm<Form>();
@@ -151,6 +167,40 @@ export function PrescriptionExchangeForm({ beneficiaryId }: Props) {
           {InDateText}: {new Date().toLocaleDateString("fr-Ca")}
         </BTypography>
       </Stack>
+      <Stack flexDirection={"row"} flexWrap={"wrap"} mt={10}>
+        <FormSelect
+          options={[
+            { id: "low", name: LowText },
+            { id: "medium", name: MediumText },
+            { id: "high", name: HighText },
+          ]}
+          rules={{ required: true }}
+          control={control}
+          label={UrgencyLevelText}
+          name="urgency_level"
+          renderOption={(params, option) => (
+            <Box {...(params as BoxProps)}>
+              <BChip
+                label={option.name}
+                color={
+                  option.id === "low"
+                    ? "info"
+                    : option.id === "medium"
+                    ? "warning"
+                    : option.id === "high"
+                    ? "error"
+                    : "secondary"
+                }
+                variant="slight"
+              />
+            </Box>
+          )}
+          inputProps={{
+            fullWidth: false,
+            sx: { minWidth: "300px" },
+          }}
+        />
+      </Stack>
       <Stack mt={5} alignItems={"flex-start"}>
         <BButton
           variant="contained"
@@ -159,6 +209,8 @@ export function PrescriptionExchangeForm({ beneficiaryId }: Props) {
             createPrescriptionRequest({
               beneficiary_id: data.beneficiary_id,
               description: data.what_exchanged,
+              reason: data.reason,
+              urgency_level: data.urgency_level,
             })
           )}
         >

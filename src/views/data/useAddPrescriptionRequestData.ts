@@ -31,13 +31,17 @@ export function useAddPrescriptionRequestData() {
   const createPrescriptionRequest = ({
     beneficiary_id,
     description,
+    reason,
+    urgency_level,
   }: {
     beneficiary_id: number;
     description: string;
+    reason: string;
+    urgency_level: "low" | "medium" | "high";
   }) => {
     setCreatePrescriptionRequestLoading(true);
     return createPrescription({
-      data: { beneficiary_id, description },
+      data: { beneficiary_id, description, reason, urgency_level },
     }).finally(() => setCreatePrescriptionRequestLoading(false));
   };
 

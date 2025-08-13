@@ -50,6 +50,8 @@ type CreateResponse = {
     description: string;
     request_status: "pending" | "rejected" | "accepted";
     created_at: null;
+    reason: string;
+    urgency_level: "low" | "medium" | "high";
   };
   message: string;
 };
@@ -57,6 +59,8 @@ type CreateResponse = {
 type CreateRequest = {
   beneficiary_id: number;
   description: string;
+  reason: string;
+  urgency_level: "low" | "medium" | "high";
 };
 
 type IndexResponse = {
