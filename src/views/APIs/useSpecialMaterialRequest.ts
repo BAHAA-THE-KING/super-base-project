@@ -17,32 +17,24 @@ type Beneficiary = {
   monthly_income: number;
   case_description: string;
   group_id: number;
-  request_status: string;
-};
-
-type Entity = {
-  id: number;
-  amount: number;
-  reason: string;
-  request_status: string;
-  received_at: string;
+  request_status: "pending" | "rejected" | "accepted";
 };
 
 type Request = {
   id: number;
-  status: string;
-  reason: string | null;
+  status: "pending" | "rejected" | "accepted";
+  reason?: string;
   request_type: string;
-  entity: Entity;
 };
 
 type SpecialMaterialData = {
   id: number;
   item: string;
-  request_status: string;
+  request_status: "pending" | "rejected" | "accepted";
   received_at: string;
   beneficiary: Beneficiary;
   request: Request;
+  created_at: string;
 };
 
 type ShowResponse = {
@@ -59,13 +51,33 @@ type CreateResponse = {
   };
   message: string;
 };
+
 type CreateRequest = {
   item: string;
   reason: string;
   beneficiary_id: number;
 };
 
+type IndexResponse = {
+  data: {
+    data: SpecialMaterialData[];
+    total: number;
+  };
+  message: string;
+};
+
 export function useSpecialMaterialRequest() {
+  const getFilteredSpecialMaterialRequests = (filters: any) =>
+    useGetAPI<IndexResponse>("/dashboard/need-requests/index", {
+      params: filters,
+      defaultData: {
+        data: {
+          data: [],
+          total: 0,
+        },
+        message: "wait",
+      },
+    });
   const getSingleSpecialMaterials = (id: number) =>
     useGetAPI<ShowResponse>("/dashboard/need-requests/show/:id", {
       defaultData: {
@@ -77,14 +89,15 @@ export function useSpecialMaterialRequest() {
       keys: ["need-requests"],
       enabled: Boolean(id),
     });
-  const createSpecialMaterialRequest = usePostAPI<CreateResponse, CreateRequest>(
-    "/dashboard/need-requests/create",
-    {
-      invalidateKeys: ["need-requests"],
-    }
-  ).mutateAsync;
+  const createSpecialMaterialRequest = usePostAPI<
+    CreateResponse,
+    CreateRequest
+  >("/dashboard/need-requests/create", {
+    invalidateKeys: ["need-requests"],
+  }).mutateAsync;
 
   return {
+    getFilteredSpecialMaterialRequests,
     getSingleSpecialMaterials,
     createSpecialMaterialRequest,
   };

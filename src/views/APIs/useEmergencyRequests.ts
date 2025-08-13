@@ -17,33 +17,26 @@ type Beneficiary = {
   monthly_income: number;
   case_description: string;
   group_id: number;
-  request_status: string;
-};
-
-type Entity = {
-  id: number;
-  amount: number;
-  reason: string;
-  request_status: string;
-  received_at: string;
+  request_status: "pending" | "rejected" | "accepted";
 };
 
 type Request = {
   id: number;
-  status: string;
+  status: "pending" | "rejected" | "accepted";
   reason: string | null;
   request_type: string;
-  entity: Entity;
 };
 
 type EmergencyRequestData = {
   id: number;
   amount: number;
   reason: string;
-  request_status: string;
+  request_status: "pending" | "rejected" | "accepted";
+  urgency_level: "low" | "medium" | "high";
   received_at: string;
   beneficiary: Beneficiary;
   request: Request;
+  created_at: string;
 };
 
 type ShowResponse = {
@@ -58,16 +51,38 @@ type CreateResponse = {
     reason: string;
     request_status: "pending" | "rejected" | "accepted";
     received_at: null;
+    urgency_level: "low" | "medium" | "high";
   };
   message: string;
 };
+
 type CreateRequest = {
   amount: number;
   reason: string;
   beneficiary_id: number;
+  urgency_level: "low" | "medium" | "high";
+};
+
+type IndexResponse = {
+  data: {
+    data: EmergencyRequestData[];
+    total: number;
+  };
+  message: string;
 };
 
 export function useEmergencyRequests() {
+  const getFilteredEmergencyRequests = (filters: any) =>
+    useGetAPI<IndexResponse>("/dashboard/instant-aids/index", {
+      params: filters,
+      defaultData: {
+        data: {
+          data: [],
+          total: 0,
+        },
+        message: "wait",
+      },
+    });
   const getSingleEmergencyRequests = (id: number) =>
     useGetAPI<ShowResponse>("/dashboard/instant-aids/show/:id", {
       defaultData: {
@@ -87,6 +102,7 @@ export function useEmergencyRequests() {
   ).mutateAsync;
 
   return {
+    getFilteredEmergencyRequests,
     getSingleEmergencyRequests,
     createEmergencyRequest,
   };

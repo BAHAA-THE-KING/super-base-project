@@ -17,32 +17,26 @@ type Beneficiary = {
   monthly_income: number;
   case_description: string;
   group_id: number;
-  request_status: string;
-};
-
-type Entity = {
-  id: number;
-  amount: number;
-  reason: string;
-  request_status: string;
-  received_at: string;
+  request_status: "pending" | "rejected" | "accepted";
 };
 
 type Request = {
   id: number;
-  status: string;
+  status: "pending" | "rejected" | "accepted";
   reason: string | null;
   request_type: string;
-  entity: Entity;
 };
 
 type PrescriptionRequestData = {
   id: number;
   item: string;
-  request_status: string;
+  request_status: "pending" | "rejected" | "accepted";
   received_at: string;
   beneficiary: Beneficiary;
   request: Request;
+  created_at: string;
+  reason: string;
+  urgency_level: "low" | "medium" | "high";
 };
 
 type ShowResponse = {
@@ -59,12 +53,32 @@ type CreateResponse = {
   };
   message: string;
 };
+
 type CreateRequest = {
   beneficiary_id: number;
   description: string;
 };
 
+type IndexResponse = {
+  data: {
+    data: PrescriptionRequestData[];
+    total: number;
+  };
+  message: string;
+};
+
 export function usePrescriptionRequest() {
+  const getFilteredPrescriptionRequests = (filters: any) =>
+    useGetAPI<IndexResponse>("/dashboard/prescriptions/index", {
+      params: filters,
+      defaultData: {
+        data: {
+          data: [],
+          total: 0,
+        },
+        message: "wait",
+      },
+    });
   const getSinglePrescriptionRequest = (id: number) =>
     useGetAPI<ShowResponse>("/dashboard/prescriptions/show/:id", {
       defaultData: {
@@ -84,6 +98,7 @@ export function usePrescriptionRequest() {
   ).mutateAsync;
 
   return {
+    getFilteredPrescriptionRequests,
     getSinglePrescriptionRequest,
     createPrescription,
   };

@@ -18,7 +18,7 @@ import { RequestsTable } from "./components";
 
 import { useBaseTranslation } from "src/hooks";
 
-import { useRequestsData } from "./data";
+import { useBeneficiaryRequestsData } from "src/views/data";
 
 const i18ns = [
   "add_request",
@@ -37,11 +37,18 @@ export function ShowBeneficiaryRequests() {
     SpecialMaterialsText,
   ] = useBaseTranslation(i18ns);
 
-  const { isLoading, requests } = useRequestsData(Number(beneficiaryId));
+  const {
+    getEmergencyLoading,
+    getPrescriptionLoading,
+    getSpecialMaterialLoading,
+    requests,
+  } = useBeneficiaryRequestsData(Number(beneficiaryId));
 
   return (
     <Stack alignItems={"flex-start"}>
-      {isLoading ? (
+      {getEmergencyLoading ||
+      getPrescriptionLoading ||
+      getSpecialMaterialLoading ? (
         <Stack justifyContent={"center"} alignItems={"center"}>
           <BCircularProgress />
         </Stack>
