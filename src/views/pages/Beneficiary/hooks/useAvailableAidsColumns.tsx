@@ -53,7 +53,13 @@ export function useAvailableAidsColumns() {
         headerName: AidTypeText,
         flex: 1,
         renderCell: ({ value }) => (
-          <Stack direction={"row"}>
+          <Stack
+            direction={"row"}
+            width={"100%"}
+            height={"100%"}
+            justifyContent={"flex-start"}
+            alignItems={"center"}
+          >
             {value === "monthly salary" ? (
               <AttachMoneyIcon color="success" />
             ) : value === "aids" ? (
