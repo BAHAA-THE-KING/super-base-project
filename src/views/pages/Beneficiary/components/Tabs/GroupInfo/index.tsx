@@ -1,27 +1,41 @@
+import { useEffect, useState } from "react";
+import { Box } from "@mui/material";
+import { Control, useWatch } from "react-hook-form";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, EffectCards } from "swiper/modules";
-import { Box } from "@mui/material";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-cards";
 
-import { useBeneficiaryData } from "src/views/data/useBeneficiaryData";
+import { GroupCard } from "../..";
+
+import { useBeneficiaryGroupsData } from "src/views/data";
 
 import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
-import { GroupCard } from "../../GroupCard";
-import { Control, useWatch } from "react-hook-form";
 
 type Props = {
   control: Control<SingleBeneficiary>;
+  requestMode: boolean;
 };
 
-export function GroupInfo({ control }: Props) {
+export function GroupInfo({ control, requestMode }: Props) {
   const { id, group } = useWatch({ control });
-  const { groups } = useBeneficiaryData(id!);
+  const {
+    groups,
+    changeBeneficiaryGroup,
+    changeGroupLoading,
+    getGroupsLoading,
+  } = useBeneficiaryGroupsData(id as number, requestMode);
   const orderedGroups = groups.sort((e1, e2) =>
     e1.id === group?.id ? -1 : e2.id === group?.id ? 1 : 0
   );
+
+  const [selectedGroupId, setSelectedGroupId] = useState(0);
+
+  useEffect(() => {
+    setSelectedGroupId((group?.id as number) ?? 0);
+  }, [group?.id]);
 
   return (
     <Box overflow={"hidden"} height={"100%"} pt={3}>
@@ -47,7 +61,13 @@ export function GroupInfo({ control }: Props) {
           >
             <GroupCard
               group={orderedGroup}
-              isActive={orderedGroup.id === group?.id}
+              isActive={orderedGroup.id === selectedGroupId}
+              onClick={() => {
+                if (requestMode) {
+                  setSelectedGroupId(Number(orderedGroup.id));
+                  changeBeneficiaryGroup(Number(orderedGroup.id));
+                }
+              }}
             />
           </SwiperSlide>
         ))}

@@ -42,6 +42,7 @@ type Props = {
   setCurrentTab: (index: number) => void;
   createMode: boolean;
   handleSubmit: () => void;
+  createBeneficiaryLoading: boolean;
 };
 
 const i18ns = ["save_request"];
@@ -51,6 +52,7 @@ export function BeneficiaryTabList({
   setCurrentTab,
   createMode,
   handleSubmit,
+  createBeneficiaryLoading,
 }: Props) {
   const [SaveRequestText] = useBaseTranslation(i18ns);
   const navigate = useNavigate();
@@ -86,6 +88,7 @@ export function BeneficiaryTabList({
             color="primary"
             fullWidth
             onClick={handleSubmit}
+            loading={createBeneficiaryLoading}
           >
             {SaveRequestText}
           </BButton>

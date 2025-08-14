@@ -27,3 +27,4 @@ export { useAddPrescriptionRequestData } from "./useAddPrescriptionRequestData";
 export { useAddSpecialMaterialRequestData } from "./useAddSpecialMaterialRequestData";
 export { useAddEmergencyRequestData } from "./useAddEmergencyRequestData";
 export { useBeneficiaryRequestsData } from "./useBeneficiaryRequestsData";
+export { useBeneficiaryGroupsData } from "./useBeneficiaryGroupsData";

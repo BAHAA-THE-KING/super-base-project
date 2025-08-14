@@ -16,6 +16,7 @@ type Props = {
   createMode: boolean;
   control: Control<SingleBeneficiary>;
   handleSubmit: () => void;
+  createBeneficiaryLoading: boolean;
 };
 
 export function GeneralPart({
@@ -26,11 +27,12 @@ export function GeneralPart({
   createMode,
   control,
   handleSubmit,
+  createBeneficiaryLoading,
 }: Props) {
   const { image_url, first_name, last_name, group } = useWatch({ control });
   const name = first_name + " " + last_name;
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = () => {
     if (createMode && inputRef.current) inputRef.current.click();
@@ -117,6 +119,7 @@ export function GeneralPart({
           setCurrentTab={setCurrentTab}
           createMode={createMode}
           handleSubmit={handleSubmit}
+          createBeneficiaryLoading={createBeneficiaryLoading}
         />
       </Box>
     </Stack>

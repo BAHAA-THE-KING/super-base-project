@@ -248,6 +248,31 @@ type DeactivateRequest = {
   beneficiaryId: number;
 };
 
+type ShowAvailableGroupsResponse = {
+  data: {
+    id: number;
+    name: string;
+    salary: number;
+    color: string;
+    number_of_beneficiaries: number;
+    percentage_of_beneficiaries: number;
+    conditions: {
+      id: number;
+      name: string;
+      param: string;
+    }[];
+  }[];
+  message: string;
+};
+
+type ChangeBeneficiaryGroupResponse = {
+  message: string;
+};
+
+type ChangeBeneficiaryGroupRequest = {
+  groupId: number;
+};
+
 export function useBeneficiaries() {
   const getAllBeneficiaries = (filters: Partial<AllFilters>) =>
     useGetAPI<AllResponse>("/dashboard/beneficiaries/all", {
@@ -298,6 +323,27 @@ export function useBeneficiaries() {
     invalidateKeys: ["beneficiaries"],
   }).mutateAsync;
 
+  const getAvailableGroupsAPI = (beneficiaryId: number) =>
+    useGetAPI<ShowAvailableGroupsResponse>(
+      "/dashboard/beneficiaries/:beneficiaryId/groups",
+      {
+        defaultData: {
+          data: [],
+          message: "wait",
+        },
+        params: { beneficiaryId },
+        enabled: Boolean(beneficiaryId),
+        keys: ["groups", "beneficiaries"],
+      }
+    );
+
+  const changeBeneficiaryGroupAPI = usePutAPI<
+    ChangeBeneficiaryGroupResponse,
+    ChangeBeneficiaryGroupRequest
+  >("/dashboard/beneficiaries/:beneficiaryId/groups", {
+    invalidateKeys: ["groups", "beneficiaries"],
+  }).mutateAsync;
+
   return {
     getAllBeneficiaries,
     getIndexedBeneficiaries,
@@ -305,5 +351,7 @@ export function useBeneficiaries() {
     addBeneficiary,
     editBeneficiary,
     deactivateBeneficiary,
+    getAvailableGroupsAPI,
+    changeBeneficiaryGroupAPI,
   };
 }

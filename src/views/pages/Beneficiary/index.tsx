@@ -54,8 +54,12 @@ export function ShowBeneficiary({
     : params.beneficiaryId;
   const { hash } = useLocation();
 
-  const { beneficiary, createBeneficiary, getBeneficiaryLoading } =
-    useBeneficiaryData(Number(beneficiaryId));
+  const {
+    beneficiary,
+    createBeneficiary,
+    getBeneficiaryLoading,
+    createBeneficiaryLoading,
+  } = useBeneficiaryData(Number(beneficiaryId));
 
   const { control, handleSubmit, reset } = useForm<SingleBeneficiary>({
     defaultValues: {
@@ -124,7 +128,9 @@ export function ShowBeneficiary({
           : {
               name: "group",
               label: GroupInfoText,
-              element: <GroupInfo control={control} />,
+              element: (
+                <GroupInfo control={control} requestMode={requestMode} />
+              ),
               color: "secondary",
             },
         createMode || requestMode
@@ -200,6 +206,7 @@ export function ShowBeneficiary({
               requestMode={requestMode}
               createMode={createMode}
               handleSubmit={onSubmit}
+              createBeneficiaryLoading={createBeneficiaryLoading}
             />
             <InformationPart
               element={tabs[currentTab].element}

@@ -13,6 +13,7 @@ import { Group } from "src/types/data/SingleBeneficiary";
 type Props = {
   group: Group;
   isActive: boolean;
+  onClick: () => void;
 };
 
 const i18ns = [
@@ -22,7 +23,7 @@ const i18ns = [
   "not_active",
   "s.p",
 ];
-export function GroupCard({ group, isActive }: Props) {
+export function GroupCard({ group, isActive, onClick }: Props) {
   const [
     ThisGroupReceivesSalaryText,
     ConditionsText,
@@ -43,6 +44,7 @@ export function GroupCard({ group, isActive }: Props) {
         p: 0,
       })}
       animations={{ transitions: "slideInBottom" }}
+      onClick={onClick}
     >
       <CardContent sx={{ p: 0 }}>
         <Box

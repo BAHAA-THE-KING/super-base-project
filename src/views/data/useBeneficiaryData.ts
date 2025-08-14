@@ -1,11 +1,10 @@
 import { useMemo, useState } from "react";
 
-import { useGroup } from "src/views/APIs/useGroup";
 import { useBeneficiaries } from "src/views/APIs";
 
 import { jsonToFormdata } from "src/utils";
 
-import { Group, SingleBeneficiary } from "src/types/data/SingleBeneficiary";
+import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
 import { Aid } from "src/types/data/Aid";
 
 export function useBeneficiaryData(id: number) {
@@ -88,37 +87,6 @@ export function useBeneficiaryData(id: number) {
     [responseData]
   );
 
-  const { showGroups } = useGroup();
-  const { data: groupResponse } = showGroups();
-
-  const groups: Group[] = useMemo(
-    () =>
-      groupResponse?.data?.map((e) => ({
-        id: e.id,
-        name: e.name,
-        salary: e.salary.toString(),
-        color: e.color as
-          | "primary"
-          | "secondary"
-          | "error"
-          | "info"
-          | "success"
-          | "warning",
-        group_conditions:
-          e?.conditions?.map((ee) => ({
-            id: ee.id,
-            params: JSON.parse(ee.param),
-            condition: {
-              id: ee.id,
-              name: ee.name,
-            },
-            // TODO: need to be filled
-            is_satisfied: false,
-          })) ?? [],
-      })) ?? [],
-    [groupResponse]
-  );
-
   const [createBeneficiaryLoading, setCreateBeneficiaryLoading] =
     useState(false);
 
@@ -173,14 +141,11 @@ export function useBeneficiaryData(id: number) {
   };
 
   const getBeneficiaryLoading = beneficiaryResponse?.message === "wait";
-  const getGroupsLoading = groupResponse?.message === "wait";
 
   return {
     beneficiary,
-    groups,
     createBeneficiary,
     getBeneficiaryLoading,
-    getGroupsLoading,
     createBeneficiaryLoading,
   };
 }
