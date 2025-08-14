@@ -161,6 +161,7 @@ export function PlanShow() {
           {isAdd ? null : plan ? (
             <NextBeneficiariesPlanInfo
               nextBeneficiaries={plan.nextBeneficiaries}
+              planId={planId}
               proceedPlan={() => proceedPlan(planId)}
               proceedPlanLoading={proceedPlanLoading}
             />

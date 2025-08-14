@@ -1,11 +1,12 @@
 import { useMemo } from "react";
 import { GridColDef } from "@mui/x-data-grid";
 
-import { BChip, BTypography } from "src/components/Base";
+import { BButton, BChip, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
 import { ShowPlanBeneficiary } from "src/views/data";
+import { Stack } from "@mui/material";
 
 const i18ns = [
   "beneficiary_order",
@@ -17,6 +18,7 @@ const i18ns = [
   "missed",
   "not_yet",
   "received_date",
+  "give_him",
 ];
 export function usePlanShowColumns() {
   const [
@@ -29,6 +31,7 @@ export function usePlanShowColumns() {
     MissedText,
     NotYetText,
     ReceivedDateText,
+    GiveHimText,
   ] = useBaseTranslation(i18ns);
 
   return useMemo<GridColDef<ShowPlanBeneficiary>[]>(
@@ -105,20 +108,27 @@ export function usePlanShowColumns() {
             ? "missed"
             : "not yet";
           return (
-            <BTypography
-              fontWeight={status === "missed" ? "bold" : ""}
-              sx={(theme) => ({
-                color: status === "missed" ? theme.palette.error.main : "",
-              })}
+            <Stack
+              width={"100%"}
+              height={"100%"}
+              justifyContent={"center"}
+              alignItems={"flex-start"}
             >
-              {status === "finished"
-                ? value
-                : status === "pending"
-                ? row.due_date
-                : status === "missed"
-                ? row.due_date
-                : "-"}
-            </BTypography>
+              <BTypography
+                fontWeight={status === "missed" ? "bold" : ""}
+                sx={(theme) => ({
+                  color: status === "missed" ? theme.palette.error.main : "",
+                })}
+              >
+                {status === "finished"
+                  ? value
+                  : status === "pending"
+                  ? row.due_date
+                  : status === "missed"
+                  ? row.due_date
+                  : "-"}
+              </BTypography>
+            </Stack>
           );
         },
         flex: 1,
