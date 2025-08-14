@@ -47,7 +47,7 @@ export function AddRecordPopup({ open, close, onAdd }: Props) {
     person: string;
   }>({
     defaultValues: {
-      date: new Date().toLocaleDateString("en-ZA"),
+      date: new Date().toLocaleDateString("fr-Ca"),
       amount: 0,
       reason: "",
       person: "",
@@ -56,7 +56,7 @@ export function AddRecordPopup({ open, close, onAdd }: Props) {
 
   useEffect(() => {
     reset({
-      date: new Date().toLocaleDateString("en-ZA"),
+      date: new Date().toLocaleDateString("fr-Ca"),
       amount: 0,
       reason: "",
       person: "",

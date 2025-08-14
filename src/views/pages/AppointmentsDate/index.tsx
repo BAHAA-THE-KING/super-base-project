@@ -20,7 +20,7 @@ export function AppointmentsDate() {
 
   const { appointments: allAppointments } = useAppointmentsData();
   const appointments = allAppointments.filter(
-    (e) => e.date === date.toLocaleDateString("en-ZA")
+    (e) => e.date === date.toLocaleDateString("fr-Ca")
   );
 
   return (

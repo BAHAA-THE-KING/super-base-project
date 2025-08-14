@@ -160,8 +160,8 @@ export function Meets() {
     if (pendingMeetsLoading) return;
     if (pendingMeets.length === 0) {
       createMeet({
-        name: new Date().toLocaleDateString("en-ZA"),
-        date: new Date().toLocaleDateString("en-ZA"),
+        name: new Date().toLocaleDateString("fr-Ca"),
+        date: new Date().toLocaleDateString("fr-Ca"),
       }).then((res) => setMeetId(res.data.id));
     } else {
       if (pendingMeets[0].id) setMeetId(pendingMeets[0].id);

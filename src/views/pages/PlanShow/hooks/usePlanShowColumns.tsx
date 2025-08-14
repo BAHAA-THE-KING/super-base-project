@@ -97,9 +97,11 @@ export function usePlanShowColumns() {
         renderCell: ({ value, row }) => {
           const status = row.has_taken
             ? "finished"
-            : row.due_date && new Date(row.due_date) >= new Date()
+            : row.due_date &&
+              row.due_date >= new Date().toLocaleDateString("fr-Ca")
             ? "pending"
-            : row.due_date && new Date(row.due_date) < new Date()
+            : row.due_date &&
+              row.due_date < new Date().toLocaleDateString("fr-Ca")
             ? "missed"
             : "not yet";
           return (

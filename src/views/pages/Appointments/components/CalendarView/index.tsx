@@ -149,7 +149,7 @@ export function CalendarView({ appointments }: Props) {
               e.name === "current"
                 ? navigate(
                     "date/" +
-                      e.date.toLocaleDateString("en-ZA").replaceAll("/", "-")
+                      e.date.toLocaleDateString("fr-Ca").replaceAll("/", "-")
                   )
                 : setChosenDate(e.date)
             }
@@ -165,8 +165,8 @@ export function CalendarView({ appointments }: Props) {
                 justifyContent: "space-between",
                 alignItems: "stretch",
                 border:
-                  new Date().toLocaleDateString("en-ZA") ===
-                  e.date.toLocaleDateString("en-ZA")
+                  new Date().toLocaleDateString("fr-Ca") ===
+                  e.date.toLocaleDateString("fr-Ca")
                     ? `2px ${theme.palette.primary.light} solid`
                     : "",
               })}
@@ -189,7 +189,7 @@ export function CalendarView({ appointments }: Props) {
               <Stack>
                 {appointments
                   .filter(
-                    (ee) => ee.date === e.date.toLocaleDateString("en-ZA")
+                    (ee) => ee.date === e.date.toLocaleDateString("fr-Ca")
                   )
                   .slice(0, 2)
                   .map((e) => (
@@ -215,7 +215,7 @@ export function CalendarView({ appointments }: Props) {
                   ))}
               </Stack>
               <BTypography textAlign={"end"}>
-                {e.date.toLocaleDateString("en-ZA")}
+                {e.date.toLocaleDateString("fr-Ca")}
               </BTypography>
             </BCard>
           </Grid2>

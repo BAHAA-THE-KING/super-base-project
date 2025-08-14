@@ -48,7 +48,7 @@ export function BatchPopup({ open, close, book }: Props) {
 
   const { control, reset, handleSubmit } = useForm<Form>({
     defaultValues: {
-      date: new Date().toLocaleDateString("en-ZA"),
+      date: new Date().toLocaleDateString("fr-Ca"),
       from: "",
       to: "",
       got_money: 0,
@@ -58,7 +58,7 @@ export function BatchPopup({ open, close, book }: Props) {
 
   useEffect(() => {
     reset({
-      date: new Date().toLocaleDateString("en-ZA"),
+      date: new Date().toLocaleDateString("fr-Ca"),
       from: "",
       to: "",
       got_money: 0,
