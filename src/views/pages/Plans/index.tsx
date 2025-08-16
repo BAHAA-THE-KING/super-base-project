@@ -18,12 +18,15 @@ export function Plans() {
       id: string | number;
       field: string;
       operator: string;
-      value: string | number;
+      value: string | number | boolean;
     }[]
   >([]);
 
   const params = [
-    ...filters,
+    ...filters.map((e) => ({
+      ...e,
+      value: e.value === true ? 1 : e.value === false ? 0 : e.value,
+    })),
     { id: "page", field: "page", operator: "=", value: page + 1 },
   ].reduce((p, e) => ({ ...p, [e.field]: e.value }), {});
 
