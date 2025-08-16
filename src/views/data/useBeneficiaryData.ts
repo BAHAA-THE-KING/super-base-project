@@ -26,8 +26,7 @@ export function useBeneficiaryData(id: number) {
             birth_date: responseData.birth_date.split("T")[0],
             birth_place: responseData.birth_place,
             national_number: responseData.national_number,
-            // TODO: add missing field
-            gender: "male",
+            gender: responseData.gender,
             job: responseData.job,
             health_status: responseData.health_status,
             phone_number: responseData.phone_number,

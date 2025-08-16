@@ -76,6 +76,7 @@ type ShowResponse = {
     last_name: string;
     father_name: string;
     mother_name: string;
+    gender: "male" | "female";
     birth_date: string;
     birth_place: string;
     national_number: string;
