@@ -107,16 +107,16 @@ export function ChildCard({ child, control, isEditable, idx, remove }: Props) {
           name={`children.${idx}.is_alive`}
           disabled={!isEditable}
         />
-        {child.gender === "female" ? (
-          <FormInput
-            inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
-            sx={{ my: 1 }}
-            control={control}
-            label={PartnerNameText}
-            name={`children.${idx}.partner_name`}
-            rules={{ required: true }}
-          />
-        ) : null}
+        {/* {child.gender === "female" ? ( */}
+        <FormInput
+          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          sx={{ my: 1 }}
+          control={control}
+          label={PartnerNameText}
+          name={`children.${idx}.partner_name`}
+          rules={{ required: true }}
+        />
+        {/* ) : null} */}
         <FormInput
           inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
           sx={{ my: 1 }}
