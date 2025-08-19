@@ -1,6 +1,13 @@
 import { useMemo, useState } from "react";
 
-import { useBeneficiaries } from "src/views/APIs";
+import {
+  useBeneficiaries,
+  useEmergencyRequests,
+  usePlans,
+  usePrescriptionRequest,
+  useSpecialMaterialRequest,
+  useSalary,
+} from "src/views/APIs";
 
 import { jsonToFormdata } from "src/utils";
 
@@ -150,6 +157,30 @@ export function useBeneficiaryData(id: number) {
 }
 
 export function useAidsData(beneficiary_id: number) {
+  const { getFilteredEmergencyRequests } = useEmergencyRequests();
+  const { getFilteredPrescriptionRequests } = usePrescriptionRequest();
+  const { getFilteredSpecialMaterialRequests } = useSpecialMaterialRequest();
+  const { getPlansTurn } = usePlans();
+  const { getAvailableSalaries } = useSalary();
+
+  const { data: SpecialMaterialResponse } = getFilteredSpecialMaterialRequests({
+    beneficiary_id,
+    request_status: "accepted",
+  });
+  const { data: EmergencyResponse } = getFilteredEmergencyRequests({
+    beneficiary_id,
+    request_status: "accepted",
+  });
+  const { data: PrescriptionResponse } = getFilteredPrescriptionRequests({
+    beneficiary_id,
+    request_status: "accepted",
+  });
+  const { data: PlansResponse } = getPlansTurn({
+    beneficiary_id,
+    is_turn: true,
+  });
+  const { data: SalaryResponse } = getAvailableSalaries(beneficiary_id);
+
   const aids: Aid[] = useMemo(
     () => [
       {

@@ -6,3 +6,5 @@ export { usePrescriptionRequest } from "./usePrescriptionRequest";
 export { usePlans } from "./usePlans";
 export { useMeet } from "./useMeet";
 export { useAttributes } from "./useAttributes";
+export { useSalary } from "./useSalary";
+export { useGroup } from "./useGroup";

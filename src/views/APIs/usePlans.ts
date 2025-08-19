@@ -173,5 +173,22 @@ export function usePlans() {
     }
   ).mutateAsync;
 
-  return { getIndexPlans, getPlan, addPlan, editPlan, proceedPlan };
+  const getPlansTurn = (params: { beneficiary_id: number; is_turn: boolean }) =>
+    useGetAPI<PlanResponse>("/dashboard/plans/all", {
+      params,
+      defaultData: {
+        message: "wait",
+      },
+      keys: ["plans"],
+      enabled: Boolean(params.beneficiary_id),
+    });
+
+  return {
+    getIndexPlans,
+    getPlan,
+    addPlan,
+    editPlan,
+    proceedPlan,
+    getPlansTurn,
+  };
 }
