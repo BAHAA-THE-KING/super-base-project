@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -26,8 +26,6 @@ export function DonationsShow() {
     return <></>;
   }
 
-  const [isEdit, setIsEdit] = useState(false);
-
   const {
     donation,
     getDonationLoading,
@@ -53,16 +51,10 @@ export function DonationsShow() {
 
   useEffect(() => {
     if (donation) reset(donation);
-  }, [donation, isEdit]);
+  }, [donation]);
 
   const submit = handleSubmit((data) => {
-    if (isEdit) {
-      createDonation({ data }).then(() => navigate("/donations"));
-    } else {
-      editDonation({
-        data: data,
-      }).then(() => navigate("/donations"));
-    }
+    createDonation({ data }).then(() => navigate("/donations"));
   });
 
   return (
@@ -86,8 +78,6 @@ export function DonationsShow() {
       <DonationInfo
         control={control}
         isAdd={isAdd}
-        isEdit={isEdit}
-        setIsEdit={setIsEdit}
         isValid={isValid}
         isDirty={isDirty}
         submit={submit}

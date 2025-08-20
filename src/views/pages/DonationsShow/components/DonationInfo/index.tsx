@@ -1,19 +1,5 @@
-import {
-  CardContent,
-  Grid2,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem,
-  Stack,
-} from "@mui/material";
+import { CardContent, Grid2, Stack } from "@mui/material";
 import { Control } from "react-hook-form";
-import PopupState, { bindMenu, bindTrigger } from "material-ui-popup-state";
-
-import {
-  MoreVert as MoreVertIcon,
-  Edit as EditIcon,
-} from "@mui/icons-material";
 
 import { BButton, BCard, BTypography } from "src/components/Base";
 import { FormInput } from "src/components";
@@ -30,8 +16,6 @@ type Form = {
 type Props = {
   control: Control<Form>;
   isAdd: boolean;
-  isEdit: boolean;
-  setIsEdit: (isEdit: boolean) => void;
   isValid: boolean;
   isDirty: boolean;
   submit: () => void;
@@ -53,8 +37,6 @@ const i18ns = [
 export function DonationInfo({
   control,
   isAdd,
-  isEdit,
-  setIsEdit,
   isValid,
   isDirty,
   submit,
@@ -82,35 +64,8 @@ export function DonationInfo({
     >
       <CardContent>
         <Stack flexDirection={"row"} alignItems={"center"}>
-          {isAdd ? null : (
-            <PopupState variant="popover">
-              {(popupState) => (
-                <>
-                  <BButton
-                    icon={<MoreVertIcon />}
-                    {...bindTrigger(popupState)}
-                  />
-                  <Menu {...bindMenu(popupState)}>
-                    <MenuItem
-                      onClick={() => {
-                        setIsEdit(true);
-                        bindMenu(popupState).onClose();
-                      }}
-                    >
-                      <ListItemIcon>
-                        <EditIcon fontSize="small" color="primary" />
-                      </ListItemIcon>
-                      <ListItemText>
-                        <BTypography variant="body2">{EditText}</BTypography>
-                      </ListItemText>
-                    </MenuItem>
-                  </Menu>
-                </>
-              )}
-            </PopupState>
-          )}
           <BTypography variant="h5" fontWeight={"bold"}>
-            {isAdd ? AddNewExpenseText : EditExpenseText}
+            {AddNewExpenseText}
           </BTypography>
         </Stack>
       </CardContent>
@@ -163,7 +118,7 @@ export function DonationInfo({
           </Grid2>
           <Grid2 size={{ xs: 12 }}></Grid2>
           <Grid2 size={{ xs: "auto" }}>
-            {(isEdit || isAdd) && (
+            {isAdd && (
               <Stack
                 flexDirection={{
                   sx: "column",
@@ -175,17 +130,12 @@ export function DonationInfo({
                 }}
                 alignItems={"stretch"}
               >
-                {isEdit && (
-                  <BButton onClick={() => setIsEdit(false)}>
-                    {CancelText}
-                  </BButton>
-                )}
                 <BButton
                   variant="contained"
                   disabled={isAdd ? !isValid : !isDirty}
                   onClick={submit}
                 >
-                  {isAdd ? SaveNewExpenseText : SaveChangesText}
+                  {SaveNewExpenseText}
                 </BButton>
               </Stack>
             )}
