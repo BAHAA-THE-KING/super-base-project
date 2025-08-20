@@ -1,0 +1,1 @@
+export { useEmployeesData } from "./useEmployeesData";

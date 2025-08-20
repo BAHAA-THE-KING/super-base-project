@@ -341,5 +341,9 @@
   "low": "منخفضة",
   "medium": "متوسطة",
   "high": "عالية",
-  "give_him": "تسليم"
+  "give_him": "تسليم",
+  "employees": "الموظفون",
+  "joined_at": "انضم بتاريخ",
+  "is_active": "فعال",
+  "terminate": "فصل"
 }
