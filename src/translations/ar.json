@@ -356,5 +356,6 @@
   "gain": "المبلغ المحصل",
   "composition": "المكافئات",
   "save_new_task": "حفظ المهمة الجديدة",
-  "terminate_employee": "قصل الموظف"
+  "terminate_employee": "قصل الموظف",
+  "icon": "الأيقونة"
 }

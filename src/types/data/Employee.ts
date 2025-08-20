@@ -15,6 +15,7 @@ export type Employee = {
 export type EmployeeHistory = {
   id: number;
   type: string;
+  icon: "mosque" | "donation_book" | "bill" | "event" | "card" | "other" | "";
   date: string;
   description: string;
   expenses: number;

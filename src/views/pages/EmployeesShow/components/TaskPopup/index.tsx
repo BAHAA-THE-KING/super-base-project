@@ -1,23 +1,23 @@
 import { useEffect } from "react";
-import { Box, Grid2 } from "@mui/material";
+import { Box, Grid2, SvgIcon } from "@mui/material";
 import { useForm } from "react-hook-form";
 
-import { FormInput, FormSelect, Popup } from "src/components";
+import { FaMosque } from "react-icons/fa6";
+import { IoTicket } from "react-icons/io5";
+import { RiBankFill } from "react-icons/ri";
+import { MdEmojiEvents } from "react-icons/md";
+import { FaMoneyBillWave, FaMoneyCheck } from "react-icons/fa";
+
+import { FormInput, Popup } from "src/components";
 import { BButton, BTypography } from "src/components/Base";
+import { IconSelect } from "..";
 
 import { useBaseTranslation } from "src/hooks";
 import { useShowEmployeeData } from "../../data";
 
-import { Employee } from "src/types/data/Employee";
+import { Employee, EmployeeHistory } from "src/types/data/Employee";
 
-type Form = {
-  type: string;
-  date: string;
-  description: string;
-  expenses: number;
-  gain: number;
-  composition: number;
-};
+type Form = Omit<EmployeeHistory, "id">;
 
 type Props = {
   open: boolean;
@@ -34,6 +34,7 @@ const i18ns = [
   "gain",
   "composition",
   "save_new_task",
+  "icon",
 ];
 export function TaskPopup({ open, close, employee }: Props) {
   const [
@@ -45,6 +46,7 @@ export function TaskPopup({ open, close, employee }: Props) {
     GainText,
     CompositionText,
     SaveNewTaskText,
+    IconText,
   ] = useBaseTranslation(i18ns);
 
   const { employees, createNewTask } = useShowEmployeeData();
@@ -57,6 +59,7 @@ export function TaskPopup({ open, close, employee }: Props) {
       gain: 0,
       composition: 0,
       description: "",
+      icon: "",
     },
   });
 
@@ -91,7 +94,64 @@ export function TaskPopup({ open, close, employee }: Props) {
             />
           </Grid2>
           <Grid2 size={{ xs: 12, md: 6 }}>
-            {/* TODO: add some type */}
+            <IconSelect
+              options={[
+                {
+                  id: "mosque",
+                  icon: (
+                    <SvgIcon color="success">
+                      <FaMosque />
+                    </SvgIcon>
+                  ),
+                },
+                {
+                  id: "donation_book",
+                  icon: (
+                    <SvgIcon color="primary">
+                      <IoTicket />
+                    </SvgIcon>
+                  ),
+                },
+                {
+                  id: "bill",
+                  icon: (
+                    <SvgIcon color="warning">
+                      <RiBankFill />
+                    </SvgIcon>
+                  ),
+                },
+                {
+                  id: "event",
+                  icon: (
+                    <SvgIcon color="secondary">
+                      <MdEmojiEvents />
+                    </SvgIcon>
+                  ),
+                },
+                {
+                  id: "card",
+                  icon: (
+                    <SvgIcon color="error">
+                      <FaMoneyCheck />
+                    </SvgIcon>
+                  ),
+                },
+                {
+                  id: "other",
+                  icon: (
+                    <SvgIcon color="info">
+                      <FaMoneyBillWave />
+                    </SvgIcon>
+                  ),
+                },
+              ]}
+              control={control}
+              label={IconText}
+              name="icon"
+              rules={{ required: true }}
+            />
+          </Grid2>
+          <Grid2 size={{ xs: 12, md: 6 }}>
             <FormInput
               control={control}
               label={TypeText}

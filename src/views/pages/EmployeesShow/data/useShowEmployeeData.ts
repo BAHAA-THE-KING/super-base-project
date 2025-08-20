@@ -17,6 +17,7 @@ export function useShowEmployeeData(employeeId: number = 0) {
       {
         id: 1,
         type: "Collect from mosques",
+        icon: "mosque",
         date: "2023-10-25",
         description:
           "Collected funds from local mosques in the community for a charitable project.",
@@ -27,6 +28,7 @@ export function useShowEmployeeData(employeeId: number = 0) {
       {
         id: 2,
         type: "Pay electricity bill",
+        icon: "bill",
         date: "2023-10-26",
         description:
           "Paid the monthly electricity bill for the office building.",
@@ -37,6 +39,7 @@ export function useShowEmployeeData(employeeId: number = 0) {
       {
         id: 3,
         type: "Make donation book",
+        icon: "donation_book",
         date: "2023-10-27",
         description:
           "Created and printed new donation books for an upcoming fundraising campaign.",
@@ -47,6 +50,7 @@ export function useShowEmployeeData(employeeId: number = 0) {
       {
         id: 4,
         type: "Collect from mosques",
+        icon: "mosque",
         date: "2023-11-05",
         description: "Received a large donation from the Central City Mosque.",
         expenses: 0,
@@ -56,6 +60,7 @@ export function useShowEmployeeData(employeeId: number = 0) {
       {
         id: 5,
         type: "Pay water bill",
+        icon: "bill",
         date: "2023-11-10",
         description:
           "Settled the quarterly water bill for the main headquarters.",
@@ -66,6 +71,7 @@ export function useShowEmployeeData(employeeId: number = 0) {
       {
         id: 6,
         type: "Purchase office supplies",
+        icon: "other",
         date: "2023-11-15",
         description:
           "Bought new paper, pens, and printer ink for all departments.",
@@ -76,6 +82,7 @@ export function useShowEmployeeData(employeeId: number = 0) {
       {
         id: 7,
         type: "Make donation book",
+        icon: "donation_book",
         date: "2023-11-20",
         description:
           "Completed a small batch of donation books for the new branch office.",
@@ -86,6 +93,7 @@ export function useShowEmployeeData(employeeId: number = 0) {
       {
         id: 8,
         type: "Collect from mosques",
+        icon: "mosque",
         date: "2023-11-25",
         description:
           "Collected additional funds from smaller mosques in the suburban area.",
@@ -96,6 +104,7 @@ export function useShowEmployeeData(employeeId: number = 0) {
       {
         id: 9,
         type: "Pay internet bill",
+        icon: "bill",
         date: "2023-12-01",
         description:
           "Paid the bill for internet services for the month of December.",
@@ -106,6 +115,7 @@ export function useShowEmployeeData(employeeId: number = 0) {
       {
         id: 10,
         type: "Organize charity event",
+        icon: "event",
         date: "2023-12-05",
         description:
           "Prepared a budget and secured a venue for the annual charity gala.",
@@ -116,6 +126,7 @@ export function useShowEmployeeData(employeeId: number = 0) {
       {
         id: 11,
         type: "Collect from schools",
+        icon: "other",
         date: "2023-12-10",
         description: "Received donations from a school fundraiser.",
         expenses: 0,
@@ -125,6 +136,7 @@ export function useShowEmployeeData(employeeId: number = 0) {
       {
         id: 12,
         type: "Make donation book",
+        icon: "donation_book",
         date: "2023-12-15",
         description:
           "Designed and ordered a new series of personalized donation books.",
@@ -135,6 +147,7 @@ export function useShowEmployeeData(employeeId: number = 0) {
       {
         id: 13,
         type: "Pay staff salaries",
+        icon: "other",
         date: "2023-12-20",
         description:
           "Processed and paid the salaries for all staff members for the month.",
@@ -145,6 +158,7 @@ export function useShowEmployeeData(employeeId: number = 0) {
       {
         id: 14,
         type: "Collect from mosques",
+        icon: "mosque",
         date: "2023-12-25",
         description: "Collected end-of-year donations from multiple mosques.",
         expenses: 0,
@@ -154,6 +168,7 @@ export function useShowEmployeeData(employeeId: number = 0) {
       {
         id: 15,
         type: "Office rent",
+        icon: "bill",
         date: "2023-12-30",
         description: "Paid the monthly rent for the primary office space.",
         expenses: 15000,
@@ -163,6 +178,7 @@ export function useShowEmployeeData(employeeId: number = 0) {
       {
         id: 16,
         type: "Collect from events",
+        icon: "event",
         date: "2024-01-05",
         description:
           "Collected ticket sales and donations from the charity gala.",
@@ -173,6 +189,7 @@ export function useShowEmployeeData(employeeId: number = 0) {
       {
         id: 17,
         type: "Pay electricity bill",
+        icon: "bill",
         date: "2024-01-26",
         description: "Settled the electricity bill for January.",
         expenses: 1300,
@@ -182,6 +199,7 @@ export function useShowEmployeeData(employeeId: number = 0) {
       {
         id: 18,
         type: "Purchase equipment",
+        icon: "other",
         date: "2024-02-01",
         description:
           "Acquired new computer equipment for the accounting department.",
@@ -192,6 +210,7 @@ export function useShowEmployeeData(employeeId: number = 0) {
       {
         id: 19,
         type: "Collect from mosques",
+        icon: "mosque",
         date: "2024-02-15",
         description:
           "A special collection from several mosques for a new humanitarian aid project.",
@@ -202,6 +221,7 @@ export function useShowEmployeeData(employeeId: number = 0) {
       {
         id: 20,
         type: "Make donation book",
+        icon: "donation_book",
         date: "2024-02-20",
         description:
           "Designed a new, more modern-looking donation book with improved tracking.",
