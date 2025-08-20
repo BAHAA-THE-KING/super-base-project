@@ -38,6 +38,8 @@ import {
   EmployeesShowPage,
   ExpensesPage,
   ExpensesShowPage,
+  DonationsPage,
+  DonationsShowPage,
 } from "src/views";
 
 import { useBaseTranslation } from "src/hooks";
@@ -87,6 +89,7 @@ const i18ns = [
   "donation_books",
   "employees",
   "expenses",
+  "donations",
 ];
 export function usePublicRoutes() {
   const [
@@ -108,6 +111,7 @@ export function usePublicRoutes() {
     DonationBooksText,
     EmployeesText,
     ExpensesText,
+    DonationsText,
   ] = useBaseTranslation(i18ns);
   return useMemo<Route[]>(
     () => [
@@ -398,6 +402,30 @@ export function usePublicRoutes() {
         key: "show-expenses",
         path: "/expenses/:expenseId",
         element: <ExpensesShowPage />,
+        icon: () => (
+          <SvgIcon>
+            {/* TODO: change the icon */}
+            <GrPlanIcon />
+          </SvgIcon>
+        ),
+        hidden: true,
+      },
+      {
+        key: "donations",
+        path: "/donations",
+        element: <DonationsPage />,
+        icon: () => (
+          <SvgIcon>
+            {/* TODO: change the icon */}
+            <GrPlanIcon />
+          </SvgIcon>
+        ),
+        title: DonationsText,
+      },
+      {
+        key: "show-donations",
+        path: "/donations/:donationId",
+        element: <DonationsShowPage />,
         icon: () => (
           <SvgIcon>
             {/* TODO: change the icon */}

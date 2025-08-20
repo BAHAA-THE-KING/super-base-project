@@ -362,5 +362,8 @@
   "save_new_expense": "حفظ الدفعة الجديدة",
   "add_new_expense": "إضافة الدفعة الجديدة",
   "edit_expense": "تعديل الدفعة",
-  "add_employee": "إضافة موظف"
+  "add_employee": "إضافة موظف",
+  "donations": "التبرعات",
+  "add_donation": "إضافة تبرع",
+  "details": "التفاصيل"
 }
