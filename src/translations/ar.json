@@ -358,5 +358,9 @@
   "save_new_task": "حفظ المهمة الجديدة",
   "terminate_employee": "قصل الموظف",
   "icon": "الأيقونة",
-  "add_expense":"إضافة مصروف"
+  "add_expense": "إضافة مصروف",
+  "save_new_expense": "حفظ الدفعة الجديدة",
+  "add_new_expense": "إضافة الدفعة الجديدة",
+  "edit_expense": "تعديل الدفعة",
+  "add_employee": "إضافة موظف"
 }

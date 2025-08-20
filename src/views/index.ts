@@ -22,6 +22,7 @@ import { DonationBooksShow } from "./pages/DonationBooksShow";
 import { Employees } from "./pages/Employees";
 import { EmployeesShow } from "./pages/EmployeesShow";
 import { Expenses } from "./pages/Expenses";
+import { ExpensesShow } from "./pages/ExpensesShow";
 
 export const NotFoundPage = withNormalLayout(NotFound);
 export const AllBeneficiariesPage = withNormalLayout(AllBeneficiaries);
@@ -46,3 +47,4 @@ export const DonationBooksShowPage = withNormalLayout(DonationBooksShow);
 export const EmployeesPage = withNormalLayout(Employees);
 export const EmployeesShowPage = withNormalLayout(EmployeesShow);
 export const ExpensesPage = withNormalLayout(Expenses);
+export const ExpensesShowPage = withNormalLayout(ExpensesShow);

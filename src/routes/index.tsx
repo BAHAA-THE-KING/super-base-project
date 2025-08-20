@@ -37,6 +37,7 @@ import {
   EmployeesPage,
   EmployeesShowPage,
   ExpensesPage,
+  ExpensesShowPage,
 } from "src/views";
 
 import { useBaseTranslation } from "src/hooks";
@@ -392,6 +393,18 @@ export function usePublicRoutes() {
           </SvgIcon>
         ),
         title: ExpensesText,
+      },
+      {
+        key: "show-expenses",
+        path: "/expenses/:expenseId",
+        element: <ExpensesShowPage />,
+        icon: () => (
+          <SvgIcon>
+            {/* TODO: change the icon */}
+            <GrPlanIcon />
+          </SvgIcon>
+        ),
+        hidden: true,
       },
     ],
     []

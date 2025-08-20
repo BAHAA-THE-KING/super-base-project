@@ -71,7 +71,7 @@ export function useExpensesColumns() {
         renderCell: ({ value }) => <RequestStatusChip status={value} />,
       },
       {
-        field: "id",
+        field: "actions",
         flex: 1,
         type: "actions",
         getActions: ({ id }) => [
