@@ -14,7 +14,7 @@ type Props = {
   setFilters: (filters: any) => void;
 };
 
-export function PlansGrid({
+export function ExpensesGrid({
   rows,
   columns,
   loading = false,
