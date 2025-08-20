@@ -1,15 +1,22 @@
 import { useState } from "react";
-import { Stack } from "@mui/material";
+import { useNavigate } from "react-router";
+import { Box, Stack } from "@mui/material";
 
+import { Add } from "@mui/icons-material";
+
+import { BButton } from "src/components/Base";
 import { EmployeeGrid } from "./components";
 
 import { useEmployeesColumns } from "./hooks";
 
 import { useEmployeesData } from "./data";
+import { useBaseTranslation } from "src/hooks";
 
-import { varAlpha } from "src/themes/styles";
-
+const i18ns = ["add_employee"];
 export function Employees() {
+  const [AddEmployeeText] = useBaseTranslation(i18ns);
+
+  const navigate = useNavigate();
   const columns = useEmployeesColumns();
 
   const [page, setPage] = useState(0);
@@ -31,18 +38,16 @@ export function Employees() {
     useEmployeesData(params);
 
   return (
-    <Stack
-      width={"100%"}
-      height={"100%"}
-      borderRadius={1}
-      p={3}
-      sx={(theme) => ({
-        backgroundColor:
-          theme.palette.mode === "dark"
-            ? varAlpha(theme.palette.secondary.darkerChannel, 0.2)
-            : theme.palette.secondary.lighter,
-      })}
-    >
+    <Stack height={"100%"} p={3} justifyContent={"stretch"}>
+      <Box width={"100%"} mb={2}>
+        <BButton
+          variant="contained"
+          onClick={() => navigate("/employees/add")}
+          startIcon={<Add />}
+        >
+          {AddEmployeeText}
+        </BButton>
+      </Box>
       <EmployeeGrid
         columns={columns}
         rows={employees}
