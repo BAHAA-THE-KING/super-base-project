@@ -93,7 +93,7 @@ export function useEmployeesColumns() {
               icon={<AssignmentIndIcon />}
               color="primary"
               label={ShowProfileText}
-              onClick={() => navigate(`/beneficiary/${id}`)}
+              onClick={() => navigate(`/employees/${id}`)}
             />
           </BTooltip>,
           <BTooltip title={TerminateText}>

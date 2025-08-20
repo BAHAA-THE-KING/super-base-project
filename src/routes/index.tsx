@@ -35,6 +35,7 @@ import {
   DonationBooksPage,
   DonationBooksShowPage,
   EmployeesPage,
+  EmployeesShowPage,
 } from "src/views";
 
 import { useBaseTranslation } from "src/hooks";
@@ -364,6 +365,18 @@ export function usePublicRoutes() {
           </SvgIcon>
         ),
         title: EmployeesText,
+      },
+      {
+        key: "show-employees",
+        path: "/employees/:employeeId",
+        element: <EmployeesShowPage />,
+        icon: () => (
+          <SvgIcon>
+            {/* TODO: change the icon */}
+            <GrPlanIcon />
+          </SvgIcon>
+        ),
+        hidden: true,
       },
     ],
     []

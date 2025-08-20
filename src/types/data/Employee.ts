@@ -9,4 +9,15 @@ export type Employee = {
   joined_at: string;
   is_active: string;
   salary: number;
+  history?: EmployeeHistory[];
+};
+
+export type EmployeeHistory = {
+  id: number;
+  type: string;
+  date: string;
+  description: string;
+  expenses: number;
+  composition: number;
+  gain: number;
 };

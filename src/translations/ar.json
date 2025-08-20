@@ -345,5 +345,16 @@
   "employees": "الموظفون",
   "joined_at": "انضم بتاريخ",
   "is_active": "فعال",
-  "terminate": "فصل"
+  "terminate": "فصل",
+  "you_sure_to_terminate_employee": "هل أنت متأكد من فصل الموظف",
+  "yes_terminate_him": "نعم، افصله",
+  "history": "السجل",
+  "add_new_task": "إضافة مهمة جديدة",
+  "type": "النوع",
+  "description": "الوصف",
+  "expenses": "المصاريف",
+  "gain": "المبلغ المحصل",
+  "composition": "المكافئات",
+  "save_new_task": "حفظ المهمة الجديدة",
+  "terminate_employee": "قصل الموظف"
 }
