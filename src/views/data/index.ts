@@ -28,3 +28,4 @@ export { useAddSpecialMaterialRequestData } from "./useAddSpecialMaterialRequest
 export { useAddEmergencyRequestData } from "./useAddEmergencyRequestData";
 export { useBeneficiaryRequestsData } from "./useBeneficiaryRequestsData";
 export { useBeneficiaryGroupsData } from "./useBeneficiaryGroupsData";
+export { useLoginData } from "./useLoginData";

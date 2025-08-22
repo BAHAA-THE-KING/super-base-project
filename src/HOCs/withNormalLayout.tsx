@@ -1,13 +1,15 @@
 import React, { ComponentType, useEffect, useRef, useState } from "react";
 import { Stack } from "@mui/material";
 
-import { Header, LoadingPage, Sidebar } from "src/components";
-import { useLoading } from "src/globals";
+import { Header, Sidebar } from "src/components";
+import { useNavigate } from "react-router";
 
 export function withNormalLayout<T extends object>(
   Component: ComponentType<T>
 ): React.FC<T> {
   return function (props: T) {
+    const navigate = useNavigate();
+
     const [sidebarWidth, setWidth] = useState(0);
 
     const sidebarRef = useRef<HTMLElement | null>();
@@ -29,7 +31,11 @@ export function withNormalLayout<T extends object>(
       };
     }, []);
 
-    const [loading] = useLoading();
+    useEffect(() => {
+      window.cookieStore
+        .get({ name: "token" })
+        .then((token) => !token && navigate("/login"));
+    }, []);
 
     return (
       <Stack
@@ -38,7 +44,6 @@ export function withNormalLayout<T extends object>(
         bgcolor={(theme) => theme.palette.background.default}
         overflow={"auto"}
       >
-        {loading && <LoadingPage />}
         <Sidebar ref={sidebarRef} />
         <Stack
           width={`CALC(100% - ${sidebarWidth}px)`}

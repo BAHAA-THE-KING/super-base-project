@@ -8,6 +8,7 @@ import { shakeProps } from "./Transitions/Shake";
 import { slideInBottomProps } from "./Transitions/SlideInBottom";
 import { slideInLeftProps } from "./Transitions/SlideInLeft";
 import { slideInRightProps } from "./Transitions/SlideInRight";
+import { liveProps } from "./Transitions/live";
 import { wiggleProps } from "./Gestures/Wiggle";
 import { wiggleHarderProps } from "./Gestures/WiggleHarder";
 import { scaleSmallerProps } from "./Gestures/ScaleSmaller";
@@ -35,5 +36,6 @@ export default {
     slideInBottom: slideInBottomProps,
     slideInLeft: slideInLeftProps,
     slideInRight: slideInRightProps,
+    live: liveProps,
   },
 };

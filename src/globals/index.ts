@@ -4,5 +4,4 @@ export {
   usePreferredTheme,
   useDirection,
   useSidebarOpen,
-  useLoading,
 } from "./hooks";

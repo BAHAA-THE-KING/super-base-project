@@ -1,4 +1,5 @@
-import { withNormalLayout } from "src/HOCs";
+import { withAuthLayout, withNormalLayout } from "src/HOCs";
+import { Login } from "./pages/Login";
 import { NotFound } from "./pages/NotFound";
 import { AllBeneficiaries } from "./pages/BeneficiariesAll";
 import { ShowBeneficiary } from "./pages/Beneficiary";
@@ -26,6 +27,7 @@ import { ExpensesShow } from "./pages/ExpensesShow";
 import { Donations } from "./pages/Donations";
 import { DonationsShow } from "./pages/DonationsShow";
 
+export const LoginPage = withAuthLayout(Login);
 export const NotFoundPage = withNormalLayout(NotFound);
 export const AllBeneficiariesPage = withNormalLayout(AllBeneficiaries);
 export const ShowBeneficiaryPage = withNormalLayout(ShowBeneficiary);

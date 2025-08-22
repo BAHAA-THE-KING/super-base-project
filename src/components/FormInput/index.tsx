@@ -8,7 +8,9 @@ import {
 } from "react-hook-form";
 import { type SxProps, type Theme } from "@mui/material";
 
-import { BTextField } from "../Base";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+
+import { BButton, BTextField, type BTextFieldProps } from "../Base";
 
 import { useBaseTranslation, useVoiceInputHandler } from "src/hooks";
 
@@ -24,6 +26,7 @@ type Props<
   >;
   disabled?: boolean;
   label: string;
+  type?: BTextFieldProps["type"]; // e.g., "text", "password", etc.
   sx?: SxProps<Theme>;
   multiline?: boolean;
   inputProps?: ComponentProps<typeof BTextField>;
@@ -42,10 +45,12 @@ export function FormInput<
   disabled,
   sx,
   multiline,
+  type,
   inputProps = {},
 }: Props<TFieldValues, TName>) {
   const [YouHaveToEnterThe] = useBaseTranslation(i18ns);
   const [lineNum, setLineNum] = useState(3);
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <Controller
@@ -58,6 +63,26 @@ export function FormInput<
           field.onChange({ target: { value } })
         );
 
+        const isPassword = type === "password";
+
+        const endAdornmentNode = isPassword ? (
+          <>
+            {inputProps?.InputProps?.endAdornment}
+            <BButton
+              onClick={() => setShowPassword(!showPassword)}
+              onMouseDown={(e) => e.preventDefault()}
+              icon={showPassword ? <VisibilityOff /> : <Visibility />}
+            />
+          </>
+        ) : (
+          inputProps?.InputProps?.endAdornment
+        );
+
+        const mergedInputProps = {
+          ...inputProps?.InputProps,
+          endAdornment: endAdornmentNode,
+        };
+
         return (
           <BTextField
             {...field}
@@ -67,6 +92,7 @@ export function FormInput<
             multiline={multiline}
             rows={multiline ? lineNum : 1}
             label={label}
+            type={isPassword ? (showPassword ? "text" : "password") : type}
             error={Boolean(invalid || error)}
             helperText={
               Boolean(invalid || error)
@@ -84,6 +110,7 @@ export function FormInput<
             }}
             inputRef={inputRef}
             {...inputProps}
+            InputProps={mergedInputProps}
           />
         );
       }}

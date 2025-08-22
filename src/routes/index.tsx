@@ -5,6 +5,7 @@ import {
   Add as AddIcon,
   People as PeopleIcon,
   Inventory as InventoryIcon,
+  Home as HomeIcon,
 } from "@mui/icons-material";
 import {
   FaHandHoldingUsd as FaHandHoldingUsdIcon,
@@ -40,6 +41,8 @@ import {
   ExpensesShowPage,
   DonationsPage,
   DonationsShowPage,
+  LoginPage,
+  
 } from "src/views";
 
 import { useBaseTranslation } from "src/hooks";
@@ -115,6 +118,13 @@ export function usePublicRoutes() {
   ] = useBaseTranslation(i18ns);
   return useMemo<Route[]>(
     () => [
+      {
+        icon: PeopleIcon,
+        key: "login",
+        path: "/login",
+        element: <LoginPage />,
+        hidden: true,
+      },
       {
         key: "services-department",
         title: ServicesDepartmentText,

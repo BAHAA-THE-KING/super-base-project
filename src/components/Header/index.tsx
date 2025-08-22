@@ -7,14 +7,14 @@ import LanguageSelector from "./LanguageSelector";
 import SidebarToggle from "./SidebarToggle";
 import GoBack from "./GoBack";
 
-export function Header() {
+export function Header({ isAuth = false }: { isAuth?: boolean }) {
   return (
     <BaseHeader boxShadow={1}>
       <Stack flexDirection={"row"} gap={2}>
-        <GoBack />
+        {isAuth || <GoBack />}
       </Stack>
       <Stack flexDirection={"row"} gap={2}>
-        <SidebarToggle />
+        {isAuth || <SidebarToggle />}
         <VoiceToggle />
         <ThemeToggle />
         <LanguageSelector />
