@@ -23,7 +23,7 @@ type Form = {
     id: number;
     name: string;
     param: {
-      op: "<" | ">" | "<=" | ">=" | "==" | "!=" | "";
+      op: "<" | ">" | "<=" | ">=" | "=" | "!=" | "";
       value: number | "";
     };
   }[];
@@ -177,7 +177,7 @@ export function ConditionsGroupInfo({
                     { id: ">", name: GreaterThanText },
                     { id: "<=", name: LessThanOrEqualText },
                     { id: ">=", name: GreaterThanOrEqualText },
-                    { id: "==", name: EqualsText },
+                    { id: "=", name: EqualsText },
                     { id: "!=", name: NotEqualsText },
                   ]}
                   label={ConditionText}

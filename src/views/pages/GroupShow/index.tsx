@@ -21,7 +21,7 @@ type Form = {
     id: number;
     name: string;
     param: {
-      op: "<" | ">" | "<=" | ">=" | "==" | "!=" | "";
+      op: "<" | ">" | "<=" | ">=" | "=" | "!=" | "";
       value: number | "";
     };
   }[];

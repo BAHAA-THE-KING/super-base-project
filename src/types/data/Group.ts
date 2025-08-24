@@ -7,7 +7,7 @@ export type Group = {
     id: number;
     name: string;
     param: {
-      op: "<" | ">" | "<=" | ">=" | "==" | "!=" | "";
+      op: "<" | ">" | "<=" | ">=" | "=" | "!=" | "";
       value: number | "";
     };
   }[];
