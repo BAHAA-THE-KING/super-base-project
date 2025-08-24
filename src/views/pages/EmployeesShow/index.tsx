@@ -24,13 +24,12 @@ type Form = {
   salary: number;
 };
 
-export function EmployeesShow() {
+export function EmployeesShow({ isAdd = false }: { isAdd?: boolean }) {
   const navigate = useNavigate();
   const { employeeId: employeeIdParam } = useParams();
   const employeeId = Number(employeeIdParam) ?? 0;
-  const isAdd = employeeIdParam === "add";
   if ((!employeeId || employeeId <= 0) && !isAdd) {
-    navigate(-1);
+    navigate("/accountant/employees");
     return <></>;
   }
 
@@ -70,7 +69,7 @@ export function EmployeesShow() {
   const submit = handleSubmit(async (data) => {
     if (isAdd) {
       const newEmployee = await createEmployee(data);
-      navigate("/employees/" + newEmployee.data.id, { replace: true });
+      navigate(newEmployee.data.id.toString(), { replace: true });
     } else if (isEdit) {
       await updateEmployee({
         id: employeeId,

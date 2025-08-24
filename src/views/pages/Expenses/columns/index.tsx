@@ -84,7 +84,7 @@ export function useExpensesColumns() {
               }
               color="primary"
               label={ShowDetailsText}
-              onClick={() => navigate(`/expenses/${id}`)}
+              onClick={() => navigate(id.toString())}
             />
           </BTooltip>,
         ],

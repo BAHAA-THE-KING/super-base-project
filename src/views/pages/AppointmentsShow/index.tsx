@@ -15,13 +15,12 @@ import { AppointmentTable } from "src/types/data/AppointmentTable";
 type Form = AppointmentCreate &
   AppointmentTable & { showWantDiscount: boolean };
 
-export function AppointmentsShow() {
+export function AppointmentsShow({ isAdd = false }: { isAdd?: boolean }) {
   const navigate = useNavigate();
   const { appointmentId: appointmentIdParam } = useParams();
   const appointmentId = Number(appointmentIdParam);
-  const isAdd = appointmentIdParam === "add";
   if ((!appointmentId || appointmentId <= 0) && !isAdd) {
-    navigate("/appointments");
+    navigate("/clinic/appointments");
     return <></>;
   }
 
@@ -63,7 +62,7 @@ export function AppointmentsShow() {
   }, [appointment]);
 
   const submit = handleSubmit((data) => {
-    createAppointment({ data }).then(() => navigate("/appointments"));
+    createAppointment({ data }).then(() => navigate("/clinic/appointments"));
   });
 
   return (

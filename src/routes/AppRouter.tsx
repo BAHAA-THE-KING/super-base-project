@@ -1,14 +1,16 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router";
 
-import { usePublicRoutes } from ".";
+import { useAccountantRoutes, useClinicRoutes, useServicesRoutes } from ".";
 
 import { NotFoundPage } from "src/views";
 
 import { Route as RouteType } from "src/types/Route";
 
 export function AppRouter() {
-  const publicRoutes = usePublicRoutes();
+  const servicesRoutes = useServicesRoutes();
+  const clinicRoutes = useClinicRoutes();
+  const accountantRoutes = useAccountantRoutes();
   const mapRoutes = (routes: RouteType[]) =>
     routes.map((route) => (
       <React.Fragment key={route.key}>
@@ -22,7 +24,9 @@ export function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        {mapRoutes(publicRoutes)}
+        {mapRoutes(
+          servicesRoutes.concat(clinicRoutes).concat(accountantRoutes)
+        )}
         <Route path={"*"} element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

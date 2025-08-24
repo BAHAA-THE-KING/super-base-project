@@ -53,7 +53,7 @@ export function useDonationsColumns() {
               }
               color="primary"
               label={ShowDetailsText}
-              onClick={() => navigate(`/donations/${id}`)}
+              onClick={() => navigate(id.toString())}
             />
           </BTooltip>,
         ],

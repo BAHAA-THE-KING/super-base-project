@@ -92,7 +92,7 @@ export function useDonationBooksColumns() {
             }
             color="primary"
             label={ShowDetailsText}
-            onClick={() => navigate(`/donation-books/${id}`)}
+            onClick={() => navigate(id.toString())}
           />,
         ],
       },

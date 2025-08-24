@@ -23,7 +23,7 @@ export function Appointments() {
   const navigate = useNavigate();
 
   const onEdit = (id: number) => {
-    navigate(id.toString());
+    navigate(id.toString(), { replace: true });
   };
   const columns = useAppointmentsColumns(onEdit);
 

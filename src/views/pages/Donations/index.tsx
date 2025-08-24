@@ -43,7 +43,7 @@ export function Donations() {
       <Box width={"100%"} mb={2}>
         <BButton
           variant="contained"
-          onClick={() => navigate("/donations/add")}
+          onClick={() => navigate("/accountant/donations/add")}
           startIcon={<Add />}
         >
           {AddDonationText}

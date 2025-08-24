@@ -6,12 +6,29 @@ import SidebarList from "./SidebarList";
 
 import { useBreakpoints } from "src/hooks";
 
-import { usePublicRoutes } from "src/routes";
+import {
+  useAccountantRoutes,
+  useServicesRoutes,
+  useClinicRoutes,
+} from "src/routes";
 
 import { useDirection, useSidebarOpen } from "src/globals";
+import { useLocation } from "react-router";
 
 const Sidebar = forwardRef<any>(({}, ref) => {
-  const routes = usePublicRoutes();
+  const accountantRoutes = useAccountantRoutes();
+  const servicesRoutes = useServicesRoutes();
+  const clinicRoutes = useClinicRoutes();
+
+  const pathname = useLocation().pathname;
+  const routes = pathname.startsWith("/services")
+    ? servicesRoutes
+    : pathname.startsWith("/clinic")
+    ? clinicRoutes
+    : pathname.startsWith("/accountant")
+    ? accountantRoutes
+    : [];
+
   const [sidebarOpen, setSidebarOpen] = useSidebarOpen();
   const closeSidebar = () => {
     setSidebarOpen(false);

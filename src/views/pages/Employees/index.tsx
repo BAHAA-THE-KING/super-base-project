@@ -42,7 +42,7 @@ export function Employees() {
       <Box width={"100%"} mb={2}>
         <BButton
           variant="contained"
-          onClick={() => navigate("/employees/add")}
+          onClick={() => navigate("/accountant/employees/add")}
           startIcon={<Add />}
         >
           {AddEmployeeText}

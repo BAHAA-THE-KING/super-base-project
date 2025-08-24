@@ -180,7 +180,7 @@ export function useBeneficiariesColumns() {
               icon={<AssignmentIndIcon />}
               color="primary"
               label={ShowProfileText}
-              onClick={() => navigate(`/beneficiary/${id}`)}
+              onClick={() => navigate(id.toString())}
             />
           </BTooltip>,
           <BTooltip title={CutAidsText}>

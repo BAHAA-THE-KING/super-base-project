@@ -27,13 +27,12 @@ type Form = {
   }[];
 };
 
-export function DoctorsShow() {
+export function DoctorsShow({ isAdd = false }: { isAdd?: boolean }) {
   const navigate = useNavigate();
   const { doctorId: doctorIdParam } = useParams();
   const doctorId = Number(doctorIdParam);
-  const isAdd = doctorIdParam === "add";
   if ((!doctorId || doctorId <= 0) && !isAdd) {
-    navigate("/doctors");
+    navigate("/clinic/doctors");
     return <></>;
   }
 
@@ -71,11 +70,11 @@ export function DoctorsShow() {
         data: {
           ...data,
         },
-      }).then(() => navigate("/doctors"));
+      }).then(() => navigate("/clinic/doctors"));
     } else {
       editDoctor({
         data: data,
-      }).then(() => navigate("/doctors"));
+      }).then(() => navigate("/clinic/doctors"));
     }
   });
   function handleDelete() {

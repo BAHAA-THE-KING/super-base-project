@@ -43,7 +43,7 @@ export function Expenses() {
       <Box width={"100%"} mb={2}>
         <BButton
           variant="contained"
-          onClick={() => navigate("/expenses/add")}
+          onClick={() => navigate("/accountant/expenses/add")}
           startIcon={<Add />}
         >
           {AddExpenseText}

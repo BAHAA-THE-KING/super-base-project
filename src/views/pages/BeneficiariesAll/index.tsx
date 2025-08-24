@@ -43,7 +43,7 @@ export function AllBeneficiaries() {
       <Box width={"100%"} mb={2}>
         <BButton
           variant="contained"
-          onClick={() => navigate("/beneficiary/add")}
+          onClick={() => navigate("/services/beneficiary/add")}
           startIcon={<Add />}
         >
           {AddBeneficiaryText}

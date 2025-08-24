@@ -27,13 +27,12 @@ type Form = {
   }[];
 };
 
-export function GroupShow() {
+export function GroupShow({ isAdd = false }: { isAdd?: boolean }) {
   const navigate = useNavigate();
   const { groupId: groupIdParam } = useParams();
   const groupId = Number(groupIdParam);
-  const isAdd = groupIdParam === "add";
   if ((!groupId || groupId <= 0) && !isAdd) {
-    navigate("/groups");
+    navigate("/services/groups");
     return <></>;
   }
 
@@ -50,7 +49,7 @@ export function GroupShow() {
     deleteGroupLoading,
   } = useGroupData(groupId);
   if (!group && !getGroupLoading && !isAdd) {
-    navigate("/groups");
+    navigate("/services/groups");
     return <></>;
   }
 
@@ -106,7 +105,7 @@ export function GroupShow() {
           name: e.name,
           params: `{"op":"${e.param.op}","value":${e.param.value}}`,
         })),
-      }).then((res) => navigate("/groups/" + res.data.id, { replace: true }));
+      }).then((res) => navigate(res.data.id.toString(), { replace: true }));
     else if (group)
       editGroup(group.id, {
         name: data.name,

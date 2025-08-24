@@ -17,13 +17,12 @@ type Form = {
   to: string;
 };
 
-export function ExpensesShow() {
+export function ExpensesShow({ isAdd = false }: { isAdd?: boolean }) {
   const navigate = useNavigate();
   const { expenseId: expenseIdParam } = useParams();
   const expenseId = Number(expenseIdParam);
-  const isAdd = expenseIdParam === "add";
   if ((!expenseId || expenseId <= 0) && !isAdd) {
-    navigate("/expenses");
+    navigate("/accountant/expenses");
     return <></>;
   }
 
@@ -62,11 +61,11 @@ export function ExpensesShow() {
   const submit = handleSubmit((data) => {
     if (expense.request_status !== "pending") return;
     if (isEdit) {
-      createExpense({ data }).then(() => navigate("/expenses"));
+      createExpense({ data }).then(() => navigate("/accountant/expenses"));
     } else {
       editExpense({
         data: data,
-      }).then(() => navigate("/expenses"));
+      }).then(() => navigate("/accountant/expenses"));
     }
   });
   function handleDelete() {

@@ -16,7 +16,7 @@ export function Secretary() {
   const navigate = useNavigate();
 
   const onEdit = (id: number) => {
-    navigate(id.toString());
+    navigate(id.toString(), { replace: true });
   };
   const columns = useSecretaryColumns(onEdit);
 

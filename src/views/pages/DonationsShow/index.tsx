@@ -16,13 +16,12 @@ type Form = {
   details: string;
 };
 
-export function DonationsShow() {
+export function DonationsShow({ isAdd = false }: { isAdd?: boolean }) {
   const navigate = useNavigate();
   const { donationId: donationIdParam } = useParams();
   const donationId = Number(donationIdParam);
-  const isAdd = donationIdParam === "add";
   if ((!donationId || donationId <= 0) && !isAdd) {
-    navigate("/donations");
+    navigate("/accountant/donations");
     return <></>;
   }
 
@@ -54,7 +53,7 @@ export function DonationsShow() {
   }, [donation]);
 
   const submit = handleSubmit((data) => {
-    createDonation({ data }).then(() => navigate("/donations"));
+    createDonation({ data }).then(() => navigate("/accountant/donations"));
   });
 
   return (

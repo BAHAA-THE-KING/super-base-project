@@ -9,12 +9,12 @@ export function AppointmentsDate() {
   const navigate = useNavigate();
   const { date: dateParam } = useParams();
   if (!dateParam) {
-    navigate("/appointments");
+    navigate("/clinic/appointments");
     return <></>;
   }
   const date = new Date(dateParam);
   if (!date) {
-    navigate("/appointments");
+    navigate("/clinic/appointments");
     return <></>;
   }
 

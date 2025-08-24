@@ -19,13 +19,12 @@ type Form = {
   details: string;
 };
 
-export function DonationBooksShow() {
+export function DonationBooksShow({ isAdd = false }: { isAdd?: boolean }) {
   const navigate = useNavigate();
   const { bookId: bookIdParam } = useParams();
   const bookId = Number(bookIdParam) ?? 0;
-  const isAdd = bookIdParam === "add";
   if ((!bookId || bookId <= 0) && !isAdd) {
-    navigate(-1);
+    navigate("/accountant/donation-books");
     return <></>;
   }
 
@@ -81,7 +80,9 @@ export function DonationBooksShow() {
         page_price: data.page_price,
         details: data.details,
       });
-      navigate("/donation-books/" + newBook.data.id, { replace: true });
+      navigate(newBook.data.id.toString(), {
+        replace: true,
+      });
     } else if (isEdit) {
       await updateBook({
         id: bookId,

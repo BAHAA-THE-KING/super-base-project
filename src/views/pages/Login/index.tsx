@@ -179,7 +179,7 @@ export function Login() {
                   </SvgIcon>
                 }
                 onClick={handleSubmit((data) =>
-                  login(data).then(() => navigate("/home"))
+                  login(data).then(() => navigate("/"))
                 )}
                 loading={loginLoading}
               >

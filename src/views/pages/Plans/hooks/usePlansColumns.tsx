@@ -107,7 +107,7 @@ export function usePlansColumns() {
             }
             color="primary"
             label={ShowDetailsText}
-            onClick={() => navigate(`/plans/${id}`)}
+            onClick={() => navigate(id.toString())}
           />,
         ],
       },

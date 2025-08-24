@@ -31,13 +31,12 @@ type Form = {
   }[];
 };
 
-export function PlanShow() {
+export function PlanShow({ isAdd = false }: { isAdd?: boolean }) {
   const navigate = useNavigate();
   const { planId: planIdParam } = useParams();
   const planId = Number(planIdParam) ?? 0;
-  const isAdd = planIdParam === "add";
   if ((!planId || planId <= 0) && !isAdd) {
-    navigate(-1);
+    navigate("/services/plans");
     return <></>;
   }
 
@@ -101,7 +100,7 @@ export function PlanShow() {
           weight: e.weight,
         })),
       });
-      navigate("/plans/" + newPlan.data.id, { replace: true });
+      navigate(newPlan.data.id.toString(), { replace: true });
     } else if (isEdit) {
       await updatePlan({
         id: planId,

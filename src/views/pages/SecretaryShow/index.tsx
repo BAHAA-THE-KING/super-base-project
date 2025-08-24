@@ -22,13 +22,12 @@ type Form = {
   };
 };
 
-export function SecretaryShow() {
+export function SecretaryShow({ isAdd = false }: { isAdd?: boolean }) {
   const navigate = useNavigate();
   const { secretaryId: secretaryIdParam } = useParams();
   const secretaryId = Number(secretaryIdParam);
-  const isAdd = secretaryIdParam === "add";
   if ((!secretaryId || secretaryId <= 0) && !isAdd) {
-    navigate("/secretary");
+    navigate("/clinic/secretary");
     return <></>;
   }
 
@@ -70,11 +69,11 @@ export function SecretaryShow() {
 
   const submit = handleSubmit((data) => {
     if (isEdit) {
-      createSecretary({ data }).then(() => navigate("/secretary"));
+      createSecretary({ data }).then(() => navigate("/clinic/secretary"));
     } else {
       editSecretary({
         data: data,
-      }).then(() => navigate("/secretary"));
+      }).then(() => navigate("/clinic/secretary"));
     }
   });
   function handleDelete() {

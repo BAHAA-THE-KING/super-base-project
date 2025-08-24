@@ -66,7 +66,7 @@ export function ShowBeneficiaryRequests() {
             <Menu {...bindMenu(popupState)}>
               <MenuItem
                 onClick={() =>
-                  navigate("/requests/add/emergency_aids", {
+                  navigate("/services/requests/add/emergency_aids", {
                     state: { beneficiaryId },
                   })
                 }
@@ -80,7 +80,7 @@ export function ShowBeneficiaryRequests() {
               </MenuItem>
               <MenuItem
                 onClick={() =>
-                  navigate("/requests/add/prescription_exchange", {
+                  navigate("/services/requests/add/prescription_exchange", {
                     state: { beneficiaryId },
                   })
                 }
@@ -94,7 +94,7 @@ export function ShowBeneficiaryRequests() {
               </MenuItem>
               <MenuItem
                 onClick={() =>
-                  navigate("/requests/add/special_materials", {
+                  navigate("/services/requests/add/special_materials", {
                     state: { beneficiaryId },
                   })
                 }
