@@ -1,4 +1,5 @@
 import { QueryKey, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
 
 import { api, ExtractPathParams } from "./utils";
 
@@ -12,6 +13,7 @@ export function usePutAPI<R, T, P = any, TPath extends string = string>(
 ) {
   const { invalidateKeys } = config;
 
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   return useMutation(
@@ -24,7 +26,13 @@ export function usePutAPI<R, T, P = any, TPath extends string = string>(
         | ExtractPathParams<TPath>
         | P
         | { [key: string]: string | number };
-    }) => (await api.put<R>(path, data, { params })).data,
+    }) => {
+      const response = await api.put<R>(path, data, { params });
+
+      if (response.status === 401) navigate("/login");
+
+      return response.data;
+    },
     {
       onSuccess: () => {
         if (invalidateKeys) {

@@ -193,7 +193,6 @@ export function Login() {
         flex={1}
         sx={(theme) => ({
           userSelect: "none",
-          backgroundColor: "red",
           backgroundImage:
             theme.palette.mode === "light"
               ? "url(hands.jpg)"

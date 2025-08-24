@@ -1,4 +1,5 @@
 import { QueryKey, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router";
 
 import { api, ExtractPathParams } from "./utils";
 
@@ -26,11 +27,18 @@ export function useGetAPI<R, TPath extends string = string>(
     defaultData,
   } = config;
 
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
 
   return useQuery(
     [path, params, ...keys],
-    async ({ signal }) => (await api.get<R>(path, { params, signal })).data,
+    async ({ signal }) => {
+      const response = await api.get<R>(path, { params, signal });
+
+      if (response.status === 401) navigate("/login");
+
+      return response.data;
+    },
     {
       enabled,
       placeholderData: defaultData,
