@@ -1,36 +1,45 @@
+import { useMemo } from "react";
 import { Axios } from "axios";
-import Cookies from "js-cookie";
+import { useCookies } from "react-cookie";
 
 import { buildUrl } from "./urlBuilder";
 
-const api = new Axios({
-  baseURL: "http://localhost:8000/api",
-  headers: {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-  },
-});
+export function useApi() {
+  const [cookies] = useCookies(["token"]);
+  const token = cookies.token;
 
-api.interceptors.request.use((request) => {
-  const token = Cookies.get("token");
-  if (token) {
-    request.headers.Authorization = "Bearer " + token;
-  }
-  const data = request.data;
-  if (!(data instanceof FormData)) {
-    request.data = JSON.stringify(request.data);
-  }
+  const api = useMemo(() => {
+    const newInstance = new Axios({
+      baseURL: "http://localhost:8000/api",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
 
-  // Add support for path variables in the URL
-  if (request.url) {
-    request.url = buildUrl(request.url, request.params);
-  }
-  return request;
-});
+    newInstance.interceptors.request.use((request) => {
+      if (token) {
+        request.headers.Authorization = "Bearer " + token;
+      }
+      const data = request.data;
+      if (!(data instanceof FormData)) {
+        request.data = JSON.stringify(request.data);
+      }
 
-api.interceptors.response.use((response) => {
-  response.data = JSON.parse(response.data);
-  return response;
-});
+      // Add support for path variables in the URL
+      if (request.url) {
+        request.url = buildUrl(request.url, request.params);
+      }
+      return request;
+    });
 
-export { api };
+    newInstance.interceptors.response.use((response) => {
+      response.data = JSON.parse(response.data);
+      return response;
+    });
+
+    return newInstance;
+  }, [token]);
+
+  return api;
+}

@@ -1,8 +1,7 @@
 import { QueryKey, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 
-import { api } from "./utils";
-import { ExtractPathParams } from "./utils/ExtractPathParams";
+import { useApi, ExtractPathParams } from "./utils";
 
 type Config = {
   invalidateKeys?: QueryKey;
@@ -16,6 +15,7 @@ export function useDeleteAPI<R, P = any, TPath extends string = string>(
 
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const api = useApi();
 
   return useMutation(
     async (

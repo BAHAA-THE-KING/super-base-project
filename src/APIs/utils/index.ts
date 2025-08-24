@@ -1,2 +1,2 @@
-export { api } from "./api";
+export { useApi } from "./api";
 export { type ExtractPathParams } from "./ExtractPathParams";

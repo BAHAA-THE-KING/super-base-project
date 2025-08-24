@@ -1,7 +1,7 @@
 import { QueryKey, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 
-import { api, ExtractPathParams } from "./utils";
+import { useApi, ExtractPathParams } from "./utils";
 
 type Config<R, P> = {
   enabled?: boolean;
@@ -29,6 +29,7 @@ export function useGetAPI<R, TPath extends string = string>(
 
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const api = useApi();
 
   return useQuery(
     [path, params, ...keys],
