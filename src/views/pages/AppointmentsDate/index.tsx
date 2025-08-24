@@ -3,7 +3,7 @@ import { Stack } from "@mui/material";
 
 import { AppointmentAccordion } from "./components";
 
-import { useAppointmentsData } from "../Appointments/data";
+import { useAppointmentsData } from "../AppointmentsAll/data";
 
 export function AppointmentsDate() {
   const navigate = useNavigate();

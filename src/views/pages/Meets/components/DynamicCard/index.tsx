@@ -1,6 +1,6 @@
 import { BCard } from "src/components/Base";
 
-import { ShowBeneficiary } from "src/views/pages/Beneficiary";
+import { ShowBeneficiary } from "src/views/pages/BeneficiaryShow";
 import { ShowEmergencyAssistanceRequest } from "./ShowEmergencyAssistanceRequest";
 import { ShowSpecialMaterialRequest } from "./ShowSpecialMaterialRequest";
 

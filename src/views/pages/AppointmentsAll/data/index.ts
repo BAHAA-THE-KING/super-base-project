@@ -4,7 +4,7 @@ import { useBeneficiaryAllData } from "src/views/data";
 
 import { AppointmentCreate } from "src/types/data/AppointmentCreate";
 import { AppointmentTable } from "src/types/data/AppointmentTable";
-import { useDoctorsData } from "../../Doctors/data";
+import { useDoctorsData } from "../../DoctorsAll/data";
 
 export function useAppointmentsData() {
   const appointments = useMemo<AppointmentTable[]>(

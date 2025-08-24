@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 
 import { SecretaryDeletePopup, PersonalSecretaryInfo } from "./components";
 
-import { useSecretaryData } from "../Secretary/data";
+import { useSecretaryData } from "../SecretaryAll/data";
 
 import { varAlpha } from "src/themes/styles";
 

@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 
 import { AppointmentForm, AppointmentDetails } from "./components";
 
-import { useAppointmentsData } from "../Appointments/data";
+import { useAppointmentsData } from "../AppointmentsAll/data";
 
 import { varAlpha } from "src/themes/styles";
 

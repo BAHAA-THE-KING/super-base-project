@@ -1,6 +1,6 @@
 import { BDataGrid } from "src/components/Base";
 
-import { useBeneficiaryRequestsColumns } from "../../Beneficiary/hooks";
+import { useBeneficiaryRequestsColumns } from "../../BeneficiaryShow/hooks";
 
 import { Request } from "src/types/data/Request";
 

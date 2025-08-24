@@ -9,7 +9,7 @@ import {
   PersonalDoctorInfo,
 } from "./components";
 
-import { useDoctorsData } from "../Doctors/data";
+import { useDoctorsData } from "../DoctorsAll/data";
 
 import { varAlpha } from "src/themes/styles";
 
