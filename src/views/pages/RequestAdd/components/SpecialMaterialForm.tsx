@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 
 import { FormInput, FormSelect } from "src/components";
 import { BButton, BChip, BTypography } from "src/components/Base";
+import { AIFormButton } from "src/views/components";
 
 import { useBaseTranslation } from "src/hooks";
 import { useAddSpecialMaterialRequestData } from "src/views/data";
@@ -222,7 +223,7 @@ export function SpecialMaterialForm({
         />
       </Stack>
       {requestMode || (
-        <Stack mt={5} alignItems={"flex-start"}>
+        <Stack mt={5} flexDirection={"row"} alignItems={"flex-start"} gap={3}>
           <BButton
             variant="contained"
             onClick={handleSubmit((data) =>
@@ -237,6 +238,7 @@ export function SpecialMaterialForm({
           >
             {SubmitText}
           </BButton>
+          <AIFormButton setValue={setValue} />
         </Stack>
       )}
     </>
