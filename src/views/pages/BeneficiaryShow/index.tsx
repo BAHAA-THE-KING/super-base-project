@@ -122,13 +122,25 @@ export function ShowBeneficiary({
         {
           name: "family",
           label: FamilyInfoText,
-          element: <FamilyInfo control={control} isEditable={createMode} />,
+          element: (
+            <FamilyInfo
+              control={control}
+              setValue={setValue}
+              isEditable={createMode}
+            />
+          ),
           color: "primary",
         },
         {
           name: "supporters",
           label: SupportersInfoText,
-          element: <SupportersInfo control={control} isEditable={createMode} />,
+          element: (
+            <SupportersInfo
+              control={control}
+              setValue={setValue}
+              isEditable={createMode}
+            />
+          ),
           color: "primary",
         },
         createMode

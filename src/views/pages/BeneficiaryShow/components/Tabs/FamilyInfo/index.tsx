@@ -1,19 +1,26 @@
 import { useMemo } from "react";
 import { Grid2 } from "@mui/material";
-import { Control, useFieldArray, useWatch } from "react-hook-form";
+import {
+  Control,
+  useFieldArray,
+  UseFormSetValue,
+  useWatch,
+} from "react-hook-form";
 
 import { PartnerCard, ChildCard, AddCard } from "../..";
 
 import { v4 as uuidv4 } from "uuid";
 
 import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
+import { AIFormButton } from "src/views/components";
 
 type Props = {
   control: Control<SingleBeneficiary>;
+  setValue: UseFormSetValue<SingleBeneficiary>;
   isEditable: boolean;
 };
 
-export function FamilyInfo({ control, isEditable }: Props) {
+export function FamilyInfo({ control, isEditable, setValue }: Props) {
   const { gender, id, children } = useWatch({ control });
   const { append, remove } = useFieldArray({
     control,
@@ -31,6 +38,11 @@ export function FamilyInfo({ control, isEditable }: Props) {
 
   return (
     <Grid2 container spacing={3}>
+      {isEditable && (
+        <Grid2 size={12}>
+          <AIFormButton setValue={setValue} />
+        </Grid2>
+      )}
       <Grid2 size={{ xs: 12, md: 4 }} display={"flex"} alignItems={"stretch"}>
         <PartnerCard
           control={control}

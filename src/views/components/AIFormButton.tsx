@@ -106,7 +106,7 @@ export function AIFormButton({ setValue }: { setValue: UseFormSetValue<any> }) {
                 {extractedData.map(({ key, value }) => (
                   <Stack flexDirection={"row"}>
                     <BTypography fontWeight={"bold"}>
-                      {document.querySelector(`input[type=text][name=${key}]`)
+                      {document.querySelector(`input[type=text][name="${key}"]`)
                         ?.parentElement?.previousSibling?.innerHTML ?? ""}
                       :&nbsp;
                     </BTypography>

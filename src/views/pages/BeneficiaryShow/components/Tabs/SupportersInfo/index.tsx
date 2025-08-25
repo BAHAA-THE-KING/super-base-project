@@ -1,19 +1,26 @@
 import React from "react";
 import { Grid2 } from "@mui/material";
-import { Control, useFieldArray, useWatch } from "react-hook-form";
+import {
+  Control,
+  useFieldArray,
+  UseFormSetValue,
+  useWatch,
+} from "react-hook-form";
 import { v4 as uuidv4 } from "uuid";
 
 import { SupporterCard } from "../../SupporterCard";
 import { AddCard } from "../../AddCard";
 
 import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
+import { AIFormButton } from "src/views/components";
 
 type Props = {
   control: Control<SingleBeneficiary>;
+  setValue: UseFormSetValue<SingleBeneficiary>;
   isEditable: boolean;
 };
 
-export function SupportersInfo({ control, isEditable }: Props) {
+export function SupportersInfo({ control, setValue, isEditable }: Props) {
   const { id } = useWatch({ control });
   const {
     append,
@@ -22,6 +29,11 @@ export function SupportersInfo({ control, isEditable }: Props) {
   } = useFieldArray({ control, name: "uncles" });
   return (
     <Grid2 container spacing={3}>
+      {isEditable && (
+        <Grid2 size={12}>
+          <AIFormButton setValue={setValue} />
+        </Grid2>
+      )}
       {uncles?.map((uncle, idx) => (
         <React.Fragment key={uncle.id}>
           <Grid2 size={{ xs: 12, md: 4 }}>
