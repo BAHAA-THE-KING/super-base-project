@@ -61,40 +61,42 @@ export function ShowBeneficiary({
     createBeneficiaryLoading,
   } = useBeneficiaryData(Number(beneficiaryId));
 
-  const { control, handleSubmit, reset } = useForm<SingleBeneficiary>({
-    defaultValues: {
-      id: 0,
-      image_url: "",
-      first_name: "",
-      last_name: "",
-      father_name: "",
-      mother_name: "",
-      birth_date: "", // YYYY-MM-DD
-      birth_place: "",
-      national_number: "",
-      gender: "",
-      job: "",
-      health_status: "",
-      phone_number: "",
-      mobile_number: "",
-      address: "",
-      residence_type: "",
-      residence_document_url: [],
-      children: [],
-      uncles: [],
-      partner: {
+  const { control, handleSubmit, reset, setValue } = useForm<SingleBeneficiary>(
+    {
+      defaultValues: {
+        id: 0,
+        image_url: "",
         first_name: "",
         last_name: "",
-        job: "",
+        father_name: "",
+        mother_name: "",
+        birth_date: "", // YYYY-MM-DD
+        birth_place: "",
+        national_number: "",
         gender: "",
+        job: "",
         health_status: "",
+        phone_number: "",
+        mobile_number: "",
+        address: "",
+        residence_type: "",
+        residence_document_url: [],
+        children: [],
+        uncles: [],
+        partner: {
+          first_name: "",
+          last_name: "",
+          job: "",
+          gender: "",
+          health_status: "",
+        },
+        monthly_income: 0,
+        case_description: "",
+        request_id: 0,
+        request_status: "pending",
       },
-      monthly_income: 0,
-      case_description: "",
-      request_id: 0,
-      request_status: "pending",
-    },
-  });
+    }
+  );
 
   useEffect(() => {
     if (beneficiary) {
@@ -108,7 +110,13 @@ export function ShowBeneficiary({
         {
           name: "personal",
           label: PersonalInfoText,
-          element: <PersonalInfo control={control} isEditable={createMode} />,
+          element: (
+            <PersonalInfo
+              control={control}
+              setValue={setValue}
+              isEditable={createMode}
+            />
+          ),
           color: "primary",
         },
         {

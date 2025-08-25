@@ -1,5 +1,5 @@
 import { Grid2 } from "@mui/material";
-import { Control, useWatch } from "react-hook-form";
+import { Control, UseFormSetValue, useWatch } from "react-hook-form";
 
 import { BTypography } from "src/components/Base";
 import {
@@ -12,10 +12,12 @@ import {
 import { useBaseTranslation } from "src/hooks";
 
 import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
+import { AIFormButton } from "src/views/components";
 
 type Props = {
   control: Control<SingleBeneficiary>;
   isEditable: boolean;
+  setValue: UseFormSetValue<SingleBeneficiary>;
 };
 
 const i18ns = [
@@ -48,7 +50,7 @@ const i18ns = [
   "host",
   "borrow",
 ];
-export function PersonalInfo({ control, isEditable }: Props) {
+export function PersonalInfo({ control, isEditable, setValue }: Props) {
   const [
     IdentityInfoText,
     FirstNameText,
@@ -103,6 +105,11 @@ export function PersonalInfo({ control, isEditable }: Props) {
         },
       })}
     >
+      {isEditable && (
+        <Grid2 size={12}>
+          <AIFormButton setValue={setValue} />
+        </Grid2>
+      )}
       <Grid2 size={{ xs: 12, md: 3.7 }}>
         <BTypography variant="h6" fontWeight={"bold"} mb={3}>
           {IdentityInfoText}

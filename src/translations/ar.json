@@ -414,5 +414,9 @@
   "add_donation_book": "إضافة دفتر تبرعات",
   "show_employees": "عرض الموظفين",
   "show_expenses": "عرض المصاريف",
-  "show_donations": "عرض التبرعات"
+  "show_donations": "عرض التبرعات",
+  "extract_data_from_media": "استخراج البيانات من صورة",
+  "images": "الصور",
+  "extract": "استخرج",
+  "apply": "تطبيق"
 }

@@ -108,7 +108,7 @@ export function FormImage<
                               );
                             }}
                           >
-                            <CloseIcon />
+                            <CloseIcon color="error" />
                           </IconButton>
                         }
                         sx={{
