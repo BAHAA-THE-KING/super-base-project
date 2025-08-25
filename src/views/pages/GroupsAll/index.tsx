@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Box, Skeleton, Stack } from "@mui/material";
 
+import { Add as AddIcon } from "@mui/icons-material";
+
 import { BButton } from "src/components/Base";
 import { GroupAccordion } from "./components";
 
@@ -43,6 +45,7 @@ export function Groups() {
         color="secondary"
         sx={{ my: 2 }}
         onClick={addGroup}
+        startIcon={<AddIcon />}
       >
         {AddNewGroupText}
       </BButton>
