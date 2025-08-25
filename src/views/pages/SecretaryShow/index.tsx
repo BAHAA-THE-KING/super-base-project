@@ -47,6 +47,7 @@ export function SecretaryShow({ isAdd = false }: { isAdd?: boolean }) {
     reset,
     handleSubmit,
     control,
+    setValue,
     formState: { isDirty, isValid },
   } = useForm<Form>({
     defaultValues: {
@@ -100,6 +101,7 @@ export function SecretaryShow({ isAdd = false }: { isAdd?: boolean }) {
     >
       <PersonalSecretaryInfo
         control={control}
+        setValue={setValue}
         isAdd={isAdd}
         isEdit={isEdit}
         setIsEdit={setIsEdit}

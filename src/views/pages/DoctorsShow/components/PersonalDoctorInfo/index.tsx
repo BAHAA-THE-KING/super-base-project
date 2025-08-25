@@ -1,4 +1,5 @@
 import {
+  Box,
   CardContent,
   ListItemIcon,
   ListItemText,
@@ -6,7 +7,7 @@ import {
   MenuItem,
   Stack,
 } from "@mui/material";
-import { Control } from "react-hook-form";
+import { Control, UseFormSetValue } from "react-hook-form";
 import PopupState, { bindMenu, bindTrigger } from "material-ui-popup-state";
 
 import {
@@ -17,6 +18,7 @@ import {
 
 import { BButton, BCard, BTypography } from "src/components/Base";
 import { FormInput } from "src/components";
+import { AIFormButton } from "src/views/components";
 
 import { useBaseTranslation } from "src/hooks";
 
@@ -36,6 +38,7 @@ type Form = {
 
 type Props = {
   control: Control<Form>;
+  setValue: UseFormSetValue<Form>;
   isAdd: boolean;
   isEdit: boolean;
   setIsEdit: (isEdit: boolean) => void;
@@ -63,6 +66,7 @@ const i18ns = [
 
 export function PersonalDoctorInfo({
   control,
+  setValue,
   isAdd,
   isEdit,
   setIsEdit,
@@ -93,58 +97,65 @@ export function PersonalDoctorInfo({
         m: 1,
         width: {
           xs: "100%",
-          md: "30%",
+          md: "50%",
         },
       }}
       animations={{ transitions: "slideInBottom" }}
     >
       <CardContent>
-        <Stack flexDirection={"row"} alignItems={"center"}>
-          {isAdd || (
-            <PopupState variant="popover">
-              {(popupState) => (
-                <>
-                  <BButton
-                    icon={<MoreVertIcon />}
-                    {...bindTrigger(popupState)}
-                  />
-                  <Menu {...bindMenu(popupState)}>
-                    <MenuItem
-                      onClick={() => {
-                        setIsEdit(true);
-                        bindMenu(popupState).onClose();
-                      }}
-                    >
-                      <ListItemIcon>
-                        <EditIcon fontSize="small" color="primary" />
-                      </ListItemIcon>
-                      <ListItemText>
-                        <BTypography variant="body2">{EditText}</BTypography>
-                      </ListItemText>
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        handleDelete();
-                        bindMenu(popupState).onClose();
-                      }}
-                    >
-                      <ListItemIcon>
-                        <DeleteIcon fontSize="small" color="error" />
-                      </ListItemIcon>
-                      <ListItemText>
-                        <BTypography variant="body2">
-                          {TerminateDoctorText}
-                        </BTypography>
-                      </ListItemText>
-                    </MenuItem>
-                  </Menu>
-                </>
-              )}
-            </PopupState>
-          )}
-          <BTypography variant="h5" fontWeight={"bold"}>
-            {isAdd ? AddNewDoctorText : EditDoctorText}
-          </BTypography>
+        <Stack
+          flexDirection={"row"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+        >
+          <Box display={"flex"} alignItems={"center"}>
+            {isAdd || (
+              <PopupState variant="popover">
+                {(popupState) => (
+                  <>
+                    <BButton
+                      icon={<MoreVertIcon />}
+                      {...bindTrigger(popupState)}
+                    />
+                    <Menu {...bindMenu(popupState)}>
+                      <MenuItem
+                        onClick={() => {
+                          setIsEdit(true);
+                          bindMenu(popupState).onClose();
+                        }}
+                      >
+                        <ListItemIcon>
+                          <EditIcon fontSize="small" color="primary" />
+                        </ListItemIcon>
+                        <ListItemText>
+                          <BTypography variant="body2">{EditText}</BTypography>
+                        </ListItemText>
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          handleDelete();
+                          bindMenu(popupState).onClose();
+                        }}
+                      >
+                        <ListItemIcon>
+                          <DeleteIcon fontSize="small" color="error" />
+                        </ListItemIcon>
+                        <ListItemText>
+                          <BTypography variant="body2">
+                            {TerminateDoctorText}
+                          </BTypography>
+                        </ListItemText>
+                      </MenuItem>
+                    </Menu>
+                  </>
+                )}
+              </PopupState>
+            )}
+            <BTypography variant="h5" fontWeight={"bold"}>
+              {isAdd ? AddNewDoctorText : EditDoctorText}
+            </BTypography>
+          </Box>
+          {(isAdd || isEdit) && <AIFormButton setValue={setValue} />}
         </Stack>
       </CardContent>
       <CardContent>

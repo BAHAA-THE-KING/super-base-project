@@ -47,6 +47,7 @@ export function DoctorsShow({ isAdd = false }: { isAdd?: boolean }) {
     reset,
     handleSubmit,
     control,
+    setValue,
     formState: { isDirty, isValid },
   } = useForm<Form>({
     defaultValues: {
@@ -101,6 +102,7 @@ export function DoctorsShow({ isAdd = false }: { isAdd?: boolean }) {
     >
       <PersonalDoctorInfo
         control={control}
+        setValue={setValue}
         isAdd={isAdd}
         isEdit={isEdit}
         setIsEdit={setIsEdit}
