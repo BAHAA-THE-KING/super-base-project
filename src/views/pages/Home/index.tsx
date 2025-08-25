@@ -54,7 +54,7 @@ export function Home() {
       color: "primary",
       description: ServicesDescriptionText,
       roles: "",
-      url: "/services",
+      url: "/services/plans",
     },
     {
       name: StorageText,
@@ -78,7 +78,7 @@ export function Home() {
       color: "info",
       description: ClinicDescriptionText,
       roles: "",
-      url: "/clinic",
+      url: "/clinic/appointments",
     },
     {
       name: EducationText,
@@ -102,7 +102,7 @@ export function Home() {
       color: "warning",
       description: AccountantDescriptionText,
       roles: "",
-      url: "/accountant",
+      url: "/accountant/donation-books",
     },
   ];
 
