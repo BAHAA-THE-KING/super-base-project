@@ -1,5 +1,8 @@
+import { useContext } from "react";
 import { QueryKey, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
+
+import { MessagesContext } from "src/contexts";
 
 import { useApi, ExtractPathParams } from "./utils";
 
@@ -7,15 +10,18 @@ type Config = {
   invalidateKeys?: QueryKey;
 };
 
-export function usePostAPI<R, T, P = any, TPath extends string = string>(
-  path: TPath,
-  config: Config = {}
-) {
+export function usePostAPI<
+  R extends { message: string; errors: { [name: string]: string } },
+  T,
+  P = any,
+  TPath extends string = string
+>(path: TPath, config: Config = {}) {
   const { invalidateKeys } = config;
 
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const api = useApi();
+  const { addErrors } = useContext(MessagesContext);
 
   return useMutation(
     async ({
@@ -38,6 +44,21 @@ export function usePostAPI<R, T, P = any, TPath extends string = string>(
       const response = await api.post<R>(path, data, { params, headers });
 
       if (response.status === 401) navigate("/login");
+      if (response.data.errors) {
+        addErrors(
+          Object.entries(response.data.errors).map(([k, v]) => ({
+            message: v,
+            context: {
+              route: path,
+              request_body: { params, data },
+              response: {
+                code: response.status,
+                errors: Object.values(response.data.errors),
+              },
+            },
+          }))
+        );
+      }
 
       return response.data;
     },

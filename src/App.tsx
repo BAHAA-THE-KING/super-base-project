@@ -23,6 +23,8 @@ import {
   usePreferredTheme,
 } from "src/globals";
 
+import { MessagesProvider } from "src/contexts";
+
 import { AppRouter } from "src/routes/AppRouter";
 
 import { MainErrorFallback } from "./ErrorFallbacks";
@@ -87,15 +89,19 @@ function App() {
           <>
             <CssBaseline />
             <ThemeProvider theme={currentTheme}>
-              <AppRouter />
-              <ReactQueryDevtools initialIsOpen={false} />
+              <MessagesProvider>
+                <AppRouter />
+              </MessagesProvider>
+              <ReactQueryDevtools initialIsOpen={false} panelPosition="right" />
             </ThemeProvider>
           </>
         ) : (
           <CacheProvider value={cacheRtl}>
             <CssBaseline />
             <ThemeProvider theme={currentTheme}>
-              <AppRouter />
+              <MessagesProvider>
+                <AppRouter />
+              </MessagesProvider>
               <ReactQueryDevtools initialIsOpen={false} />
             </ThemeProvider>
           </CacheProvider>

@@ -1,9 +1,15 @@
+import { useContext } from "react";
 import { QueryKey, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 
+import { MessagesContext } from "src/contexts";
+
 import { useApi, ExtractPathParams } from "./utils";
 
-type Config<R, P> = {
+type Config<
+  R extends { message: string; errors: { [name: string]: string } },
+  P
+> = {
   enabled?: boolean;
   keys?: any[];
   invalidateKeys?: QueryKey;
@@ -15,10 +21,10 @@ type Config<R, P> = {
   defaultData?: R;
 };
 
-export function useGetAPI<R, TPath extends string = string>(
-  path: TPath,
-  config: Config<R, ExtractPathParams<TPath>> = {}
-) {
+export function useGetAPI<
+  R extends { message: string; errors: { [name: string]: string } },
+  TPath extends string = string
+>(path: TPath, config: Config<R, ExtractPathParams<TPath>> = {}) {
   const {
     enabled = true,
     keys = [],
@@ -30,6 +36,7 @@ export function useGetAPI<R, TPath extends string = string>(
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const api = useApi();
+  const { addErrors } = useContext(MessagesContext);
 
   return useQuery(
     [path, params, ...keys],
@@ -37,6 +44,21 @@ export function useGetAPI<R, TPath extends string = string>(
       const response = await api.get<R>(path, { params, signal });
 
       if (response.status === 401) navigate("/login");
+      if (response.data.errors) {
+        addErrors(
+          Object.entries(response.data.errors).map(([k, v]) => ({
+            message: v,
+            context: {
+              route: path,
+              request_body: { params },
+              response: {
+                code: response.status,
+                errors: Object.values(response.data.errors),
+              },
+            },
+          }))
+        );
+      }
 
       return response.data;
     },
