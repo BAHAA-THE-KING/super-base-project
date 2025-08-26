@@ -11,7 +11,7 @@ type Config = {
 };
 
 export function usePutAPI<
-  R extends { message: string; errors: { [name: string]: string } },
+  R extends { message: string; errors?: { [name: string]: string } },
   T,
   P = any,
   TPath extends string = string
@@ -21,7 +21,7 @@ export function usePutAPI<
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const api = useApi();
-  const { addErrors } = useContext(MessagesContext);
+  const { addError } = useContext(MessagesContext);
 
   return useMutation(
     async ({
@@ -38,19 +38,17 @@ export function usePutAPI<
 
       if (response.status === 401) navigate("/login");
       if (response.data.errors) {
-        addErrors(
-          Object.entries(response.data.errors).map(([k, v]) => ({
-            message: v,
-            context: {
-              route: path,
-              request_body: { params, data },
-              response: {
-                code: response.status,
-                errors: Object.values(response.data.errors),
-              },
+        addError({
+          messages: Object.values(response.data.errors),
+          context: {
+            route: path,
+            request_body: { params, data },
+            response: {
+              code: response.status,
+              errors: Object.values(response.data.errors),
             },
-          }))
-        );
+          },
+        });
       }
 
       return response.data;

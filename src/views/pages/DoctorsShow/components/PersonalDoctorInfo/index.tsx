@@ -46,6 +46,7 @@ type Props = {
   isDirty: boolean;
   submit: () => void;
   handleDelete: () => void;
+  aiInfo: string;
 };
 
 const i18ns = [
@@ -74,6 +75,7 @@ export function PersonalDoctorInfo({
   isDirty,
   submit,
   handleDelete,
+  aiInfo,
 }: Props) {
   const [
     DoctorNameText,
@@ -225,6 +227,18 @@ export function PersonalDoctorInfo({
             </BButton>
           </Stack>
         )}
+        <BTypography sx={(theme) => ({ color: theme.palette.error.main })}>
+          {aiInfo.split("\n").reduce(
+            (p, e) => (
+              <>
+                {p}
+                {e}
+                <br />
+              </>
+            ),
+            <></>
+          )}
+        </BTypography>
       </CardContent>
     </BCard>
   );

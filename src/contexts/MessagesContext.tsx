@@ -1,13 +1,20 @@
-import {
+import React, {
   createContext,
+  useCallback,
+  useEffect,
   useReducer,
   useRef,
   useState,
-  type ReactNode,
 } from "react";
-import { Snackbar } from "@mui/material";
+import { Slide, Snackbar, SvgIcon } from "@mui/material";
 
-import { BSnackbarContent } from "src/components/Base";
+import { Close as CloseIcon } from "@mui/icons-material";
+import { FaRobot as FaRobotIcon } from "react-icons/fa";
+
+import { BButton, BSnackbarContent, BTypography } from "src/components/Base";
+
+import { useAIAssistant } from "src/views/APIs/useAIAssistant";
+import { useLocation } from "react-router";
 
 type ErrorContext = {
   route: string;
@@ -19,29 +26,37 @@ type ErrorContext = {
 };
 
 export const MessagesContext = createContext<{
-  addError: (message: string, context: ErrorContext) => void;
-  addErrors: (errors: { message: string; context: ErrorContext }[]) => void;
+  addError: (error: { messages: string[]; context: ErrorContext }) => void;
   addSuccess: (message: string) => void;
   clearErrors: () => void;
   clearSuccesses: () => void;
   clearAll: () => void;
+  aiInfo: string;
 }>({
   addError: () => {},
-  addErrors: () => {},
   addSuccess: () => {},
   clearErrors: () => {},
   clearSuccesses: () => {},
   clearAll: () => {},
+  aiInfo: "",
 });
 
-export function MessagesProvider({ children }: { children: ReactNode }) {
+export function MessagesProvider({ children }: { children: React.ReactNode }) {
   const timers = useRef<{ [key: number]: number }>({});
 
-  const [messages, setMessages] = useReducer(
+  const { thinkAPI } = useAIAssistant();
+  const [aiInfo, setAIInfo] = useState("");
+
+  const { pathname } = useLocation();
+  useEffect(() => {
+    setAIInfo("");
+  }, [pathname]);
+
+  const reducer = useCallback(
     (
       state: {
-        type: "error" | "success";
-        message: string;
+        type: "error" | "success" | "info";
+        message: React.ReactNode;
         open: boolean;
         context?: ErrorContext;
       }[],
@@ -50,32 +65,44 @@ export function MessagesProvider({ children }: { children: ReactNode }) {
         message:
           | number
           | {
-              type: "error" | "success";
-              message: string;
+              type: "error" | "success" | "info";
+              message: React.ReactNode;
               open: boolean;
               context?: ErrorContext;
-            }[];
+            };
       }
     ) => {
       switch (action.type) {
         case "ADD":
           if (typeof action.message === "number") break;
-          const startI = state.length;
-          for (let i = startI; i < action.message.length; i++) {
-            timers.current[i] = setTimeout(() => {
-              setMessages({ type: "HIDE", message: i });
-            }, 5000);
-          }
-          return [...state, ...action.message];
+          const i = state.length;
+          timers.current[i] = setTimeout(
+            () => setMessages({ type: "HIDE", message: i }),
+            5000
+          );
+          return [...state, action.message];
+
         case "EXPLAIN":
           if (typeof action.message !== "number") break;
           clearTimeout(timers.current[action.message]);
+
+          const context = state[action.message].context;
+          if (context) {
+            thinkAPI({
+              data: {
+                question: "help",
+                context,
+              },
+            }).then((res) => setAIInfo(res.response));
+          }
           return [...state];
+
         case "HIDE":
           return state.map((e, i) => ({
             ...e,
             open: action.message === i ? false : e.open,
           }));
+
         default:
           throw new Error("Unknown action type");
       }
@@ -86,28 +113,31 @@ export function MessagesProvider({ children }: { children: ReactNode }) {
     },
     []
   );
+  const [messages, setMessages] = useReducer(reducer, []);
 
-  const addError = (message: string, context: ErrorContext) =>
+  const addError = (error: { messages: string[]; context: ErrorContext }) =>
     setMessages({
       type: "ADD",
-      message: [{ type: "error", message, open: true, context }],
-    });
-
-  const addErrors = (errors: { message: string; context: ErrorContext }[]) =>
-    setMessages({
-      type: "ADD",
-      message: errors.map(({ message, context }) => ({
-        type: "error" as const,
-        message,
+      message: {
+        type: "error",
+        message: error.messages.reduce(
+          (p, e) => (
+            <>
+              {p}
+              <BTypography>{e}</BTypography>
+            </>
+          ),
+          <></>
+        ),
         open: true,
-        context,
-      })),
+        context: error.context,
+      },
     });
 
   const addSuccess = (message: string) =>
     setMessages({
       type: "ADD",
-      message: [{ type: "success", message, open: true }],
+      message: { type: "success", message, open: true },
     });
 
   const clearErrors = () => {
@@ -126,28 +156,56 @@ export function MessagesProvider({ children }: { children: ReactNode }) {
     <MessagesContext.Provider
       value={{
         addError,
-        addErrors,
         addSuccess,
         clearErrors,
         clearSuccesses,
         clearAll,
+        aiInfo,
       }}
     >
       {children}
-      {messages.map((m, i) => (
-        <Snackbar
-          key={m.message + "," + i}
-          open={m.open}
-          onClose={() =>
-            setMessages({
-              type: "HIDE",
-              message: i,
-            })
-          }
-        >
-          {BSnackbarContent({ color: m.type, message: m.message })}
-        </Snackbar>
-      ))}
+      {messages.map((m, i) => {
+        const closeMe = () =>
+          setMessages({
+            type: "HIDE",
+            message: i,
+          });
+        const thinkMe = () => {
+          setMessages({
+            type: "EXPLAIN",
+            message: i,
+          });
+        };
+
+        return (
+          <Snackbar
+            key={m.message + "," + i}
+            open={m.open}
+            onClose={(_, reason) => reason === "clickaway" || closeMe()}
+            TransitionComponent={Slide}
+            TransitionProps={{ direction: "left" }}
+          >
+            {BSnackbarContent({
+              color: m.type,
+              message: m.message,
+              action: (
+                <>
+                  <BButton
+                    icon={
+                      <SvgIcon>
+                        <FaRobotIcon />
+                      </SvgIcon>
+                    }
+                    onClick={thinkMe}
+                    color="secondary"
+                  />
+                  <BButton icon={<CloseIcon />} onClick={closeMe} />
+                </>
+              ),
+            })}
+          </Snackbar>
+        );
+      })}
     </MessagesContext.Provider>
   );
 }

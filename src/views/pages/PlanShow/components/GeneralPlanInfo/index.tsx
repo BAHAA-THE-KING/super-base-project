@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   Box,
   CardContent,
@@ -23,7 +24,6 @@ import { FormInput, FormSelect } from "src/components";
 import { BButton, BCard, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
-import { useEffect } from "react";
 
 type Form = {
   name: string;
@@ -52,6 +52,7 @@ type Props = {
   setIsEdit: (value: boolean) => void;
   isAdd: boolean;
   attributes: { id: number; name: string }[];
+  aiInfo: string;
 };
 
 const i18ns = [
@@ -83,6 +84,7 @@ export function GeneralPlanInfo({
   setIsEdit,
   isAdd,
   attributes,
+  aiInfo,
 }: Props) {
   const [
     GeneralInfoText,
@@ -336,6 +338,18 @@ export function GeneralPlanInfo({
             {SaveChangesText}
           </BButton>
         )}
+        <BTypography sx={(theme) => ({ color: theme.palette.error.main })}>
+          {aiInfo.split("\n").reduce(
+            (p, e) => (
+              <>
+                {p}
+                {e}
+                <br />
+              </>
+            ),
+            <></>
+          )}
+        </BTypography>
       </CardContent>
     </BCard>
   );

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -8,6 +8,7 @@ import { ExpenseInfo } from "./components";
 import { useExpenseShowData } from "./data";
 
 import { varAlpha } from "src/themes/styles";
+import { MessagesContext } from "src/contexts";
 
 type Form = {
   id: number;
@@ -72,6 +73,8 @@ export function ExpensesShow({ isAdd = false }: { isAdd?: boolean }) {
     return deleteExpense({ id: expense?.id });
   }
 
+  const { aiInfo } = useContext(MessagesContext);
+
   return (
     <Stack
       width={"100%"}
@@ -99,6 +102,7 @@ export function ExpensesShow({ isAdd = false }: { isAdd?: boolean }) {
         isDirty={isDirty}
         submit={submit}
         request_status={expense.request_status as any}
+        aiInfo={aiInfo}
       />
     </Stack>
   );

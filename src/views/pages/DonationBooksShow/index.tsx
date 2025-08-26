@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Skeleton, Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { GeneralBookInfo, BatchesInfo, BookTerminatePopup } from "./components";
 
 import { useShowBookData } from "./data";
+
+import { MessagesContext } from "src/contexts";
 
 import { varAlpha } from "src/themes/styles";
 
@@ -99,6 +101,8 @@ export function DonationBooksShow({ isAdd = false }: { isAdd?: boolean }) {
   });
   function handleTerminate() {}
 
+  const { aiInfo } = useContext(MessagesContext);
+
   return (
     <Stack
       width={"100%"}
@@ -140,6 +144,7 @@ export function DonationBooksShow({ isAdd = false }: { isAdd?: boolean }) {
             isAdd={isAdd}
             isEdit={isEdit}
             setIsEdit={setIsEdit}
+            aiInfo={aiInfo}
           />
           {isAdd ? null : book ? <BatchesInfo book={book} /> : null}
           <BookTerminatePopup

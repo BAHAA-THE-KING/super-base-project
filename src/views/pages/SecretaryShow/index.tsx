@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { SecretaryDeletePopup, PersonalSecretaryInfo } from "./components";
 
 import { useSecretaryData } from "../SecretaryAll/data";
+
+import { MessagesContext } from "src/contexts";
 
 import { varAlpha } from "src/themes/styles";
 
@@ -81,6 +83,8 @@ export function SecretaryShow({ isAdd = false }: { isAdd?: boolean }) {
     return deleteSecretary({ id: secretary?.id });
   }
 
+  const { aiInfo } = useContext(MessagesContext);
+
   return (
     <Stack
       width={"100%"}
@@ -109,6 +113,7 @@ export function SecretaryShow({ isAdd = false }: { isAdd?: boolean }) {
         isDirty={isDirty}
         submit={submit}
         handleDelete={handleDelete}
+        aiInfo={aiInfo}
       />
       <SecretaryDeletePopup
         secretary={wantToDelete && secretary ? secretary : null}

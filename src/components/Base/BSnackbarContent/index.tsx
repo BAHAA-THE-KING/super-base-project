@@ -17,11 +17,12 @@ import {
 import { varAlpha } from "src/themes/styles";
 
 import { BButton } from "../BButton";
+import React from "react";
 
 export type BSnackbarContentProps = Omit<SnackbarContentProps, "color"> & {
   close?: () => void;
   color?: "info" | "success" | "warning" | "error";
-  message?: string;
+  message?: React.ReactNode;
 };
 
 const StyledSnackbarContent = styled(SnackbarContent)(({ theme }) =>
@@ -44,7 +45,7 @@ export const BSnackbarContent = ({
       {...props}
       message={
         <Stack
-          width={"100%"}
+          maxWidth={"50vw"}
           direction={"row"}
           justifyContent={"flex-start"}
           alignItems={"center"}
@@ -77,10 +78,10 @@ export const BSnackbarContent = ({
           ) : (
             ""
           )}
-          {message}
+          <Stack flexDirection={"column"} gap={1}>{message}</Stack>
         </Stack>
       }
-      action={<BButton icon={<CloseIcon />} onClick={close} />}
+      action={props.action ?? <BButton icon={<CloseIcon />} onClick={close} />}
     />
   );
 };

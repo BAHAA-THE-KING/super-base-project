@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -8,6 +8,8 @@ import { AppointmentForm, AppointmentDetails } from "./components";
 import { useAppointmentsData } from "../AppointmentsAll/data";
 
 import { varAlpha } from "src/themes/styles";
+
+import { MessagesContext } from "src/contexts";
 
 import { AppointmentCreate } from "src/types/data/AppointmentCreate";
 import { AppointmentTable } from "src/types/data/AppointmentTable";
@@ -65,6 +67,8 @@ export function AppointmentsShow({ isAdd = false }: { isAdd?: boolean }) {
     createAppointment({ data }).then(() => navigate("/clinic/appointments"));
   });
 
+  const { aiInfo } = useContext(MessagesContext);
+
   return (
     <Stack
       width={"100%"}
@@ -93,6 +97,7 @@ export function AppointmentsShow({ isAdd = false }: { isAdd?: boolean }) {
           watch={watch}
           setValue={setValue}
           submit={submit}
+          aiInfo={aiInfo}
         />
       ) : (
         <AppointmentDetails

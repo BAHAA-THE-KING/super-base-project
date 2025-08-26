@@ -39,6 +39,7 @@ type Props = {
   isEdit: boolean;
   setIsEdit: (value: boolean) => void;
   isAdd: boolean;
+  aiInfo: string;
 };
 
 const i18ns = [
@@ -63,6 +64,7 @@ export function GeneralBookInfo({
   isEdit,
   setIsEdit,
   isAdd,
+  aiInfo,
 }: Props) {
   const [
     GeneralInfoText,
@@ -245,6 +247,18 @@ export function GeneralBookInfo({
             {SaveChangesText}
           </BButton>
         )}
+        <BTypography sx={(theme) => ({ color: theme.palette.error.main })}>
+          {aiInfo.split("\n").reduce(
+            (p, e) => (
+              <>
+                {p}
+                {e}
+                <br />
+              </>
+            ),
+            <></>
+          )}
+        </BTypography>
       </CardContent>
     </BCard>
   );

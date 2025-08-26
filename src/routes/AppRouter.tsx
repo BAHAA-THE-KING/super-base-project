@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router";
+import { Route, Routes } from "react-router";
 
 import { useAccountantRoutes, useClinicRoutes, useServicesRoutes } from ".";
 
@@ -22,13 +22,9 @@ export function AppRouter() {
       </React.Fragment>
     ));
   return (
-    <BrowserRouter>
-      <Routes>
-        {mapRoutes(
-          servicesRoutes.concat(clinicRoutes).concat(accountantRoutes)
-        )}
-        <Route path={"*"} element={<NotFoundPage />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      {mapRoutes(servicesRoutes.concat(clinicRoutes).concat(accountantRoutes))}
+      <Route path={"*"} element={<NotFoundPage />} />
+    </Routes>
   );
 }

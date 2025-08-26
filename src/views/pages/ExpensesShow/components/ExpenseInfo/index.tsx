@@ -37,6 +37,7 @@ type Props = {
   isDirty: boolean;
   submit: () => void;
   request_status: "pending" | "accepted" | "rejected";
+  aiInfo: string;
 };
 
 const i18ns = [
@@ -63,6 +64,7 @@ export function ExpenseInfo({
   isDirty,
   submit,
   request_status,
+  aiInfo,
 }: Props) {
   const [
     NumberText,
@@ -213,6 +215,20 @@ export function ExpenseInfo({
                 </BButton>
               </Stack>
             )}
+          </Grid2>
+          <Grid2 size={12}>
+            <BTypography sx={(theme) => ({ color: theme.palette.error.main })}>
+              {aiInfo.split("\n").reduce(
+                (p, e) => (
+                  <>
+                    {p}
+                    {e}
+                    <br />
+                  </>
+                ),
+                <></>
+              )}
+            </BTypography>
           </Grid2>
         </Grid2>
       </CardContent>

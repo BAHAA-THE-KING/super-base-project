@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Skeleton, Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -10,6 +10,8 @@ import {
 } from "./components";
 
 import { useShowEmployeeData } from "./data";
+
+import { MessagesContext } from "src/contexts";
 
 import { varAlpha } from "src/themes/styles";
 
@@ -80,6 +82,8 @@ export function EmployeesShow({ isAdd = false }: { isAdd?: boolean }) {
   });
   function handleTerminate() {}
 
+  const { aiInfo } = useContext(MessagesContext);
+
   return (
     <Stack
       width={"100%"}
@@ -121,6 +125,7 @@ export function EmployeesShow({ isAdd = false }: { isAdd?: boolean }) {
             isAdd={isAdd}
             isEdit={isEdit}
             setIsEdit={setIsEdit}
+            aiInfo={aiInfo}
           />
           {isAdd ? null : employee ? <HistoryInfo employee={employee} /> : null}
           <EmployeeTerminatePopup

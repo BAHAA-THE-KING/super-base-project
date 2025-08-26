@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { DonationInfo } from "./components";
 
 import { useDonationShowData } from "./data";
+
+import { MessagesContext } from "src/contexts";
 
 import { varAlpha } from "src/themes/styles";
 
@@ -56,6 +58,8 @@ export function DonationsShow({ isAdd = false }: { isAdd?: boolean }) {
     createDonation({ data }).then(() => navigate("/accountant/donations"));
   });
 
+  const { aiInfo } = useContext(MessagesContext);
+
   return (
     <Stack
       width={"100%"}
@@ -80,6 +84,7 @@ export function DonationsShow({ isAdd = false }: { isAdd?: boolean }) {
         isValid={isValid}
         isDirty={isDirty}
         submit={submit}
+        aiInfo={aiInfo}
       />
     </Stack>
   );

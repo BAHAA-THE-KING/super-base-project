@@ -3,10 +3,12 @@ import { Axios } from "axios";
 import { useCookies } from "react-cookie";
 
 import { buildUrl } from "./urlBuilder";
+import { usePreferredLanguage } from "src/globals";
 
 export function useApi() {
   const [cookies] = useCookies(["token"]);
   const token = cookies.token;
+  const [lang] = usePreferredLanguage();
 
   const api = useMemo(() => {
     const newInstance = new Axios({
@@ -14,6 +16,7 @@ export function useApi() {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
+        lang,
       },
     });
 
@@ -39,7 +42,7 @@ export function useApi() {
     });
 
     return newInstance;
-  }, [token]);
+  }, [token, lang]);
 
   return api;
 }

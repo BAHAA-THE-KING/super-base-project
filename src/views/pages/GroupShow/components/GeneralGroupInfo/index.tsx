@@ -45,6 +45,7 @@ type Props = {
   setIsEdit: (value: boolean) => void;
   isAdd: boolean;
   isLoading: boolean;
+  aiInfo: string;
 };
 
 const i18ns = [
@@ -74,6 +75,7 @@ export function GeneralGroupInfo({
   setIsEdit,
   isAdd,
   isLoading,
+  aiInfo,
 }: Props) {
   const [
     GeneralInfoText,
@@ -227,6 +229,18 @@ export function GeneralGroupInfo({
             </BButton>
           </Stack>
         )}
+        <BTypography sx={(theme) => ({ color: theme.palette.error.main })}>
+          {aiInfo.split("\n").reduce(
+            (p, e) => (
+              <>
+                {p}
+                {e}
+                <br />
+              </>
+            ),
+            <></>
+          )}
+        </BTypography>
       </CardContent>
     </BCard>
   );

@@ -31,6 +31,7 @@ type Props = {
   watch: UseFormWatch<Form>;
   setValue: UseFormSetValue<Form>;
   submit: () => void;
+  aiInfo: string;
 };
 
 const i18ns = [
@@ -57,6 +58,7 @@ export function AppointmentForm({
   watch,
   setValue,
   submit,
+  aiInfo,
 }: Props) {
   const [
     BeneficiaryNameText,
@@ -277,6 +279,18 @@ export function AppointmentForm({
                   {SaveNewAppointmentText}
                 </BButton>
               </Stack>
+            </Grid2>
+            <Grid2 size={12}>
+              {aiInfo.split("\n").reduce(
+                (p, e) => (
+                  <>
+                    {p}
+                    {e}
+                    <br />
+                  </>
+                ),
+                <></>
+              )}
             </Grid2>
           </Grid2>
         </CardContent>

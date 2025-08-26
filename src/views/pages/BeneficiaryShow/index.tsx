@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router";
 import { Skeleton, Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -14,6 +14,8 @@ import {
 
 import { useBaseTranslation } from "src/hooks";
 import { useBeneficiaryData } from "src/views/data";
+
+import { MessagesContext } from "src/contexts";
 
 import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
 
@@ -191,6 +193,8 @@ export function ShowBeneficiary({
     () => {}
   );
 
+  const { aiInfo } = useContext(MessagesContext);
+
   return (
     <Stack direction={"row"} height={"100%"} mb={2}>
       {getBeneficiaryLoading && !createMode ? (
@@ -227,6 +231,7 @@ export function ShowBeneficiary({
               createMode={createMode}
               handleSubmit={onSubmit}
               createBeneficiaryLoading={createBeneficiaryLoading}
+              aiInfo={aiInfo}
             />
             <InformationPart
               element={tabs[currentTab].element}

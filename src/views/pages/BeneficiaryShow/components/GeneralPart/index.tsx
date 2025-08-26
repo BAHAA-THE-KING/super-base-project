@@ -1,12 +1,13 @@
+import { useRef } from "react";
 import { Box, Stack } from "@mui/material";
 import { Control, Controller, useWatch } from "react-hook-form";
+
+import { AddPhotoAlternate as AddPhotoAlternateIcon } from "@mui/icons-material";
 
 import { BButton, BChip, BTypography } from "src/components/Base";
 import { BeneficiaryTabList } from "../BeneficiaryTabList";
 
 import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
-import { AddPhotoAlternate } from "@mui/icons-material";
-import { useRef } from "react";
 
 type Props = {
   tabs: { name: string; label: string; external?: boolean; link?: string }[];
@@ -17,6 +18,7 @@ type Props = {
   control: Control<SingleBeneficiary>;
   handleSubmit: () => void;
   createBeneficiaryLoading: boolean;
+  aiInfo: string;
 };
 
 export function GeneralPart({
@@ -28,6 +30,7 @@ export function GeneralPart({
   control,
   handleSubmit,
   createBeneficiaryLoading,
+  aiInfo,
 }: Props) {
   const { image_url, first_name, last_name, group } = useWatch({ control });
   const name = first_name + " " + last_name;
@@ -77,7 +80,7 @@ export function GeneralPart({
               <BButton
                 onClick={handleFileChange}
                 icon={
-                  <AddPhotoAlternate
+                  <AddPhotoAlternateIcon
                     sx={{ fontSize: 120, width: "100%", aspectRatio: 1 }}
                   />
                 }
@@ -121,6 +124,18 @@ export function GeneralPart({
           handleSubmit={handleSubmit}
           createBeneficiaryLoading={createBeneficiaryLoading}
         />
+        <BTypography sx={(theme) => ({ color: theme.palette.error.main })}>
+          {aiInfo.split("\n").reduce(
+            (p, e) => (
+              <>
+                {p}
+                {e}
+                <br />
+              </>
+            ),
+            <></>
+          )}
+        </BTypography>
       </Box>
     </Stack>
   );

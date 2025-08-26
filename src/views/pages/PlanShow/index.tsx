@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Skeleton, Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -12,6 +12,7 @@ import {
 import { useShowPlanData } from "src/views/data";
 
 import { varAlpha } from "src/themes/styles";
+import { MessagesContext } from "src/contexts";
 
 type Form = {
   name: string;
@@ -113,6 +114,8 @@ export function PlanShow({ isAdd = false }: { isAdd?: boolean }) {
   });
   function handleTerminate() {}
 
+  const { aiInfo } = useContext(MessagesContext);
+
   return (
     <Stack
       width={"100%"}
@@ -156,6 +159,7 @@ export function PlanShow({ isAdd = false }: { isAdd?: boolean }) {
             isEdit={isEdit}
             setIsEdit={setIsEdit}
             attributes={attributes}
+            aiInfo={aiInfo}
           />
           {isAdd ? null : plan ? (
             <NextBeneficiariesPlanInfo

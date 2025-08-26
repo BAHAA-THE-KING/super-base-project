@@ -19,6 +19,7 @@ type Props = {
   isValid: boolean;
   isDirty: boolean;
   submit: () => void;
+  aiInfo: string;
 };
 
 const i18ns = [
@@ -40,6 +41,7 @@ export function DonationInfo({
   isValid,
   isDirty,
   submit,
+  aiInfo,
 }: Props) {
   const [
     NumberText,
@@ -139,6 +141,20 @@ export function DonationInfo({
                 </BButton>
               </Stack>
             )}
+          </Grid2>
+          <Grid2 size={{ xs: 12 }}>
+            <BTypography sx={(theme) => ({ color: theme.palette.error.main })}>
+              {aiInfo.split("\n").reduce(
+                (p, e) => (
+                  <>
+                    {p}
+                    {e}
+                    <br />
+                  </>
+                ),
+                <></>
+              )}
+            </BTypography>
           </Grid2>
         </Grid2>
       </CardContent>

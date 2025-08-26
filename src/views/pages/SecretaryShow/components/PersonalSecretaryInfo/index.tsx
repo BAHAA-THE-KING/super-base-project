@@ -46,6 +46,7 @@ type Props = {
   isDirty: boolean;
   submit: () => void;
   handleDelete: () => void;
+  aiInfo: string;
 };
 
 const i18ns = [
@@ -73,6 +74,7 @@ export function PersonalSecretaryInfo({
   isDirty,
   submit,
   handleDelete,
+  aiInfo,
 }: Props) {
   const [
     SecretaryNameText,
@@ -224,6 +226,20 @@ export function PersonalSecretaryInfo({
                 </BButton>
               </Stack>
             )}
+          </Grid2>
+          <Grid2 size={{ xs: 12 }}>
+            <BTypography sx={(theme) => ({ color: theme.palette.error.main })}>
+              {aiInfo.split("\n").reduce(
+                (p, e) => (
+                  <>
+                    {p}
+                    {e}
+                    <br />
+                  </>
+                ),
+                <></>
+              )}
+            </BTypography>
           </Grid2>
         </Grid2>
       </CardContent>

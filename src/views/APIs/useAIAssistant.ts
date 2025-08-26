@@ -14,10 +14,29 @@ type FormFillerRequest = {
   }[];
 };
 
+type ErrorExplainerResponse = {
+  response: string;
+};
+type ErrorExplainerRequest = {
+  question: string;
+  context: {
+    route: string;
+    request_body: any;
+    response: {
+      code: number;
+      errors: string[];
+    };
+  };
+};
+
 export function useAIAssistant() {
   const formFillerAPI = usePostAPI<FormFillerResponse, FormFillerRequest>(
     "/aoun/form-filler"
   ).mutateAsync;
 
-  return { formFillerAPI };
+  const thinkAPI = usePostAPI<ErrorExplainerResponse, ErrorExplainerRequest>(
+    "/aoun/error-interpreter"
+  ).mutateAsync;
+
+  return { formFillerAPI, thinkAPI };
 }

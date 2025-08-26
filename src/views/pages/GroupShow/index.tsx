@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Skeleton, Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -12,6 +12,8 @@ import {
 import { useGroupData } from "src/views/data";
 
 import { varAlpha } from "src/themes/styles";
+
+import { MessagesContext } from "src/contexts";
 
 type Form = {
   name: string;
@@ -127,6 +129,8 @@ export function GroupShow({ isAdd = false }: { isAdd?: boolean }) {
     if (group) return deleteGroup(group.id);
   }
 
+  const { aiInfo } = useContext(MessagesContext);
+
   return (
     <Stack
       width={"100%"}
@@ -164,6 +168,7 @@ export function GroupShow({ isAdd = false }: { isAdd?: boolean }) {
             isEdit={isEdit}
             setIsEdit={setIsEdit}
             isLoading={createGroupLoading || editGroupLoading}
+            aiInfo={aiInfo}
           />
           <ConditionsGroupInfo
             control={control}

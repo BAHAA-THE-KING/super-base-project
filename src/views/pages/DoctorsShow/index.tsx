@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
@@ -10,6 +10,8 @@ import {
 } from "./components";
 
 import { useDoctorsData } from "../DoctorsAll/data";
+
+import { MessagesContext } from "src/contexts";
 
 import { varAlpha } from "src/themes/styles";
 
@@ -81,6 +83,7 @@ export function DoctorsShow({ isAdd = false }: { isAdd?: boolean }) {
   function handleDelete() {
     return deleteDoctor({ id: doctor?.id });
   }
+  const { aiInfo } = useContext(MessagesContext);
 
   return (
     <Stack
@@ -110,6 +113,7 @@ export function DoctorsShow({ isAdd = false }: { isAdd?: boolean }) {
         isDirty={isDirty}
         submit={submit}
         handleDelete={handleDelete}
+        aiInfo={aiInfo}
       />
       <DoctorAttendanceInfo control={control} isAdd={isAdd} isEdit={isEdit} />
       <DoctorDeletePopup
