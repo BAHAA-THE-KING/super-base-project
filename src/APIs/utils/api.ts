@@ -14,7 +14,6 @@ export function useApi() {
     const newInstance = new Axios({
       baseURL: "http://localhost:8000/api",
       headers: {
-        "Content-Type": "application/json",
         Accept: "application/json",
         lang,
       },
@@ -27,6 +26,7 @@ export function useApi() {
       const data = request.data;
       if (!(data instanceof FormData)) {
         request.data = JSON.stringify(request.data);
+        request.headers["Content-Type"] = "application/json";
       }
 
       // Add support for path variables in the URL

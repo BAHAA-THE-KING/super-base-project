@@ -24,17 +24,10 @@ type SecretaryResponse = {
     name: string;
     address: string;
     birth_date: string;
-    specialization: string;
-    phone: string;
     birth_place: string;
-    session_price: number;
+    phone: string;
+    salary: number;
     is_active: number;
-    working_hours: {
-      id: number;
-      day: string;
-      start_time: string;
-      end_time: string;
-    }[];
   };
   message: string;
 };
@@ -73,18 +66,13 @@ type UpdateSecretaryResponse = {
   message: string;
 };
 type UpdateSecretaryRequest = {
+  id: number;
   name: string;
   address: string;
   birth_date: string;
   birth_place: string;
   phone: string;
-  session_price: number;
-  specialization: string;
-  working_hours: {
-    day: string;
-    start_time: string;
-    end_time: string;
-  }[];
+  salary: number;
 };
 
 type DeleteSecretaryResponse = {

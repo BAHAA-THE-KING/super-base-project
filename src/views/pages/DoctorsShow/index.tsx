@@ -80,9 +80,7 @@ export function DoctorsShow({ isAdd = false }: { isAdd?: boolean }) {
 
   const submit = handleSubmit((data) => {
     if (isEdit) {
-      return updateDoctor(data, doctorId).then(() =>
-        navigate("/clinic/doctors")
-      );
+      return updateDoctor(data, doctorId).then(() => setIsEdit(false));
     } else {
       return createDoctor(data).then((res) =>
         navigate(`/clinic/doctors/${res.data.id}`)
@@ -90,7 +88,7 @@ export function DoctorsShow({ isAdd = false }: { isAdd?: boolean }) {
     }
   });
   function handleDelete() {
-    return deleteDoctor(doctorId).then(() => navigate("/clinic/doctors"));
+    setWantToDelete(true);
   }
   const { aiInfo } = useContext(MessagesContext);
 
@@ -159,7 +157,9 @@ export function DoctorsShow({ isAdd = false }: { isAdd?: boolean }) {
                 ? { id: doctorId, name: (doctor as Doctor).name }
                 : null
             }
-            handleDelete={handleDelete}
+            handleDelete={() =>
+              deleteDoctor(doctorId).then(() => navigate("/clinic/doctors"))
+            }
             close={() => setWantToDelete(false)}
           />
         </>

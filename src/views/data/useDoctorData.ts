@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import { useDoctors } from "../APIs";
 
@@ -49,25 +49,29 @@ export function useDoctorData(id: number) {
 
   const doctorData = doctorsResponse?.data;
 
-  const doctor: Doctor | null = doctorData
-    ? {
-        id: doctorData.id,
-        name: doctorData.name,
-        address: doctorData.address,
-        birth_date: doctorData.birth_date,
-        birth_place: doctorData.birth_place,
-        mobile: doctorData.phone,
-        price: doctorData.session_price.toString(),
-        specification: doctorData.specialization,
-        attendance_schedules: doctorData.working_hours.map((e) => ({
-          days: [{ id: Number(e.day), name: getDayByNumber(Number(e.day)) }],
-          from: e.start_time,
-          to: e.end_time,
-        })),
-      }
-    : null;
-    console.log(doctor);
-    
+  const doctor: Doctor | null = useMemo(
+    () =>
+      doctorData
+        ? {
+            id: doctorData.id,
+            name: doctorData.name,
+            address: doctorData.address,
+            birth_date: doctorData.birth_date,
+            birth_place: doctorData.birth_place,
+            mobile: doctorData.phone,
+            price: doctorData.session_price.toString(),
+            specification: doctorData.specialization,
+            attendance_schedules: doctorData.working_hours.map((e) => ({
+              days: [
+                { id: Number(e.day), name: getDayByNumber(Number(e.day)) },
+              ],
+              from: e.start_time,
+              to: e.end_time,
+            })),
+          }
+        : null,
+    [doctorData]
+  );
 
   const getDoctorLoading = doctorsResponse?.message === "wait";
   const [createDoctorLoading, setCreateDoctorLoading] = useState(false);

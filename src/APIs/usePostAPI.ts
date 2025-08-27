@@ -36,14 +36,8 @@ export function usePostAPI<R, T, P = any, TPath extends string = string>(
             [key: string]: string | number;
           };
     }) => {
-      const headers: any = {};
-      if (data instanceof FormData) {
-        headers["Content-Type"] = "application/json";
-      }
-
       const response = await api.post<R & Error>(path, data, {
         params,
-        headers,
       });
 
       if (response.status === 401) navigate("/login");
