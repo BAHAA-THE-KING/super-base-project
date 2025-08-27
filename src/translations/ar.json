@@ -420,5 +420,7 @@
   "extract_data_from_media": "استخراج البيانات من صورة",
   "images": "الصور",
   "extract": "استخرج",
-  "apply": "تطبيق"
+  "apply": "تطبيق",
+  "new_username": "اسم المستخدم",
+  "new_password": "كلمةالمرور"
 }

@@ -43,6 +43,8 @@ type Props = {
   submit: () => void;
   handleDelete: () => void;
   aiInfo: string;
+  credentials: { username: string; generated_password: string };
+  loading: boolean;
 };
 
 const i18ns = [
@@ -59,6 +61,8 @@ const i18ns = [
   "save_new_secretary",
   "add_new_secretary",
   "edit_secretary",
+  "new_username",
+  "new_password",
 ];
 
 export function PersonalSecretaryInfo({
@@ -72,6 +76,8 @@ export function PersonalSecretaryInfo({
   submit,
   handleDelete,
   aiInfo,
+  credentials,
+  loading,
 }: Props) {
   const [
     SecretaryNameText,
@@ -87,6 +93,8 @@ export function PersonalSecretaryInfo({
     SaveNewSecretaryText,
     AddNewSecretaryText,
     EditSecretaryText,
+    NewUsernameText,
+    NewPasswordText,
   ] = useBaseTranslation(i18ns);
 
   return (
@@ -228,9 +236,26 @@ export function PersonalSecretaryInfo({
                   variant="contained"
                   disabled={isAdd ? !isValid : !isDirty}
                   onClick={submit}
+                  loading={loading}
                 >
                   {isAdd ? SaveNewSecretaryText : SaveChangesText}
                 </BButton>
+              </Stack>
+            )}
+            {credentials && (
+              <Stack gap={2}>
+                <Stack flexDirection={"row"} alignItems={"flex-end"}>
+                  <BTypography variant="h6" fontWeight={"bold"}>
+                    {NewUsernameText}:&nbsp;
+                  </BTypography>
+                  <BTypography>{credentials.username}</BTypography>
+                </Stack>
+                <Stack flexDirection={"row"} alignItems={"flex-end"}>
+                  <BTypography variant="h6" fontWeight={"bold"}>
+                    {NewPasswordText}:&nbsp;
+                  </BTypography>
+                  <BTypography>{credentials.generated_password}</BTypography>
+                </Stack>
               </Stack>
             )}
           </Grid2>

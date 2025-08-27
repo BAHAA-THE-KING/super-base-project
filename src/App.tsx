@@ -53,7 +53,7 @@ const queryClient = new QueryClient({
       staleTime: 5 * 60 * 1000, // cache for 5 minutes
       refetchOnWindowFocus: false, // don't refetch if the user swap windows
       refetchOnReconnect: true, // refetch when connection detected
-      refetchOnMount: false, // don't refetch if the component mounts
+      refetchOnMount: true, // don't refetch if the component mounts
       retry: 3, // stop after 3 failures
     },
   },

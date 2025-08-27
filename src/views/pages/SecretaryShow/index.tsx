@@ -1,15 +1,14 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
-import { Stack } from "@mui/material";
+import { useLocation, useNavigate, useParams } from "react-router";
+import { Skeleton, Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 import { SecretaryDeletePopup, PersonalSecretaryInfo } from "./components";
 
-import { useSecretaryData } from "../SecretaryAll/data";
-
 import { MessagesContext } from "src/contexts";
 
 import { varAlpha } from "src/themes/styles";
+import { useSecretaryData } from "src/views/data/useSecretaryData";
 
 type Form = {
   name: string;
@@ -23,6 +22,7 @@ type Form = {
 export function SecretaryShow({ isAdd = false }: { isAdd?: boolean }) {
   const navigate = useNavigate();
   const { secretaryId: secretaryIdParam } = useParams();
+  const { state } = useLocation();
   const secretaryId = Number(secretaryIdParam);
   if ((!secretaryId || secretaryId <= 0) && !isAdd) {
     navigate("/clinic/secretary");
@@ -33,13 +33,15 @@ export function SecretaryShow({ isAdd = false }: { isAdd?: boolean }) {
   const [isEdit, setIsEdit] = useState(false);
 
   const {
-    secretaries,
-    isLoading,
+    secretary,
+    getSecretaryLoading,
     createSecretary,
-    editSecretary,
+    updateSecretary,
     deleteSecretary,
-  } = useSecretaryData();
-  const secretary = secretaries.find((e) => e.id === secretaryId)!;
+    createSecretaryLoading,
+    updateSecretaryLoading,
+    deleteSecretaryLoading,
+  } = useSecretaryData(secretaryId);
 
   const {
     reset,
@@ -64,15 +66,17 @@ export function SecretaryShow({ isAdd = false }: { isAdd?: boolean }) {
 
   const submit = handleSubmit((data) => {
     if (isEdit) {
-      createSecretary({ data }).then(() => navigate("/clinic/secretary"));
+      updateSecretary(data, secretaryId).then(() => setIsEdit(false));
     } else {
-      editSecretary({
-        data: data,
-      }).then(() => navigate("/clinic/secretary"));
+      createSecretary(data).then((res) =>
+        navigate(`/clinic/secretary/${res.data.secretary.id.toString()}`, {
+          state: { credentials: res.data.credentials },
+        })
+      );
     }
   });
   function handleDelete() {
-    return deleteSecretary({ id: secretary?.id });
+    setWantToDelete(true);
   }
 
   const { aiInfo } = useContext(MessagesContext);
@@ -95,23 +99,49 @@ export function SecretaryShow({ isAdd = false }: { isAdd?: boolean }) {
             : theme.palette.primary.lighter,
       })}
     >
-      <PersonalSecretaryInfo
-        control={control}
-        setValue={setValue}
-        isAdd={isAdd}
-        isEdit={isEdit}
-        setIsEdit={setIsEdit}
-        isValid={isValid}
-        isDirty={isDirty}
-        submit={submit}
-        handleDelete={handleDelete}
-        aiInfo={aiInfo}
-      />
-      <SecretaryDeletePopup
-        secretary={wantToDelete && secretary ? secretary : null}
-        handleDelete={handleDelete}
-        close={() => setWantToDelete(false)}
-      />
+      {!isAdd && getSecretaryLoading ? (
+        <>
+          <Skeleton
+            sx={{ width: "100%", m: 1 }}
+            height={800}
+            variant="rounded"
+          />
+        </>
+      ) : (
+        <>
+          <PersonalSecretaryInfo
+            control={control}
+            setValue={setValue}
+            isAdd={isAdd}
+            isEdit={isEdit}
+            setIsEdit={setIsEdit}
+            isValid={isValid}
+            isDirty={isDirty}
+            submit={submit}
+            handleDelete={handleDelete}
+            aiInfo={aiInfo}
+            credentials={state?.credentials}
+            loading={
+              createSecretaryLoading ||
+              updateSecretaryLoading ||
+              deleteSecretaryLoading
+            }
+          />
+          <SecretaryDeletePopup
+            secretary={
+              wantToDelete && secretary
+                ? { id: secretaryId, name: secretary.name }
+                : null
+            }
+            handleDelete={() =>
+              deleteSecretary(secretaryId).then(() =>
+                navigate("/clinic/secretary")
+              )
+            }
+            close={() => setWantToDelete(false)}
+          />
+        </>
+      )}
     </Stack>
   );
 }

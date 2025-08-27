@@ -1,5 +1,5 @@
 export type SecretaryType = {
-  id: number;
+  id?: number;
   name: string;
   address: string;
   birth_date: string;

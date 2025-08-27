@@ -36,9 +36,7 @@ export function usePostAPI<R, T, P = any, TPath extends string = string>(
             [key: string]: string | number;
           };
     }) => {
-      const response = await api.post<R & Error>(path, data, {
-        params,
-      });
+      const response = await api.post<R & Error>(path, data, { params });
 
       if (response.status === 401) navigate("/login");
       if (response.data.errors) {
@@ -61,6 +59,7 @@ export function usePostAPI<R, T, P = any, TPath extends string = string>(
       onSuccess: () => {
         if (invalidateKeys) {
           queryClient.invalidateQueries({
+            refetchType: "all",
             predicate: ({ queryKey }) => {
               return invalidateKeys.some((e) => queryKey.includes(e));
             },

@@ -34,13 +34,21 @@ type SecretaryResponse = {
 
 type CreateSecretaryResponse = {
   data: {
-    id: number;
-    name: string;
-    address: string;
-    birth_date: string;
-    birth_place: string;
-    phone: string;
-    salary: number;
+    credentials: {
+      id: number;
+      username: string;
+      generated_password: string;
+      joined_at: string;
+    };
+    secretary: {
+      id: number;
+      name: string;
+      address: string;
+      birth_date: string;
+      birth_place: string;
+      phone: string;
+      salary: number;
+    };
   };
   message: string;
 };
@@ -118,9 +126,7 @@ export function useSecretaries() {
 
   const deleteSecretary = useDeleteAPI<DeleteSecretaryResponse>(
     "/dashboard/secretaries/delete/:id",
-    {
-      invalidateKeys: ["secretaries"],
-    }
+    { invalidateKeys: ["secretaries"] }
   ).mutateAsync;
 
   return {

@@ -107,7 +107,11 @@ export function GroupShow({ isAdd = false }: { isAdd?: boolean }) {
           name: e.name,
           params: `{"op":"${e.param.op}","value":${e.param.value}}`,
         })),
-      }).then((res) => navigate(res.data.id.toString(), { replace: true }));
+      }).then((res) =>
+        navigate(`/services/groups/${res.data.id.toString()}`, {
+          replace: true,
+        })
+      );
     else if (group)
       editGroup(group.id, {
         name: data.name,
