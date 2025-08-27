@@ -26,14 +26,10 @@ import { useBaseTranslation } from "src/hooks";
 type Form = {
   name: string;
   address: string;
-  birth: string;
+  birth_date: string;
+  birth_place: string;
   mobile: string;
   salary: string;
-  attendance_schedule: {
-    from: string;
-    to: string;
-    days: string[];
-  };
 };
 
 type Props = {
@@ -52,7 +48,8 @@ type Props = {
 const i18ns = [
   "secretary_name",
   "secretary_address",
-  "secretary_birth_info",
+  "secretary_birth_date",
+  "secretary_birth_place",
   "secretary_mobile",
   "secretary_salary",
   "edit",
@@ -79,7 +76,8 @@ export function PersonalSecretaryInfo({
   const [
     SecretaryNameText,
     SecretaryAddressText,
-    SecretaryBirthInfoText,
+    SecretaryBirthDateText,
+    SecretaryBirthPlaceText,
     SecretaryMobileText,
     SecretarySalaryText,
     EditText,
@@ -175,8 +173,17 @@ export function PersonalSecretaryInfo({
             <FormInput
               sx={{ my: 1 }}
               control={control}
-              label={SecretaryBirthInfoText}
-              name="birth"
+              label={SecretaryBirthDateText}
+              name="birth_date"
+              rules={{ required: true }}
+            />
+          </Grid2>
+          <Grid2 size={{ xs: 4 }}>
+            <FormInput
+              sx={{ my: 1 }}
+              control={control}
+              label={SecretaryBirthPlaceText}
+              name="birth_place"
               rules={{ required: true }}
             />
           </Grid2>

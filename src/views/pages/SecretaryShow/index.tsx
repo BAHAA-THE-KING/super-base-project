@@ -14,14 +14,10 @@ import { varAlpha } from "src/themes/styles";
 type Form = {
   name: string;
   address: string;
-  birth: string;
+  birth_date: string;
+  birth_place: string;
   mobile: string;
   salary: string;
-  attendance_schedule: {
-    from: string;
-    to: string;
-    days: string[];
-  };
 };
 
 export function SecretaryShow({ isAdd = false }: { isAdd?: boolean }) {
@@ -55,14 +51,10 @@ export function SecretaryShow({ isAdd = false }: { isAdd?: boolean }) {
     defaultValues: {
       name: "",
       address: "",
-      birth: "",
+      birth_date: "",
+      birth_place: "",
       mobile: "",
       salary: "",
-      attendance_schedule: {
-        from: "",
-        to: "",
-        days: [],
-      },
     },
   });
 

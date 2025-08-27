@@ -3,11 +3,13 @@ import { useNavigate } from "react-router";
 
 import { Add as AddIcon } from "@mui/icons-material";
 
-import { BButton, BDataGrid } from "src/components/Base";
+import { BButton } from "src/components/Base";
+import { SecretariesGrid } from "./components";
 
 import { useBaseTranslation } from "src/hooks";
 import { useSecretaryColumns } from "./columns";
-import { useSecretaryData } from "./data";
+import { useSecretariesAllData } from "src/views/data/useSecretariesAllData";
+import { useState } from "react";
 
 const i18ns = ["add_new_secretary"];
 export function Secretary() {
@@ -20,7 +22,23 @@ export function Secretary() {
   };
   const columns = useSecretaryColumns(onEdit);
 
-  const { secretaries } = useSecretaryData();
+  const [page, setPage] = useState(0);
+  const [filters, setFilters] = useState<
+    {
+      id: string | number;
+      field: string;
+      operator: string;
+      value: string | number;
+    }[]
+  >([]);
+
+  const params = [
+    ...filters,
+    { id: "page", field: "page", operator: "=", value: page + 1 },
+  ].reduce((p, e) => ({ ...p, [e.field]: e.value }), {});
+
+  const { secretaries, getSecretariesLoading, totalRows } =
+    useSecretariesAllData(params);
 
   function addSecretary() {
     navigate("add");
@@ -38,7 +56,15 @@ export function Secretary() {
         <AddIcon />
         {AddNewSecretaryText}
       </BButton>
-      <BDataGrid columns={columns} rows={secretaries} />
+      <SecretariesGrid
+        columns={columns}
+        rows={secretaries}
+        loading={getSecretariesLoading}
+        totalRows={totalRows}
+        page={page}
+        setPage={setPage}
+        setFilters={setFilters}
+      />
     </Stack>
   );
 }

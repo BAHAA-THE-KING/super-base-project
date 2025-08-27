@@ -2,12 +2,8 @@ export type SecretaryType = {
   id: number;
   name: string;
   address: string;
-  birth: string;
+  birth_date: string;
+  birth_place: string;
   mobile: string;
   salary: string;
-  attendance_schedule: {
-    from: string;
-    to: string;
-    days: string[];
-  };
 };

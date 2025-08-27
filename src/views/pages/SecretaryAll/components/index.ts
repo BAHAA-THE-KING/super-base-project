@@ -1,0 +1,1 @@
+export { SecretariesGrid } from "./SecretariesGrid";

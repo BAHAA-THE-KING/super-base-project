@@ -16,7 +16,7 @@ export function useDoctorsAllData(filters: any) {
       price: e.session_price.toString(),
       specification: e.specialization,
       attendance_schedules: [],
-    })) ?? [];
+    })) ?? ([] as any[]);
 
   const totalRows = useRef(0);
   if (doctorsResponse?.data?.total !== undefined) {

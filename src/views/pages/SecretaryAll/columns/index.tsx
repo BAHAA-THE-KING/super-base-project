@@ -12,18 +12,18 @@ import { SecretaryType } from "src/types/data/Secretary";
 const i18ns = [
   "secretary_name",
   "address",
-  "birth_information",
+  "birth_date",
+  "birth_place",
   "mobile_number",
-  "attendance_schedules",
   "salary",
 ];
 export function useSecretaryColumns(onEdit: (id: number) => void) {
   const [
     SecretaryNameText,
     AddressText,
-    BirthInformationText,
+    BirthDateText,
+    BirthPlaceText,
     MobileNumberText,
-    AttendanceSchedulesText,
     PricePerReservationText,
   ] = useBaseTranslation(i18ns);
 
@@ -40,8 +40,13 @@ export function useSecretaryColumns(onEdit: (id: number) => void) {
         flex: 1,
       },
       {
-        field: "birth",
-        headerName: BirthInformationText,
+        field: "birth_date",
+        headerName: BirthDateText,
+        flex: 1,
+      },
+      {
+        field: "birth_place",
+        headerName: BirthPlaceText,
         flex: 1,
       },
       {
@@ -53,13 +58,6 @@ export function useSecretaryColumns(onEdit: (id: number) => void) {
         field: "salary",
         headerName: PricePerReservationText,
         flex: 1,
-      },
-      {
-        field: "attendance_schedule",
-        headerName: AttendanceSchedulesText,
-        flex: 2,
-        valueGetter: (value: any) =>
-          value.from + "-" + value.to + ", " + value.days,
       },
       {
         field: "id",
