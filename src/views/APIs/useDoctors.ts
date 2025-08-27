@@ -1,4 +1,4 @@
-import { useGetAPI, usePostAPI, usePutAPI } from "src/APIs";
+import { useDeleteAPI, useGetAPI, usePostAPI, usePutAPI } from "src/APIs";
 
 type FilteredDoctorsResponse = {
   data?: {
@@ -14,8 +14,28 @@ type FilteredDoctorsResponse = {
       session_price: number;
       is_active: number;
     }[];
-
     total: number;
+  };
+  message: string;
+};
+
+type DoctorResponse = {
+  data?: {
+    id: number;
+    name: string;
+    address: string;
+    birth_date: string;
+    specialization: string;
+    phone: string;
+    birth_place: string;
+    session_price: number;
+    is_active: number;
+    working_hours: {
+      id: number;
+      day: string;
+      start_time: string;
+      end_time: string;
+    }[];
   };
   message: string;
 };
@@ -90,12 +110,34 @@ type UpdateDoctorRequest = {
   }[];
 };
 
+type DeleteDoctorResponse = {
+  name: string;
+  address: string;
+  birth_date: string;
+  birth_place: string;
+  phone: string;
+  session_price: number;
+  specialization: string;
+  working_hours: {
+    day: string;
+    start_time: string;
+    end_time: string;
+  }[];
+};
+
 export function useDoctors() {
   const getFilteredDoctors = (params: any) =>
     useGetAPI<FilteredDoctorsResponse>("/dashboard/doctors/index", {
       params,
       defaultData: { message: "wait" },
       keys: ["doctors", params],
+    });
+
+  const getDoctor = (id: number) =>
+    useGetAPI<DoctorResponse>("/dashboard/doctors/show/:id", {
+      params: { id },
+      defaultData: { message: "wait" },
+      keys: ["doctors", id],
     });
 
   const createDoctor = usePostAPI<CreateDoctorResponse, CreateDoctorRequest>(
@@ -112,5 +154,18 @@ export function useDoctors() {
     }
   ).mutateAsync;
 
-  return { getFilteredDoctors, createDoctor, updateDoctor };
+  const deleteDoctor = useDeleteAPI<DeleteDoctorResponse>(
+    "/dashboard/doctors/delete/:id",
+    {
+      invalidateKeys: ["doctors"],
+    }
+  ).mutateAsync;
+
+  return {
+    getFilteredDoctors,
+    getDoctor,
+    createDoctor,
+    updateDoctor,
+    deleteDoctor,
+  };
 }

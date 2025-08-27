@@ -29,3 +29,5 @@ export { useAddEmergencyRequestData } from "./useAddEmergencyRequestData";
 export { useBeneficiaryRequestsData } from "./useBeneficiaryRequestsData";
 export { useBeneficiaryGroupsData } from "./useBeneficiaryGroupsData";
 export { useLoginData } from "./useLoginData";
+export { useDoctorsAllData } from "./useDoctorsAllData";
+export { useDoctorData } from "./useDoctorData";

@@ -47,6 +47,9 @@ type Props = {
   submit: () => void;
   handleDelete: () => void;
   aiInfo: string;
+  createDoctorLoading: boolean;
+  updateDoctorLoading: boolean;
+  deleteDoctorLoading: boolean;
 };
 
 const i18ns = [
@@ -76,6 +79,9 @@ export function PersonalDoctorInfo({
   submit,
   handleDelete,
   aiInfo,
+  createDoctorLoading,
+  updateDoctorLoading,
+  deleteDoctorLoading,
 }: Props) {
   const [
     DoctorNameText,
@@ -222,6 +228,11 @@ export function PersonalDoctorInfo({
               variant="contained"
               disabled={isAdd ? !isValid : !isDirty}
               onClick={submit}
+              loading={
+                createDoctorLoading ||
+                updateDoctorLoading ||
+                deleteDoctorLoading
+              }
             >
               {isAdd ? SaveNewDoctorText : SaveChangesText}
             </BButton>

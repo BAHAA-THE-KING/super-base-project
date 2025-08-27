@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import { Stack } from "@mui/material";
+import { Skeleton, Stack } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 import {
@@ -9,11 +9,13 @@ import {
   PersonalDoctorInfo,
 } from "./components";
 
-import { useDoctorsData } from "../DoctorsAll/data";
+import { useDoctorData } from "src/views/data";
 
 import { MessagesContext } from "src/contexts";
 
 import { varAlpha } from "src/themes/styles";
+
+import { Doctor } from "src/types/data/Doctor";
 
 type Form = {
   name: string;
@@ -41,9 +43,16 @@ export function DoctorsShow({ isAdd = false }: { isAdd?: boolean }) {
   const [wantToDelete, setWantToDelete] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
-  const { doctors, isLoading, createDoctor, editDoctor, deleteDoctor } =
-    useDoctorsData();
-  const doctor = doctors.find((e) => e.id === doctorId)!;
+  const {
+    doctor,
+    getDoctorLoading,
+    createDoctor,
+    updateDoctor,
+    deleteDoctor,
+    createDoctorLoading,
+    updateDoctorLoading,
+    deleteDoctorLoading,
+  } = useDoctorData(doctorId);
 
   const {
     reset,
@@ -69,19 +78,17 @@ export function DoctorsShow({ isAdd = false }: { isAdd?: boolean }) {
 
   const submit = handleSubmit((data) => {
     if (isEdit) {
-      createDoctor({
-        data: {
-          ...data,
-        },
-      }).then(() => navigate("/clinic/doctors"));
+      return updateDoctor(data, doctorId).then(() =>
+        navigate("/clinic/doctors")
+      );
     } else {
-      editDoctor({
-        data: data,
-      }).then(() => navigate("/clinic/doctors"));
+      return createDoctor(data).then((res) =>
+        navigate(`/clinic/doctors/${res.data.id}`)
+      );
     }
   });
   function handleDelete() {
-    return deleteDoctor({ id: doctor?.id });
+    return deleteDoctor(doctorId);
   }
   const { aiInfo } = useContext(MessagesContext);
 
@@ -103,24 +110,58 @@ export function DoctorsShow({ isAdd = false }: { isAdd?: boolean }) {
             : theme.palette.primary.lighter,
       })}
     >
-      <PersonalDoctorInfo
-        control={control}
-        setValue={setValue}
-        isAdd={isAdd}
-        isEdit={isEdit}
-        setIsEdit={setIsEdit}
-        isValid={isValid}
-        isDirty={isDirty}
-        submit={submit}
-        handleDelete={handleDelete}
-        aiInfo={aiInfo}
-      />
-      <DoctorAttendanceInfo control={control} isAdd={isAdd} isEdit={isEdit} />
-      <DoctorDeletePopup
-        doctor={wantToDelete && doctor ? doctor : null}
-        handleDelete={handleDelete}
-        close={() => setWantToDelete(false)}
-      />
+      {getDoctorLoading ? (
+        <>
+          <Skeleton
+            sx={{
+              width: {
+                xs: "100%",
+                md: "50%",
+              },
+              m: 1,
+            }}
+            height={800}
+            variant="rounded"
+          />
+          <Skeleton
+            sx={{ width: "100%", m: 1 }}
+            height={800}
+            variant="rounded"
+          />
+        </>
+      ) : (
+        <>
+          <PersonalDoctorInfo
+            control={control}
+            setValue={setValue}
+            isAdd={isAdd}
+            isEdit={isEdit}
+            setIsEdit={setIsEdit}
+            isValid={isValid}
+            isDirty={isDirty}
+            submit={submit}
+            handleDelete={handleDelete}
+            aiInfo={aiInfo}
+            createDoctorLoading={createDoctorLoading}
+            updateDoctorLoading={updateDoctorLoading}
+            deleteDoctorLoading={deleteDoctorLoading}
+          />
+          <DoctorAttendanceInfo
+            control={control}
+            isAdd={isAdd}
+            isEdit={isEdit}
+          />
+          <DoctorDeletePopup
+            doctor={
+              wantToDelete && doctor
+                ? { id: doctorId, name: (doctor as Doctor).name }
+                : null
+            }
+            handleDelete={handleDelete}
+            close={() => setWantToDelete(false)}
+          />
+        </>
+      )}
     </Stack>
   );
 }

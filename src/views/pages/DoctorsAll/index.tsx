@@ -1,15 +1,15 @@
+import { useState } from "react";
 import { Stack } from "@mui/material";
 import { useNavigate } from "react-router";
 
 import { Add as AddIcon } from "@mui/icons-material";
 
 import { BButton } from "src/components/Base";
+import { DoctorsGrid } from "./components";
 
 import { useBaseTranslation } from "src/hooks";
 import { useDoctorsColumns } from "./columns";
-import { useDoctorsAllData } from "src/views/data/useDoctorsAllData";
-import { DoctorsGrid } from "./components";
-import { useState } from "react";
+import { useDoctorsAllData } from "src/views/data";
 
 const i18ns = ["add_new_doctor"];
 export function Doctors() {
