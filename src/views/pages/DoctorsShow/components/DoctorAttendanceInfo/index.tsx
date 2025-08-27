@@ -14,14 +14,15 @@ import { useBaseTranslation } from "src/hooks";
 type Form = {
   name: string;
   address: string;
-  birth: string;
+  birth_date: string;
+  birth_place: string;
   mobile: string;
   specification: string;
   price: string;
   attendance_schedules: {
     from: string;
     to: string;
-    days: string[];
+    days: { id: number; name: string }[];
   }[];
 };
 

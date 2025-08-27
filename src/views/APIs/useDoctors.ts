@@ -137,6 +137,7 @@ export function useDoctors() {
     useGetAPI<DoctorResponse>("/dashboard/doctors/show/:id", {
       params: { id },
       defaultData: { message: "wait" },
+      enabled: Boolean(id),
       keys: ["doctors", id],
     });
 

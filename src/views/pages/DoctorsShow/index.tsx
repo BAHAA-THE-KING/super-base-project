@@ -20,14 +20,15 @@ import { Doctor } from "src/types/data/Doctor";
 type Form = {
   name: string;
   address: string;
-  birth: string;
+  birth_date: string;
+  birth_place: string;
   mobile: string;
   specification: string;
   price: string;
   attendance_schedules: {
     from: string;
     to: string;
-    days: string[];
+    days: { id: number; name: string }[];
   }[];
 };
 
@@ -64,7 +65,8 @@ export function DoctorsShow({ isAdd = false }: { isAdd?: boolean }) {
     defaultValues: {
       name: "",
       address: "",
-      birth: "",
+      birth_date: "",
+      birth_place: "",
       mobile: "",
       specification: "",
       price: "",
@@ -88,7 +90,7 @@ export function DoctorsShow({ isAdd = false }: { isAdd?: boolean }) {
     }
   });
   function handleDelete() {
-    return deleteDoctor(doctorId);
+    return deleteDoctor(doctorId).then(() => navigate("/clinic/doctors"));
   }
   const { aiInfo } = useContext(MessagesContext);
 
@@ -110,7 +112,7 @@ export function DoctorsShow({ isAdd = false }: { isAdd?: boolean }) {
             : theme.palette.primary.lighter,
       })}
     >
-      {getDoctorLoading ? (
+      {!isAdd && getDoctorLoading ? (
         <>
           <Skeleton
             sx={{

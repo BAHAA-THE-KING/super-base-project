@@ -93,7 +93,7 @@ export function MessagesProvider({ children }: { children: React.ReactNode }) {
                 question: "help",
                 context,
               },
-            }).then((res) => setAIInfo(res.response));
+            }).then((res) => setAIInfo(res?.response ?? ""));
           }
           return [...state];
 

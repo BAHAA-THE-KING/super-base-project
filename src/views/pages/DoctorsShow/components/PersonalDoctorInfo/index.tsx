@@ -25,14 +25,15 @@ import { useBaseTranslation } from "src/hooks";
 type Form = {
   name: string;
   address: string;
-  birth: string;
+  birth_date: string;
+  birth_place: string;
   mobile: string;
   specification: string;
   price: string;
   attendance_schedules: {
     from: string;
     to: string;
-    days: string[];
+    days: { id: number; name: string }[];
   }[];
 };
 
@@ -55,7 +56,8 @@ type Props = {
 const i18ns = [
   "doctor_name",
   "doctor_address",
-  "doctor_birth_info",
+  "doctor_birth_date",
+  "doctor_birth_place",
   "doctor_mobile",
   "doctor_price",
   "doctor_specification",
@@ -86,7 +88,8 @@ export function PersonalDoctorInfo({
   const [
     DoctorNameText,
     DoctorAddressText,
-    DoctorBirthInfoText,
+    DoctorBirthDateText,
+    DoctorBirthPlaceText,
     DoctorMobileText,
     DoctorPriceText,
     DoctorSpecificationText,
@@ -184,8 +187,15 @@ export function PersonalDoctorInfo({
         <FormInput
           sx={{ my: 1 }}
           control={control}
-          label={DoctorBirthInfoText}
-          name="birth"
+          label={DoctorBirthDateText}
+          name="birth_date"
+          rules={{ required: true }}
+        />
+        <FormInput
+          sx={{ my: 1 }}
+          control={control}
+          label={DoctorBirthPlaceText}
+          name="birth_place"
           rules={{ required: true }}
         />
         <FormInput
