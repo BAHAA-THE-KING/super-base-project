@@ -6,10 +6,7 @@ import { MessagesContext } from "src/contexts";
 
 import { useApi, ExtractPathParams } from "./utils";
 
-type Config<
-  R extends { message: string; errors?: { [name: string]: string } },
-  P
-> = {
+type Config<R, P> = {
   enabled?: boolean;
   keys?: any[];
   invalidateKeys?: QueryKey;
@@ -21,10 +18,12 @@ type Config<
   defaultData?: R;
 };
 
-export function useGetAPI<
-  R extends { message: string; errors?: { [name: string]: string } },
-  TPath extends string = string
->(path: TPath, config: Config<R, ExtractPathParams<TPath>> = {}) {
+type Error = { message: string; errors?: { [name: string]: string } };
+
+export function useGetAPI<R, TPath extends string = string>(
+  path: TPath,
+  config: Config<R, ExtractPathParams<TPath>> = {}
+) {
   const {
     enabled = true,
     keys = [],
@@ -41,7 +40,7 @@ export function useGetAPI<
   return useQuery(
     [path, params, ...keys],
     async ({ signal }) => {
-      const response = await api.get<R>(path, { params, signal });
+      const response = await api.get<R & Error>(path, { params, signal });
 
       if (response.status === 401) navigate("/login");
       if (response.data.errors) {
