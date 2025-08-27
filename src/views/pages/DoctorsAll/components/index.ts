@@ -1,0 +1,1 @@
+export { DoctorsGrid } from "./DoctorsGrid";

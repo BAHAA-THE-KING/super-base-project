@@ -1,10 +1,9 @@
 import { useMemo } from "react";
-import { Stack } from "@mui/material";
 import { GridActionsCellItem, GridColDef } from "@mui/x-data-grid";
 
 import { Edit as EditIcon } from "@mui/icons-material";
 
-import { BTooltip, BTypography } from "src/components/Base";
+import { BTooltip } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
@@ -16,7 +15,6 @@ const i18ns = [
   "birth_information",
   "mobile_number",
   "specification",
-  "attendance_schedules",
   "price_per_appointment",
 ];
 export function useDoctorsColumns(onEdit: (id: number) => void) {
@@ -26,7 +24,7 @@ export function useDoctorsColumns(onEdit: (id: number) => void) {
     BirthInformationText,
     MobileNumberText,
     SpecificationText,
-    AttendanceSchedulesText,
+
     PricePerAppointmentText,
   ] = useBaseTranslation(i18ns);
 
@@ -62,20 +60,20 @@ export function useDoctorsColumns(onEdit: (id: number) => void) {
         headerName: PricePerAppointmentText,
         flex: 1,
       },
-      {
-        field: "attendance_schedules",
-        headerName: AttendanceSchedulesText,
-        flex: 2,
-        renderCell: ({ value }) => (
-          <Stack overflow={"auto"}>
-            {value.map((elm: { from: string; to: string; days: string[] }) => (
-              <BTypography key={elm.from + "-" + elm.to + ", " + elm.days}>
-                {elm.from + "-" + elm.to + ", " + elm.days}
-              </BTypography>
-            ))}
-          </Stack>
-        ),
-      },
+      // {
+      //   field: "attendance_schedules",
+      //   headerName: AttendanceSchedulesText,
+      //   flex: 2,
+      //   renderCell: ({ value }) => (
+      //     <Stack overflow={"auto"}>
+      //       {value.map((elm: { from: string; to: string; days: string[] }) => (
+      //         <BTypography key={elm.from + "-" + elm.to + ", " + elm.days}>
+      //           {elm.from + "-" + elm.to + ", " + elm.days}
+      //         </BTypography>
+      //       ))}
+      //     </Stack>
+      //   ),
+      // },
       {
         field: "id",
         type: "actions",
