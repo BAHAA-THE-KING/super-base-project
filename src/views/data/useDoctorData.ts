@@ -2,8 +2,6 @@ import { useCallback, useMemo, useState } from "react";
 
 import { useDoctors } from "../APIs";
 
-import { jsonToFormdata } from "src/utils";
-
 import { Doctor } from "src/types/data/Doctor";
 import { useBaseTranslation } from "src/hooks";
 
@@ -81,7 +79,7 @@ export function useDoctorData(id: number) {
   const createDoctor = (data: Doctor) => {
     setCreateDoctorLoading(true);
     return createDoctorAPI({
-      data: jsonToFormdata({
+      data: {
         name: data.name,
         address: data.address,
         birth_date: data.birth_date,
@@ -98,13 +96,13 @@ export function useDoctorData(id: number) {
             }))
           )
           .flat(),
-      }),
+      },
     }).finally(() => setCreateDoctorLoading(false));
   };
   const updateDoctor = (data: Doctor, id: number) => {
     setUpdateDoctorLoading(true);
     return updateDoctorAPI({
-      data: jsonToFormdata({
+      data: {
         name: data.name,
         address: data.address,
         birth_date: data.birth_date,
@@ -121,7 +119,7 @@ export function useDoctorData(id: number) {
             }))
           )
           .flat(),
-      }),
+      },
       params: { id },
     }).finally(() => setUpdateDoctorLoading(false));
   };

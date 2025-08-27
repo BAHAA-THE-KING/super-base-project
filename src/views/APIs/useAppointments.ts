@@ -1,49 +1,6 @@
 import { useDeleteAPI, useGetAPI, usePostAPI, usePutAPI } from "src/APIs";
 
-type FilteredAppointmentsResponse = {
-  data?: {
-    data: {
-      id: number;
-      owner_id: number;
-      owner_type: string;
-      date: string;
-      start_time: string;
-      end_time: string;
-      price: number;
-      status: string;
-      result: string;
-      doctor: {
-        id: number;
-        name: string;
-        address: string;
-        birth_date: string;
-        specialization: string;
-        phone: string;
-        birth_place: string;
-        session_price: number;
-        is_active: number;
-      };
-      owner: {
-        id: number;
-        first_name: string;
-        father_name: string;
-        last_name: string;
-        birth_date: string;
-        phone_number: string;
-        address: string;
-        medical_history: string;
-      };
-      discount: {
-        reason: string;
-        amount: number;
-      };
-    }[];
-    total: number;
-  };
-  message: string;
-};
-
-type AppointmentResponse = {
+type AllAppointmentsResponse = {
   data?: {
     id: number;
     owner_id: number;
@@ -79,6 +36,93 @@ type AppointmentResponse = {
       reason: string;
       amount: number;
     };
+  }[];
+  message: string;
+};
+
+type FilteredAppointmentsResponse = {
+  data?: {
+    data: {
+      id: number;
+      owner_id: number;
+      owner_type: string;
+      date: string;
+      start_time: string;
+      end_time: string;
+      price: number;
+      reason: string;
+      status?: "done" | "canceled" | "retarded";
+      result: string;
+      doctor: {
+        id: number;
+        name: string;
+        address: string;
+        birth_date: string;
+        specialization: string;
+        phone: string;
+        birth_place: string;
+        session_price: number;
+        is_active: number;
+      };
+      owner: {
+        id: number;
+        first_name: string;
+        father_name: string;
+        last_name: string;
+        national_number: string;
+        birth_date: string;
+        phone_number: string;
+        address: string;
+        medical_history: string;
+      };
+      discount: {
+        reason: string;
+        amount: number;
+      };
+    }[];
+    total: number;
+  };
+  message: string;
+};
+
+type AppointmentResponse = {
+  data?: {
+    id: number;
+    owner_id: number;
+    owner_type: string;
+    date: string;
+    start_time: string;
+    end_time: string;
+    price: number;
+    reason: string;
+    status?: "done" | "canceled" | "retarded";
+    result: string;
+    doctor: {
+      id: number;
+      name: string;
+      address: string;
+      birth_date: string;
+      specialization: string;
+      phone: string;
+      birth_place: string;
+      session_price: number;
+      is_active: number;
+    };
+    owner: {
+      id: number;
+      first_name: string;
+      father_name: string;
+      last_name: string;
+      national_number: string;
+      birth_date: string;
+      phone_number: string;
+      address: string;
+      medical_history: string;
+    };
+    discount: {
+      reason: string;
+      amount: number;
+    };
   };
   message: string;
 };
@@ -92,6 +136,7 @@ type CreateAppointmentResponse = {
     start_time: string;
     end_time: string;
     price: number;
+    reason: string;
     status: string;
     result: string;
     doctor: {
@@ -128,9 +173,10 @@ type CreateAppointmentRequest = {
   date: string;
   doctor_id: number;
   start_time: string;
-  discount: {
-    reason: string;
-    amount: string;
+  reason: string;
+  discount?: {
+    reason?: string;
+    amount?: string;
   };
 };
 
@@ -140,7 +186,10 @@ type UpdateAppointmentResponse = {
     owner_type: "normal" | "clinic";
     date: string;
     doctor_id: number;
+    reason: string;
     start_time: string;
+    result: string;
+    status: "done" | "canceled" | "retarded";
     discount: {
       reason: string;
       amount: string;
@@ -148,37 +197,66 @@ type UpdateAppointmentResponse = {
   };
   message: string;
 };
-type UpdateAppointmentRequest = {
-  name: string;
-  address: string;
-  birth_date: string;
-  birth_place: string;
-  phone: string;
-  session_price: number;
-  specialization: string;
-  working_hours: {
-    day: string;
-    start_time: string;
-    end_time: string;
-  }[];
-};
+type UpdateAppointmentRequest = Partial<{
+  owner_id: number;
+  owner_type: "normal" | "clinic";
+  date: string;
+  doctor_id: number;
+  start_time: string;
+  reason: string;
+  result: string;
+  status: "done" | "canceled" | "retarded";
+  discount?: {
+    reason?: string;
+    amount?: string;
+  };
+}>;
 
 type DeleteAppointmentResponse = {
-  name: string;
-  address: string;
-  birth_date: string;
-  birth_place: string;
-  phone: string;
-  session_price: number;
-  specialization: string;
-  working_hours: {
-    day: string;
-    start_time: string;
-    end_time: string;
-  }[];
+  id: number;
+  owner_id: number;
+  owner_type: string;
+  date: string;
+  start_time: string;
+  end_time: string;
+  price: number;
+  status: string;
+  result: string;
+  doctor: {
+    id: number;
+    name: string;
+    address: string;
+    birth_date: string;
+    specialization: string;
+    phone: string;
+    birth_place: string;
+    session_price: number;
+    is_active: number;
+  };
+  owner: {
+    id: number;
+    first_name: string;
+    father_name: string;
+    last_name: string;
+    birth_date: string;
+    phone_number: string;
+    address: string;
+    medical_history: string;
+  };
+  discount: {
+    reason: string;
+    amount: number;
+  };
 };
 
 export function useAppointments() {
+  const getAllAppointments = (params: any) =>
+    useGetAPI<AllAppointmentsResponse>("/dashboard/appointments/all", {
+      params,
+      defaultData: { message: "wait" },
+      keys: ["appointments", "all", params],
+    });
+
   const getFilteredAppointments = (params: any) =>
     useGetAPI<FilteredAppointmentsResponse>("/dashboard/appointments/index", {
       params,
@@ -216,6 +294,7 @@ export function useAppointments() {
   ).mutateAsync;
 
   return {
+    getAllAppointments,
     getFilteredAppointments,
     getAppointment,
     createAppointment,

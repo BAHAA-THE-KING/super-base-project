@@ -2,30 +2,46 @@ import { useEffect, useState } from "react";
 import { CardContent, Grid2, Stack } from "@mui/material";
 import { Control, UseFormSetValue, UseFormWatch } from "react-hook-form";
 
-import { BButton, BCard, BTypography } from "src/components/Base";
+import { BButton, BCard, BTextField, BTypography } from "src/components/Base";
 import { FormCheckbox, FormInput, FormSelect } from "src/components";
+import { NewPatientPopup } from "..";
 
 import { useBaseTranslation } from "src/hooks";
 
-import { AppointmentCreate } from "src/types/data/AppointmentCreate";
+import {
+  AppointmentBeneficiary,
+  AppointmentCreate,
+  AppointmentDoctor,
+} from "src/types/data/AppointmentCreate";
 import { AppointmentTable } from "src/types/data/AppointmentTable";
-import { NewPatientPopup } from "../NewPatientPopup";
+
+function add30m(time: string) {
+  let hh: any = Number(time.split(":")[0]);
+  let mm: any = Number(time.split(":")[1]);
+
+  mm += 30;
+
+  if (mm >= 60) {
+    hh++;
+    mm = 0;
+  }
+  if (hh >= 24) hh = 0;
+
+  if (mm < 10) mm = "0" + mm;
+  else mm = mm.toString();
+  if (hh < 10) hh = "0" + hh;
+  else hh = hh.toString();
+
+  return hh + ":" + mm;
+}
 
 type Form = AppointmentCreate &
   AppointmentTable & { showWantDiscount: boolean };
 
 type Props = {
   control: Control<Form>;
-  beneficiaries: { id: number; name: string; national_number: string }[];
-  doctors: {
-    id: number;
-    name: string;
-    attendance_schedules: {
-      from: string;
-      to: string;
-      days: string[];
-    }[];
-  }[];
+  beneficiaries: AppointmentBeneficiary[];
+  doctors: AppointmentDoctor[];
   isValid: boolean;
   isDirty: boolean;
   watch: UseFormWatch<Form>;
@@ -47,6 +63,8 @@ const i18ns = [
   "add_new_appointment",
   "discount_reason",
   "new_patient",
+  "attendance_start",
+  "attendance_end",
 ];
 
 export function AppointmentForm({
@@ -73,11 +91,20 @@ export function AppointmentForm({
     AddNewAppointmentText,
     DiscountReasonText,
     NewPatientText,
+    AttendanceStartText,
+    AttendanceEndText,
   ] = useBaseTranslation(i18ns);
 
-  const [doctorAttendanceSchedules, setDoctorAttendanceSchedules] = useState<{
-    [key: string]: { from: string; to: string }[];
-  }>({});
+  const [doctorAttendanceSchedules, setDoctorAttendanceSchedules] = useState<
+    [number, { from: string; to: string }[]][]
+  >([]);
+
+  const fromTo = doctorAttendanceSchedules
+    ?.find((e) => e[0] === new Date(watch("date")).getDay() + 1)?.[1]
+    ?.map((e) => ({
+      from: e.from,
+      to: e.to,
+    }))[0];
 
   useEffect(() => {
     const beneficiary_id = watch("beneficiary_id");
@@ -90,23 +117,38 @@ export function AppointmentForm({
     const doctor_id = watch("doctor_id");
     const doctorAttendanceSchedules =
       doctors.find((e) => e.id === doctor_id)?.attendance_schedules ?? [];
-    const temp: any = {};
+    let temp: any = [];
     doctorAttendanceSchedules.map((e) => {
-      e.days.map((ee) => {
-        if (temp[ee]) temp[ee].push({ from: e.from, to: e.to });
-        else temp[ee] = [];
+      e.days.map((d) => {
+        temp.push([d, { from: e.from, to: e.to }]);
       });
-      setDoctorAttendanceSchedules(temp);
     });
+    temp = temp.reduce(
+      (
+        p: [number, { from: string; to: string }[]][],
+        e: [number, { from: string; to: string }]
+      ) => {
+        const oldI = p.findIndex((ee) => ee[0] === e[0]);
+        if (oldI !== -1) {
+          p[oldI][1].push(e[1]);
+        } else {
+          p.push([e[0], [e[1]]]);
+        }
+        return [...p];
+      },
+      []
+    ) as [number, { from: string; to: string }[]][];
+    setDoctorAttendanceSchedules(temp);
   }, [watch("doctor_id")]);
   useEffect(() => {
-    const from = Number(watch("from"));
-    setValue(
-      "to",
-      Object.entries(doctorAttendanceSchedules)?.[
-        Number(watch("date")) - 1
-      ]?.[1]?.[from - 1]?.to ?? ""
-    );
+    const from = watch("from");
+    if (from) {
+      try {
+        setValue("to", add30m(from));
+      } catch (_) {
+        setValue("to", "");
+      }
+    }
   }, [watch("from")]);
 
   const [showPopup, setShowPopup] = useState(false);
@@ -180,35 +222,36 @@ export function AppointmentForm({
               />
             </Grid2>
             <Grid2 size={3}>
-              <FormSelect
+              <FormInput
                 sx={{ my: 1 }}
                 control={control}
                 label={DateText}
                 name="date"
                 rules={{ required: true }}
-                options={
-                  Object.keys(doctorAttendanceSchedules)?.map((e, i) => ({
-                    id: i + 1,
-                    name: e,
-                  })) ?? []
-                }
               />
             </Grid2>
             <Grid2 size={3}>
-              <FormSelect
+              <BTextField
+                value={fromTo?.from ?? ""}
+                label={AttendanceStartText}
+                fullWidth
+              />
+            </Grid2>
+            <Grid2 size={3}>
+              <BTextField
+                value={fromTo?.to ?? ""}
+                label={AttendanceEndText}
+                fullWidth
+              />
+            </Grid2>
+            <Grid2 size={12}></Grid2>
+            <Grid2 size={3}>
+              <FormInput
                 sx={{ my: 1 }}
                 control={control}
                 label={FromHourText}
                 name="from"
                 rules={{ required: true }}
-                options={
-                  Object.entries(doctorAttendanceSchedules)?.[
-                    Number(watch("date")) - 1
-                  ]?.[1]?.map((e, i) => ({
-                    id: i + 1,
-                    name: e.from,
-                  })) ?? []
-                }
               />
             </Grid2>
             <Grid2 size={3}>
@@ -281,16 +324,20 @@ export function AppointmentForm({
               </Stack>
             </Grid2>
             <Grid2 size={12}>
-              {aiInfo.split("\n").reduce(
-                (p, e) => (
-                  <>
-                    {p}
-                    {e}
-                    <br />
-                  </>
-                ),
-                <></>
-              )}
+              <BTypography
+                sx={(theme) => ({ color: theme.palette.error.main })}
+              >
+                {aiInfo.split("\n").reduce(
+                  (p, e) => (
+                    <>
+                      {p}
+                      {e}
+                      <br />
+                    </>
+                  ),
+                  <></>
+                )}
+              </BTypography>
             </Grid2>
           </Grid2>
         </CardContent>

@@ -1,44 +1,10 @@
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { useSecretaries } from "../APIs";
 
-import { jsonToFormdata } from "src/utils";
-
 import { SecretaryType } from "src/types/data/Secretary";
-import { useBaseTranslation } from "src/hooks";
 
-const i18ns = [
-  "sunday",
-  "monday",
-  "tuesday",
-  "wednesday",
-  "thursday",
-  "friday",
-  "saturday",
-];
 export function useSecretaryData(id: number) {
-  const [
-    SundayText,
-    MondayText,
-    TuesdayText,
-    WednesdayText,
-    ThursdayText,
-    FridayText,
-    SaturdayText,
-  ] = useBaseTranslation(i18ns);
-  const getDayByNumber = useCallback((day: number): string => {
-    const days = [
-      SundayText,
-      MondayText,
-      TuesdayText,
-      WednesdayText,
-      ThursdayText,
-      FridayText,
-      SaturdayText,
-    ];
-    return days[day];
-  }, []);
-
   const {
     createSecretary: createSecretaryAPI,
     updateSecretary: updateSecretaryAPI,
@@ -73,27 +39,28 @@ export function useSecretaryData(id: number) {
   const createSecretary = (data: SecretaryType) => {
     setCreateSecretaryLoading(true);
     return createSecretaryAPI({
-      data: jsonToFormdata({
+      data: {
         name: data.name,
         address: data.address,
         birth_date: data.birth_date,
         birth_place: data.birth_place,
         phone: data.mobile,
         salary: Number(data.salary),
-      }),
+      },
     }).finally(() => setCreateSecretaryLoading(false));
   };
   const updateSecretary = (data: SecretaryType, id: number) => {
     setUpdateSecretaryLoading(true);
     return updateSecretaryAPI({
-      data: jsonToFormdata({
+      data: {
+        id,
         name: data.name,
         address: data.address,
         birth_date: data.birth_date,
         birth_place: data.birth_place,
         phone: data.mobile,
         salary: Number(data.salary),
-      }),
+      },
       params: { id },
     }).finally(() => setUpdateSecretaryLoading(false));
   };

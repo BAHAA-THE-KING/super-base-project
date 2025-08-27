@@ -422,5 +422,7 @@
   "extract": "استخرج",
   "apply": "تطبيق",
   "new_username": "اسم المستخدم",
-  "new_password": "كلمةالمرور"
+  "new_password": "كلمةالمرور",
+  "attendance_start": "بداية الدوام",
+  "attendance_end": "نهاية الدوام"
 }

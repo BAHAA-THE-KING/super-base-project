@@ -28,27 +28,31 @@ export function useAppointmentsAllData(filters: any) {
   const { data: appointmentsResponse } = getFilteredAppointments(filters);
 
   const appointments: AppointmentTable[] =
-    appointmentsResponse?.data?.data.map(
-      (e) =>
-        ({
-          id: e.id,
-          beneficiary_id: e.owner_id,
-          beneficiary_name: e.owner.first_name + " " + e.owner.last_name,
-          beneficiary_national_number: "e.owner.national_number", //TODO: Fix it
-          date: e.date,
-          doctor_id: e.doctor.id,
-          doctor_name: e.doctor.name,
-          from: e.start_time,
-          status: e.status,
-          to: add30m(e.start_time),
-          healthInfo: e.owner.medical_history,
-          history: [],
-          price: e.price.toString(),
-          result: e.result,
-          wantDiscount: e?.discount?.reason,
-          reason: e?.discount?.reason,
-        } as AppointmentTable)
-    ) ?? ([] as any[]);
+    appointmentsResponse?.data?.data.map((e) => ({
+      id: e.id,
+      beneficiary_id: e.owner_id,
+      beneficiary_name: e.owner.first_name + " " + e.owner.last_name,
+      beneficiary_national_number: e.owner.national_number,
+      date: e.date.split("T")[0],
+      doctor_id: e.doctor.id,
+      doctor_name: e.doctor.name,
+      from: e.start_time,
+      status:
+        e.status === "done"
+          ? "finished"
+          : e.status === "canceled"
+          ? "canceled"
+          : e.status === "retarded"
+          ? "missed"
+          : "pending",
+      to: add30m(e.start_time),
+      healthInfo: e.owner.medical_history,
+      history: [],
+      price: e.price.toString(),
+      result: e.result,
+      wantDiscount: e?.discount?.reason,
+      reason: e.reason,
+    })) ?? ([] as any[]);
 
   const totalRows = useRef(0);
   if (appointmentsResponse?.data?.total !== undefined) {

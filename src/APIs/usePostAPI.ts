@@ -59,7 +59,6 @@ export function usePostAPI<R, T, P = any, TPath extends string = string>(
       onSuccess: () => {
         if (invalidateKeys) {
           queryClient.invalidateQueries({
-            refetchType: "all",
             predicate: ({ queryKey }) => {
               return invalidateKeys.some((e) => queryKey.includes(e));
             },

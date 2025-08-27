@@ -9,7 +9,7 @@ export type AppointmentTable = {
   from: string;
   to: string;
   status: "pending" | "missed" | "finished" | "canceled";
-  reason?: string;
+  reason: string;
   wantDiscount?: string;
   price?: string;
   healthInfo?: string;

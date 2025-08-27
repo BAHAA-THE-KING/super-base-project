@@ -17,14 +17,11 @@ import {
   TimelineConnector,
   TimelineContent,
   TimelineOppositeContent,
-  timelineContentClasses,
-  timelineItemClasses,
 } from "@mui/lab";
 
 import { RestoreOutlined } from "@mui/icons-material";
 
 import { FormInput } from "src/components";
-
 import {
   BButton,
   BCard,
@@ -40,15 +37,12 @@ import { AppointmentTable } from "src/types/data/AppointmentTable";
 
 type Props = {
   appointment: AppointmentTable;
-  editAppointment: (params: {
-    data: { id: number; status: Pick<AppointmentTable, "status"> };
-  }) => void;
-  editHealthInfo: (params: {
-    data: { id: number; healthInfo: string };
-  }) => void;
-  addAppointmentResult: (params: {
-    data: { id: number; appointmentResult: string };
-  }) => void;
+  editAppointmentStatus: (
+    status: "pending" | "missed" | "finished" | "canceled",
+    id: number
+  ) => void;
+  editHealthInfo: (healthInfo: string, id: number) => void;
+  addAppointmentResult: (result: string, id: number) => void;
 };
 
 const i18ns = [
@@ -78,7 +72,7 @@ const i18ns = [
 
 export function AppointmentDetails({
   appointment,
-  editAppointment,
+  editAppointmentStatus,
   editHealthInfo,
   addAppointmentResult,
 }: Props) {
@@ -272,9 +266,7 @@ export function AppointmentDetails({
                             (status) => (
                               <MenuItem
                                 onClick={() => {
-                                  editAppointment({
-                                    data: { id: appointment.id, status },
-                                  });
+                                  editAppointmentStatus(status, appointment.id);
                                   bindMenu(popupState).onClose();
                                 }}
                               >
@@ -320,12 +312,7 @@ export function AppointmentDetails({
                 <BButton
                   variant="contained"
                   onClick={handleSubmitHealthInfo((data) => {
-                    editHealthInfo({
-                      data: {
-                        id: appointment.id,
-                        healthInfo: data.healthInfo,
-                      },
-                    });
+                    editHealthInfo(data.healthInfo, appointment.id);
                   })}
                 >
                   {SaveText}
@@ -350,30 +337,32 @@ export function AppointmentDetails({
       >
         <CardContent>
           <Stack gap={2} justifyContent={"flex-start"}>
-            <FormInput
-              control={controlAppointmentResult}
-              label={AppointmentResultText}
-              name="appointmentResult"
-              multiline
-              inputProps={{
-                variant: "outlined",
-              }}
-            />
-            <Box>
-              <BButton
-                variant="contained"
-                onClick={handleSubmitAppointmentResult((data) => {
-                  addAppointmentResult({
-                    data: {
-                      id: appointment.id,
-                      appointmentResult: data.appointmentResult,
-                    },
-                  });
-                })}
-              >
-                {SaveText}
-              </BButton>
-            </Box>
+            {appointment.status === "pending" ? (
+              <>
+                <FormInput
+                  control={controlAppointmentResult}
+                  label={AppointmentResultText}
+                  name="appointmentResult"
+                  multiline
+                  inputProps={{
+                    variant: "outlined",
+                  }}
+                />
+                <Box>
+                  <BButton
+                    variant="contained"
+                    onClick={handleSubmitAppointmentResult((data) => {
+                      addAppointmentResult(
+                        data.appointmentResult,
+                        appointment.id
+                      );
+                    })}
+                  >
+                    {SaveText}
+                  </BButton>
+                </Box>
+              </>
+            ) : null}
             <Box
               width={"10%"}
               overflow={"visible"}

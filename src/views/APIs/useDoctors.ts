@@ -1,5 +1,26 @@
 import { useDeleteAPI, useGetAPI, usePostAPI, usePutAPI } from "src/APIs";
 
+type AllDoctorsResponse = {
+  data?: {
+    id: number;
+    name: string;
+    address: string;
+    birth_date: string;
+    specialization: string;
+    phone: string;
+    birth_place: string;
+    session_price: number;
+    is_active: number;
+    working_hours: {
+      id: number;
+      day: string;
+      start_time: string;
+      end_time: string;
+    }[];
+  }[];
+  message: string;
+};
+
 type FilteredDoctorsResponse = {
   data?: {
     current_page: number;
@@ -126,6 +147,13 @@ type DeleteDoctorResponse = {
 };
 
 export function useDoctors() {
+  const getAllDoctors = (params: any) =>
+    useGetAPI<AllDoctorsResponse>("/dashboard/doctors/all", {
+      params,
+      defaultData: { message: "wait" },
+      keys: ["doctors", "all", params],
+    });
+
   const getFilteredDoctors = (params: any) =>
     useGetAPI<FilteredDoctorsResponse>("/dashboard/doctors/index", {
       params,
@@ -163,6 +191,7 @@ export function useDoctors() {
   ).mutateAsync;
 
   return {
+    getAllDoctors,
     getFilteredDoctors,
     getDoctor,
     createDoctor,
