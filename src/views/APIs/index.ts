@@ -11,3 +11,4 @@ export { useGroup } from "./useGroup";
 export { useLogin } from "./useLogin";
 export { useDoctors } from "./useDoctors";
 export { useSecretaries } from "./useSecretaries";
+export { useAppointments } from "./useAppointments";

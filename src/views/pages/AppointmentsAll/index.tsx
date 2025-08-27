@@ -8,12 +8,12 @@ import {
   List as ListIcon,
 } from "@mui/icons-material";
 
-import { BButton, BDataGrid } from "src/components/Base";
-import { CalendarView } from "./components";
+import { BButton } from "src/components/Base";
+import { AppointmentsGrid, CalendarView } from "./components";
 
 import { useBaseTranslation } from "src/hooks";
 import { useAppointmentsColumns } from "./columns";
-import { useAppointmentsData } from "./data";
+import { useAppointmentsAllData } from "src/views/data";
 
 const i18ns = ["add_new_appointment", "show_calendar", "show_grid"];
 export function Appointments() {
@@ -27,7 +27,23 @@ export function Appointments() {
   };
   const columns = useAppointmentsColumns(onEdit);
 
-  const { appointments } = useAppointmentsData();
+  const [page, setPage] = useState(0);
+  const [filters, setFilters] = useState<
+    {
+      id: string | number;
+      field: string;
+      operator: string;
+      value: string | number;
+    }[]
+  >([]);
+
+  const params = [
+    ...filters,
+    { id: "page", field: "page", operator: "=", value: page + 1 },
+  ].reduce((p, e) => ({ ...p, [e.field]: e.value }), {});
+
+  const { appointments, getAppointmentsLoading, totalRows } =
+    useAppointmentsAllData(params);
 
   function addAppointment() {
     navigate("add");
@@ -66,7 +82,15 @@ export function Appointments() {
         </BButton>
       </Stack>
       {view === "grid" ? (
-        <BDataGrid columns={columns} rows={appointments} />
+        <AppointmentsGrid
+          columns={columns}
+          rows={appointments}
+          loading={getAppointmentsLoading}
+          totalRows={totalRows}
+          page={page}
+          setPage={setPage}
+          setFilters={setFilters}
+        />
       ) : (
         <CalendarView appointments={appointments} />
       )}
