@@ -11,15 +11,15 @@ type Props = {
     | "SpecialMaterialRequest"
     | "WithdrawalOrderRequest"
     | "none";
-  requestId: number;
+  id: number;
   request: any;
 };
 
-export function DynamicCard({ requestId, requestType, request }: Props) {
+export function DynamicCard({ id, requestType, request }: Props) {
   return (
     <BCard sx={{ p: 2, m: 1 }}>
       {requestType === "BeneficiaryRequest" ? (
-        <ShowBeneficiary requestMode requestId={requestId} />
+        <ShowBeneficiary requestMode requestId={id} />
       ) : requestType === "EmergencyAssistanceRequest" ? (
         <ShowEmergencyAssistanceRequest request={request} />
       ) : requestType === "SpecialMaterialRequest" ? (

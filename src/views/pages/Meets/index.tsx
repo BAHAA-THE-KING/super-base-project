@@ -23,21 +23,25 @@ import { useNavigate } from "react-router";
 
 type AcceptanceForm = {
   BeneficiaryRequest: {
+    id: number;
     requestId: number;
     status: "accepted" | "rejected" | "";
     reason: string;
   }[];
   EmergencyAssistanceRequest: {
+    id: number;
     requestId: number;
     status: "accepted" | "rejected" | "";
     reason: string;
   }[];
   SpecialMaterialRequest: {
+    id: number;
     requestId: number;
     status: "accepted" | "rejected" | "";
     reason: string;
   }[];
   WithdrawalOrderRequest: {
+    id: number;
     requestId: number;
     status: "accepted" | "rejected" | "";
     reason: string;
@@ -191,22 +195,26 @@ export function Meets() {
     ) {
       setFormData({
         BeneficiaryRequest: membershipRequests.map((e) => ({
-          requestId: Number(e.id),
+          requestId: Number(e.request_id),
+          id: Number(e.id),
           status: "",
           reason: "",
         })),
         EmergencyAssistanceRequest: emergencyAssistanceRequests.map((e) => ({
-          requestId: Number(e.id),
+          requestId: Number(e.request_id),
+          id: Number(e.id),
           status: "",
           reason: "",
         })),
         SpecialMaterialRequest: specialMaterialRequests.map((e) => ({
-          requestId: Number(e.id),
+          requestId: Number(e.request_id),
+          id: Number(e.id),
           status: "",
           reason: "",
         })),
         WithdrawalOrderRequest: withdrawalOrderRequests.map((e) => ({
-          requestId: Number(e.id),
+          requestId: Number(e.request_id),
+          id: Number(e.id),
           status: "",
           reason: "",
         })),

@@ -38,7 +38,7 @@ export function GroupInfo({ control, requestMode }: Props) {
   }, [group?.id]);
 
   return (
-    <Box overflow={"hidden"} height={"100%"} pt={3}>
+    <Box overflow={"hidden"} width={"1100px"} height={"500px"} pt={3}>
       <Swiper
         dir="rtl"
         spaceBetween={25}

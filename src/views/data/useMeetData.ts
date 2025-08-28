@@ -23,6 +23,7 @@ export type EmergencyAssistanceRequest = AidRequest;
 
 export type SpecialMaterialRequest = {
   id: number;
+  request_id: number;
   beneficiary: { id: number; name: string };
   reason: string;
   urgency_level: "low" | "medium" | "high";
@@ -31,6 +32,7 @@ export type SpecialMaterialRequest = {
 
 export type WithdrawalOrderRequest = {
   id: number;
+  request_id: number;
   beneficiary: { id: number; name: string };
   reason: string;
   urgency_level: "low" | "medium" | "high";
@@ -87,6 +89,7 @@ export function useMeetData(meetId?: number) {
       () =>
         emergencyAssistanceData?.data?.map((request) => ({
           id: request.entity.id,
+          request_id: request.id,
           beneficiary: {
             id: request.entity.beneficiary.id,
             name: `${request.entity.beneficiary.first_name} ${request.entity.beneficiary.last_name}`,
@@ -102,6 +105,7 @@ export function useMeetData(meetId?: number) {
     () =>
       specialMaterialsData?.data?.map((request) => ({
         id: request.entity.id,
+        request_id: request.id,
         beneficiary: {
           id: request.entity.beneficiary.id,
           name: `${request.entity.beneficiary.first_name} ${request.entity.beneficiary.last_name}`,
@@ -117,6 +121,7 @@ export function useMeetData(meetId?: number) {
     () =>
       withdrawalOrdersData?.data?.map((request: any) => ({
         id: request.entity.id,
+        request_id: request.id,
         beneficiary: {
           id: request.entity.beneficiary.id,
           name: `${request.entity.first_name} ${request.entity.last_name}`, // You might need to get beneficiary name from elsewhere

@@ -29,21 +29,25 @@ import {
 
 type AcceptanceForm = {
   BeneficiaryRequest: {
+    id: number;
     requestId: number;
     status: "accepted" | "rejected" | "";
     reason: string;
   }[];
   EmergencyAssistanceRequest: {
+    id: number;
     requestId: number;
     status: "accepted" | "rejected" | "";
     reason: string;
   }[];
   SpecialMaterialRequest: {
+    id: number;
     requestId: number;
     status: "accepted" | "rejected" | "";
     reason: string;
   }[];
   WithdrawalOrderRequest: {
+    id: number;
     requestId: number;
     status: "accepted" | "rejected" | "";
     reason: string;
@@ -204,8 +208,8 @@ export function Data({
           {fields.length ? (
             <>
               <DynamicCard
+                id={fields[selectedCase].id}
                 requestType={dataType}
-                requestId={fields[selectedCase].requestId}
                 request={data[selectedCase]}
               />
               <Stack>
