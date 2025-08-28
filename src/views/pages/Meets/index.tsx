@@ -1,6 +1,5 @@
 import { ReactElement, useEffect, useState } from "react";
 import { Skeleton, Stack, SvgIcon } from "@mui/material";
-import { useForm } from "react-hook-form";
 
 import {
   FaHandHoldingUsd as FaHandHoldingUsdIcon,
@@ -20,6 +19,7 @@ import {
   SpecialMaterialRequest,
   WithdrawalOrderRequest,
 } from "src/views/data";
+import { useNavigate } from "react-router";
 
 type AcceptanceForm = {
   BeneficiaryRequest: {
@@ -59,6 +59,8 @@ export function Meets() {
     SpecialMaterialsText,
     WithdrawalOrdersText,
   ] = useBaseTranslation(i18ns);
+
+  const navigate = useNavigate();
 
   const [meetId, setMeetId] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -145,12 +147,15 @@ export function Meets() {
   ]);
 
   const [activeStep, setActiveStep] = useState(0);
+  const [selectedCase, setSelectedCase] = useState<number>(0);
 
   const handleNext = () => {
+    setSelectedCase(0);
     setActiveStep(activeStep + 1);
   };
 
   const handleBack = () => {
+    setSelectedCase(0);
     setActiveStep(activeStep - 1);
   };
 
@@ -169,13 +174,12 @@ export function Meets() {
     }
   }, [pendingMeets]);
 
-  const formInstance = useForm<AcceptanceForm>({
-    defaultValues: {
-      BeneficiaryRequest: [],
-      EmergencyAssistanceRequest: [],
-      SpecialMaterialRequest: [],
-      WithdrawalOrderRequest: [],
-    },
+  const [formData, setFormData] = useState<AcceptanceForm>({
+    BeneficiaryRequest: [],
+    EmergencyAssistanceRequest: [],
+    SpecialMaterialRequest: [],
+    WithdrawalOrderRequest: [],
+    none: [],
   });
 
   useEffect(() => {
@@ -185,7 +189,7 @@ export function Meets() {
       specialMaterialRequests &&
       withdrawalOrderRequests
     ) {
-      formInstance.reset({
+      setFormData({
         BeneficiaryRequest: membershipRequests.map((e) => ({
           requestId: Number(e.id),
           status: "",
@@ -206,6 +210,7 @@ export function Meets() {
           status: "",
           reason: "",
         })),
+        none: [],
       });
       setSteps([
         {
@@ -248,7 +253,8 @@ export function Meets() {
       default:
         if (!isSubmitted) {
           setIsSubmitted(true);
-          formInstance.handleSubmit((data) => {
+          (() => {
+            const data = formData;
             submitMeet({
               meetId,
               requests: data.BeneficiaryRequest.map((e) => ({
@@ -277,7 +283,9 @@ export function Meets() {
                     reason: e.reason,
                   }))
                 ),
-            }).catch(() => setIsSubmitted(false));
+            })
+              .then(() => navigate("/accountant/donation-books"))
+              .catch(() => setIsSubmitted(false));
           })();
           setActiveStep(activeStep - 1);
         }
@@ -295,12 +303,10 @@ export function Meets() {
     setSteps(
       steps.map((step) => ({
         ...step,
-        isFinished: formInstance
-          .getValues(step.dataType)
-          .every((req) => Boolean(req.status)),
+        isFinished: formData[step.dataType].every((req) => Boolean(req.status)),
       }))
     );
-  }, [JSON.stringify(formInstance.watch())]);
+  }, [formData]);
 
   if (isLoading) {
     return (
@@ -335,7 +341,10 @@ export function Meets() {
               | "SpecialMaterialRequest"
               | "WithdrawalOrderRequest"
           }
-          formInstance={formInstance}
+          formData={formData}
+          setFromData={setFormData}
+          selectedCase={selectedCase}
+          setSelectedCase={setSelectedCase}
         />
       </Stack>
       <BCard

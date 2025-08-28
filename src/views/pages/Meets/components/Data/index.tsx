@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useFieldArray, UseFormReturn } from "react-hook-form";
+import React, { useState } from "react";
 import { ButtonGroup, Stack, SvgIcon, useTheme } from "@mui/material";
 
 import { LuLayoutList as LuLayoutListIcon } from "react-icons/lu";
@@ -11,8 +10,13 @@ import {
   NavigateNext as NavigateNextIcon,
 } from "@mui/icons-material";
 
-import { FormInput } from "src/components";
-import { BButton, BCard, BChip, BTypography } from "src/components/Base";
+import {
+  BButton,
+  BCard,
+  BChip,
+  BTextField,
+  BTypography,
+} from "src/components/Base";
 import { DynamicCard, DynamicList } from "..";
 
 import { useBaseTranslation } from "src/hooks";
@@ -59,7 +63,10 @@ type Props = {
     | SpecialMaterialRequest
     | WithdrawalOrderRequest
   >[];
-  formInstance: UseFormReturn<AcceptanceForm>;
+  formData: AcceptanceForm;
+  setFromData: (fromData: AcceptanceForm) => void;
+  selectedCase: number;
+  setSelectedCase: (fromData: number) => void;
 };
 
 const i18ns = [
@@ -74,7 +81,14 @@ const i18ns = [
   "pending",
   "request_status",
 ];
-export function Data({ data, dataType, formInstance }: Props) {
+export function Data({
+  data,
+  dataType,
+  formData,
+  setFromData,
+  selectedCase,
+  setSelectedCase,
+}: Props) {
   const [
     YesText,
     NoText,
@@ -91,15 +105,8 @@ export function Data({ data, dataType, formInstance }: Props) {
   const rtl = direction === "rtl";
 
   const [view, setView] = useState<"list" | "grid">("list");
-  const [selectedCase, setSelectedCase] = useState<number>(0);
-  useEffect(() => {
-    setSelectedCase(0);
-  }, [dataType]);
 
-  const { control, getValues } = formInstance;
-
-  const { update } = useFieldArray({ control, name: dataType });
-  const fields = getValues(dataType);
+  const fields = formData[dataType];
 
   return (
     <Stack>
@@ -221,12 +228,11 @@ export function Data({ data, dataType, formInstance }: Props) {
                         }
                         color="success"
                         startIcon={<CheckIcon />}
-                        onClick={() =>
-                          update(selectedCase, {
-                            ...fields[selectedCase],
-                            status: "accepted",
-                          })
-                        }
+                        onClick={() => {
+                          const temp = { ...formData };
+                          temp[dataType][selectedCase].status = "accepted";
+                          setFromData(temp);
+                        }}
                       >
                         {YesText}
                       </BButton>
@@ -238,22 +244,26 @@ export function Data({ data, dataType, formInstance }: Props) {
                         }
                         color="error"
                         startIcon={<CloseIcon />}
-                        onClick={() =>
-                          update(selectedCase, {
-                            ...fields[selectedCase],
-                            status: "rejected",
-                          })
-                        }
+                        onClick={() => {
+                          const temp = { ...formData };
+                          temp[dataType][selectedCase].status = "rejected";
+                          setFromData(temp);
+                        }}
                       >
                         {NoText}
                       </BButton>
                     </Stack>
-                    <FormInput
+                    <BTextField
                       name={`${dataType}.${selectedCase}.reason`}
-                      control={control}
-                      multiline
                       label={ReasonText}
-                      inputProps={{ variant: "outlined" }}
+                      variant={"outlined"}
+                      multiline
+                      value={fields[selectedCase].reason}
+                      onChange={(e) => {
+                        const temp = { ...formData };
+                        temp[dataType][selectedCase].reason = e.target.value;
+                        setFromData(temp);
+                      }}
                     />
                   </Stack>
                 </BCard>

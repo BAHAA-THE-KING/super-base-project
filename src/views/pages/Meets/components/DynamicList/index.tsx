@@ -5,11 +5,11 @@ import { BTypography } from "src/components/Base";
 import { useBaseTranslation } from "src/hooks";
 
 import {
-  BeneficiaryRequest,
-  EmergencyAssistanceRequest,
-  SpecialMaterialRequest,
-  WithdrawalOrderRequest,
-} from "../../data";
+  type BeneficiaryRequest,
+  type EmergencyAssistanceRequest,
+  type SpecialMaterialRequest,
+  type WithdrawalOrderRequest,
+} from "src/views/data";
 
 type Props = {
   request:
@@ -95,7 +95,7 @@ export function DynamicList({ request }: Props) {
             {CaseDescriptionText}:
           </BTypography>
           <BTypography>
-            {request.case_description.length > 100
+            {request.case_description && request.case_description.length > 100
               ? request.case_description.slice(0, 100) + "..."
               : request.case_description}
           </BTypography>
