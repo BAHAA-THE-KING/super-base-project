@@ -5,6 +5,7 @@ import { Popup, FormInput } from "src/components";
 import { BButton, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
+import { Patient } from "src/types/data/AppointmentCreate";
 
 type Form = {
   first_name: string;
@@ -14,12 +15,14 @@ type Form = {
   address: string;
   phoneNumber: string;
   national_number: string;
+  healthInfo: string;
 };
 
 type Props = {
   open: boolean;
   close: () => void;
-  setPatientId: (id: number) => void;
+  createPatient: (data: Patient) => Promise<any>;
+  createPatientLoading: boolean;
 };
 
 const i18ns = [
@@ -32,9 +35,15 @@ const i18ns = [
   "address",
   "phone_number",
   "save_new_patient",
+  "health_info",
 ];
 
-export function NewPatientPopup({ open, close, setPatientId }: Props) {
+export function NewPatientPopup({
+  open,
+  close,
+  createPatient,
+  createPatientLoading,
+}: Props) {
   const [
     CreateNewPatientText,
     FirstNameText,
@@ -45,6 +54,7 @@ export function NewPatientPopup({ open, close, setPatientId }: Props) {
     AddressText,
     PhoneNumberText,
     SaveNewPatientText,
+    HealthInfoText,
   ] = useBaseTranslation(i18ns);
 
   const { control, handleSubmit, reset } = useForm<Form>({
@@ -59,11 +69,10 @@ export function NewPatientPopup({ open, close, setPatientId }: Props) {
   });
 
   const onSubmit = (data: Form) => {
-    // TODO: Replace with actual submit logic
-    // setPatientId
-    console.log("New patient data:", data);
-    close();
-    reset();
+    createPatient(data).then(() => {
+      close();
+      reset();
+    });
   };
 
   return (
@@ -128,12 +137,23 @@ export function NewPatientPopup({ open, close, setPatientId }: Props) {
               rules={{ required: true }}
             />
           </Grid2>
+          <Grid2 size={12}>
+            <FormInput
+              control={control}
+              label={HealthInfoText}
+              name="healthInfo"
+              rules={{ required: true }}
+              multiline
+              inputProps={{ variant: "outlined" }}
+            />
+          </Grid2>
           <Grid2 size={12} mt={3}>
             <Box>
               <BButton
                 variant="contained"
                 color="primary"
                 onClick={handleSubmit(onSubmit)}
+                loading={createPatientLoading}
               >
                 {SaveNewPatientText}
               </BButton>

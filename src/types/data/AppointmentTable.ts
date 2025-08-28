@@ -3,6 +3,7 @@ export type AppointmentTable = {
   beneficiary_id: number;
   beneficiary_name: string;
   beneficiary_national_number: string;
+  beneficiary_type: "beneficiary" | "patient";
   doctor_id: number;
   doctor_name: string;
   date: string;

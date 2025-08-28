@@ -125,13 +125,18 @@ export function AppointmentsShow({ isAdd = false }: { isAdd?: boolean }) {
           setValue={setValue}
           submit={submit}
           aiInfo={aiInfo}
+          loading={createAppointmentLoading}
+          createPatient={createPatient}
+          createPatientLoading={createPatientLoading}
         />
       ) : appointment ? (
         <AppointmentDetails
           appointment={appointment}
           editAppointmentStatus={updateAppointmentStatus}
-          editHealthInfo={updatePatientHealthInfo}
           addAppointmentResult={updateAppointmentResult}
+          editAppointmentLoading={updateAppointmentLoading}
+          editHealthInfo={updatePatientHealthInfo}
+          editHealthInfoLoading={updatePatientLoading}
         />
       ) : null}
     </Stack>

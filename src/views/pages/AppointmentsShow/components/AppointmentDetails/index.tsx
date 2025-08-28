@@ -48,6 +48,8 @@ type Props = {
     type: "beneficiary" | "patient"
   ) => void;
   addAppointmentResult: (result: string, id: number) => void;
+  editHealthInfoLoading: boolean;
+  editAppointmentLoading: boolean;
 };
 
 const i18ns = [
@@ -80,6 +82,8 @@ export function AppointmentDetails({
   editAppointmentStatus,
   editHealthInfo,
   addAppointmentResult,
+  editHealthInfoLoading,
+  editAppointmentLoading,
 }: Props) {
   const [
     BeneficiaryNameText,
@@ -263,7 +267,10 @@ export function AppointmentDetails({
                   <PopupState variant="popover">
                     {(popupState) => (
                       <>
-                        <BButton {...bindTrigger(popupState)}>
+                        <BButton
+                          {...bindTrigger(popupState)}
+                          loading={editAppointmentLoading}
+                        >
                           {UpdateText}
                         </BButton>
                         <Menu {...bindMenu(popupState)}>
@@ -322,6 +329,7 @@ export function AppointmentDetails({
                       appointment.beneficiary_type
                     );
                   })}
+                  loading={editHealthInfoLoading}
                 >
                   {SaveText}
                 </BButton>
@@ -365,6 +373,7 @@ export function AppointmentDetails({
                         appointment.id
                       );
                     })}
+                    loading={editAppointmentLoading}
                   >
                     {SaveText}
                   </BButton>

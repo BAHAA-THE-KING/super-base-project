@@ -237,8 +237,8 @@ export function useAppointmentData(id: number) {
         address: data.address,
         birth_date: data.birthDate,
         national_number: data.national_number,
-        phone: data.phoneNumber,
-        medical_history: "",
+        phone_number: data.phoneNumber,
+        medical_history: data.healthInfo,
       },
     }).finally(() => setCreatePatientLoading(false));
   };

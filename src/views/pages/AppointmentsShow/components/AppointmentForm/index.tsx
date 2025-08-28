@@ -12,6 +12,7 @@ import {
   AppointmentBeneficiary,
   AppointmentCreate,
   AppointmentDoctor,
+  Patient,
 } from "src/types/data/AppointmentCreate";
 import { AppointmentTable } from "src/types/data/AppointmentTable";
 
@@ -48,6 +49,9 @@ type Props = {
   setValue: UseFormSetValue<Form>;
   submit: () => void;
   aiInfo: string;
+  loading: boolean;
+  createPatient: (data: Patient) => Promise<any>;
+  createPatientLoading: boolean;
 };
 
 const i18ns = [
@@ -77,6 +81,9 @@ export function AppointmentForm({
   setValue,
   submit,
   aiInfo,
+  loading,
+  createPatient,
+  createPatientLoading,
 }: Props) {
   const [
     BeneficiaryNameText,
@@ -95,6 +102,16 @@ export function AppointmentForm({
     AttendanceEndText,
   ] = useBaseTranslation(i18ns);
 
+  const newBeneficiaries = beneficiaries.map((e, i) => ({
+    id: i + 1,
+    name: e.name,
+    national_number: e.national_number,
+    original: {
+      id: e.id,
+      type: e.type,
+    },
+  }));
+
   const [doctorAttendanceSchedules, setDoctorAttendanceSchedules] = useState<
     [number, { from: string; to: string }[]][]
   >([]);
@@ -110,7 +127,16 @@ export function AppointmentForm({
     const beneficiary_id = watch("beneficiary_id");
     setValue(
       "beneficiary_national_number",
-      beneficiaries.find((e) => e.id === beneficiary_id)?.national_number ?? ""
+      newBeneficiaries.find((e) => e.id === beneficiary_id)?.national_number ?? ""
+    );
+    setValue(
+      "beneficiary_original_id",
+      newBeneficiaries.find((e) => e.id === beneficiary_id)?.original.id ?? 0
+    );
+    setValue(
+      "beneficiary_type",
+      newBeneficiaries.find((e) => e.id === beneficiary_id)?.original.type ??
+        "beneficiary"
     );
   }, [watch("beneficiary_id")]);
   useEffect(() => {
@@ -152,9 +178,6 @@ export function AppointmentForm({
   }, [watch("from")]);
 
   const [showPopup, setShowPopup] = useState(false);
-  const setPatientId = (id: number) => {
-    setValue("beneficiary_id", id);
-  };
 
   return (
     <>
@@ -178,7 +201,7 @@ export function AppointmentForm({
                 label={BeneficiaryNameText}
                 name="beneficiary_id"
                 rules={{ required: true }}
-                options={beneficiaries}
+                options={newBeneficiaries}
               />
             </Grid2>
             <Grid2 size={4}>
@@ -318,6 +341,7 @@ export function AppointmentForm({
                   variant="contained"
                   disabled={true ? !isValid : !isDirty}
                   onClick={submit}
+                  loading={loading}
                 >
                   {SaveNewAppointmentText}
                 </BButton>
@@ -345,7 +369,8 @@ export function AppointmentForm({
       <NewPatientPopup
         open={showPopup}
         close={() => setShowPopup(false)}
-        setPatientId={setPatientId}
+        createPatient={createPatient}
+        createPatientLoading={createPatientLoading}
       />
     </>
   );

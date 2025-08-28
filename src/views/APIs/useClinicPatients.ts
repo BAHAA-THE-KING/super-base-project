@@ -8,7 +8,7 @@ type AllPatientsResponse = {
     last_name: string;
     address: string;
     birth_date: string;
-    phone: string;
+    phone_number: string;
     medical_history: string;
     national_number: string;
   }[];
@@ -23,7 +23,7 @@ type CreatePatientResponse = {
     last_name: string;
     address: string;
     birth_date: string;
-    phone: string;
+    phone_number: string;
     medical_history: string;
     national_number: string;
   };
@@ -35,7 +35,7 @@ type CreatePatientRequest = {
   last_name: string;
   address: string;
   birth_date: string;
-  phone: string;
+  phone_number: string;
   medical_history: string;
   national_number: string;
 };
@@ -47,7 +47,7 @@ type UpdatePatientResponse = {
     last_name: string;
     address: string;
     birth_date: string;
-    phone: string;
+    phone_number: string;
     medical_history: string;
     national_number: string;
   };
@@ -59,7 +59,7 @@ type UpdatePatientRequest = Partial<{
   last_name: string;
   address: string;
   birth_date: string;
-  phone: string;
+  phone_number: string;
   medical_history: string;
   national_number: string;
 }>;
