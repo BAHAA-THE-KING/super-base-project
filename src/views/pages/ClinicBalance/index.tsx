@@ -36,7 +36,7 @@ export function ClinicBalance() {
 
   return (
     <Stack width="100%" height="100%" p={3}>
-      <Stack width="100%" flexDirection={"row"} justifyContent={"flex-start"}>
+      {/* <Stack width="100%" flexDirection={"row"} justifyContent={"flex-start"}>
         <BButton
           variant="contained"
           size="medium"
@@ -47,7 +47,7 @@ export function ClinicBalance() {
         >
           {AddNewRecordText}
         </BButton>
-      </Stack>
+      </Stack> */}
       <BDataGrid columns={columns} rows={updatedRecords} />
       <AddRecordPopup
         open={popupOpen}

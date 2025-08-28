@@ -34,7 +34,6 @@ type AllAppointmentsResponse = {
     };
     discount: {
       reason: string;
-      amount: number;
     };
   }[];
   message: string;
@@ -77,7 +76,6 @@ type FilteredAppointmentsResponse = {
       };
       discount: {
         reason: string;
-        amount: number;
       };
     }[];
     total: number;
@@ -121,7 +119,6 @@ type AppointmentResponse = {
     };
     discount: {
       reason: string;
-      amount: number;
     };
   };
   message: string;
@@ -162,7 +159,6 @@ type CreateAppointmentResponse = {
     };
     discount: {
       reason: string;
-      amount: number;
     };
   };
   message: string;
@@ -176,7 +172,6 @@ type CreateAppointmentRequest = {
   reason: string;
   discount?: {
     reason?: string;
-    amount?: string;
   };
 };
 
@@ -192,7 +187,6 @@ type UpdateAppointmentResponse = {
     status: "done" | "canceled" | "retarded";
     discount: {
       reason: string;
-      amount: string;
     };
   };
   message: string;
@@ -208,7 +202,6 @@ type UpdateAppointmentRequest = Partial<{
   status: "done" | "canceled" | "retarded";
   discount?: {
     reason?: string;
-    amount?: string;
   };
 }>;
 
@@ -245,7 +238,6 @@ type DeleteAppointmentResponse = {
   };
   discount: {
     reason: string;
-    amount: number;
   };
 };
 

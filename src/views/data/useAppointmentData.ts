@@ -75,6 +75,7 @@ export function useAppointmentData(id: number) {
         ? ({
             id: appointmentData.id,
             beneficiary_id: appointmentData.owner_id,
+            beneficiary_original_id: appointmentData.owner_id,
             beneficiary_name:
               appointmentData.owner.first_name +
               " " +
@@ -185,12 +186,7 @@ export function useAppointmentData(id: number) {
         doctor_id: data.doctor_id,
         start_time: data.from,
         reason: data.reason,
-        discount: data.wantDiscount
-          ? {
-              amount: "100",
-              reason: data.wantDiscount,
-            }
-          : undefined,
+        discount: data.wantDiscount ? { reason: data.wantDiscount } : undefined,
       },
     }).finally(() => setCreateAppointmentLoading(false));
   };
