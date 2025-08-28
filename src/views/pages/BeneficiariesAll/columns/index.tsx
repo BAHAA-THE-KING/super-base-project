@@ -163,7 +163,7 @@ export function useBeneficiariesColumns() {
         headerName: RequestStatusText,
         type: "singleSelect",
         flex: 1,
-        options: [
+        valueOptions: [
           { value: "pending", label: PendingText },
           { value: "accepted", label: AcceptedText },
           { value: "rejected", label: RejectedText },

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFieldArray, UseFormReturn } from "react-hook-form";
 import { ButtonGroup, Stack, SvgIcon, useTheme } from "@mui/material";
 
@@ -16,13 +16,12 @@ import { BButton, BCard, BChip, BTypography } from "src/components/Base";
 import { DynamicCard, DynamicList } from "..";
 
 import { useBaseTranslation } from "src/hooks";
-
 import {
-  BeneficiaryRequest,
-  EmergencyAssistanceRequest,
-  SpecialMaterialRequest,
-  WithdrawalOrderRequest,
-} from "../../data";
+  type BeneficiaryRequest,
+  type EmergencyAssistanceRequest,
+  type SpecialMaterialRequest,
+  type WithdrawalOrderRequest,
+} from "src/views/data";
 
 type AcceptanceForm = {
   BeneficiaryRequest: {
@@ -93,6 +92,9 @@ export function Data({ data, dataType, formInstance }: Props) {
 
   const [view, setView] = useState<"list" | "grid">("list");
   const [selectedCase, setSelectedCase] = useState<number>(0);
+  useEffect(() => {
+    setSelectedCase(0);
+  }, [dataType]);
 
   const { control, getValues } = formInstance;
 
@@ -251,9 +253,7 @@ export function Data({ data, dataType, formInstance }: Props) {
                       control={control}
                       multiline
                       label={ReasonText}
-                      inputProps={{
-                        variant: "outlined",
-                      }}
+                      inputProps={{ variant: "outlined" }}
                     />
                   </Stack>
                 </BCard>

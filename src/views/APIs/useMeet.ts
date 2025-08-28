@@ -23,7 +23,7 @@ type MeetChild = {
   id: number;
   name: string;
   birth_date: string;
-  gender: string;
+  gender: "male" | "female";
   is_alive: boolean;
   partner_name: string;
   residence_place: string;
@@ -39,6 +39,7 @@ type MeetEntity = {
   birth_date: string;
   birth_place: string;
   national_number: string;
+  personalImage: { file: string };
   job: string;
   health_status: string;
   phone_number: string;

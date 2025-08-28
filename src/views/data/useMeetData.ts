@@ -61,17 +61,23 @@ export function useMeetData(meetId?: number) {
   // Map API data to component data structures
   const membershipRequests: Partial<BeneficiaryRequest>[] = useMemo(
     () =>
-      membershipRequestsData?.data?.map((request: any) => ({
+      membershipRequestsData?.data?.map((request) => ({
         id: request.entity.id,
-        image_url: request.entity.image_url,
+        image_url: request.entity.personalImage.file,
         first_name: request.entity.first_name,
         last_name: request.entity.last_name,
         birth_date: request.entity.birth_date.split("T")[0],
         address: request.entity.address,
         case_description: request.entity.case_description,
         request_id: request.id,
-        children: request.entity.children,
-        partner: request.entity.partners[0], // Assuming first partner
+        children: request.entity.children.map((e) => ({
+          ...e,
+          beneficiary_id: request.entity.id,
+        })),
+        partner: {
+          ...request.entity.partners[0],
+          beneficiary_id: request.entity.id,
+        } as BeneficiaryRequest["partner"], // Assuming first partner
       })) || [],
     [membershipRequestsData?.data]
   );

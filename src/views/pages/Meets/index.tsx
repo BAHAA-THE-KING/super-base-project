@@ -164,7 +164,8 @@ export function Meets() {
         date: new Date().toLocaleDateString("fr-Ca"),
       }).then((res) => setMeetId(res.data.id));
     } else {
-      if (pendingMeets[0].id) setMeetId(pendingMeets[0].id);
+      const lastId = pendingMeets.at(-1)?.id;
+      if (lastId) setMeetId(lastId);
     }
   }, [pendingMeets]);
 
@@ -186,7 +187,7 @@ export function Meets() {
     ) {
       formInstance.reset({
         BeneficiaryRequest: membershipRequests.map((e) => ({
-          requestId: Number(e.request_id),
+          requestId: Number(e.id),
           status: "",
           reason: "",
         })),
