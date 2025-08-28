@@ -152,7 +152,7 @@ export function AppointmentDetails({
       <Stack
         width={"100%"}
         height={{ xs: "auto", md: "50%" }}
-        maxHeight={{ xs: "auto", md: 500 }}
+        maxHeight={{ xs: "auto", md: 550 }}
         flexDirection={{
           sx: "column",
           md: "row",
