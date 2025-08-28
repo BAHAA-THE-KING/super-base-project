@@ -26,6 +26,7 @@ export interface SingleBeneficiary {
   case_description: string;
   request_id: number | string;
   request_status: RequestStatus;
+  history: BeneficiaryHistory[];
 }
 
 export interface Child {
@@ -76,3 +77,10 @@ export interface Condition {
   id: number | string;
   name: string;
 }
+
+export type BeneficiaryHistory = {
+  id: number;
+  type: string;
+  record: string;
+  created_at: string;
+};

@@ -92,19 +92,16 @@ type ShowResponse = {
     group_id: number;
     request_id: number;
     request_status: string;
-
     personalImage: {
       id: number;
       file: string;
       extension: string;
     };
-
     residenceDocument: {
       id: number;
       file: string;
       extension: string;
     };
-
     partners: {
       id: number;
       first_name: string;
@@ -113,7 +110,6 @@ type ShowResponse = {
       gender: string;
       health_status: string;
     }[];
-
     uncles: {
       id: number;
       from: string;
@@ -122,7 +118,6 @@ type ShowResponse = {
       job: string;
       provided_aid: string;
     }[];
-
     children: {
       id: number;
       name: string;
@@ -132,7 +127,6 @@ type ShowResponse = {
       partner_name: string;
       residence_place: string;
     }[];
-
     group: {
       id: number;
       name: string;
@@ -144,7 +138,6 @@ type ShowResponse = {
         param: string;
       }[];
     };
-
     request: {
       id: number;
       status: string;
@@ -174,6 +167,14 @@ type ShowResponse = {
         request_status: string;
       };
     };
+    beneficiaryHistories: {
+      id: number;
+      beneficiary_id: number;
+      type: string;
+      record: string;
+      created_at: string;
+      updated_at: string;
+    }[];
   };
   message: string;
 };

@@ -40,7 +40,6 @@ export function useBeneficiaryData(id: number) {
             mobile_number: responseData.mobile_number,
             address: responseData.address,
             residence_type: responseData.residence_type,
-            // TODO: add missing field
             residence_document_url: [responseData.residenceDocument.file],
             children: responseData.children.map((e) => ({
               id: e.id,
@@ -88,6 +87,15 @@ export function useBeneficiaryData(id: number) {
             case_description: responseData.case_description,
             request_id: responseData.request_id,
             request_status: responseData.request_status,
+            history: responseData.beneficiaryHistories.map((e) => ({
+              id: e.id,
+              type: e.type,
+              record: e.record,
+              created_at: new Date(e.created_at)
+                .toISOString()
+                .slice(0, 16)
+                .replace("T", ", "),
+            })),
           } as SingleBeneficiary)
         : null,
     [responseData]

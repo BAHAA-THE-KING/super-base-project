@@ -27,7 +27,7 @@ type Plan = {
   name: string;
   type: "meat" | "food" | "rice" | "clothes" | "other";
   description: string;
-  portion: string;
+  portion: number;
   is_finished: number;
   date: string;
   completion_percentage: number;
@@ -74,7 +74,7 @@ type PlanResponse = {
 type AddPlanRequest = {
   name: string;
   description: string;
-  portion: string;
+  portion: number;
   type: string;
   date: string; // ISO date string, e.g. "2025-08-15"
   attributes: {
@@ -88,7 +88,7 @@ type AddPlanResponse = {
     id: number;
     name: string;
     description: string;
-    portion: string;
+    portion: number;
     is_finished: number; // 0 or 1
     date: string; // ISO date string
     attributes: {
@@ -103,7 +103,7 @@ type AddPlanResponse = {
 type EditPlanRequest = {
   name: string;
   description: string;
-  portion: string;
+  portion: number;
 };
 
 type EditPlanResponse = {
@@ -111,7 +111,7 @@ type EditPlanResponse = {
     id: number;
     name: string;
     description: string;
-    portion: string;
+    portion: number;
     is_finished: number; // 0 or 1
     date: string; // ISO date string
     attributes: {

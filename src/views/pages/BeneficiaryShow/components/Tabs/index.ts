@@ -3,3 +3,4 @@ export { FamilyInfo } from "./FamilyInfo";
 export { SupportersInfo } from "./SupportersInfo";
 export { GroupInfo } from "./GroupInfo";
 export { AvailableAids } from "./AvailableAids";
+export { HistoryLog } from "./HistoryLog";

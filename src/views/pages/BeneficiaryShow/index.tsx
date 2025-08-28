@@ -10,6 +10,7 @@ import {
   SupportersInfo,
   GroupInfo,
   AvailableAids,
+  HistoryLog,
 } from "./components/Tabs";
 
 import { useBaseTranslation } from "src/hooks";
@@ -32,6 +33,7 @@ const i18ns = [
   "group_info",
   "available_aids",
   "requests",
+  "history",
 ];
 export function ShowBeneficiary({
   requestMode = false,
@@ -45,6 +47,7 @@ export function ShowBeneficiary({
     GroupInfoText,
     AvailableAidsText,
     RequestsText,
+    HistoryText,
   ] = useBaseTranslation(i18ns);
 
   const navigate = useNavigate();
@@ -174,6 +177,15 @@ export function ShowBeneficiary({
               label: RequestsText,
               external: true,
               link: `/beneficiary/${beneficiary.id}/requests`,
+            }
+          : null,
+        createMode || requestMode
+          ? null
+          : beneficiary
+          ? {
+              name: "history",
+              label: HistoryText,
+              element: <HistoryLog history={beneficiary.history} />,
             }
           : null,
       ].filter((e) => e !== null),

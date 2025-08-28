@@ -433,5 +433,6 @@
   "accept_payment": "الموافقة على الدفعات",
   "save_new_donation": "حفظ التبرع الجديد",
   "add_new_donation": "إضافة تبرع جديد",
-  "edit_donation": "تعديل التبرع"
+  "edit_donation": "تعديل التبرع",
+  "beneficiary_history": "سجل المستفيد"
 }
