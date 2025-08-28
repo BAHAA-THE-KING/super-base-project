@@ -30,9 +30,9 @@ const i18ns = [
   "edit",
   "save_changes",
   "cancel",
-  "save_new_expense",
-  "add_new_expense",
-  "edit_expense",
+  "save_new_donation",
+  "add_new_donation",
+  "edit_donation",
 ];
 
 export function DonationInfo({
@@ -51,9 +51,9 @@ export function DonationInfo({
     EditText,
     SaveChangesText,
     CancelText,
-    SaveNewExpenseText,
-    AddNewExpenseText,
-    EditExpenseText,
+    SaveNewDonationText,
+    AddNewDonationText,
+    EditDonationText,
   ] = useBaseTranslation(i18ns);
 
   return (
@@ -67,7 +67,7 @@ export function DonationInfo({
       <CardContent>
         <Stack flexDirection={"row"} alignItems={"center"}>
           <BTypography variant="h5" fontWeight={"bold"}>
-            {AddNewExpenseText}
+            {AddNewDonationText}
           </BTypography>
         </Stack>
       </CardContent>
@@ -137,7 +137,7 @@ export function DonationInfo({
                   disabled={isAdd ? !isValid : !isDirty}
                   onClick={submit}
                 >
-                  {SaveNewExpenseText}
+                  {SaveNewDonationText}
                 </BButton>
               </Stack>
             )}

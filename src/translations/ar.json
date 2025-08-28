@@ -335,7 +335,7 @@
   "batch_numbers": "أرقام الصفحات",
   "add_new_batch": "إضافة دفعة جديدة",
   "batches": "الدفعات",
-  "add_new_batch_for_book": "إضافة دفعة جديدة للدفت",
+  "add_new_batch_for_book": "إضافة دفعة جديدة لدفتر",
   "collector": "الجامع",
   "from": "من",
   "got_money": "المبلغ المحصل",
@@ -362,7 +362,7 @@
   "icon": "الأيقونة",
   "add_expense": "إضافة مصروف",
   "save_new_expense": "حفظ الدفعة الجديدة",
-  "add_new_expense": "إضافة الدفعة الجديدة",
+  "add_new_expense": "إضافة دفعة جديدة",
   "edit_expense": "تعديل الدفعة",
   "add_employee": "إضافة موظف",
   "donations": "التبرعات",
@@ -430,5 +430,8 @@
   "patient": "المريض",
   "doctor": "الطبيب",
   "month": "الشهر",
-  "accept_payment": "الموافقة على الدفعات"
+  "accept_payment": "الموافقة على الدفعات",
+  "save_new_donation": "حفظ التبرع الجديد",
+  "add_new_donation": "إضافة تبرع جديد",
+  "edit_donation": "تعديل التبرع"
 }
