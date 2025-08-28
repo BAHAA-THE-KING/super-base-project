@@ -1,5 +1,9 @@
 import { useMemo } from "react";
-import { getGridDateOperators, GridColDef } from "@mui/x-data-grid";
+import {
+  getGridDateOperators,
+  getGridSingleSelectOperators,
+  GridColDef,
+} from "@mui/x-data-grid";
 import { Box } from "@mui/material";
 
 import { useBaseTranslation } from "src/hooks";
@@ -15,6 +19,9 @@ const i18ns = [
   "person",
   "month",
   "status",
+  "pending",
+  "accepted",
+  "rejected",
 ];
 export function useAppointmentsColumns() {
   const [
@@ -25,6 +32,9 @@ export function useAppointmentsColumns() {
     PersonText,
     MonthText,
     StatusText,
+    PendingText,
+    AcceptedText,
+    RejectedText,
   ] = useBaseTranslation(i18ns);
 
   return useMemo<GridColDef<ClinicBalanceRecord>[]>(
@@ -84,7 +94,16 @@ export function useAppointmentsColumns() {
         field: "status",
         headerName: StatusText,
         flex: 1,
+        type: "singleSelect",
         renderCell: ({ value }) => <RequestStatusChip status={value} />,
+        filterOperators: getGridSingleSelectOperators().filter(
+          (e) => e.value === "is"
+        ),
+        valueOptions: [
+          { value: "pending", label: PendingText },
+          { value: "approved", label: AcceptedText },
+          { value: "rejected", label: RejectedText },
+        ],
       },
     ],
     []

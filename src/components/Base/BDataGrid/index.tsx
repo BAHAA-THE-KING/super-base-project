@@ -3,13 +3,14 @@ import { Box, BoxProps, styled } from "@mui/material";
 import { DataGrid, DataGridProps } from "@mui/x-data-grid";
 import { arSD, enUS } from "@mui/x-data-grid/locales";
 
+import { BTooltip } from "..";
+
 import { usePreferredLanguage } from "src/globals";
 
 import { varAlpha } from "src/themes/styles";
 
 import { CustomGridToolbar } from "./CustomGridToolbar";
 import { CustomLoadingOverlay } from "./CustomLoadingOverlay";
-import { BTooltip } from "..";
 
 type BDataGridProps = DataGridProps & {
   containerProps?: BoxProps;
