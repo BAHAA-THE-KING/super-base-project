@@ -424,5 +424,11 @@
   "new_username": "اسم المستخدم",
   "new_password": "كلمةالمرور",
   "attendance_start": "بداية الدوام",
-  "attendance_end": "نهاية الدوام"
+  "attendance_end": "نهاية الدوام",
+  "deliver_payroll": "تسليم الرواتب",
+  "appointment_price": "سعر الموعد",
+  "patient": "المريض",
+  "doctor": "الطبيب",
+  "month": "الشهر",
+  "accept_payment": "الموافقة على الدفعات"
 }

@@ -33,3 +33,4 @@ export { useDoctorsAllData } from "./useDoctorsAllData";
 export { useDoctorData } from "./useDoctorData";
 export { useAppointmentsAllData } from "./useAppointmentsAllData";
 export { useAppointmentData } from "./useAppointmentData";
+export { useClinicBalanceData } from "./useClinicBalanceData";

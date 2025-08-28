@@ -1,15 +1,21 @@
 import { useMemo } from "react";
-import { GridColDef } from "@mui/x-data-grid";
+import { getGridDateOperators, GridColDef } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
 
 import { useBaseTranslation } from "src/hooks";
 
 import { ClinicBalanceRecord } from "src/types/data/ClinicBalanceRecord";
 
-const i18ns = ["record_number", "date", "amount", "reason", "person"];
+const i18ns = ["record_number", "date", "amount", "reason", "person", "month"];
 export function useAppointmentsColumns() {
-  const [RecordNumberText, DateText, AmountText, ReasonText, PersonText] =
-    useBaseTranslation(i18ns);
+  const [
+    RecordNumberText,
+    DateText,
+    AmountText,
+    ReasonText,
+    PersonText,
+    MonthText,
+  ] = useBaseTranslation(i18ns);
 
   return useMemo<GridColDef<ClinicBalanceRecord>[]>(
     () => [
@@ -19,9 +25,21 @@ export function useAppointmentsColumns() {
         flex: 1,
       },
       {
+        field: "month",
+        headerName: MonthText,
+        flex: 1,
+        valueGetter: (value, { date }) => (value ?? date)?.slice(0, 7),
+        filterOperators: getGridDateOperators(false).filter(
+          (e) => e.value === "is"
+        ),
+      },
+      {
         field: "date",
         headerName: DateText,
         flex: 1,
+        filterOperators: getGridDateOperators(false).filter(
+          (e) => e.value === "is"
+        ),
       },
       {
         field: "amount",

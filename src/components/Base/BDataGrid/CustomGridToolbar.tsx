@@ -18,7 +18,7 @@ type Props = {
     id: string;
     field: string;
     operator: string;
-    value: string;
+    value: string | number | Date;
   }[];
   removeFilter: (id: string) => void;
   columns: readonly GridColDef[];
@@ -63,9 +63,7 @@ export function CustomGridToolbar({ filters, removeFilter, columns }: Props) {
           <GridToolbarDensitySelector />
           <GridToolbarExport />
         </Stack>
-        <Stack mx={2}>
-          <GridToolbarQuickFilter />
-        </Stack>
+        <Stack mx={2}>{/* <GridToolbarQuickFilter /> */}</Stack>
       </Stack>
       <Stack flexDirection={"row"} flexWrap={"wrap"} mb={2}>
         {filters?.map((item) => {
@@ -93,6 +91,8 @@ export function CustomGridToolbar({ filters, removeFilter, columns }: Props) {
               ? BeforeText
               : item.operator === "before_or_equals"
               ? BeforeOrEqualsText
+              : item.operator === "is"
+              ? EqualsText
               : item.operator;
           console.log("OperatorText=", OperatorText);
           return (
@@ -103,7 +103,9 @@ export function CustomGridToolbar({ filters, removeFilter, columns }: Props) {
                 " " +
                 OperatorText +
                 " " +
-                item.value
+                (item.value instanceof Date
+                  ? item.value.toLocaleDateString("fr-Ca")
+                  : item.value)
               }
               onDelete={() => removeFilter(item.id)}
               variant="slight"
