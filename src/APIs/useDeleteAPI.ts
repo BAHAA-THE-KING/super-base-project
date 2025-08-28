@@ -34,19 +34,11 @@ export function useDeleteAPI<R, P = any, TPath extends string = string>(
     ) => {
       const response = await api.delete<R & Error>(path, { params });
 
-      if (response.status === 401) navigate("/login");
+      if (response.status === 401) {
+        throw "Unauthorized";
+      }
       if (response.data.errors) {
-        addError({
-          messages: Object.values(response.data.errors),
-          context: {
-            route: path,
-            request_body: { params },
-            response: {
-              code: response.status,
-              errors: Object.values(response.data.errors),
-            },
-          },
-        });
+        throw { errors: response.data.errors, status: response.status, params };
       }
 
       return response.data;
@@ -60,6 +52,23 @@ export function useDeleteAPI<R, P = any, TPath extends string = string>(
             },
           });
         }
+      },
+      onError: (
+        err: "Unauthorized" | { errors: string[]; status: number; params: any }
+      ) => {
+        if (err === "Unauthorized") navigate("/login");
+        else
+          addError({
+            messages: Object.values(err.errors),
+            context: {
+              route: path,
+              request_body: { params: err.params },
+              response: {
+                code: err.status,
+                errors: Object.values(err.errors),
+              },
+            },
+          });
       },
     }
   );

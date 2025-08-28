@@ -38,19 +38,16 @@ export function usePatchAPI<R, T, P = any, TPath extends string = string>(
     }) => {
       const response = await api.patch<R & Error>(path, data, { params });
 
-      if (response.status === 401) navigate("/login");
+      if (response.status === 401) {
+        throw "Unauthorized";
+      }
       if (response.data.errors) {
-        addError({
-          messages: Object.values(response.data.errors),
-          context: {
-            route: path,
-            request_body: { params, data },
-            response: {
-              code: response.status,
-              errors: Object.values(response.data.errors),
-            },
-          },
-        });
+        throw {
+          errors: response.data.errors,
+          status: response.status,
+          params,
+          data,
+        };
       }
 
       return response.data;
@@ -64,6 +61,25 @@ export function usePatchAPI<R, T, P = any, TPath extends string = string>(
             },
           });
         }
+      },
+      onError: (
+        err:
+          | "Unauthorized"
+          | { errors: string[]; status: number; params: any; data: any }
+      ) => {
+        if (err === "Unauthorized") navigate("/login");
+        else
+          addError({
+            messages: Object.values(err.errors),
+            context: {
+              route: path,
+              request_body: { params: err.params, data: err.data },
+              response: {
+                code: err.status,
+                errors: Object.values(err.errors),
+              },
+            },
+          });
       },
     }
   );

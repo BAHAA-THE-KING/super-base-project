@@ -42,19 +42,11 @@ export function useGetAPI<R, TPath extends string = string>(
     async ({ signal }) => {
       const response = await api.get<R & Error>(path, { params, signal });
 
-      if (response.status === 401) navigate("/login");
+      if (response.status === 401) {
+        throw "Unauthorized";
+      }
       if (response.data.errors) {
-        addError({
-          messages: Object.values(response.data.errors),
-          context: {
-            route: path,
-            request_body: { params },
-            response: {
-              code: response.status,
-              errors: Object.values(response.data.errors),
-            },
-          },
-        });
+        throw { errors: response.data.errors, status: response.status };
       }
 
       return response.data;
@@ -70,6 +62,21 @@ export function useGetAPI<R, TPath extends string = string>(
             },
           });
         }
+      },
+      onError: (err: "Unauthorized" | { errors: string[]; status: number }) => {
+        if (err === "Unauthorized") navigate("/login");
+        else
+          addError({
+            messages: Object.values(err.errors),
+            context: {
+              route: path,
+              request_body: { params },
+              response: {
+                code: err.status,
+                errors: Object.values(err.errors),
+              },
+            },
+          });
       },
     }
   );
