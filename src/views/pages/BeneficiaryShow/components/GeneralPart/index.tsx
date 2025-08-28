@@ -4,7 +4,7 @@ import { Control, Controller, useWatch } from "react-hook-form";
 
 import { AddPhotoAlternate as AddPhotoAlternateIcon } from "@mui/icons-material";
 
-import { BButton, BChip, BTypography } from "src/components/Base";
+import { BButton, BTypography } from "src/components/Base";
 import { BeneficiaryTabList } from "../BeneficiaryTabList";
 
 import { SingleBeneficiary } from "src/types/data/SingleBeneficiary";
@@ -108,11 +108,17 @@ export function GeneralPart({
             )}
           />
         </Stack>
+        {requestMode || createMode ? null : (
+          <BButton
+            color={group?.color}
+            variant="contained"
+            sx={{ borderRadius: "1000px", my: 1 }}
+          >
+            {group?.name}
+          </BButton>
+        )}
         <Stack mx={3} flexDirection={"row"} justifyContent={"center"}>
           <BTypography variant="h3">{name}</BTypography>
-          {requestMode || createMode ? null : (
-            <BChip color={group?.color} label={group?.name} />
-          )}
         </Stack>
       </Stack>
       <Box width={"100%"} mt={3}>

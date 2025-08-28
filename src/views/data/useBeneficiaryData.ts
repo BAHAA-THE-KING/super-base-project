@@ -71,7 +71,7 @@ export function useBeneficiaryData(id: number) {
             },
             group: {
               id: responseData.group.id,
-              name: responseData.group.color,
+              name: responseData.group.name,
               salary: responseData.group.salary.toString(),
               color: responseData.group.color,
               group_conditions: responseData.group.conditions.map((e) => ({

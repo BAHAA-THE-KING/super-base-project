@@ -222,7 +222,15 @@ export function useMeet() {
 
   const submitMeet = usePutAPI<SubmitMeetResponse, SubmitMeetRequest>(
     "/dashboard/meets/:meetId/submit-results",
-    { invalidateKeys: ["meets"] }
+    {
+      invalidateKeys: [
+        "meets",
+        "beneficiaries",
+        "groups",
+        "instant-aids",
+        "need-requests",
+      ],
+    }
   ).mutateAsync;
 
   return {
