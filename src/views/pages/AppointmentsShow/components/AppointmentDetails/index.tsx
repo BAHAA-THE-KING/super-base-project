@@ -34,14 +34,19 @@ import { AppointmentStatusChip } from "src/views/pages/AppointmentsDate/componen
 import { useBaseTranslation } from "src/hooks";
 
 import { AppointmentTable } from "src/types/data/AppointmentTable";
+import { AppointmentCreate } from "src/types/data/AppointmentCreate";
 
 type Props = {
-  appointment: AppointmentTable;
+  appointment: AppointmentTable & AppointmentCreate;
   editAppointmentStatus: (
     status: "pending" | "missed" | "finished" | "canceled",
     id: number
   ) => void;
-  editHealthInfo: (healthInfo: string, id: number) => void;
+  editHealthInfo: (
+    healthInfo: string,
+    id: number,
+    type: "beneficiary" | "patient"
+  ) => void;
   addAppointmentResult: (result: string, id: number) => void;
 };
 
@@ -308,11 +313,14 @@ export function AppointmentDetails({
                 }}
               />
               <Box display={"flex"} justifyContent={"space-between"}>
-                {/* TODO: You've edited the past things, Are you sure ? */}
                 <BButton
                   variant="contained"
                   onClick={handleSubmitHealthInfo((data) => {
-                    editHealthInfo(data.healthInfo, appointment.id);
+                    editHealthInfo(
+                      data.healthInfo,
+                      appointment.beneficiary_id,
+                      appointment.beneficiary_type
+                    );
                   })}
                 >
                   {SaveText}

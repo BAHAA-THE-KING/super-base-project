@@ -233,9 +233,7 @@ type AddResponse = {
 };
 
 type EditRequest = {
-  id: number;
-  name: string;
-  age: number;
+  medical_history: string;
 };
 
 type EditResponse = {
@@ -313,9 +311,12 @@ export function useBeneficiaries() {
     }
   ).mutateAsync;
 
-  const editBeneficiary = usePutAPI<EditResponse, EditRequest>("/update", {
-    invalidateKeys: ["beneficiaries"],
-  }).mutateAsync;
+  const editBeneficiary = usePutAPI<EditResponse, EditRequest>(
+    "/dashboard/beneficiaries/update/:id",
+    {
+      invalidateKeys: ["beneficiaries"],
+    }
+  ).mutateAsync;
 
   const deactivateBeneficiary = useDeleteAPI<
     DeactivateResponse,

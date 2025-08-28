@@ -25,3 +25,13 @@ export type AppointmentBeneficiary = {
   name: string;
   national_number: string;
 };
+
+export type Patient = {
+  first_name: string;
+  last_name: string;
+  father_name: string;
+  address: string;
+  birthDate: string;
+  phoneNumber: string;
+  national_number: string;
+};

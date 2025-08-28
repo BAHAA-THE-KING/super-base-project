@@ -33,11 +33,17 @@ export function AppointmentsShow({ isAdd = false }: { isAdd?: boolean }) {
     doctors,
     getDoctorsLoading,
     createAppointment,
+    createAppointmentLoading,
     updateAppointmentStatus,
-    updateAppointmentsHealthInfo,
     updateAppointmentResult,
+    updateAppointmentLoading,
+    deleteAppointment,
+    deleteAppointmentLoading,
+    createPatient,
+    createPatientLoading,
+    updatePatientHealthInfo,
+    updatePatientLoading,
   } = useAppointmentData(appointmentId);
-  console.log(appointmentId);
 
   const {
     reset,
@@ -124,7 +130,7 @@ export function AppointmentsShow({ isAdd = false }: { isAdd?: boolean }) {
         <AppointmentDetails
           appointment={appointment}
           editAppointmentStatus={updateAppointmentStatus}
-          editHealthInfo={updateAppointmentsHealthInfo}
+          editHealthInfo={updatePatientHealthInfo}
           addAppointmentResult={updateAppointmentResult}
         />
       ) : null}

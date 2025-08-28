@@ -10,12 +10,10 @@ type Config = {
   invalidateKeys?: QueryKey;
 };
 
-export function usePutAPI<
-  R extends { message: string; errors?: { [name: string]: string } },
-  T,
-  P = any,
-  TPath extends string = string
->(path: TPath, config: Config = {}) {
+export function usePutAPI<R, T, P = any, TPath extends string = string>(
+  path: TPath,
+  config: Config = {}
+) {
   const { invalidateKeys } = config;
 
   const navigate = useNavigate();

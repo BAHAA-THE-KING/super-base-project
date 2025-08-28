@@ -1,18 +1,19 @@
 import { Box, Grid2 } from "@mui/material";
 import { useForm } from "react-hook-form";
 
-import { Popup, FormInput, FormSelect } from "src/components";
+import { Popup, FormInput } from "src/components";
 import { BButton, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
 type Form = {
-  name: string;
-  birthPlace: string;
+  first_name: string;
+  last_name: string;
+  father_name: string;
   birthDate: string;
   address: string;
   phoneNumber: string;
-  maritalStatus: string;
+  national_number: string;
 };
 
 type Props = {
@@ -23,42 +24,37 @@ type Props = {
 
 const i18ns = [
   "create_new_patient",
-  "name",
-  "birth_place",
+  "first_name",
+  "last_name",
+  "father_name",
+  "national_number",
   "birth_date",
   "address",
   "phone_number",
-  "marital_status",
   "save_new_patient",
-];
-
-const maritalStatusOptions = [
-  { id: "single", name: "Single" },
-  { id: "married", name: "Married" },
-  { id: "divorced", name: "Divorced" },
-  { id: "widowed", name: "Widowed" },
 ];
 
 export function NewPatientPopup({ open, close, setPatientId }: Props) {
   const [
     CreateNewPatientText,
-    NameText,
-    BirthPlaceText,
+    FirstNameText,
+    LastNameText,
+    FatherNameText,
+    NationalNumberText,
     BirthDateText,
     AddressText,
     PhoneNumberText,
-    MaritalStatusText,
     SaveNewPatientText,
   ] = useBaseTranslation(i18ns);
 
   const { control, handleSubmit, reset } = useForm<Form>({
     defaultValues: {
-      name: "",
-      birthPlace: "",
+      first_name: "",
+      last_name: "",
+      national_number: "",
       birthDate: "",
       address: "",
       phoneNumber: "",
-      maritalStatus: "",
     },
   });
 
@@ -78,16 +74,32 @@ export function NewPatientPopup({ open, close, setPatientId }: Props) {
           <Grid2 size={{ xs: 12, md: 6 }}>
             <FormInput
               control={control}
-              label={NameText}
-              name="name"
+              label={FirstNameText}
+              name="first_name"
               rules={{ required: true }}
             />
           </Grid2>
           <Grid2 size={{ xs: 12, md: 6 }}>
             <FormInput
               control={control}
-              label={BirthPlaceText}
-              name="birthPlace"
+              label={LastNameText}
+              name="last_name"
+              rules={{ required: true }}
+            />
+          </Grid2>
+          <Grid2 size={{ xs: 12, md: 6 }}>
+            <FormInput
+              control={control}
+              label={FatherNameText}
+              name="father_name"
+              rules={{ required: true }}
+            />
+          </Grid2>
+          <Grid2 size={{ xs: 12, md: 6 }}>
+            <FormInput
+              control={control}
+              label={NationalNumberText}
+              name="national_number"
               rules={{ required: true }}
             />
           </Grid2>
@@ -114,16 +126,6 @@ export function NewPatientPopup({ open, close, setPatientId }: Props) {
               label={PhoneNumberText}
               name="phoneNumber"
               rules={{ required: true }}
-            />
-          </Grid2>
-          <Grid2 size={{ xs: 12, md: 6 }}>
-            <FormSelect
-              control={control}
-              label={MaritalStatusText}
-              name="maritalStatus"
-              rules={{ required: true }}
-              options={maritalStatusOptions}
-              sx={{ mb: 3 }}
             />
           </Grid2>
           <Grid2 size={12} mt={3}>

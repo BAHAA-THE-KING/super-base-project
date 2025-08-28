@@ -1,4 +1,4 @@
-import { useGetAPI, usePostAPI } from "src/APIs";
+import { useGetAPI, usePostAPI, usePutAPI } from "src/APIs";
 
 type AllPatientsResponse = {
   data?: {
@@ -40,6 +40,30 @@ type CreatePatientRequest = {
   national_number: string;
 };
 
+type UpdatePatientResponse = {
+  data: {
+    first_name: string;
+    father_name: string;
+    last_name: string;
+    address: string;
+    birth_date: string;
+    phone: string;
+    medical_history: string;
+    national_number: string;
+  };
+  message: string;
+};
+type UpdatePatientRequest = Partial<{
+  first_name: string;
+  father_name: string;
+  last_name: string;
+  address: string;
+  birth_date: string;
+  phone: string;
+  medical_history: string;
+  national_number: string;
+}>;
+
 export function useClinicPatients() {
   const getAllPatients = (params: any) =>
     useGetAPI<AllPatientsResponse>("/dashboard/clinic_beneficiaries/all", {
@@ -55,8 +79,16 @@ export function useClinicPatients() {
     }
   ).mutateAsync;
 
+  const updatePatient = usePutAPI<UpdatePatientResponse, UpdatePatientRequest>(
+    "/dashboard/clinic_beneficiaries/update/:id",
+    {
+      invalidateKeys: ["patients"],
+    }
+  ).mutateAsync;
+
   return {
     getAllPatients,
     createPatient,
+    updatePatient,
   };
 }

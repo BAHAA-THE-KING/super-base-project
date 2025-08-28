@@ -11,6 +11,7 @@ import {
   AppointmentBeneficiary,
   AppointmentCreate,
   AppointmentDoctor,
+  Patient,
 } from "src/types/data/AppointmentCreate";
 import { AppointmentTable } from "src/types/data/AppointmentTable";
 
@@ -45,8 +46,12 @@ export function useAppointmentData(id: number) {
     deleteAppointment: deleteAppointmentAPI,
   } = useAppointments();
   const { getAllDoctors } = useDoctors();
-  const { getAllBeneficiaries } = useBeneficiaries();
-  const { getAllPatients } = useClinicPatients();
+  const { getAllBeneficiaries, editBeneficiary } = useBeneficiaries();
+  const {
+    getAllPatients,
+    createPatient: createPatientAPI,
+    updatePatient: updatePatientAPI,
+  } = useClinicPatients();
 
   const { data: appointmentsResponse } = getAppointment(id);
   const { data: doctorsResponse } = getAllDoctors({});
@@ -64,16 +69,20 @@ export function useAppointmentData(id: number) {
   });
   const appointmentsHistoryData = appointmentsHistoryResponse?.data;
 
-  const appointment: AppointmentTable | null = useMemo(
+  const appointment: (AppointmentTable & AppointmentCreate) | null = useMemo(
     () =>
       appointmentData && appointmentsHistoryData
-        ? {
+        ? ({
             id: appointmentData.id,
             beneficiary_id: appointmentData.owner_id,
             beneficiary_name:
               appointmentData.owner.first_name +
               " " +
               appointmentData.owner.last_name,
+            beneficiary_type:
+              appointmentData.owner_type === "App\\Models\\ClinicBeneficiary"
+                ? "patient"
+                : "beneficiary",
             beneficiary_national_number: appointmentData.owner.national_number,
             date: appointmentData.date.split("T")[0],
             doctor_id: appointmentData.doctor.id,
@@ -103,7 +112,7 @@ export function useAppointmentData(id: number) {
             showWantDiscount: Boolean(appointmentData.discount?.reason),
             wantDiscount: appointmentData.discount?.reason,
             reason: appointmentData.reason,
-          }
+          } as AppointmentTable & AppointmentCreate)
         : null,
     [appointmentData, appointmentsHistoryData]
   );
@@ -162,6 +171,9 @@ export function useAppointmentData(id: number) {
   const [deleteAppointmentLoading, setDeleteAppointmentLoading] =
     useState(false);
 
+  const [createPatientLoading, setCreatePatientLoading] = useState(false);
+  const [updatePatientLoading, setUpdatePatientLoading] = useState(false);
+
   const createAppointment = (data: Appointment) => {
     setCreateAppointmentLoading(true);
     return createAppointmentAPI({
@@ -208,19 +220,45 @@ export function useAppointmentData(id: number) {
       params: { id },
     }).finally(() => setUpdateAppointmentLoading(false));
   };
-  const updateAppointmentsHealthInfo = (healthInfo: string, id: number) => {
-    setUpdateAppointmentLoading(true);
-    // TODO: need to call update bene or patient not appo
-    return updateAppointmentAPI({
-      data: { medical_history: healthInfo },
-      params: { id },
-    }).finally(() => setUpdateAppointmentLoading(false));
-  };
   const deleteAppointment = (id: number) => {
     setDeleteAppointmentLoading(true);
     return deleteAppointmentAPI({ id }).finally(() =>
       setDeleteAppointmentLoading(false)
     );
+  };
+
+  const createPatient = (data: Patient) => {
+    setCreatePatientLoading(true);
+    return createPatientAPI({
+      data: {
+        first_name: data.first_name,
+        last_name: data.last_name,
+        father_name: data.father_name,
+        address: data.address,
+        birth_date: data.birthDate,
+        national_number: data.national_number,
+        phone: data.phoneNumber,
+        medical_history: "",
+      },
+    }).finally(() => setCreatePatientLoading(false));
+  };
+  const updatePatientHealthInfo = (
+    healthInfo: string,
+    id: number,
+    type: "beneficiary" | "patient"
+  ) => {
+    setUpdatePatientLoading(true);
+    if (type === "beneficiary") {
+      return editBeneficiary({
+        data: { medical_history: healthInfo },
+        params: { id },
+      }).finally(() => setUpdatePatientLoading(false));
+    } else {
+      return updatePatientAPI({
+        data: { medical_history: healthInfo },
+        params: { id },
+      }).finally(() => setUpdatePatientLoading(false));
+    }
   };
 
   return {
@@ -231,12 +269,15 @@ export function useAppointmentData(id: number) {
     beneficiaries,
     getBeneficiariesLoading,
     createAppointment,
+    createAppointmentLoading,
     updateAppointmentStatus,
     updateAppointmentResult,
-    updateAppointmentsHealthInfo,
-    deleteAppointment,
-    createAppointmentLoading,
     updateAppointmentLoading,
+    deleteAppointment,
     deleteAppointmentLoading,
+    createPatient,
+    createPatientLoading,
+    updatePatientHealthInfo,
+    updatePatientLoading,
   };
 }
