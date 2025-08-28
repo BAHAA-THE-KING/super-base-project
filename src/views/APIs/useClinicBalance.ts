@@ -13,8 +13,9 @@ type ClinicBalanceAllResponse = {
     date: string;
     amount: number;
     reason: string;
-    status: "approved";
+    status: "approved" | "pending" | "rejected";
     owner: any;
+    beneficiary: any;
   }[];
   message: string;
 };

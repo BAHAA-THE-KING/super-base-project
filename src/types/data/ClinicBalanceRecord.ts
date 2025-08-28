@@ -4,4 +4,5 @@ export type ClinicBalanceRecord = {
   amount: number;
   reason: string;
   person: string;
+  status: "accepted" | "pending" | "rejected";
 };

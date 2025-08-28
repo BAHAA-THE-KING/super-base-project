@@ -17,6 +17,8 @@ export function useClinicBalanceData(params: any) {
       id: e.id,
       date: e.date.split("T")[0],
       amount: e.amount,
+      status: e.status === "approved" ? "accepted" : e.status,
+      reason: e.reason,
       person:
         (e.owner_type === "App\\Models\\Appointment"
           ? AppointmentPriceText
@@ -27,13 +29,12 @@ export function useClinicBalanceData(params: any) {
           : "") +
         " " +
         (e.owner_type === "App\\Models\\Appointment"
-          ? e.owner.first_name + " " + e.owner.last_name
+          ? e.beneficiary.first_name + " " + e.beneficiary.last_name
           : e.owner_type === "App\\Models\\Secretary"
           ? e.owner.name
           : e.owner_type === "App\\Models\\Doctor"
           ? e.owner.name
           : ""),
-      reason: e.reason,
     })) ?? [];
   const getBalanceLoading = balanceResponse?.message === "wait";
 

@@ -5,8 +5,17 @@ import { Box } from "@mui/material";
 import { useBaseTranslation } from "src/hooks";
 
 import { ClinicBalanceRecord } from "src/types/data/ClinicBalanceRecord";
+import { RequestStatusChip } from "src/components";
 
-const i18ns = ["record_number", "date", "amount", "reason", "person", "month"];
+const i18ns = [
+  "record_number",
+  "date",
+  "amount",
+  "reason",
+  "person",
+  "month",
+  "status",
+];
 export function useAppointmentsColumns() {
   const [
     RecordNumberText,
@@ -15,6 +24,7 @@ export function useAppointmentsColumns() {
     ReasonText,
     PersonText,
     MonthText,
+    StatusText,
   ] = useBaseTranslation(i18ns);
 
   return useMemo<GridColDef<ClinicBalanceRecord>[]>(
@@ -69,6 +79,12 @@ export function useAppointmentsColumns() {
         field: "person",
         headerName: PersonText,
         flex: 1,
+      },
+      {
+        field: "status",
+        headerName: StatusText,
+        flex: 1,
+        renderCell: ({ value }) => <RequestStatusChip status={value} />,
       },
     ],
     []
