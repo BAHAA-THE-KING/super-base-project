@@ -9,6 +9,8 @@ import createCache from "@emotion/cache";
 import { prefixer } from "stylis";
 import rtlPlugin from "stylis-plugin-rtl";
 import { ErrorBoundary } from "react-error-boundary";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 import { useSetPreferences } from "src/hooks";
 
@@ -84,29 +86,34 @@ function App() {
 
   return (
     <ErrorBoundary fallbackRender={MainErrorFallback}>
-      <QueryClientProvider client={queryClient}>
-        {dir === "ltr" ? (
-          <>
-            <CssBaseline />
-            <ThemeProvider theme={currentTheme}>
-              <MessagesProvider>
-                <AppRouter />
-              </MessagesProvider>
-              <ReactQueryDevtools initialIsOpen={false} panelPosition="right" />
-            </ThemeProvider>
-          </>
-        ) : (
-          <CacheProvider value={cacheRtl}>
-            <CssBaseline />
-            <ThemeProvider theme={currentTheme}>
-              <MessagesProvider>
-                <AppRouter />
-              </MessagesProvider>
-              <ReactQueryDevtools initialIsOpen={false} />
-            </ThemeProvider>
-          </CacheProvider>
-        )}
-      </QueryClientProvider>
+      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={lang}>
+        <QueryClientProvider client={queryClient}>
+          {dir === "ltr" ? (
+            <>
+              <CssBaseline />
+              <ThemeProvider theme={currentTheme}>
+                <MessagesProvider>
+                  <AppRouter />
+                </MessagesProvider>
+                <ReactQueryDevtools
+                  initialIsOpen={false}
+                  panelPosition="right"
+                />
+              </ThemeProvider>
+            </>
+          ) : (
+            <CacheProvider value={cacheRtl}>
+              <CssBaseline />
+              <ThemeProvider theme={currentTheme}>
+                <MessagesProvider>
+                  <AppRouter />
+                </MessagesProvider>
+                <ReactQueryDevtools initialIsOpen={false} />
+              </ThemeProvider>
+            </CacheProvider>
+          )}
+        </QueryClientProvider>
+      </LocalizationProvider>
     </ErrorBoundary>
   );
 }
