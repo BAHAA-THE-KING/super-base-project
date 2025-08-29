@@ -189,9 +189,7 @@ export function GeneralPlanInfo({
         <Grid2 container spacing={10}>
           <Grid2 size={{ xs: 12, md: 4 }}>
             <FormInput
-              inputProps={{
-                slotProps: { input: { readOnly: !isEdit && !isAdd } },
-              }}
+              readOnly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={PlanNameText}
@@ -199,10 +197,8 @@ export function GeneralPlanInfo({
               rules={{ required: true }}
             />
             <FormInput
-              inputProps={{
-                variant: "outlined",
-                slotProps: { input: { readOnly: !isEdit && !isAdd } },
-              }}
+              inputProps={{ variant: "outlined" }}
+              readOnly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={PlanDescriptionText}
@@ -213,9 +209,7 @@ export function GeneralPlanInfo({
           </Grid2>
           <Grid2 size={{ xs: 12, md: 4 }}>
             <FormInput
-              inputProps={{
-                slotProps: { input: { readOnly: !isEdit && !isAdd } },
-              }}
+              readOnly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={PlanPortionText}
@@ -258,7 +252,7 @@ export function GeneralPlanInfo({
               )}
             />
             <FormDate
-              readonly={!isEdit && !isAdd}
+              readOnly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={PlanStartDateText}
@@ -278,9 +272,7 @@ export function GeneralPlanInfo({
               >
                 <BTypography flex={1}>{e.attribute.name}</BTypography>
                 <FormInput
-                  inputProps={{
-                    slotProps: { input: { readOnly: !isAdd } },
-                  }}
+                  readOnly={!isAdd}
                   sx={{ flex: 1 }}
                   control={control}
                   label={WeightText}

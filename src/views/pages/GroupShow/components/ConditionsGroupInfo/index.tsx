@@ -189,11 +189,7 @@ export function ConditionsGroupInfo({
                   label={ValueText}
                   name={`conditions.${i}.param.value`}
                   sx={{ width: "200px" }}
-                  inputProps={{
-                    slotProps: {
-                      input: { readOnly: !(isEdit || isAdd) },
-                    },
-                  }}
+                  readOnly={!isEdit && !isAdd}
                 />
               </Stack>
             </Stack>

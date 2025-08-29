@@ -136,9 +136,7 @@ export function GeneralBookInfo({
         <Grid2 container spacing={10}>
           <Grid2 size={{ xs: 12, md: 4 }}>
             <FormInput
-              inputProps={{
-                slotProps: { input: { readOnly: !isEdit && !isAdd } },
-              }}
+              readOnly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={BookNumberText}
@@ -146,9 +144,7 @@ export function GeneralBookInfo({
               rules={{ required: true }}
             />
             <FormInput
-              inputProps={{
-                slotProps: { input: { readOnly: !isEdit && !isAdd } },
-              }}
+              readOnly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={BookCategoryText}
@@ -156,7 +152,7 @@ export function GeneralBookInfo({
               rules={{ required: true }}
             />
             <FormDate
-              readonly={!isEdit && !isAdd}
+              readOnly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={BookDateText}
@@ -166,9 +162,7 @@ export function GeneralBookInfo({
           </Grid2>
           <Grid2 size={{ xs: 12, md: 4 }}>
             <FormInput
-              inputProps={{
-                slotProps: { input: { readOnly: !isEdit && !isAdd } },
-              }}
+              readOnly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={BookStartText}
@@ -176,9 +170,7 @@ export function GeneralBookInfo({
               rules={{ required: true }}
             />
             <FormInput
-              inputProps={{
-                slotProps: { input: { readOnly: !isEdit && !isAdd } },
-              }}
+              readOnly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={BookEndText}
@@ -186,9 +178,7 @@ export function GeneralBookInfo({
               rules={{ required: true }}
             />
             <FormInput
-              inputProps={{
-                slotProps: { input: { readOnly: !isEdit && !isAdd } },
-              }}
+              readOnly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={BookPagePriceText}
@@ -198,10 +188,7 @@ export function GeneralBookInfo({
           </Grid2>
           <Grid2 size={{ xs: 12, md: 4 }}>
             <FormInput
-              inputProps={{
-                variant: "outlined",
-                slotProps: { input: { readOnly: !isEdit && !isAdd } },
-              }}
+              readOnly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={BookDetailsText}

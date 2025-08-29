@@ -24,7 +24,7 @@ type Props<
     "valueAsNumber" | "valueAsDate" | "setValueAs" | "disabled"
   >;
   disabled?: boolean;
-  readonly?: boolean;
+  readOnly?: boolean;
   label: string;
   sx?: SxProps<Theme>;
   dateInputProps?: ComponentProps<typeof BDatePicker>;
@@ -41,7 +41,7 @@ export function FormDate<
   name,
   rules,
   disabled,
-  readonly,
+  readOnly,
   sx,
   dateInputProps = {},
 }: Props<TFieldValues, TName>) {
@@ -67,7 +67,7 @@ export function FormDate<
             label={label}
             inputRef={inputRef}
             format="YYYY-MM-DD"
-            readOnly={readonly}
+            readOnly={readOnly}
             slotProps={{
               ...(dateInputProps?.slotProps ?? {}),
               textField: {

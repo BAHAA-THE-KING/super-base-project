@@ -67,7 +67,7 @@ export function SupporterCard({ control, isEditable, idx, remove }: Props) {
       </CardContent>
       <CardContent>
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={FirstNameText}
@@ -75,7 +75,7 @@ export function SupporterCard({ control, isEditable, idx, remove }: Props) {
           rules={{ required: true }}
         />
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={LastNameText}
@@ -95,7 +95,7 @@ export function SupporterCard({ control, isEditable, idx, remove }: Props) {
           ]}
         />
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={JobText}
@@ -103,7 +103,7 @@ export function SupporterCard({ control, isEditable, idx, remove }: Props) {
           rules={{ required: true }}
         />
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={ProvidedAidText}

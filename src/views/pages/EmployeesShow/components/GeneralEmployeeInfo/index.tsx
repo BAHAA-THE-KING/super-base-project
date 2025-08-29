@@ -139,9 +139,7 @@ export function GeneralEmployeeInfo({
         <Grid2 container spacing={10}>
           <Grid2 size={{ xs: 12, md: 4 }}>
             <FormInput
-              inputProps={{
-                slotProps: { input: { readOnly: !isEdit && !isAdd } },
-              }}
+              readOnly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={FirstNameText}
@@ -149,9 +147,7 @@ export function GeneralEmployeeInfo({
               rules={{ required: true }}
             />
             <FormInput
-              inputProps={{
-                slotProps: { input: { readOnly: !isEdit && !isAdd } },
-              }}
+              readOnly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={LastNameText}
@@ -159,9 +155,7 @@ export function GeneralEmployeeInfo({
               rules={{ required: true }}
             />
             <FormInput
-              inputProps={{
-                slotProps: { input: { readOnly: !isEdit && !isAdd } },
-              }}
+              readOnly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={FatherNameText}
@@ -171,7 +165,7 @@ export function GeneralEmployeeInfo({
           </Grid2>
           <Grid2 size={{ xs: 12, md: 4 }}>
             <FormDate
-              readonly={!isEdit && !isAdd}
+              readOnly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={BirthDateText}
@@ -179,9 +173,7 @@ export function GeneralEmployeeInfo({
               rules={{ required: true }}
             />
             <FormInput
-              inputProps={{
-                slotProps: { input: { readOnly: !isEdit && !isAdd } },
-              }}
+              readOnly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={BirthPlaceText}
@@ -189,9 +181,7 @@ export function GeneralEmployeeInfo({
               rules={{ required: true }}
             />
             <FormInput
-              inputProps={{
-                slotProps: { input: { readOnly: !isEdit && !isAdd } },
-              }}
+              readOnly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={NationalNumberText}
@@ -201,7 +191,7 @@ export function GeneralEmployeeInfo({
           </Grid2>
           <Grid2 size={{ xs: 12, md: 4 }}>
             <FormDate
-              readonly={!isEdit && !isAdd}
+              readOnly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={JoinedAtText}
@@ -209,9 +199,7 @@ export function GeneralEmployeeInfo({
               rules={{ required: true }}
             />
             <FormInput
-              inputProps={{
-                slotProps: { input: { readOnly: !isEdit && !isAdd } },
-              }}
+              readOnly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={SalaryText}

@@ -136,18 +136,14 @@ export function DoctorAttendanceInfo({ control, isAdd, isEdit }: Props) {
                   label={FromTimeText}
                   name={`attendance_schedules.${i}.from`}
                   sx={{ width: "100px" }}
-                  inputProps={{
-                    slotProps: { input: { readOnly: !isEdit && !isAdd } },
-                  }}
+                  readOnly={!isEdit && !isAdd}
                 />
                 <FormInput
                   control={control}
                   label={ToTimeText}
                   name={`attendance_schedules.${i}.to`}
                   sx={{ width: "100px" }}
-                  inputProps={{
-                    slotProps: { input: { readOnly: !isEdit && !isAdd } },
-                  }}
+                  readOnly={!isEdit && !isAdd}
                 />
                 <FormMultiSelect
                   control={control}

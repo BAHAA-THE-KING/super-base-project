@@ -116,7 +116,7 @@ export function PersonalInfo({ control, isEditable, setValue }: Props) {
           {IdentityInfoText}
         </BTypography>
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={FirstNameText}
@@ -124,7 +124,7 @@ export function PersonalInfo({ control, isEditable, setValue }: Props) {
           rules={{ required: true }}
         />
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={LastNameText}
@@ -132,7 +132,7 @@ export function PersonalInfo({ control, isEditable, setValue }: Props) {
           rules={{ required: true }}
         />
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={FatherNameText}
@@ -140,7 +140,7 @@ export function PersonalInfo({ control, isEditable, setValue }: Props) {
           rules={{ required: true }}
         />
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={MotherNameText}
@@ -160,7 +160,7 @@ export function PersonalInfo({ control, isEditable, setValue }: Props) {
           ]}
         />
         <FormDate
-          readonly={!isEditable}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={BirthDateText}
@@ -168,7 +168,7 @@ export function PersonalInfo({ control, isEditable, setValue }: Props) {
           rules={{ required: true }}
         />
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={BirthPlaceText}
@@ -176,7 +176,7 @@ export function PersonalInfo({ control, isEditable, setValue }: Props) {
           rules={{ required: true }}
         />
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={NationalNumberText}
@@ -204,7 +204,7 @@ export function PersonalInfo({ control, isEditable, setValue }: Props) {
           ]}
         />
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={AddressText}
@@ -212,7 +212,7 @@ export function PersonalInfo({ control, isEditable, setValue }: Props) {
           rules={{ required: true }}
         />
         <FormImage
-          // inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          // readOnly={!isEdit}
           // sx={{ my: 1 }}
           control={control}
           label={ResidenceDocumentText}
@@ -223,7 +223,7 @@ export function PersonalInfo({ control, isEditable, setValue }: Props) {
           {AdditionalInfoText}
         </BTypography>
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={JobText}
@@ -231,7 +231,7 @@ export function PersonalInfo({ control, isEditable, setValue }: Props) {
           rules={{ required: true }}
         />
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={HealthStatusText}
@@ -239,7 +239,7 @@ export function PersonalInfo({ control, isEditable, setValue }: Props) {
           rules={{ required: true }}
         />
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={PhoneNumberText}
@@ -247,7 +247,7 @@ export function PersonalInfo({ control, isEditable, setValue }: Props) {
           rules={{ required: true }}
         />
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={MobileNumberText}
@@ -255,7 +255,7 @@ export function PersonalInfo({ control, isEditable, setValue }: Props) {
           rules={{ required: true }}
         />
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={MonthlyIncomeText}
@@ -274,10 +274,10 @@ export function PersonalInfo({ control, isEditable, setValue }: Props) {
           label={CaseDescriptionText}
           name="case_description"
           rules={{ required: true }}
+          readOnly={!isEditable}
           multiline
           inputProps={{
             variant: "outlined",
-            slotProps: { input: { readOnly: !isEditable } },
           }}
         />
         <BTypography my={2}>

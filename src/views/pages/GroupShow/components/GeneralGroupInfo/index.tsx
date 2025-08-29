@@ -161,11 +161,7 @@ export function GeneralGroupInfo({
           label={GroupNameText}
           name="name"
           rules={{ required: true }}
-          inputProps={{
-            slotProps: {
-              input: { readOnly: !(isEdit || isAdd) },
-            },
-          }}
+          readOnly={!isEdit && !isAdd}
         />
         <FormSelect
           readOnly={!(isEdit || isAdd)}
@@ -198,11 +194,7 @@ export function GeneralGroupInfo({
           label={GroupSalaryText}
           name="salary"
           rules={{ required: true }}
-          inputProps={{
-            slotProps: {
-              input: { readOnly: !(isEdit || isAdd) },
-            },
-          }}
+          readOnly={!isEdit && !isAdd}
         />
         {(isEdit || isAdd) && (
           <Stack

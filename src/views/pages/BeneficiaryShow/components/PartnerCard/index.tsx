@@ -1,5 +1,5 @@
 import { CardContent, SvgIcon } from "@mui/material";
-import { Control, useForm, useWatch } from "react-hook-form";
+import { Control, useWatch } from "react-hook-form";
 
 import SvgFather from "src/icons/Father";
 import SvgMother from "src/icons/Mother";
@@ -57,7 +57,7 @@ export function PartnerCard({ control, beneficiaryGender, isEditable }: Props) {
       </CardContent>
       <CardContent>
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={FirstNameText}
@@ -65,7 +65,7 @@ export function PartnerCard({ control, beneficiaryGender, isEditable }: Props) {
           rules={{ required: true }}
         />
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={LastNameText}
@@ -73,7 +73,7 @@ export function PartnerCard({ control, beneficiaryGender, isEditable }: Props) {
           rules={{ required: true }}
         />
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={JobText}
@@ -81,7 +81,7 @@ export function PartnerCard({ control, beneficiaryGender, isEditable }: Props) {
           rules={{ required: true }}
         />
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={HealthStatusText}

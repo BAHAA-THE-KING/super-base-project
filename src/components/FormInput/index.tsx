@@ -30,6 +30,7 @@ type Props<
   sx?: SxProps<Theme>;
   multiline?: boolean;
   inputProps?: ComponentProps<typeof BTextField>;
+  readOnly?: boolean;
 };
 
 const i18ns = ["you_have_to_enter_the"];
@@ -47,6 +48,7 @@ export function FormInput<
   multiline,
   type,
   inputProps = {},
+  readOnly,
 }: Props<TFieldValues, TName>) {
   const [YouHaveToEnterThe] = useBaseTranslation(i18ns);
   const [lineNum, setLineNum] = useState(3);
@@ -81,6 +83,7 @@ export function FormInput<
         const mergedInputProps = {
           ...inputProps?.InputProps,
           endAdornment: endAdornmentNode,
+          readOnly,
         };
 
         return (

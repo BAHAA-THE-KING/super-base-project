@@ -176,7 +176,7 @@ export function PersonalDoctorInfo({
           label={DoctorNameText}
           name="name"
           rules={{ required: true }}
-          inputProps={{ slotProps: { input: { readOnly: !isEdit && !isAdd } } }}
+          readOnly={!isEdit && !isAdd}
         />
         <FormInput
           sx={{ my: 1 }}
@@ -184,7 +184,7 @@ export function PersonalDoctorInfo({
           label={DoctorAddressText}
           name="address"
           rules={{ required: true }}
-          inputProps={{ slotProps: { input: { readOnly: !isEdit && !isAdd } } }}
+          readOnly={!isEdit && !isAdd}
         />
         <FormDate
           sx={{ my: 1 }}
@@ -192,7 +192,7 @@ export function PersonalDoctorInfo({
           label={DoctorBirthDateText}
           name="birth_date"
           rules={{ required: true }}
-          readonly={!isEdit && !isAdd}
+          readOnly={!isEdit && !isAdd}
         />
         <FormInput
           sx={{ my: 1 }}
@@ -200,7 +200,7 @@ export function PersonalDoctorInfo({
           label={DoctorBirthPlaceText}
           name="birth_place"
           rules={{ required: true }}
-          inputProps={{ slotProps: { input: { readOnly: !isEdit && !isAdd } } }}
+          readOnly={!isEdit && !isAdd}
         />
         <FormInput
           sx={{ my: 1 }}
@@ -208,7 +208,7 @@ export function PersonalDoctorInfo({
           label={DoctorMobileText}
           name="mobile"
           rules={{ required: true }}
-          inputProps={{ slotProps: { input: { readOnly: !isEdit && !isAdd } } }}
+          readOnly={!isEdit && !isAdd}
         />
         <FormInput
           sx={{ my: 1 }}
@@ -216,7 +216,7 @@ export function PersonalDoctorInfo({
           label={DoctorSpecificationText}
           name="specification"
           rules={{ required: true }}
-          inputProps={{ slotProps: { input: { readOnly: !isEdit && !isAdd } } }}
+          readOnly={!isEdit && !isAdd}
         />
         <FormInput
           sx={{ my: 1 }}
@@ -224,7 +224,7 @@ export function PersonalDoctorInfo({
           label={DoctorPriceText}
           name="price"
           rules={{ required: true }}
-          inputProps={{ slotProps: { input: { readOnly: !isEdit && !isAdd } } }}
+          readOnly={!isEdit && !isAdd}
         />
         {(isEdit || isAdd) && (
           <Stack

@@ -73,7 +73,7 @@ export function ChildCard({ child, control, isEditable, idx, remove }: Props) {
       </CardContent>
       <CardContent>
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={NameText}
@@ -93,7 +93,7 @@ export function ChildCard({ child, control, isEditable, idx, remove }: Props) {
           ]}
         />
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={BirthDateText}
@@ -109,7 +109,7 @@ export function ChildCard({ child, control, isEditable, idx, remove }: Props) {
         />
         {/* {child.gender === "female" ? ( */}
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={PartnerNameText}
@@ -118,7 +118,7 @@ export function ChildCard({ child, control, isEditable, idx, remove }: Props) {
         />
         {/* ) : null} */}
         <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+          readOnly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={ResidencePlaceText}
