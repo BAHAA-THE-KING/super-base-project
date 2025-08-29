@@ -84,6 +84,7 @@ export function usePrescriptionRequest() {
         data: [],
         message: "wait",
       },
+      keys: ["prescriptions"],
     });
 
   const getFilteredPrescriptionRequests = (filters: any) =>
@@ -96,6 +97,7 @@ export function usePrescriptionRequest() {
         },
         message: "wait",
       },
+      keys: ["prescriptions"],
     });
 
   const getSinglePrescriptionRequest = (id: number) =>

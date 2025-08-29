@@ -1,28 +1,26 @@
 import { useGetAPI } from "src/APIs";
 
-type AllFilters = {
-  beneficiary_id: string;
-};
-
 type AllResponse = {
-  message: string;
   data: {
     id: number;
     name: string;
-    age: number;
+    description: string;
+    category_id: number;
+    amount: number;
+    unit: string;
+    donor: null;
+    expiry_date: string;
+    addition_date: string;
   }[];
+  message: string;
 };
 
 export function useItems() {
-  const getAllItems = (
-    filters: Partial<AllFilters>,
-    config: { enabled?: boolean } = {}
-  ) =>
-    useGetAPI<AllResponse>("/items", {
-      defaultData: { message: "", data: [] },
+  const getAllItems = (filters: any) =>
+    useGetAPI<AllResponse>("/dashboard/items/all", {
+      defaultData: { message: "wait", data: [] },
       params: filters,
       keys: ["items"],
-      ...config,
     });
 
   return {

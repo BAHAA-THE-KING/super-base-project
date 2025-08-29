@@ -13,7 +13,14 @@ type Props = {
 };
 
 export function AvailableAids({ beneficiary_id }: Props) {
-  const { aids, getAidsLoading } = useAvailableAidsData(beneficiary_id);
+  const {
+    aids,
+    getAidsLoading,
+    items,
+    getItemsLoading,
+    deliverAid,
+    deliverAidLoading,
+  } = useAvailableAidsData(beneficiary_id);
 
   const [popUpData, setPopUpData] = useState<AvailableAid | null>(null);
 
@@ -28,6 +35,9 @@ export function AvailableAids({ beneficiary_id }: Props) {
         open={Boolean(popUpData)}
         close={() => setPopUpData(null)}
         data={popUpData}
+        items={items}
+        deliverAid={deliverAid}
+        deliverAidLoading={deliverAidLoading}
       />
     </>
   );

@@ -21,6 +21,7 @@ export function useSalary() {
         message: "wait",
       },
       enabled: Boolean(beneficiary_id),
+      keys: ["salary"],
     });
   return { getAvailableSalaries };
 }

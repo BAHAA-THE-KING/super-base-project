@@ -7,9 +7,16 @@ export type AidType =
 
 export interface AvailableAid {
   id: number;
+  beneficiary_id: number;
   type: AidType;
   reason?: string;
   amount?: number;
   item_name?: string;
   expiry_date?: string;
 }
+
+export type Item = {
+  id: number;
+  name: string;
+  amount: string;
+};

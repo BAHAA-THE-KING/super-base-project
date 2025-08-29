@@ -36,6 +36,7 @@ type SpecialMaterialData = {
   request: Request;
   created_at: string;
   reason: string;
+  amount: number;
   urgency_level: "low" | "medium" | "high";
 };
 
@@ -84,6 +85,7 @@ export function useSpecialMaterialRequest() {
         data: [],
         message: "wait",
       },
+      keys: ["need-requests"],
     });
 
   const getFilteredSpecialMaterialRequests = (filters: any) =>
@@ -96,6 +98,7 @@ export function useSpecialMaterialRequest() {
         },
         message: "wait",
       },
+      keys: ["need-requests"],
     });
 
   const getSingleSpecialMaterials = (id: number) =>

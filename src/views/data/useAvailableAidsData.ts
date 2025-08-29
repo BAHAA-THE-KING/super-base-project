@@ -1,14 +1,16 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 import {
+  useDeliverAid,
   useEmergencyRequests,
+  useItems,
   usePlans,
   usePrescriptionRequest,
   useSalary,
   useSpecialMaterialRequest,
 } from "../APIs";
 
-import { AvailableAid } from "src/types/data/AvailableAid";
+import { AvailableAid, Item } from "src/types/data/AvailableAid";
 
 export function useAvailableAidsData(beneficiary_id: number) {
   const { getAllEmergencyRequests } = useEmergencyRequests();
@@ -16,6 +18,8 @@ export function useAvailableAidsData(beneficiary_id: number) {
   const { getAllSpecialMaterialRequests } = useSpecialMaterialRequest();
   const { getPlansTurn } = usePlans();
   const { getAvailableSalaries } = useSalary();
+  const { getAllItems } = useItems();
+  const { deliverAPI } = useDeliverAid();
 
   const { data: SpecialMaterialResponse } = getAllSpecialMaterialRequests({
     beneficiary_id,
@@ -32,15 +36,18 @@ export function useAvailableAidsData(beneficiary_id: number) {
   const { data: PlansResponse } = getPlansTurn({ beneficiary_id });
   const { data: SalaryResponse } = getAvailableSalaries(beneficiary_id);
 
+  const { data: ItemsResponse } = getAllItems({});
+
   const aids: AvailableAid[] = useMemo(
     () => [
       ...(SpecialMaterialResponse?.data?.map(
         (e) =>
           ({
             id: e.id,
+            beneficiary_id: e.beneficiary.id,
             type: "special materials",
             reason: e.reason,
-            // amount: Number(e.amount),
+            amount: Number(e.amount),
             item_name: e.item,
           } as AvailableAid)
       ) ?? []),
@@ -48,6 +55,7 @@ export function useAvailableAidsData(beneficiary_id: number) {
         (e) =>
           ({
             id: e.id,
+            beneficiary_id: e.beneficiary.id,
             type: "emergency aids",
             reason: e.reason,
             amount: e.amount,
@@ -57,6 +65,7 @@ export function useAvailableAidsData(beneficiary_id: number) {
         (e) =>
           ({
             id: e.id,
+            beneficiary_id: e.beneficiary.id,
             type: "prescription exchange",
             reason: e.reason,
           } as AvailableAid)
@@ -64,7 +73,8 @@ export function useAvailableAidsData(beneficiary_id: number) {
       ...(PlansResponse?.data?.in_turn?.map(
         (e) =>
           ({
-            id: e.id,
+            id: e.beneficiary.pivot_id,
+            beneficiary_id: e.beneficiary.beneficiary_id,
             type: "aids",
             item_name: e.name,
             amount: Number(e.portion),
@@ -75,6 +85,7 @@ export function useAvailableAidsData(beneficiary_id: number) {
         (e) =>
           ({
             id: e.id,
+            beneficiary_id: e.beneficiary_id,
             type: "monthly salary",
             amount: e.amount,
           } as AvailableAid)
@@ -89,6 +100,15 @@ export function useAvailableAidsData(beneficiary_id: number) {
     ]
   );
 
+  const items: Item[] =
+    ItemsResponse?.data
+      ?.filter((e) => e.amount)
+      ?.map((e) => ({
+        id: e.id,
+        name: e.name,
+        amount: e.amount + " " + e.unit,
+      })) ?? [];
+
   const getAidsLoading =
     SpecialMaterialResponse?.message === "wait" ||
     EmergencyResponse?.message === "wait" ||
@@ -96,5 +116,37 @@ export function useAvailableAidsData(beneficiary_id: number) {
     PlansResponse?.message === "wait" ||
     SalaryResponse?.message === "wait";
 
-  return { aids, getAidsLoading };
+  const getItemsLoading = ItemsResponse?.message === "wait";
+
+  const [deliverAidLoading, setDeliverAidLoading] = useState(false);
+  const deliverAid = (qr: string, aid: AvailableAid, item_id?: number) => {
+    setDeliverAidLoading(true);
+    return deliverAPI({
+      data: {
+        qr_code: qr,
+        beneficiary_id: aid.beneficiary_id,
+        type:
+          aid.type === "aids"
+            ? "plan"
+            : aid.type === "emergency aids"
+            ? "instant_aid"
+            : aid.type === "monthly salary"
+            ? "salary"
+            : aid.type === "special materials"
+            ? "need_request"
+            : "plan", // wrong
+        item_id,
+        entity_id: aid.id,
+      },
+    }).finally(() => setDeliverAidLoading(false));
+  };
+
+  return {
+    aids,
+    getAidsLoading,
+    items,
+    getItemsLoading,
+    deliverAid,
+    deliverAidLoading,
+  };
 }

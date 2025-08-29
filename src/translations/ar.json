@@ -437,5 +437,8 @@
   "beneficiary_history": "سجل المستفيد",
   "salary_amount": "راتب بقيمة",
   "no.": "عدد",
-  "for": "من أجل"
+  "for": "من أجل",
+  "no._available": "متوفر منه",
+  "item": "المادة",
+  "confirm_operation": "تأكيد العملية"
 }
