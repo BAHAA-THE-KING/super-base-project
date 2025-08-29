@@ -434,5 +434,8 @@
   "save_new_donation": "حفظ التبرع الجديد",
   "add_new_donation": "إضافة تبرع جديد",
   "edit_donation": "تعديل التبرع",
-  "beneficiary_history": "سجل المستفيد"
+  "beneficiary_history": "سجل المستفيد",
+  "salary_amount": "راتب بقيمة",
+  "no.": "عدد",
+  "for": "من أجل"
 }

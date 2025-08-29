@@ -71,7 +71,21 @@ type IndexResponse = {
   message: string;
 };
 
+type AllResponse = {
+  data: SpecialMaterialData[];
+  message: string;
+};
+
 export function useSpecialMaterialRequest() {
+  const getAllSpecialMaterialRequests = (filters: any) =>
+    useGetAPI<AllResponse>("/dashboard/need-requests/all", {
+      params: filters,
+      defaultData: {
+        data: [],
+        message: "wait",
+      },
+    });
+
   const getFilteredSpecialMaterialRequests = (filters: any) =>
     useGetAPI<IndexResponse>("/dashboard/need-requests/index", {
       params: filters,
@@ -83,6 +97,7 @@ export function useSpecialMaterialRequest() {
         message: "wait",
       },
     });
+
   const getSingleSpecialMaterials = (id: number) =>
     useGetAPI<ShowResponse>("/dashboard/need-requests/show/:id", {
       defaultData: {
@@ -94,6 +109,7 @@ export function useSpecialMaterialRequest() {
       keys: ["need-requests"],
       enabled: Boolean(id),
     });
+
   const createSpecialMaterialRequest = usePostAPI<
     CreateResponse,
     CreateRequest
@@ -102,6 +118,7 @@ export function useSpecialMaterialRequest() {
   }).mutateAsync;
 
   return {
+    getAllSpecialMaterialRequests,
     getFilteredSpecialMaterialRequests,
     getSingleSpecialMaterials,
     createSpecialMaterialRequest,

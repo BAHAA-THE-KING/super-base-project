@@ -2,14 +2,15 @@ import { useState } from "react";
 import { Scanner } from "@yudiel/react-qr-scanner";
 
 import { Popup } from "src/components";
+import { AvailableAid } from "src/types/data/AvailableAid";
 
 type Props = {
   open: boolean;
   close: () => void;
-  planId: number;
+  data: AvailableAid | null;
 };
 
-export function ReadQRPopup({ open, close, planId }: Props) {
+export function ReadQRPopup({ open, close, data }: Props) {
   const [scannedData, setScannedData] = useState(""); // Store the scanned QR code value
 
   return (

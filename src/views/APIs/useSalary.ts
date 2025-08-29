@@ -1,19 +1,26 @@
 import { useGetAPI } from "src/APIs";
 
 type AvailableSalariesShow = {
-  data: any[];
+  data: {
+    id: number;
+    amount: number;
+    issued_at: string;
+    received_at: string;
+    beneficiary_id: number;
+    has_taken: boolean;
+  }[];
   message: string;
 };
 
 export function useSalary() {
-  const getAvailableSalaries = (beneficiaryId: number) =>
+  const getAvailableSalaries = (beneficiary_id: number) =>
     useGetAPI<AvailableSalariesShow>("/dashboard/salaries/currently-due", {
-      params: { beneficiary_id: beneficiaryId },
+      params: { beneficiary_id },
       defaultData: {
         data: [],
         message: "wait",
       },
-      enabled: Boolean(beneficiaryId),
+      enabled: Boolean(beneficiary_id),
     });
   return { getAvailableSalaries };
 }

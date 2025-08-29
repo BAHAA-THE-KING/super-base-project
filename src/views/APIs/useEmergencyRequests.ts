@@ -71,7 +71,21 @@ type IndexResponse = {
   message: string;
 };
 
+type AllResponse = {
+  data: EmergencyRequestData[];
+  message: string;
+};
+
 export function useEmergencyRequests() {
+  const getAllEmergencyRequests = (filters: any) =>
+    useGetAPI<AllResponse>("/dashboard/instant-aids/all", {
+      params: filters,
+      defaultData: {
+        data: [],
+        message: "wait",
+      },
+    });
+
   const getFilteredEmergencyRequests = (filters: any) =>
     useGetAPI<IndexResponse>("/dashboard/instant-aids/index", {
       params: filters,
@@ -83,6 +97,7 @@ export function useEmergencyRequests() {
         message: "wait",
       },
     });
+
   const getSingleEmergencyRequests = (id: number) =>
     useGetAPI<ShowResponse>("/dashboard/instant-aids/show/:id", {
       defaultData: {
@@ -94,6 +109,7 @@ export function useEmergencyRequests() {
       keys: ["instant-aids"],
       enabled: Boolean(id),
     });
+
   const createEmergencyRequest = usePostAPI<CreateResponse, CreateRequest>(
     "/dashboard/instant-aids/create",
     {
@@ -102,6 +118,7 @@ export function useEmergencyRequests() {
   ).mutateAsync;
 
   return {
+    getAllEmergencyRequests,
     getFilteredEmergencyRequests,
     getSingleEmergencyRequests,
     createEmergencyRequest,

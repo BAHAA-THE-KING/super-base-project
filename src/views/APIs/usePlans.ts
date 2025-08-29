@@ -67,7 +67,38 @@ type IndexPageParams = {
 };
 
 type PlanResponse = {
-  data?: Plan;
+  data?: {
+    received: {
+      id: number;
+      name: string;
+      type: string;
+      description: string;
+      portion: string;
+      beneficiary: {
+        pivot_id: number;
+        beneficiary_id: number;
+        is_turn: number;
+        turn_until: string;
+        received_at: string;
+        has_taken: boolean;
+      };
+    }[];
+    in_turn: {
+      id: number;
+      name: string;
+      type: string;
+      description: string;
+      portion: string;
+      beneficiary: {
+        pivot_id: number;
+        beneficiary_id: number;
+        is_turn: number;
+        turn_until: string;
+        received_at: string;
+        has_taken: boolean;
+      };
+    }[];
+  };
   message: string;
 };
 
@@ -173,8 +204,8 @@ export function usePlans() {
     }
   ).mutateAsync;
 
-  const getPlansTurn = (params: { beneficiary_id: number; is_turn: boolean }) =>
-    useGetAPI<PlanResponse>("/dashboard/plans/all", {
+  const getPlansTurn = (params: { beneficiary_id: number }) =>
+    useGetAPI<PlanResponse>("/dashboard/beneficiaries/:beneficiary_id/plans", {
       params,
       defaultData: {
         message: "wait",

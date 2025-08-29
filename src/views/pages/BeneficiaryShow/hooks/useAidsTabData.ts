@@ -1,7 +1,7 @@
-import { Aid } from "src/types/data/Aid";
+import { AvailableAid } from "src/types/data/AvailableAid";
 
 export function useAidsTabData(beneficiary_id: number) {
-  const aids: Aid[] = [];
+  const aids: AvailableAid[] = [];
 
   return { isLoading: false, aids };
 }

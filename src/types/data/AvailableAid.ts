@@ -5,12 +5,11 @@ export type AidType =
   | "prescription exchange"
   | "special materials";
 
-export interface Aid {
+export interface AvailableAid {
   id: number;
   type: AidType;
-  description: string;
-  expiry_date: string;
-  is_collected: boolean;
-  collection_date: string | null;
-  recipient_name: string;
+  reason?: string;
+  amount?: number;
+  item_name?: string;
+  expiry_date?: string;
 }

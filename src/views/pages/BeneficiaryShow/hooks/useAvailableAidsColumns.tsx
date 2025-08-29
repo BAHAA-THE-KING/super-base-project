@@ -1,19 +1,21 @@
 import { useMemo } from "react";
 import { GridColDef } from "@mui/x-data-grid";
 import { Stack, SvgIcon } from "@mui/material";
+
 import {
   AttachMoney as AttachMoneyIcon,
   Inventory as InventoryIcon,
+  QrCodeScanner as QrCodeScannerIcon,
 } from "@mui/icons-material";
 import { FaHandHoldingUsd as FaHandHoldingUsdIcon } from "react-icons/fa";
 import { FiPackage as FiPackageIcon } from "react-icons/fi";
 import { FaPrescriptionBottleAlt as FaPrescriptionBottleAltIcon } from "react-icons/fa";
 
-import { BCheckbox, BTypography } from "src/components/Base";
+import { BButton, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
-import { Aid } from "src/types/data/Aid";
+import { AvailableAid } from "src/types/data/AvailableAid";
 
 const i18ns = [
   "aid_type",
@@ -23,14 +25,15 @@ const i18ns = [
   "special_materials",
   "prescription_exchange",
   "aid_description",
-  "received",
   "valid_until",
-  "aid_status",
-  "received_by",
-  "on",
-  "aid_received",
+  "give_him",
+  "salary_amount",
+  "no.",
+  "for",
 ];
-export function useAvailableAidsColumns() {
+export function useAvailableAidsColumns(
+  onGiveHim: (aid: AvailableAid) => void
+) {
   const [
     AidTypeText,
     MonthlySalaryText,
@@ -39,14 +42,13 @@ export function useAvailableAidsColumns() {
     SpecialMaterialsText,
     PrescriptionExchangeText,
     AidDescriptionText,
-    ReceivedText,
     ValidUntilText,
-    AidStatusText,
-    ReceivedByText,
-    OnText,
-    AidReceivedText,
+    GiveHimText,
+    SalaryAmountText,
+    NOText,
+    ForText,
   ] = useBaseTranslation(i18ns);
-  return useMemo<GridColDef<Aid>[]>(
+  return useMemo<GridColDef<AvailableAid>[]>(
     () => [
       {
         field: "type",
@@ -96,45 +98,40 @@ export function useAvailableAidsColumns() {
         ),
       },
       {
-        field: "description",
+        field: "amount",
         headerName: AidDescriptionText,
         flex: 1,
+        valueGetter: (value, row) =>
+          row.type === "monthly salary"
+            ? `${SalaryAmountText} ${value}`
+            : row.type === "aids"
+            ? `${row.item_name} ${NOText} ${value}`
+            : row.type === "prescription exchange"
+            ? `${row.reason}`
+            : row.type === "special materials"
+            ? `${row.item_name} ${NOText} ${value}`
+            : row.type === "emergency aids"
+            ? `${value} ${ForText} ${row.reason}`
+            : "",
       },
       {
-        field: "is_collected",
-        headerName: AidStatusText,
+        field: "expiry_date",
+        headerName: ValidUntilText,
         flex: 1,
-        renderCell: ({ value, row }) => (
-          <>
-            {value ? (
-              <>
-                <BCheckbox checked readOnly />
-                {ReceivedText}
-              </>
-            ) : row.expiry_date ? (
-              ValidUntilText + ": " + row.expiry_date
-            ) : (
-              ""
-            )}
-          </>
-        ),
       },
       {
-        field: "recipient_name",
-        headerName: AidReceivedText,
+        field: "receive",
+        headerName: GiveHimText,
         flex: 1,
-        renderCell: ({ value, row }) => (
-          <>
-            {row.is_collected
-              ? ReceivedByText +
-                " " +
-                value +
-                " " +
-                OnText +
-                " " +
-                row.collection_date
-              : ""}
-          </>
+        renderCell: ({ row }) => (
+          <BButton
+            color="info"
+            variant="contained"
+            icon={<QrCodeScannerIcon fontSize="small" />}
+            size="small"
+            sx={{ width: "30px", height: "30px" }}
+            onClick={() => onGiveHim(row)}
+          />
         ),
       },
     ],

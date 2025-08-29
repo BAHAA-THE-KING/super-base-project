@@ -6,3 +6,4 @@ export { ChildCard } from "./ChildCard";
 export { SupporterCard } from "./SupporterCard";
 export { GroupCard } from "./GroupCard";
 export { AddCard } from "./AddCard";
+export { ReadQRPopup } from "./ReadQRPopup";

@@ -71,7 +71,21 @@ type IndexResponse = {
   message: string;
 };
 
+type AllResponse = {
+  data: PrescriptionRequestData[];
+  message: string;
+};
+
 export function usePrescriptionRequest() {
+  const getAllPrescriptionRequests = (filters: any) =>
+    useGetAPI<AllResponse>("/dashboard/prescriptions/all", {
+      params: filters,
+      defaultData: {
+        data: [],
+        message: "wait",
+      },
+    });
+
   const getFilteredPrescriptionRequests = (filters: any) =>
     useGetAPI<IndexResponse>("/dashboard/prescriptions/index", {
       params: filters,
@@ -83,6 +97,7 @@ export function usePrescriptionRequest() {
         message: "wait",
       },
     });
+
   const getSinglePrescriptionRequest = (id: number) =>
     useGetAPI<ShowResponse>("/dashboard/prescriptions/show/:id", {
       defaultData: {
@@ -94,6 +109,7 @@ export function usePrescriptionRequest() {
       keys: ["prescriptions"],
       enabled: Boolean(id),
     });
+
   const createPrescription = usePostAPI<CreateResponse, CreateRequest>(
     "/dashboard/prescriptions/create",
     {
@@ -102,6 +118,7 @@ export function usePrescriptionRequest() {
   ).mutateAsync;
 
   return {
+    getAllPrescriptionRequests,
     getFilteredPrescriptionRequests,
     getSinglePrescriptionRequest,
     createPrescription,
