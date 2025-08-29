@@ -11,3 +11,4 @@ export { FormRadio } from "./FormRadio";
 export { RequestStatusChip } from "./RequestStatusChip";
 export { Popup } from "./Popup";
 export { LoadingPage } from "./LoadingPage";
+export { FormDate } from "./FormDate";

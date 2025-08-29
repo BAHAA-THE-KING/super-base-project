@@ -18,7 +18,7 @@ import {
 } from "@mui/icons-material";
 
 import { BButton, BCard, BTypography } from "src/components/Base";
-import { FormInput } from "src/components";
+import { FormDate, FormInput } from "src/components";
 import { AIFormButton } from "src/views/components";
 
 import { useBaseTranslation } from "src/hooks";
@@ -178,7 +178,7 @@ export function PersonalSecretaryInfo({
             />
           </Grid2>
           <Grid2 size={{ xs: 4 }}>
-            <FormInput
+            <FormDate
               sx={{ my: 1 }}
               control={control}
               label={SecretaryBirthDateText}

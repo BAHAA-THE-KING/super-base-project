@@ -17,7 +17,7 @@ import {
 } from "@mui/icons-material";
 
 import { BButton, BCard, BTypography } from "src/components/Base";
-import { FormInput } from "src/components";
+import { FormDate, FormInput } from "src/components";
 import { AIFormButton } from "src/views/components";
 
 import { useBaseTranslation } from "src/hooks";
@@ -186,13 +186,13 @@ export function PersonalDoctorInfo({
           rules={{ required: true }}
           inputProps={{ slotProps: { input: { readOnly: !isEdit && !isAdd } } }}
         />
-        <FormInput
+        <FormDate
           sx={{ my: 1 }}
           control={control}
           label={DoctorBirthDateText}
           name="birth_date"
           rules={{ required: true }}
-          inputProps={{ slotProps: { input: { readOnly: !isEdit && !isAdd } } }}
+          readonly={!isEdit && !isAdd}
         />
         <FormInput
           sx={{ my: 1 }}

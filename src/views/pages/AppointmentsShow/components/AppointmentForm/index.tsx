@@ -3,7 +3,7 @@ import { CardContent, Grid2, Stack } from "@mui/material";
 import { Control, UseFormSetValue, UseFormWatch } from "react-hook-form";
 
 import { BButton, BCard, BTextField, BTypography } from "src/components/Base";
-import { FormCheckbox, FormInput, FormSelect } from "src/components";
+import { FormCheckbox, FormDate, FormInput, FormSelect } from "src/components";
 import { NewPatientPopup } from "..";
 
 import { useBaseTranslation } from "src/hooks";
@@ -245,7 +245,7 @@ export function AppointmentForm({
               />
             </Grid2>
             <Grid2 size={3}>
-              <FormInput
+              <FormDate
                 sx={{ my: 1 }}
                 control={control}
                 label={DateText}

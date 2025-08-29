@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Box, Grid2 } from "@mui/material";
 import { useForm } from "react-hook-form";
 
-import { FormInput, FormSelect, Popup } from "src/components";
+import { FormDate, FormInput, FormSelect, Popup } from "src/components";
 import { BButton, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
@@ -89,7 +89,7 @@ export function BatchPopup({ open, close, book }: Props) {
             />
           </Grid2>
           <Grid2 size={{ xs: 12, md: 6 }}>
-            <FormInput
+            <FormDate
               control={control}
               label={DateText}
               name="date"

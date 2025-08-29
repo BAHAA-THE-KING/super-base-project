@@ -3,6 +3,7 @@ import { Control, UseFormSetValue, useWatch } from "react-hook-form";
 
 import { BTypography } from "src/components/Base";
 import {
+  FormDate,
   FormImage,
   FormInput,
   FormSelect,
@@ -158,8 +159,8 @@ export function PersonalInfo({ control, isEditable, setValue }: Props) {
             { id: "female", name: FemaleText },
           ]}
         />
-        <FormInput
-          inputProps={{ slotProps: { input: { readOnly: !isEditable } } }}
+        <FormDate
+          readonly={!isEditable}
           sx={{ my: 1 }}
           control={control}
           label={BirthDateText}

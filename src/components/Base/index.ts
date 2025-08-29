@@ -14,3 +14,4 @@ export { BSwitch, type BSwitchProps } from "./BSwitch";
 export { BTextField, type BTextFieldProps } from "./BTextField";
 export { BAccordion, type BAccordionProps } from "./BAccordion";
 export { BAutocomplete, type BAutocompleteProps } from "./BAutocomplete";
+export { BDatePicker, type BDatePickerProps } from "./BDatePicker";

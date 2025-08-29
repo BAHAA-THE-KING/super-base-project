@@ -16,7 +16,7 @@ import {
   MoreVert as MoreVertIcon,
 } from "@mui/icons-material";
 
-import { FormInput } from "src/components";
+import { FormDate, FormInput } from "src/components";
 import { BButton, BCard, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
@@ -170,10 +170,8 @@ export function GeneralEmployeeInfo({
             />
           </Grid2>
           <Grid2 size={{ xs: 12, md: 4 }}>
-            <FormInput
-              inputProps={{
-                slotProps: { input: { readOnly: !isEdit && !isAdd } },
-              }}
+            <FormDate
+              readonly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={BirthDateText}

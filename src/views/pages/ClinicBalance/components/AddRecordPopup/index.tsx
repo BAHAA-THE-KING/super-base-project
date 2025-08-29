@@ -2,7 +2,7 @@ import { Box, Grid2 } from "@mui/material";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-import { FormInput, FormSelect, Popup } from "src/components";
+import { FormDate, FormInput, FormSelect, Popup } from "src/components";
 import { BButton, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
@@ -74,7 +74,7 @@ export function AddRecordPopup({ open, close, onAdd }: Props) {
       <Box mt={5}>
         <Grid2 container spacing={3}>
           <Grid2 size={{ xs: 12, md: 6 }}>
-            <FormInput
+            <FormDate
               control={control}
               label={DateText}
               name="date"

@@ -8,7 +8,7 @@ import { RiBankFill } from "react-icons/ri";
 import { MdEmojiEvents } from "react-icons/md";
 import { FaMoneyBillWave, FaMoneyCheck } from "react-icons/fa";
 
-import { FormInput, Popup } from "src/components";
+import { FormDate, FormInput, Popup } from "src/components";
 import { BButton, BTypography } from "src/components/Base";
 import { IconSelect } from "..";
 
@@ -86,7 +86,7 @@ export function TaskPopup({ open, close, employee }: Props) {
       <Box mt={5}>
         <Grid2 container spacing={3}>
           <Grid2 size={{ xs: 12, md: 6 }}>
-            <FormInput
+            <FormDate
               control={control}
               label={DateText}
               name="date"

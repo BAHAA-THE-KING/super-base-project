@@ -16,7 +16,7 @@ import {
   MoreVert as MoreVertIcon,
 } from "@mui/icons-material";
 
-import { FormInput } from "src/components";
+import { FormDate, FormInput } from "src/components";
 import { BButton, BCard, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
@@ -155,10 +155,8 @@ export function GeneralBookInfo({
               name="category"
               rules={{ required: true }}
             />
-            <FormInput
-              inputProps={{
-                slotProps: { input: { readOnly: !isEdit && !isAdd } },
-              }}
+            <FormDate
+              readonly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={BookDateText}

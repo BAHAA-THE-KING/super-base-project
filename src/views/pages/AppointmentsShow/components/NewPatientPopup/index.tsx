@@ -1,7 +1,7 @@
 import { Box, Grid2 } from "@mui/material";
 import { useForm } from "react-hook-form";
 
-import { Popup, FormInput } from "src/components";
+import { Popup, FormInput, FormDate } from "src/components";
 import { BButton, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
@@ -113,12 +113,11 @@ export function NewPatientPopup({
             />
           </Grid2>
           <Grid2 size={{ xs: 12, md: 6 }}>
-            <FormInput
+            <FormDate
               control={control}
               label={BirthDateText}
               name="birthDate"
               rules={{ required: true }}
-              inputProps={{ type: "date" }}
             />
           </Grid2>
           <Grid2 size={{ xs: 12, md: 6 }}>
