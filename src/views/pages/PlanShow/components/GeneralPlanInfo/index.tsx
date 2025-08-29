@@ -20,7 +20,7 @@ import {
   MoreVert as MoreVertIcon,
 } from "@mui/icons-material";
 
-import { FormInput, FormSelect } from "src/components";
+import { FormDate, FormInput, FormSelect } from "src/components";
 import { BButton, BCard, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
@@ -257,10 +257,8 @@ export function GeneralPlanInfo({
                 </Box>
               )}
             />
-            <FormInput
-              inputProps={{
-                slotProps: { input: { readOnly: !isEdit && !isAdd } },
-              }}
+            <FormDate
+              readonly={!isEdit && !isAdd}
               sx={{ my: 1 }}
               control={control}
               label={PlanStartDateText}
