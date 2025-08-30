@@ -12,6 +12,12 @@ type Props = {
   pageSize?: number;
   setPage: (page: number) => void;
   setPageSize?: (pageSize: number) => void;
+  filters: {
+    id: string | number;
+    field: string;
+    operator: string;
+    value: string | number;
+  }[];
   setFilters: (filters: any) => void;
 };
 
@@ -24,6 +30,7 @@ export function BeneficiariesGrid({
   pageSize = 15,
   setPage,
   setPageSize = () => {},
+  filters,
   setFilters,
 }: Props) {
   const [columnVisibilityModel, setColumnVisibilityModel] =
@@ -59,6 +66,7 @@ export function BeneficiariesGrid({
       columnVisibilityModel={columnVisibilityModel}
       onColumnVisibilityModelChange={setColumnVisibilityModel}
       onFilterChange={setFilters}
+      filters={filters}
     />
   );
 }

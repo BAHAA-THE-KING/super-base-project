@@ -89,6 +89,7 @@ export function Appointments() {
           totalRows={totalRows}
           page={page}
           setPage={setPage}
+          filters={filters}
           setFilters={setFilters}
         />
       ) : (

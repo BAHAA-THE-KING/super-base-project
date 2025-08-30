@@ -62,6 +62,7 @@ export function Doctors() {
         totalRows={totalRows}
         page={page}
         setPage={setPage}
+        filters={filters}
         setFilters={setFilters}
       />
     </Stack>

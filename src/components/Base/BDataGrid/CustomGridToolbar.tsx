@@ -14,11 +14,11 @@ import { BChip } from "../BChip";
 import { useBaseTranslation } from "src/hooks";
 
 type Props = {
-  filters: {
-    id: string;
+  filters?: {
+    id: string | number;
     field: string;
     operator: string;
-    value: string | number | Date;
+    value: string | number;
   }[];
   removeFilter: (id: string) => void;
   columns: readonly GridColDef[];
@@ -67,7 +67,6 @@ export function CustomGridToolbar({ filters, removeFilter, columns }: Props) {
       </Stack>
       <Stack flexDirection={"row"} flexWrap={"wrap"} mb={2}>
         {filters?.map((item) => {
-          console.log("item.operator", item.operator);
           const OperatorText =
             item.operator === "="
               ? EqualsText
@@ -94,7 +93,6 @@ export function CustomGridToolbar({ filters, removeFilter, columns }: Props) {
               : item.operator === "is"
               ? EqualsText
               : item.operator;
-          console.log("OperatorText=", OperatorText);
           return (
             <BChip
               key={item.id}
@@ -104,10 +102,10 @@ export function CustomGridToolbar({ filters, removeFilter, columns }: Props) {
                 OperatorText +
                 " " +
                 (item.value instanceof Date
-                  ? item.value.toLocaleDateString("fr-Ca")
+                  ? item.value.toLocaleDateString("")
                   : item.value)
               }
-              onDelete={() => removeFilter(item.id)}
+              onDelete={() => removeFilter(item.id.toString())}
               variant="slight"
               color="primary"
               sx={{ mx: 0.5 }}

@@ -52,6 +52,7 @@ export function useAvailableAidsColumns(
     () => [
       {
         field: "type",
+        filterable: false,
         headerName: AidTypeText,
         flex: 1,
         renderCell: ({ value }) => (
@@ -99,28 +100,31 @@ export function useAvailableAidsColumns(
       },
       {
         field: "amount",
+        filterable: false,
         headerName: AidDescriptionText,
         flex: 1,
         valueGetter: (value, row) =>
           row.type === "monthly salary"
             ? `${SalaryAmountText} ${value}`
             : row.type === "aids"
-            ? `${row.item_name} ${NOText} ${value}`
+            ? `${row.category_name} ${NOText} ${value}`
             : row.type === "prescription exchange"
             ? `${row.reason}`
             : row.type === "special materials"
-            ? `${row.item_name} ${NOText} ${value}`
+            ? `${row.category_name} ${NOText} ${value}`
             : row.type === "emergency aids"
             ? `${value} ${ForText} ${row.reason}`
             : "",
       },
       {
         field: "expiry_date",
+        filterable: false,
         headerName: ValidUntilText,
         flex: 1,
       },
       {
         field: "receive",
+        filterable: false,
         headerName: GiveHimText,
         flex: 1,
         renderCell: ({ row }) => (

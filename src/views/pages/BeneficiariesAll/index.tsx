@@ -18,8 +18,6 @@ export function AllBeneficiaries() {
 
   const navigate = useNavigate();
 
-  const columns = useBeneficiariesColumns();
-
   const [page, setPage] = useState(0);
   const [filters, setFilters] = useState<
     {
@@ -28,15 +26,27 @@ export function AllBeneficiaries() {
       operator: string;
       value: string | number;
     }[]
-  >([]);
+  >([
+    { id: "99506", field: "request_status", operator: "is", value: "accepted" },
+  ]);
 
   const params = [
     ...filters,
     { id: "page", field: "page", operator: "=", value: page + 1 },
   ].reduce((p, e) => ({ ...p, [e.field]: e.value }), {});
 
-  const { beneficiaries, totalRows, getBeneficiariesLoading } =
-    useBeneficiaryAllData(params);
+  const {
+    beneficiaries,
+    totalRows,
+    getBeneficiariesLoading,
+    deactivateBeneficiary,
+    deactivateBeneficiaryLoading,
+  } = useBeneficiaryAllData(params);
+
+  const columns = useBeneficiariesColumns(
+    deactivateBeneficiary,
+    deactivateBeneficiaryLoading
+  );
 
   return (
     <Stack height={"100%"} p={3} justifyContent={"stretch"}>
@@ -55,6 +65,7 @@ export function AllBeneficiaries() {
         loading={getBeneficiariesLoading}
         page={page}
         setPage={setPage}
+        filters={filters}
         setFilters={setFilters}
         totalRows={totalRows}
       />

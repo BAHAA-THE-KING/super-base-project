@@ -245,7 +245,7 @@ type EditResponse = {
 type DeactivateResponse = any;
 
 type DeactivateRequest = {
-  beneficiaryId: number;
+  is_active: boolean;
 };
 
 type ShowAvailableGroupsResponse = {
@@ -319,10 +319,10 @@ export function useBeneficiaries() {
     }
   ).mutateAsync;
 
-  const deactivateBeneficiary = useDeleteAPI<
+  const deactivateBeneficiary = usePutAPI<
     DeactivateResponse,
     DeactivateRequest
-  >("/delete/:beneficiaryId", {
+  >("/dashboard/beneficiaries/update/:beneficiaryId", {
     invalidateKeys: ["beneficiaries"],
   }).mutateAsync;
 

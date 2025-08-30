@@ -38,7 +38,10 @@ const i18ns = [
   "show_profile",
   "cut_aids",
 ];
-export function useBeneficiariesColumns() {
+export function useBeneficiariesColumns(
+  deactivateBeneficiary: (beneficiary_id: number) => void,
+  deactivateBeneficiaryLoading: boolean
+) {
   const [
     FullNameText,
     FatherNameText,
@@ -188,6 +191,8 @@ export function useBeneficiariesColumns() {
               icon={<PersonRemoveIcon />}
               color="error"
               label={CutAidsText}
+              loading={deactivateBeneficiaryLoading}
+              onClick={() => deactivateBeneficiary(Number(id))}
             />
           </BTooltip>,
         ],

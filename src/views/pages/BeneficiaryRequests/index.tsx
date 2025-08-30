@@ -13,12 +13,13 @@ import { Inventory as InventoryIcon } from "@mui/icons-material";
 import { FaHandHoldingUsd as FaHandHoldingUsdIcon } from "react-icons/fa";
 import { FaPrescriptionBottleAlt as FaPrescriptionBottleAltIcon } from "react-icons/fa";
 
-import { BButton, BCircularProgress } from "src/components/Base";
+import { BButton } from "src/components/Base";
 import { RequestsTable } from "./components";
 
 import { useBaseTranslation } from "src/hooks";
 
 import { useBeneficiaryRequestsData } from "src/views/data";
+import { useBeneficiaryRequestsColumns } from "../BeneficiaryShow/hooks";
 
 const i18ns = [
   "add_request",
@@ -37,6 +38,8 @@ export function ShowBeneficiaryRequests() {
     SpecialMaterialsText,
   ] = useBaseTranslation(i18ns);
 
+  const columns = useBeneficiaryRequestsColumns();
+
   const {
     getEmergencyLoading,
     getPrescriptionLoading,
@@ -46,13 +49,6 @@ export function ShowBeneficiaryRequests() {
 
   return (
     <Stack alignItems={"flex-start"}>
-      {getEmergencyLoading ||
-      getPrescriptionLoading ||
-      getSpecialMaterialLoading ? (
-        <Stack justifyContent={"center"} alignItems={"center"}>
-          <BCircularProgress />
-        </Stack>
-      ) : null}
       <PopupState variant="popover">
         {(popupState) => (
           <>
@@ -108,7 +104,15 @@ export function ShowBeneficiaryRequests() {
           </>
         )}
       </PopupState>
-      <RequestsTable requests={requests} />
+      <RequestsTable
+        columns={columns}
+        requests={requests}
+        loading={
+          getEmergencyLoading ||
+          getPrescriptionLoading ||
+          getSpecialMaterialLoading
+        }
+      />
     </Stack>
   );
 }

@@ -1,11 +1,14 @@
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
 
 import { useBeneficiaries } from "src/views/APIs";
 
 import { BeneficiaryTable } from "src/types/data/BeneficiaryTable";
 
 export function useBeneficiaryAllData(filters: any) {
-  const { getIndexedBeneficiaries } = useBeneficiaries();
+  const {
+    getIndexedBeneficiaries,
+    deactivateBeneficiary: deactivateBeneficiaryAPI,
+  } = useBeneficiaries();
 
   const { data: response } = getIndexedBeneficiaries(filters);
 
@@ -40,9 +43,21 @@ export function useBeneficiaryAllData(filters: any) {
 
   const getBeneficiariesLoading = !response || response?.message === "wait";
 
+  const [deactivateBeneficiaryLoading, setDeactivateBeneficiaryLoading] =
+    useState(false);
+  const deactivateBeneficiary = (beneficiaryId: number) => {
+    setDeactivateBeneficiaryLoading(true);
+    return deactivateBeneficiaryAPI({
+      data: { is_active: false },
+      params: { beneficiaryId },
+    }).then(() => setDeactivateBeneficiaryLoading(false));
+  };
+
   return {
     beneficiaries,
     totalRows: totalRows.current,
     getBeneficiariesLoading,
+    deactivateBeneficiary,
+    deactivateBeneficiaryLoading,
   };
 }

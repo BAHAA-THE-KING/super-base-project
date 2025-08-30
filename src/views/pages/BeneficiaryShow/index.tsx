@@ -176,7 +176,7 @@ export function ShowBeneficiary({
               name: "requests",
               label: RequestsText,
               external: true,
-              link: `/beneficiary/${beneficiary.id}/requests`,
+              link: `/services/beneficiary/${beneficiary.id}/requests`,
             }
           : null,
         createMode || requestMode

@@ -71,6 +71,7 @@ export function Plans() {
         loading={getPlansLoading}
         page={page}
         setPage={setPage}
+        filters={filters}
         setFilters={setFilters}
         totalRows={totalRows}
         pageSize={15}

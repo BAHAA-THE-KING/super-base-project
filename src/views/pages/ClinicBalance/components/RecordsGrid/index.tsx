@@ -8,6 +8,12 @@ type Props = {
   columns: GridColDef[];
   loading?: boolean;
   totalRows: number;
+  filters: {
+    id: string | number;
+    field: string;
+    operator: string;
+    value: string | number | Date;
+  }[];
   setFilters: (filters: any) => void;
   setSelection: (selection: (number | string)[]) => void;
 };
@@ -17,6 +23,7 @@ export function RecordsGrid({
   columns,
   loading = false,
   totalRows,
+  filters,
   setFilters,
   setSelection,
 }: Props) {
@@ -38,6 +45,7 @@ export function RecordsGrid({
       //column visibility
       columnVisibilityModel={columnVisibilityModel}
       onColumnVisibilityModelChange={setColumnVisibilityModel}
+      filters={filters as any}
       onFilterChange={setFilters}
       //selection
       checkboxSelection

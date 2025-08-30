@@ -11,6 +11,12 @@ type Props = {
   pageSize?: number;
   setPage: (page: number) => void;
   setPageSize?: (pageSize: number) => void;
+  filters: {
+    id: string | number;
+    field: string;
+    operator: string;
+    value: string | number | boolean;
+  }[];
   setFilters: (filters: any) => void;
 };
 
@@ -23,6 +29,7 @@ export function PlansGrid({
   pageSize = 15,
   setPage,
   setPageSize = () => {},
+  filters,
   setFilters,
 }: Props) {
   return (
@@ -45,6 +52,7 @@ export function PlansGrid({
       }}
       rowCount={totalRows}
       //filters
+      filters={filters as any}
       onFilterChange={setFilters}
     />
   );

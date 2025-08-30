@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
 import { Box, BoxProps, styled } from "@mui/material";
-import { DataGrid, DataGridProps } from "@mui/x-data-grid";
+import { DataGrid, type DataGridProps } from "@mui/x-data-grid";
 import { arSD, enUS } from "@mui/x-data-grid/locales";
 
 import { BTooltip } from "..";
@@ -14,13 +13,28 @@ import { CustomLoadingOverlay } from "./CustomLoadingOverlay";
 
 type BDataGridProps = DataGridProps & {
   containerProps?: BoxProps;
+  filters?: {
+    id: string | number;
+    field: string;
+    operator: string;
+    value: string | number;
+  }[];
   onFilterChange?: (
-    filters: {
-      id: string;
-      field: string;
-      operator: string;
-      value: string;
-    }[]
+    func:
+      | {
+          id: string;
+          field: string;
+          operator: string;
+          value: string;
+        }[]
+      | ((
+          filters: {
+            id: string;
+            field: string;
+            operator: string;
+            value: string;
+          }[]
+        ) => void)
   ) => void;
 };
 
@@ -34,28 +48,17 @@ const StyledDataGrid = styled(DataGrid)(({ theme }) =>
 
 export function BDataGrid({
   containerProps,
+  filters,
   onFilterChange,
   ...props
 }: BDataGridProps) {
   const [language] = usePreferredLanguage();
   const locale = language === "ar" ? arSD : enUS;
 
-  const [filters, setFilters] = useState<
-    {
-      id: string;
-      field: string;
-      operator: string;
-      value: string;
-    }[]
-  >([]);
-
   const removeFilter = (id: string) => {
-    setFilters((filters) => filters.filter((e) => e.id !== id));
+    onFilterChange &&
+      onFilterChange((filters) => filters.filter((e) => e.id !== id));
   };
-
-  useEffect(() => {
-    onFilterChange && onFilterChange(filters);
-  }, [filters]);
 
   return (
     <Box
@@ -80,28 +83,29 @@ export function BDataGrid({
         //filters
         onFilterModelChange={({ items }, { reason }) => {
           if (reason === "upsertFilterItem")
-            setFilters((filters) => {
-              const index = filters.findIndex(
-                (e) => e.id === items[0].id!.toString()
-              );
+            onFilterChange &&
+              onFilterChange((filters) => {
+                const index = filters.findIndex(
+                  (e) => e.id === items[0].id!.toString()
+                );
 
-              if (index !== -1) {
-                const newFilters = [...filters];
-                newFilters[index].field = items[0].field;
-                newFilters[index].operator = items[0].operator;
-                newFilters[index].value = items[0].value;
-                return newFilters;
-              }
-              return [
-                ...filters,
-                {
-                  id: items[0].id!.toString(),
-                  field: items[0].field,
-                  operator: items[0].operator,
-                  value: items[0].value,
-                },
-              ];
-            });
+                if (index !== -1) {
+                  const newFilters = [...filters];
+                  newFilters[index].field = items[0].field;
+                  newFilters[index].operator = items[0].operator;
+                  newFilters[index].value = items[0].value;
+                  return newFilters;
+                }
+                return [
+                  ...filters,
+                  {
+                    id: items[0].id!.toString(),
+                    field: items[0].field,
+                    operator: items[0].operator,
+                    value: items[0].value,
+                  },
+                ];
+              });
         }}
         filterMode="server"
       />

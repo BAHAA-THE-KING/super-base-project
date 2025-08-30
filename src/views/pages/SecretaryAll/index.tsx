@@ -63,6 +63,7 @@ export function Secretary() {
         totalRows={totalRows}
         page={page}
         setPage={setPage}
+        filters={filters}
         setFilters={setFilters}
       />
     </Stack>

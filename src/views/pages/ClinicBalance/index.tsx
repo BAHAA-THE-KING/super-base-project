@@ -75,6 +75,7 @@ export function ClinicBalance() {
         rows={updatedRecords}
         loading={getBalanceLoading}
         totalRows={balance.length}
+        filters={filters}
         setFilters={setFilters}
         setSelection={setSelection}
       />
