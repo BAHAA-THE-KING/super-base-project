@@ -441,5 +441,7 @@
   "no._available": "متوفر منه",
   "item": "المادة",
   "confirm_operation": "تأكيد العملية",
-  "aon_the_ai_assistant": "عون، المساعد الذكي !"
+  "aon_the_ai_assistant": "عون، المساعد الذكي !",
+  "initial_question": "مرحباً، أنا عون ! اسألني سؤالاً ما",
+  "write_your_question_here": "اكتب سؤالك هنا"
 }

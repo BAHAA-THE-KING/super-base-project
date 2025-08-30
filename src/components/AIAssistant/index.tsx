@@ -1,28 +1,37 @@
 import ChatBot from "react-chatbotify";
-import { useBaseTranslation } from "src/hooks";
-import ManualHandler from "./ManualHandler";
 
-const i18ns = ["aon_the_ai_assistant"];
+import ManualHandler from "./ManualHandler";
+import { useBaseTranslation } from "src/hooks";
+import { useTheme } from "@mui/material";
+
+const i18ns = [
+  "aon_the_ai_assistant",
+  "initial_question",
+  "write_your_question_here",
+];
 export function AIAssistant() {
-  const [AONTheAIAssistantText] = useBaseTranslation(i18ns);
+  const [
+    AONTheAIAssistantText,
+    InitialQuestionText,
+    WriteYourQuestionHereText,
+  ] = useBaseTranslation(i18ns);
+
+  const {
+    palette: {
+      primary: { main: primaryColor },
+      secondary: { main: secondaryColor },
+    },
+  } = useTheme();
 
   return (
     <>
       <ChatBot
         flow={{
-          start: {
-            message: "Hey! Ask me anything ✨",
-            path: "start",
-          },
+          start: { message: InitialQuestionText, path: "start" },
         }}
         settings={{
-          event: {
-            rcbUserSubmitText: true,
-          },
-
-          chatButton: {
-            icon: "/aon.png",
-          },
+          event: { rcbUserSubmitText: true },
+          chatButton: { icon: "/aon.png" },
           header: {
             title: AONTheAIAssistantText,
             avatar: "/aon.png",
@@ -31,6 +40,12 @@ export function AIAssistant() {
           notification: { disabled: true },
           tooltip: { mode: "DISABLED" },
           emoji: { disabled: true },
+          chatInput: { enabledPlaceholderText: WriteYourQuestionHereText },
+          fileAttachment: { disabled: true },
+          general: {
+            primaryColor,
+            secondaryColor,
+          },
         }}
       />
       <ManualHandler />
