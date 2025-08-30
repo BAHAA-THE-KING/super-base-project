@@ -40,6 +40,16 @@ type ChatRequest = {
   }[];
 };
 
+type ChartResponse = {
+  status: number;
+  query: string;
+  cardName: string;
+  display: string;
+};
+type ChartRequest = {
+  question: string;
+};
+
 export function useAIAssistant() {
   const formFillerAPI = usePostAPI<FormFillerResponse, FormFillerRequest>(
     "/aoun/form-filler"
@@ -53,5 +63,9 @@ export function useAIAssistant() {
     "/aoun/chat"
   ).mutateAsync;
 
-  return { formFillerAPI, thinkAPI, chatAPI };
+  const chartAPI = usePostAPI<ChartResponse, ChartRequest>(
+    "/aoun/metabase"
+  ).mutateAsync;
+
+  return { formFillerAPI, thinkAPI, chatAPI, chartAPI };
 }

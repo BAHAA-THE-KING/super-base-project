@@ -12,7 +12,7 @@ import { stringToStream } from "src/utils";
 import { useAIAssistant } from "src/views/APIs/useAIAssistant";
 
 export default function ManualHandler() {
-  const { chatAPI } = useAIAssistant();
+  const { chatAPI, chartAPI } = useAIAssistant();
   const [history, setHistory] = useState<
     {
       answer: string;
@@ -45,35 +45,45 @@ export default function ManualHandler() {
       await toggleIsBotTyping(true);
 
       try {
-        const { response } = await chatAPI({
-          data: {
-            question: userText,
-            history: history
-              .map((e) => [
-                {
-                  role: "user" as const,
-                  content: e.question,
-                },
-                {
-                  role: "model" as const,
-                  content: e.answer,
-                },
-              ])
-              .flat(),
-          },
-        });
-        setHistory((history) => [
-          ...history,
-          {
-            question: userText,
-            answer: response,
-          },
-        ]);
+        let response = "";
+        if (!userText.startsWith("/chart")) {
+          response = (
+            await chatAPI({
+              data: {
+                question: userText,
+                history: history
+                  .map((e) => [
+                    {
+                      role: "user" as const,
+                      content: e.question,
+                    },
+                    {
+                      role: "model" as const,
+                      content: e.answer,
+                    },
+                  ])
+                  .flat(),
+              },
+            })
+          ).response;
+          setHistory((history) => [
+            ...history,
+            {
+              question: userText,
+              answer: response,
+            },
+          ]);
+        } else {
+          const { status } = await chartAPI({
+            data: { question: userText },
+          });
+          if (status === 200) throw new Error(`got ${status} in metadata`);
+          response = "http://213.136.92.110:3000";
+        }
 
         // Begin a stream message (creates a bot bubble you can append to)
         const reader = stringToStream(response).getReader();
         const decoder = new TextDecoder();
-
         while (reader) {
           const { value, done } = await reader.read();
           if (done) break;

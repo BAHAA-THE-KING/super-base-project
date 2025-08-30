@@ -1,8 +1,8 @@
 import ChatBot from "react-chatbotify";
+import { useTheme } from "@mui/material";
 
 import ManualHandler from "./ManualHandler";
 import { useBaseTranslation } from "src/hooks";
-import { useTheme } from "@mui/material";
 
 const i18ns = [
   "aon_the_ai_assistant",
