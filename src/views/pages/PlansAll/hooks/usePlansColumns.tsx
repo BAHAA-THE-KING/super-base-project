@@ -26,6 +26,7 @@ const i18ns = [
   "started_at",
   "plan_distribution_status",
   "show_details",
+  "plan_type",
 ];
 export function usePlansColumns() {
   const [
@@ -38,6 +39,7 @@ export function usePlansColumns() {
     StartedAtText,
     PlanDistributionStatusText,
     ShowDetailsText,
+    PlanTypeText,
   ] = useBaseTranslation(i18ns);
 
   const navigate = useNavigate();
@@ -48,6 +50,13 @@ export function usePlansColumns() {
         field: "name",
         headerName: PlanNameText,
         flex: 1,
+        filterable: false,
+      },
+      {
+        field: "category",
+        headerName: PlanTypeText,
+        flex: 1,
+        valueGetter: (value: { name: string }) => value.name,
         filterable: false,
       },
       {

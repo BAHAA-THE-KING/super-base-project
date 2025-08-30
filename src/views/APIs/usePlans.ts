@@ -25,7 +25,8 @@ type PlanAttribute = {
 type Plan = {
   id: number;
   name: string;
-  type: "meat" | "food" | "rice" | "clothes" | "other";
+  category_id: number;
+  category: { id: number; name: string };
   description: string;
   portion: number;
   is_finished: number;
@@ -61,44 +62,13 @@ type IndexPlansResponse = {
 };
 
 type IndexPageParams = {
-  type: "meat" | "food" | "rice" | "clothes" | "other";
+  category_id: number;
   is_finished: boolean;
   date: string;
 };
 
 type PlanResponse = {
-  data?: {
-    received: {
-      id: number;
-      name: string;
-      type: string;
-      description: string;
-      portion: string;
-      beneficiary: {
-        pivot_id: number;
-        beneficiary_id: number;
-        is_turn: number;
-        turn_until: string;
-        received_at: string;
-        has_taken: boolean;
-      };
-    }[];
-    in_turn: {
-      id: number;
-      name: string;
-      type: string;
-      description: string;
-      portion: string;
-      beneficiary: {
-        pivot_id: number;
-        beneficiary_id: number;
-        is_turn: number;
-        turn_until: string;
-        received_at: string;
-        has_taken: boolean;
-      };
-    }[];
-  };
+  data?: Plan;
   message: string;
 };
 
@@ -106,7 +76,7 @@ type AddPlanRequest = {
   name: string;
   description: string;
   portion: number;
-  type: string;
+  category_id: number;
   date: string; // ISO date string, e.g. "2025-08-15"
   attributes: {
     id: number;
@@ -119,6 +89,8 @@ type AddPlanResponse = {
     id: number;
     name: string;
     description: string;
+    category_id: number;
+    category: { id: number; name: string };
     portion: number;
     is_finished: number; // 0 or 1
     date: string; // ISO date string
@@ -142,6 +114,8 @@ type EditPlanResponse = {
     id: number;
     name: string;
     description: string;
+    category_id: number;
+    category: { id: number; name: string };
     portion: number;
     is_finished: number; // 0 or 1
     date: string; // ISO date string
@@ -160,6 +134,44 @@ type ProceedPlanRequest = {
 };
 
 type ProceedPlanResponse = {
+  message: string;
+};
+
+type PlanTurnResponse = {
+  data?: {
+    received: {
+      id: number;
+      name: string;
+      category_id: number;
+      category: { id: number; name: string };
+      description: string;
+      portion: string;
+      beneficiary: {
+        pivot_id: number;
+        beneficiary_id: number;
+        is_turn: number;
+        turn_until: string;
+        received_at: string;
+        has_taken: boolean;
+      };
+    }[];
+    in_turn: {
+      id: number;
+      name: string;
+      category_id: number;
+      category: { id: number; name: string };
+      description: string;
+      portion: string;
+      beneficiary: {
+        pivot_id: number;
+        beneficiary_id: number;
+        is_turn: number;
+        turn_until: string;
+        received_at: string;
+        has_taken: boolean;
+      };
+    }[];
+  };
   message: string;
 };
 
@@ -205,14 +217,17 @@ export function usePlans() {
   ).mutateAsync;
 
   const getPlansTurn = (params: { beneficiary_id: number }) =>
-    useGetAPI<PlanResponse>("/dashboard/beneficiaries/:beneficiary_id/plans", {
-      params,
-      defaultData: {
-        message: "wait",
-      },
-      keys: ["plans"],
-      enabled: Boolean(params.beneficiary_id),
-    });
+    useGetAPI<PlanTurnResponse>(
+      "/dashboard/beneficiaries/:beneficiary_id/plans",
+      {
+        params,
+        defaultData: {
+          message: "wait",
+        },
+        keys: ["plans"],
+        enabled: Boolean(params.beneficiary_id),
+      }
+    );
 
   return {
     getIndexPlans,

@@ -48,7 +48,8 @@ export function useAvailableAidsData(beneficiary_id: number) {
             type: "special materials",
             reason: e.reason,
             amount: Number(e.amount),
-            item_name: e.item,
+            // category_id: e.item, TODO:
+            category_name: e.item,
           } as AvailableAid)
       ) ?? []),
       ...(EmergencyResponse?.data?.map(
@@ -76,7 +77,8 @@ export function useAvailableAidsData(beneficiary_id: number) {
             id: e.beneficiary.pivot_id,
             beneficiary_id: e.beneficiary.beneficiary_id,
             type: "aids",
-            item_name: e.name,
+            category_id: e.category.id,
+            category_name: e.category.name,
             amount: Number(e.portion),
             expiry_date: e.beneficiary.turn_until,
           } as AvailableAid)

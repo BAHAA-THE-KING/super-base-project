@@ -17,8 +17,8 @@ import { MessagesContext } from "src/contexts";
 type Form = {
   name: string;
   description: string;
-  portion: string;
-  type: "meat" | "food" | "rice" | "clothes" | "other" | "";
+  portion: number;
+  category_id: number;
   is_finished: boolean;
   created_at: string;
   plan_attributes: {
@@ -43,6 +43,7 @@ export function PlanShow({ isAdd = false }: { isAdd?: boolean }) {
 
   const {
     plan,
+    categories,
     createPlan,
     updatePlan,
     proceedPlan,
@@ -50,6 +51,7 @@ export function PlanShow({ isAdd = false }: { isAdd?: boolean }) {
     getPlanLoading,
     getAttributesLoading,
     proceedPlanLoading,
+    getCategoriesLoading,
   } = useShowPlanData(planId);
 
   const [wantToTerminate, setWantToTerminate] = useState(false);
@@ -69,8 +71,8 @@ export function PlanShow({ isAdd = false }: { isAdd?: boolean }) {
     defaultValues: {
       name: "",
       description: "",
-      portion: "",
-      type: "",
+      portion: 0,
+      category_id: 0,
       created_at: "",
       plan_attributes: [],
     },
@@ -82,7 +84,7 @@ export function PlanShow({ isAdd = false }: { isAdd?: boolean }) {
         name: plan.name,
         description: plan.description,
         portion: plan.portion,
-        type: plan.type,
+        category_id: plan.category_id,
         created_at: plan.created_at,
         plan_attributes: plan.plan_attributes,
       });
@@ -94,14 +96,14 @@ export function PlanShow({ isAdd = false }: { isAdd?: boolean }) {
         name: data.name,
         description: data.description,
         portion: data.portion,
-        type: data.type,
+        category_id: data.category_id,
         created_at: data.created_at,
         plan_attributes: data.plan_attributes.map((e) => ({
           attribute_id: e.attribute_id,
           weight: e.weight,
         })),
       });
-      navigate(newPlan.data.id.toString(), { replace: true });
+      navigate("/services/plans/" + newPlan.data.id, { replace: true });
     } else if (isEdit) {
       await updatePlan({
         id: planId,
@@ -132,8 +134,9 @@ export function PlanShow({ isAdd = false }: { isAdd?: boolean }) {
             : theme.palette.secondary.lighter,
       })}
     >
-      {(!isAdd && (getPlanLoading || getAttributesLoading)) ||
-      (isAdd && getAttributesLoading) ? (
+      {(!isAdd &&
+        (getPlanLoading || getAttributesLoading || getCategoriesLoading)) ||
+      (isAdd && (getAttributesLoading || getCategoriesLoading)) ? (
         <>
           <Skeleton
             variant="rounded"
@@ -160,6 +163,7 @@ export function PlanShow({ isAdd = false }: { isAdd?: boolean }) {
             setIsEdit={setIsEdit}
             attributes={attributes}
             aiInfo={aiInfo}
+            categories={categories}
           />
           {isAdd ? null : plan ? (
             <NextBeneficiariesPlanInfo

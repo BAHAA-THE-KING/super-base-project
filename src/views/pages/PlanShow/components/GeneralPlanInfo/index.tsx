@@ -8,7 +8,6 @@ import {
   Menu,
   ListItemText,
   Grid2,
-  BoxProps,
 } from "@mui/material";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 import { useFieldArray, useForm, type Control } from "react-hook-form";
@@ -28,8 +27,8 @@ import { useBaseTranslation } from "src/hooks";
 type Form = {
   name: string;
   description: string;
-  portion: string;
-  type: "meat" | "food" | "rice" | "clothes" | "other" | "";
+  portion: number;
+  category_id: number;
   is_finished: boolean;
   created_at: string;
   plan_attributes: {
@@ -53,6 +52,7 @@ type Props = {
   isAdd: boolean;
   attributes: { id: number; name: string }[];
   aiInfo: string;
+  categories: { id: number; name: string }[];
 };
 
 const i18ns = [
@@ -66,11 +66,6 @@ const i18ns = [
   "terminate_plan",
   "save_changes",
   "cancel",
-  "meat",
-  "food",
-  "rice",
-  "clothes",
-  "other",
   "criteria",
   "criterion",
   "weight",
@@ -85,6 +80,7 @@ export function GeneralPlanInfo({
   isAdd,
   attributes,
   aiInfo,
+  categories,
 }: Props) {
   const [
     GeneralInfoText,
@@ -97,11 +93,6 @@ export function GeneralPlanInfo({
     TerminatePlanText,
     SaveChangesText,
     CancelText,
-    MeatText,
-    FoodText,
-    RiceText,
-    ClothesText,
-    OtherText,
     CriteriaText,
     CriterionText,
     WeightText,
@@ -218,38 +209,12 @@ export function GeneralPlanInfo({
             />
             <FormSelect
               readOnly={!isEdit && !isAdd}
-              options={[
-                { id: "meat", name: MeatText },
-                { id: "food", name: FoodText },
-                { id: "rice", name: RiceText },
-                { id: "clothes", name: ClothesText },
-                { id: "other", name: OtherText },
-              ]}
+              options={categories}
               sx={{ my: 1 }}
               control={control}
               label={PlanTypeText}
-              name="type"
+              name="category_id"
               rules={{ required: true }}
-              renderOption={(params, option) => (
-                <Box
-                  {...(params as BoxProps)}
-                  bgcolor={(theme) =>
-                    theme.palette[
-                      option.id === "clothes"
-                        ? "primary"
-                        : option.id === "meat"
-                        ? "error"
-                        : option.id === "rice"
-                        ? "warning"
-                        : option.id === "food"
-                        ? "success"
-                        : "info"
-                    ].main
-                  }
-                >
-                  {option.name}
-                </Box>
-              )}
             />
             <FormDate
               readOnly={!isEdit && !isAdd}

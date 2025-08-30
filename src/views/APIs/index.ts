@@ -15,3 +15,4 @@ export { useAppointments } from "./useAppointments";
 export { useClinicPatients } from "./useClinicPatients";
 export { useClinicBalance } from "./useClinicBalance";
 export { useDeliverAid } from "./useDeliverAid";
+export { useCategories } from "./useCategories";

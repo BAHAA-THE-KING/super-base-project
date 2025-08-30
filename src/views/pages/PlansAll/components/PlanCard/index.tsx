@@ -18,13 +18,13 @@ type Props = {
 };
 export function PlanCard({ plan }: Props) {
   const color =
-    plan.type === "clothes"
+    plan.category.name === "clothes"
       ? "primary"
-      : plan.type === "meat"
+      : plan.category.name === "meat"
       ? "error"
-      : plan.type === "rice"
+      : plan.category.name === "rice"
       ? "warning"
-      : plan.type === "food"
+      : plan.category.name === "food"
       ? "success"
       : "info";
   return (
@@ -79,13 +79,13 @@ export function PlanCard({ plan }: Props) {
                   }}
                   color={color}
                 >
-                  {plan.type === "clothes" ? (
+                  {plan.category.name === "clothes" ? (
                     <GiClothesIcon />
-                  ) : plan.type === "meat" ? (
+                  ) : plan.category.name === "meat" ? (
                     <GiMeatIcon />
-                  ) : plan.type === "rice" ? (
+                  ) : plan.category.name === "rice" ? (
                     <FaBowlRiceIcon />
-                  ) : plan.type === "food" ? (
+                  ) : plan.category.name === "food" ? (
                     <IoFastFoodIcon />
                   ) : (
                     <TbPackagesIcon />

@@ -31,8 +31,9 @@ export type Plan = {
   id: number;
   name: string;
   description: string;
-  portion: string;
-  type: "meat" | "food" | "rice" | "clothes" | "other";
+  portion: number;
+  category_id: number;
+  category: { id: number; name: string };
   is_finished: boolean;
   created_at: string;
   plan_attributes: PlanAttribute[];
@@ -41,7 +42,7 @@ export type Plan = {
 };
 export function usePlansData(
   params: Partial<{
-    type: "meat" | "food" | "rice" | "clothes" | "other";
+    category_id: number;
     is_finished: boolean;
     date: string;
   }>
@@ -55,7 +56,8 @@ export function usePlansData(
         name: e.name,
         description: e.description,
         portion: e.portion,
-        type: e.type,
+        category_id: e.category_id,
+        category: e.category,
         is_finished: Boolean(e.is_finished),
         created_at: e.date.split("T")[0],
         plan_attributes: e.attributes.map((ee) => ({

@@ -11,7 +11,8 @@ export interface AvailableAid {
   type: AidType;
   reason?: string;
   amount?: number;
-  item_name?: string;
+  category_id?: number;
+  category_name?: string;
   expiry_date?: string;
 }
 

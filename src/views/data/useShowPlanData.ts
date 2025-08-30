@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 
-import { useAttributes, usePlans } from "src/views/APIs";
+import { useAttributes, useCategories, usePlans } from "src/views/APIs";
 
 export type ShowPlanAttribute = {
   attribute_id: number;
@@ -26,8 +26,9 @@ export type ShowPlan = {
   id: number;
   name: string;
   description: string;
-  portion: string;
-  type: "meat" | "food" | "rice" | "clothes" | "other";
+  portion: number;
+  category_id: number;
+  category: { id: number; name: string };
   is_finished: boolean;
   created_at: string;
   plan_attributes: ShowPlanAttribute[];
@@ -39,8 +40,8 @@ export type RawPlan = {
   id?: number;
   name: string;
   description: string;
-  portion: string;
-  type: string;
+  portion: number;
+  category_id: number;
   created_at: string;
   plan_attributes: ShowPlanAttribute[];
 };
@@ -53,9 +54,11 @@ export function useShowPlanData(planId: number) {
     proceedPlan: proceedPlanAPI,
   } = usePlans();
   const { getAllAttributes } = useAttributes();
+  const { getAllCategories } = useCategories();
 
   const { data: attributesResponse } = getAllAttributes();
   const { data: plansResponse } = getPlan(planId);
+  const { data: categoriesResponse } = getAllCategories({});
 
   const planData = plansResponse?.data;
   const plan = useMemo<ShowPlan | null>(
@@ -66,7 +69,8 @@ export function useShowPlanData(planId: number) {
             name: planData.name,
             description: planData.description,
             portion: planData.portion,
-            type: planData.type,
+            category_id: planData.category_id,
+            category: planData.category,
             is_finished: Boolean(planData.is_finished),
             created_at: planData.date.split("T")[0],
             plan_attributes: planData.attributes.map((ee) => ({
@@ -108,7 +112,7 @@ export function useShowPlanData(planId: number) {
       data: {
         name: data.name,
         date: data.created_at,
-        type: data.type,
+        category_id: data.category_id,
         description: data.description,
         portion: data.portion,
         attributes: data.plan_attributes.map((e) => ({
@@ -123,7 +127,7 @@ export function useShowPlanData(planId: number) {
     id: number;
     name: string;
     description: string;
-    portion: string;
+    portion: number;
   }) => {
     setUpdatePlanLoading(true);
     return editPlan({
@@ -147,8 +151,11 @@ export function useShowPlanData(planId: number) {
     }).finally(() => setProceedPlanLoading(false));
   };
 
-  const attributes = attributesResponse?.data ? attributesResponse.data : [];
+  const attributes = attributesResponse?.data ?? [];
 
+  const categories = categoriesResponse?.data ?? [];
+
+  const getCategoriesLoading = categoriesResponse?.message === "wait";
   const getPlanLoading = plansResponse?.message === "wait";
   const getAttributesLoading = attributesResponse?.message === "wait";
 
@@ -158,6 +165,8 @@ export function useShowPlanData(planId: number) {
     updatePlan,
     proceedPlan,
     attributes,
+    categories,
+    getCategoriesLoading,
     getPlanLoading,
     createPlanLoading,
     updatePlanLoading,
