@@ -29,6 +29,17 @@ type ErrorExplainerRequest = {
   };
 };
 
+type ChatResponse = {
+  response: string;
+};
+type ChatRequest = {
+  question: string;
+  history: {
+    role: "model" | "user";
+    content: string;
+  }[];
+};
+
 export function useAIAssistant() {
   const formFillerAPI = usePostAPI<FormFillerResponse, FormFillerRequest>(
     "/aoun/form-filler"
@@ -38,5 +49,9 @@ export function useAIAssistant() {
     "/aoun/error-interpreter"
   ).mutateAsync;
 
-  return { formFillerAPI, thinkAPI };
+  const chatAPI = usePostAPI<ChatResponse, ChatRequest>(
+    "/aoun/chat"
+  ).mutateAsync;
+
+  return { formFillerAPI, thinkAPI, chatAPI };
 }

@@ -65,6 +65,9 @@ importers:
       react-chartjs-2:
         specifier: ^5.3.0
         version: 5.3.0(chart.js@4.4.8)(react@18.3.1)
+      react-chatbotify:
+        specifier: ^2.3.0
+        version: 2.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-cookie:
         specifier: ^8.0.1
         version: 8.0.1(@types/react@18.3.18)(react@18.3.1)
@@ -2690,6 +2693,12 @@ packages:
     peerDependencies:
       chart.js: ^4.1.1
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  react-chatbotify@2.3.0:
+    resolution: {integrity: sha512-6gG+8VJlLU48ziG+GYHyOaHUNSb59GQgcdl9KfD9Y+pVOCDT4AL1/Z2QM8F+sVQCDA71NlKk1tOdo5+TtELNRA==}
+    peerDependencies:
+      react: '>=16.14.0'
+      react-dom: '>=16.14.0'
 
   react-cookie@8.0.1:
     resolution: {integrity: sha512-QNdAd0MLuAiDiLcDU/2s/eyKmmfMHtjPUKJ2dZ/5CcQ9QKUium4B3o61/haq6PQl/YWFqC5PO8GvxeHKhy3GFA==}
@@ -5678,6 +5687,11 @@ snapshots:
     dependencies:
       chart.js: 4.4.8
       react: 18.3.1
+
+  react-chatbotify@2.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   react-cookie@8.0.1(@types/react@18.3.18)(react@18.3.1):
     dependencies:

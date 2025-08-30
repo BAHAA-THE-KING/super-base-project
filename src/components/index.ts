@@ -12,3 +12,4 @@ export { RequestStatusChip } from "./RequestStatusChip";
 export { Popup } from "./Popup";
 export { LoadingPage } from "./LoadingPage";
 export { FormDate } from "./FormDate";
+export { AIAssistant } from "./AIAssistant";

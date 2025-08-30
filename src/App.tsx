@@ -12,6 +12,8 @@ import { ErrorBoundary } from "react-error-boundary";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
+import { AIAssistant } from "./components";
+
 import { useSetPreferences } from "src/hooks";
 
 import themes from "src/themes";
@@ -30,6 +32,7 @@ import { MessagesProvider } from "src/contexts";
 import { AppRouter } from "src/routes/AppRouter";
 
 import { MainErrorFallback } from "./ErrorFallbacks";
+import { ChatBotProvider } from "react-chatbotify";
 
 // Multi-lang config
 i18next.use(initReactI18next).init({
@@ -88,6 +91,8 @@ function App() {
     <ErrorBoundary fallbackRender={MainErrorFallback}>
       <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={lang}>
         <QueryClientProvider client={queryClient}>
+        <ChatBotProvider>
+          <AIAssistant />
           {dir === "ltr" ? (
             <>
               <CssBaseline />
@@ -112,6 +117,7 @@ function App() {
               </ThemeProvider>
             </CacheProvider>
           )}
+        </ChatBotProvider>
         </QueryClientProvider>
       </LocalizationProvider>
     </ErrorBoundary>
