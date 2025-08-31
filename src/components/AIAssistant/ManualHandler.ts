@@ -75,9 +75,9 @@ export default function ManualHandler() {
           ]);
         } else {
           const { status } = await chartAPI({
-            data: { question: userText },
+            data: { question: userText.slice("/chart".length) },
           });
-          if (status === 200) throw new Error(`got ${status} in metadata`);
+          if (status !== 200) throw new Error(`got ${status} in metadata`);
           response = "http://213.136.92.110:3000";
         }
 
