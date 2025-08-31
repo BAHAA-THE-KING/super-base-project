@@ -9,6 +9,8 @@ import { BButton, BCard, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 import { useLoginData } from "src/views/data";
+import { useContext } from "react";
+import { MessagesContext } from "src/contexts";
 
 type Form = {
   username: string;
@@ -93,6 +95,8 @@ export function Login() {
       password: "",
     },
   });
+
+  const { aiInfo } = useContext(MessagesContext);
 
   // const sections: {
   //   section: string;
@@ -183,6 +187,22 @@ export function Login() {
               >
                 {LoginText}
               </BButton>
+            </Grid2>
+            <Grid2 size={12}>
+              <BTypography
+                sx={(theme) => ({ color: theme.palette.error.main })}
+              >
+                {aiInfo.split("\n").reduce(
+                  (p, e) => (
+                    <>
+                      {p}
+                      {e}
+                      <br />
+                    </>
+                  ),
+                  <></>
+                )}
+              </BTypography>
             </Grid2>
           </Grid2>
         </BCard>

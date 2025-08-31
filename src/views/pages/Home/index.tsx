@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Stack, SvgIcon } from "@mui/material";
+import { Link } from "react-router";
+import { useCookies } from "react-cookie";
 
 import { FaBoxOpen, FaStoreAlt } from "react-icons/fa";
 import { FaMoneyBillWave } from "react-icons/fa6";
@@ -8,8 +10,6 @@ import { AiFillMedicineBox } from "react-icons/ai";
 
 import { BButton, BCard, BTypography } from "src/components/Base";
 import { useBaseTranslation } from "src/hooks";
-import { Link } from "react-router";
-import { useCookies } from "react-cookie";
 
 const i18ns = [
   "services",
@@ -37,11 +37,13 @@ export function Home() {
     AccountantDescriptionText,
   ] = useBaseTranslation(i18ns);
 
-  const [_, setType] = useState("");
-  const [cookies] = useCookies(["type"]);
+  const [type, setType] = useState<
+    "super" | "secretary" | "clinic_secretary" | "accountant" | ""
+  >("");
+  const [cookies] = useCookies(["type", "roles"]);
 
   useEffect(() => {
-    setType(cookies.type);
+    setType(cookies.roles?.[0]?.name ?? "");
   }, [cookies.type]);
 
   const sections = [
@@ -54,7 +56,7 @@ export function Home() {
       ),
       color: "primary",
       description: ServicesDescriptionText,
-      roles: "",
+      roles: "super",
       url: "/services/plans",
     },
     {
@@ -66,7 +68,7 @@ export function Home() {
       ),
       color: "secondary",
       description: StorageDescriptionText,
-      roles: "",
+      roles: "super",
       url: "/storage",
     },
     {
@@ -78,7 +80,7 @@ export function Home() {
       ),
       color: "info",
       description: ClinicDescriptionText,
-      roles: "",
+      roles: "clinic_secretary",
       url: "/clinic/appointments",
     },
     {
@@ -90,7 +92,7 @@ export function Home() {
       ),
       color: "success",
       description: EducationDescriptionText,
-      roles: "",
+      roles: "super",
       url: "/education",
     },
     {
@@ -102,7 +104,7 @@ export function Home() {
       ),
       color: "warning",
       description: AccountantDescriptionText,
-      roles: "",
+      roles: "accountant",
       url: "/accountant/donation-books",
     },
   ];
@@ -115,43 +117,46 @@ export function Home() {
       alignItems={"center"}
     >
       <Stack width={"80%"} flexDirection={"row"} flexWrap={"wrap"}>
-        {sections.map((section) => (
-          <Box key={section.name} width={"50%"} p={2}>
-            <Link to={section.url}>
-              <BCard
-                sx={{
-                  height: "100%",
-                  p: 3,
-                  paddingBlockEnd: 5,
-                  paddingInlineEnd: 5,
-                  cursor: "pointer",
-                }}
-                animations={{
-                  transitions: "slideInBottom",
-                  gestures: "scaleSmaller",
-                }}
-                color={section.color as "primary"}
-              >
-                <Stack flexDirection={"row"} gap={5}>
-                  <Box>
-                    <BButton
-                      icon={section.icon}
-                      variant="contained"
-                      size="small"
-                      color={section.color as "primary"}
-                    />
-                  </Box>
-                  <Box>
-                    <BTypography variant="h6" fontWeight={"bold"}>
-                      {section.name}
-                    </BTypography>
-                    <BTypography>{section.description}</BTypography>
-                  </Box>
-                </Stack>
-              </BCard>
-            </Link>
-          </Box>
-        ))}
+        {type &&
+          sections
+            .filter((e) => e.roles === type)
+            .map((section) => (
+              <Box key={section.name} width={"50%"} p={2}>
+                <Link to={section.url}>
+                  <BCard
+                    sx={{
+                      height: "100%",
+                      p: 3,
+                      paddingBlockEnd: 5,
+                      paddingInlineEnd: 5,
+                      cursor: "pointer",
+                    }}
+                    animations={{
+                      transitions: "slideInBottom",
+                      gestures: "scaleSmaller",
+                    }}
+                    color={section.color as "primary"}
+                  >
+                    <Stack flexDirection={"row"} gap={5}>
+                      <Box>
+                        <BButton
+                          icon={section.icon}
+                          variant="contained"
+                          size="small"
+                          color={section.color as "primary"}
+                        />
+                      </Box>
+                      <Box>
+                        <BTypography variant="h6" fontWeight={"bold"}>
+                          {section.name}
+                        </BTypography>
+                        <BTypography>{section.description}</BTypography>
+                      </Box>
+                    </Stack>
+                  </BCard>
+                </Link>
+              </Box>
+            ))}
       </Stack>
     </Stack>
   );
