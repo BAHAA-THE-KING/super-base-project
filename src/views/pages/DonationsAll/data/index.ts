@@ -1,6 +1,6 @@
 import { Donation } from "src/types/data/Donation";
 
-export function useDonationAllData(params: any) {
+export function useDonationAllData(_: any) {
   const donations: Donation[] = [
     {
       id: 1,

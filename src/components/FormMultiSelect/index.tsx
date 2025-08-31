@@ -10,7 +10,7 @@ import {
 
 import { BChip, BTextField } from "../Base";
 
-import { useBaseTranslation, useVoiceInputHandler } from "src/hooks";
+import { useBaseTranslation } from "src/hooks";
 
 type Props<
   TFieldValues extends FieldValues = FieldValues,
@@ -90,12 +90,6 @@ export function FormMultiSelect<
             })
           }
           renderInput={(params) => {
-            const { inputRef } = useVoiceInputHandler(
-              field?.value?.name ?? "",
-              (value) =>
-                params.inputProps.onChange &&
-                params.inputProps.onChange({ target: { value } })
-            );
             return (
               <BTextField
                 {...params}
@@ -106,7 +100,6 @@ export function FormMultiSelect<
                     ? error?.message || `${YouHaveToChooseThe} ${label}`
                     : ""
                 }
-                inputRef={inputRef}
               />
             );
           }}

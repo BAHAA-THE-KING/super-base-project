@@ -1,4 +1,4 @@
-import { useDeleteAPI, useGetAPI, usePostAPI, usePutAPI } from "src/APIs";
+import { useGetAPI, usePostAPI, usePutAPI } from "src/APIs";
 
 type IndexFilters = {
   name: string;

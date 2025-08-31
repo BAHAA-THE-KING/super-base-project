@@ -17,7 +17,7 @@ export function AvailableAids({ beneficiary_id }: Props) {
     aids,
     getAidsLoading,
     items,
-    getItemsLoading,
+    // getItemsLoading,
     deliverAid,
     deliverAidLoading,
   } = useAvailableAidsData(beneficiary_id);

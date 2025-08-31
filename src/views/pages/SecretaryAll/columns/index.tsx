@@ -68,7 +68,7 @@ export function useSecretaryColumns(onEdit: (id: number) => void) {
               icon={<EditIcon />}
               label="Edit"
               color="primary"
-              onClick={() => onEdit(id)}
+              onClick={() => onEdit(id ?? 0)}
             />
           </BTooltip>,
         ],

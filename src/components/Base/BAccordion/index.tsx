@@ -7,7 +7,7 @@ import { PropsWithAnimations } from "src/animations/types/PropsWithAnimations";
 export type BAccordionProps = PropsWithAnimations<AccordionProps>;
 
 const StyledAccordion = styled(Accordion)<BAccordionProps>(
-  ({ theme, variant, color }) => {}
+  // ({ theme, variant, color }) => {}
 );
 
 export const BAccordion = ({ animations, ...props }: BAccordionProps) => {

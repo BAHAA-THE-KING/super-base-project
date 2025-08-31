@@ -1,7 +1,8 @@
 import { Stack } from "@mui/material";
 
-import { EmergencyAssistanceRequest } from "../../data";
 import { EmergencyAidForm } from "src/views/pages/RequestAdd/components";
+
+import { EmergencyAssistanceRequest } from "src/views/data";
 
 type Props = {
   request: EmergencyAssistanceRequest;

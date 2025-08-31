@@ -14,10 +14,10 @@ import { CustomLoadingOverlay } from "./CustomLoadingOverlay";
 type BDataGridProps = DataGridProps & {
   containerProps?: BoxProps;
   filters?: {
-    id: string | number;
+    id: any;
     field: string;
     operator: string;
-    value: string | number;
+    value: any;
   }[];
   onFilterChange?: (
     func:

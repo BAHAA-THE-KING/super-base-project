@@ -1,6 +1,6 @@
 import { Employee } from "src/types/data/Employee";
 
-export function useEmployeesData(params: any) {
+export function useEmployeesData(_: any) {
   const employees: Employee[] = [
     {
       id: 1,

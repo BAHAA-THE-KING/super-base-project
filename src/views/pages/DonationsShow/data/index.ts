@@ -15,8 +15,8 @@ export function useDonationShowData(donationId: number) {
 
   const createDonationLoading = false;
   const editDonationLoading = false;
-  const createDonation = async (data: any) => {};
-  const editDonation = async (data: any) => {};
+  const createDonation = async (_: any) => {};
+  const editDonation = async (_: any) => {};
 
   return {
     donation,

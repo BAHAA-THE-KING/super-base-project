@@ -3,6 +3,7 @@ import { Stack } from "@mui/material";
 
 import { Header, Sidebar } from "src/components";
 import { useNavigate } from "react-router";
+import { useCookies } from "react-cookie";
 
 export function withNormalLayout<T extends object>(
   Component: ComponentType<T>
@@ -31,10 +32,11 @@ export function withNormalLayout<T extends object>(
       };
     }, []);
 
+    const [cookies] = useCookies(["token"]);
+
     useEffect(() => {
-      window.cookieStore
-        .get({ name: "token" })
-        .then((token) => !token && navigate("/login"));
+      const token = cookies.token;
+      if (!token) navigate("/login");
     }, []);
 
     return (

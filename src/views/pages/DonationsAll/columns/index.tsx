@@ -5,7 +5,6 @@ import { SvgIcon } from "@mui/material";
 
 import { BsInfoCircleFill } from "react-icons/bs";
 
-import { RequestStatusChip } from "src/components";
 import { BTooltip } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";

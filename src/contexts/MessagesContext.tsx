@@ -183,7 +183,7 @@ export function MessagesProvider({ children }: { children: React.ReactNode }) {
             open={m.open}
             onClose={(_, reason) => reason === "clickaway" || closeMe()}
             TransitionComponent={Slide}
-            TransitionProps={{ direction: "left" }}
+            // TransitionProps={{ direction: "left" }}
           >
             {BSnackbarContent({
               color: m.type,

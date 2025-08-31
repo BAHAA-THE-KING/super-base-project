@@ -27,18 +27,15 @@ export function ExpensesShow({ isAdd = false }: { isAdd?: boolean }) {
     return <></>;
   }
 
-  const [wantToDelete, setWantToDelete] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
 
   const {
     expense,
-    getExpenseLoading,
+    // getExpenseLoading,
     createExpense,
-    createExpenseLoading,
+    // createExpenseLoading,
     editExpense,
-    editExpenseLoading,
-    deleteExpense,
-    deleteExpenseLoading,
+    // editExpenseLoading,
   } = useExpenseShowData(expenseId);
 
   const {
@@ -69,9 +66,6 @@ export function ExpensesShow({ isAdd = false }: { isAdd?: boolean }) {
       }).then(() => navigate("/accountant/expenses"));
     }
   });
-  function handleDelete() {
-    return deleteExpense({ id: expense?.id });
-  }
 
   const { aiInfo } = useContext(MessagesContext);
 

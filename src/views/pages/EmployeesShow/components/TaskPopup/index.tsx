@@ -13,7 +13,7 @@ import { BButton, BTypography } from "src/components/Base";
 import { IconSelect } from "..";
 
 import { useBaseTranslation } from "src/hooks";
-import { useShowEmployeeData } from "../../data";
+// import { useShowEmployeeData } from "../../data";
 
 import { Employee, EmployeeHistory } from "src/types/data/Employee";
 
@@ -49,7 +49,7 @@ export function TaskPopup({ open, close, employee }: Props) {
     IconText,
   ] = useBaseTranslation(i18ns);
 
-  const { employees, createNewTask } = useShowEmployeeData();
+  // const { employees, createNewTask } = useShowEmployeeData();
 
   const { control, reset, handleSubmit } = useForm<Form>({
     defaultValues: {

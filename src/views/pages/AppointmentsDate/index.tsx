@@ -2,8 +2,7 @@ import { useNavigate, useParams } from "react-router";
 import { Stack } from "@mui/material";
 
 import { AppointmentAccordion } from "./components";
-
-import { useAppointmentsData } from "../AppointmentsAll/data";
+import { useAppointmentsAllData } from "src/views/data";
 
 export function AppointmentsDate() {
   const navigate = useNavigate();
@@ -18,7 +17,7 @@ export function AppointmentsDate() {
     return <></>;
   }
 
-  const { appointments: allAppointments } = useAppointmentsData();
+  const { appointments: allAppointments } = useAppointmentsAllData({});
   const appointments = allAppointments.filter(
     (e) => e.date === date.toLocaleDateString("fr-Ca")
   );

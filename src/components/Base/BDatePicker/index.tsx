@@ -65,7 +65,7 @@ export function BDatePicker<TDate>({ ...props }: BDatePickerProps<TDate>) {
       }
       slots={{
         ...(props?.slots ?? {}),
-        textField: BTextField,
+        textField: BTextField as any,
       }}
     />
   );

@@ -37,8 +37,6 @@ export function AppointmentsShow({ isAdd = false }: { isAdd?: boolean }) {
     updateAppointmentStatus,
     updateAppointmentResult,
     updateAppointmentLoading,
-    deleteAppointment,
-    deleteAppointmentLoading,
     createPatient,
     createPatientLoading,
     updatePatientHealthInfo,

@@ -48,7 +48,7 @@ export function useAppointmentsColumns() {
         field: "month",
         headerName: MonthText,
         flex: 1,
-        valueGetter: (value, { date }) => (value ?? date)?.slice(0, 7),
+        valueGetter: (value, { date }) => ((value ?? date) as any)?.slice(0, 7),
         filterOperators: getGridDateOperators(false).filter(
           (e) => e.value === "is"
         ),

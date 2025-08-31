@@ -27,12 +27,12 @@ const i18ns = [
   "from",
   "amount",
   "details",
-  "edit",
-  "save_changes",
-  "cancel",
+  // "edit",
+  // "save_changes",
+  // "cancel",
   "save_new_donation",
   "add_new_donation",
-  "edit_donation",
+  // "edit_donation",
 ];
 
 export function DonationInfo({
@@ -48,12 +48,12 @@ export function DonationInfo({
     FromText,
     AmountText,
     DetailsText,
-    EditText,
-    SaveChangesText,
-    CancelText,
+    // EditText,
+    // SaveChangesText,
+    // CancelText,
     SaveNewDonationText,
     AddNewDonationText,
-    EditDonationText,
+    // EditDonationText,
   ] = useBaseTranslation(i18ns);
 
   return (

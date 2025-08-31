@@ -58,7 +58,7 @@ export function FamilyInfo({ control, isEditable, setValue }: Props) {
           alignItems={"stretch"}
         >
           <ChildCard
-            child={e}
+            child={e as any}
             control={control}
             isEditable={isEditable}
             idx={idx}

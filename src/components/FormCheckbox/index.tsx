@@ -38,7 +38,7 @@ export function FormCheckbox<
   label,
   name,
   rules,
-  disabled,
+  // disabled,
   checkboxProps = {},
 }: Props<TFieldValues, TName>) {
   const [YouHaveToEnterThe] = useBaseTranslation(i18ns);

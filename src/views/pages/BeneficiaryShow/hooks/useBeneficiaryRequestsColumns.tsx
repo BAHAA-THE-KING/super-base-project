@@ -98,7 +98,7 @@ export function useBeneficiaryRequestsColumns() {
         flex: 1,
         valueGetter: (_, row) =>
           row.type === "emergency aids"
-            ? Intl.NumberFormat().format(row.requested_amount)
+            ? Intl.NumberFormat().format(row.requested_amount as any)
             : row.type === "special materials"
             ? row.requested_item_name
             : row.type === "prescription exchange"

@@ -80,14 +80,18 @@ export function IconSelect<
                 return;
               }
               if (value && typeof value === "object") {
-                field.onChange(value.id);
+                field.onChange((value as any).id);
               } else {
                 field.onChange(defaultOption.id);
               }
             }}
-            isOptionEqualToValue={(option, val) => option.id === val?.id}
+            isOptionEqualToValue={(option: any, val: any) =>
+              option.id === val?.id
+            }
             getOptionLabel={() => ""}
-            filterOptions={(options) => options.filter((option) => option.id)}
+            filterOptions={(options: any[]) =>
+              options.filter((option) => option.id)
+            }
             renderInput={(params) => (
               <BTextField
                 {...params}
@@ -119,7 +123,7 @@ export function IconSelect<
             forcePopupIcon={readOnly ? false : undefined}
             disableClearable={readOnly ? true : undefined}
             sx={sx}
-            renderOption={(params, option) => (
+            renderOption={(params, option: any) => (
               <Box {...(params as BoxProps)}>{option.icon}</Box>
             )}
             selectOnFocus={!readOnly}

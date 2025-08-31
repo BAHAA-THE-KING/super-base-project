@@ -12,7 +12,7 @@ export function useApi() {
 
   const api = useMemo(() => {
     const newInstance = new Axios({
-      baseURL: "http://localhost:8000/api",
+      baseURL: "http://213.136.92.110/api",
       headers: {
         Accept: "application/json",
         lang,

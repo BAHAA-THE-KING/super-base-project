@@ -29,11 +29,11 @@ export function DonationsShow({ isAdd = false }: { isAdd?: boolean }) {
 
   const {
     donation,
-    getDonationLoading,
+    // getDonationLoading,
     createDonation,
-    createDonationLoading,
-    editDonation,
-    editDonationLoading,
+    // createDonationLoading,
+    // editDonation,
+    // editDonationLoading,
   } = useDonationShowData(donationId);
 
   const {

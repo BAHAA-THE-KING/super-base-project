@@ -11,7 +11,8 @@ import { type SxProps, type Theme } from "@mui/material";
 import { BDatePicker } from "../Base";
 
 import { useBaseTranslation, useVoiceInputHandler } from "src/hooks";
-import dayjs, { Dayjs } from "dayjs";
+import dayjs from "dayjs";
+// import  { Dayjs } from "dayjs";
 
 type Props<
   TFieldValues extends FieldValues = FieldValues,
@@ -64,7 +65,7 @@ export function FormDate<
             {...dateInputProps}
             sx={sx}
             value={dayjs(field.value)}
-            onChange={(value: Dayjs | null) => {
+            onChange={(value: any) => {
               if (value === null) field.onChange({ target: { value: "" } });
               else
                 field.onChange({

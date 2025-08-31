@@ -57,7 +57,7 @@ export function ReadQRPopup({
               label={ItemText}
               options={items.filter((e) => e.id === data.category_id)}
               rules={{ required: true }}
-              renderOption={(props, option: Item) => (
+              renderOption={(props, option: any) => (
                 <Box {...(props as BoxProps)}>
                   {option.id +
                     " / " +

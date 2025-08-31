@@ -18,10 +18,8 @@ export function useExpenseShowData(expenseId: number) {
 
   const createExpenseLoading = false;
   const editExpenseLoading = false;
-  const deleteExpenseLoading = false;
-  const createExpense = async (data: any) => {};
-  const editExpense = async (data: any) => {};
-  const deleteExpense = async (data: any) => {};
+  const createExpense = async (_: any) => {};
+  const editExpense = async (_: any) => {};
 
   return {
     expense,
@@ -30,7 +28,5 @@ export function useExpenseShowData(expenseId: number) {
     createExpenseLoading,
     editExpense,
     editExpenseLoading,
-    deleteExpense,
-    deleteExpenseLoading,
   };
 }

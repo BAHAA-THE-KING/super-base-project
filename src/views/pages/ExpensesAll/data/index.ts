@@ -1,6 +1,6 @@
 import { Expense } from "src/types/data/Expense";
 
-export function useExpenseAllData(params: any) {
+export function useExpenseAllData(_: any) {
   const expenses: Expense[] = [
     {
       id: 1,

@@ -105,7 +105,7 @@ export function FormSelect<
               if (!canType) return;
               if (reason === "input") field.onChange(newInputValue);
             }}
-            onChange={(_, value: Option | string, reason) => {
+            onChange={(_, value: any, reason) => {
               if (readOnly) return; // block all edits
               if (reason === "clear") {
                 field.onChange(canType ? "" : defaultOption.id);
@@ -119,17 +119,17 @@ export function FormSelect<
                 field.onChange(canType ? "" : defaultOption.id);
               }
             }}
-            getOptionLabel={(option: Option | string) =>
+            getOptionLabel={(option: any) =>
               typeof option === "string"
                 ? options?.find((e) => e.id === option)?.name ?? option
                 : option.name
             }
-            isOptionEqualToValue={(option: Option, val: Option | string) =>
+            isOptionEqualToValue={(option: any, val: any) =>
               typeof val === "string"
                 ? option.name === val
                 : option.id === val?.id
             }
-            filterOptions={(options: Option[], state) =>
+            filterOptions={(options: any[], state) =>
               options.filter(
                 (option) =>
                   option.id &&
@@ -168,7 +168,7 @@ export function FormSelect<
             forcePopupIcon={readOnly ? false : undefined}
             disableClearable={readOnly ? true : undefined}
             sx={sx}
-            renderOption={renderOption}
+            renderOption={renderOption as any}
             selectOnFocus={!readOnly}
             clearOnBlur={!readOnly}
             handleHomeEndKeys={!readOnly}

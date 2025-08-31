@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { GridColDef } from "@mui/x-data-grid";
 
-import { BButton, BChip, BTypography } from "src/components/Base";
+import { BChip, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 
@@ -18,7 +18,6 @@ const i18ns = [
   "missed",
   "not_yet",
   "received_date",
-  "give_him",
 ];
 export function usePlanShowColumns() {
   const [
@@ -31,7 +30,6 @@ export function usePlanShowColumns() {
     MissedText,
     NotYetText,
     ReceivedDateText,
-    GiveHimText,
   ] = useBaseTranslation(i18ns);
 
   return useMemo<GridColDef<ShowPlanBeneficiary>[]>(

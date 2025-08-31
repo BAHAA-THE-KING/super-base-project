@@ -48,7 +48,7 @@ export function AIFormButton({ setValue }: { setValue: UseFormSetValue<any> }) {
       }));
 
     formFillerAPI({
-      data: jsonToFormdata({ files: data.image, fields: inputs }),
+      data: jsonToFormdata({ files: data.image, fields: inputs }) as any,
     })
       .then((data) => {
         setIsExtracted(true);
@@ -106,8 +106,11 @@ export function AIFormButton({ setValue }: { setValue: UseFormSetValue<any> }) {
                 {extractedData.map(({ key, value }) => (
                   <Stack flexDirection={"row"}>
                     <BTypography fontWeight={"bold"}>
-                      {document.querySelector(`input[type=text][name="${key}"]`)
-                        ?.parentElement?.previousSibling?.innerHTML ?? ""}
+                      {(
+                        document.querySelector(
+                          `input[type=text][name="${key}"]`
+                        )?.parentElement?.previousSibling as any
+                      )?.innerHTML ?? ""}
                       :&nbsp;
                     </BTypography>
                     <BTypography>{value}</BTypography>

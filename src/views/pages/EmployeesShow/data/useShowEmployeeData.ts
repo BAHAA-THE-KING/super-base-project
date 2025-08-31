@@ -231,12 +231,12 @@ export function useShowEmployeeData(employeeId: number = 0) {
       },
     ],
   };
-  const createEmployee = (data: any) => ({ data: employee });
-  const updateEmployee = (data: any) => {};
+  const createEmployee = (_: any) => ({ data: employee });
+  const updateEmployee = (_: any) => {};
   const getEmployeeLoading = false;
 
-  const [createTaskLoading, setCreateTaskLoading] = useState(false);
-  const createNewTask = (data: {
+  const [createTaskLoading] = useState(false);
+  const createNewTask = (_: {
     employee_id: number;
     date: string;
     from: string;

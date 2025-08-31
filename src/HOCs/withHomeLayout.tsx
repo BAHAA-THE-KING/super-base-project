@@ -1,19 +1,20 @@
 import React, { ComponentType, useEffect } from "react";
 import { Stack } from "@mui/material";
+import { useNavigate } from "react-router";
+import { useCookies } from "react-cookie";
 
 import { Header } from "src/components";
-import { useNavigate } from "react-router";
 
 export function withHomeLayout<T extends object>(
   Component: ComponentType<T>
 ): React.FC<T> {
   return function (props: T) {
     const navigate = useNavigate();
+    const [cookies] = useCookies(["token"]);
 
     useEffect(() => {
-      window.cookieStore
-        .get({ name: "token" })
-        .then((token) => !token && navigate("/login"));
+      const token = cookies.token;
+      if (!token) navigate("/login");
     }, []);
 
     return (

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { DonationBook } from "src/types/data/DonationBook";
 
-export function useShowBookData(bookId: number = 0) {
+export function useShowBookData(_: number = 0) {
   const book: DonationBook = {
     id: 3,
     number: 103,
@@ -29,8 +29,8 @@ export function useShowBookData(bookId: number = 0) {
       },
     ],
   };
-  const createBook = (data: any) => ({ data: book });
-  const updateBook = (data: any) => {};
+  const createBook = (_: any) => ({ data: book });
+  const updateBook = (_: any) => {};
   const getBookLoading = false;
 
   const employees = [
@@ -74,8 +74,8 @@ export function useShowBookData(bookId: number = 0) {
 
   const getEmployeesLoading = false;
 
-  const [createBatchLoading, setCreateBatchLoading] = useState(false);
-  const createNewBatch = (data: {
+  const [createBatchLoading] = useState(false);
+  const createNewBatch = (_: {
     book_id: number;
     date: string;
     from: string;

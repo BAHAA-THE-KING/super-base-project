@@ -1,6 +1,6 @@
 import { DonationBook } from "src/types/data/DonationBook";
 
-export function useDonationBooksData(params: any) {
+export function useDonationBooksData(_: any) {
   const books: DonationBook[] = [
     {
       id: 1,

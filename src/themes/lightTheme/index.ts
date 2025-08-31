@@ -12,7 +12,7 @@ import {
 
 function shouldSkipGeneratingVar(
   keys: string[],
-  value: string | number
+  // value: string | number
 ): boolean {
   const skipGlobalKeys = [
     "mixins",

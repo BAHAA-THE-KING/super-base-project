@@ -9,6 +9,7 @@ import { AiFillMedicineBox } from "react-icons/ai";
 import { BButton, BCard, BTypography } from "src/components/Base";
 import { useBaseTranslation } from "src/hooks";
 import { Link } from "react-router";
+import { useCookies } from "react-cookie";
 
 const i18ns = [
   "services",
@@ -36,12 +37,12 @@ export function Home() {
     AccountantDescriptionText,
   ] = useBaseTranslation(i18ns);
 
-  const [type, setType] = useState("");
+  const [_, setType] = useState("");
+  const [cookies] = useCookies(["type"]);
+
   useEffect(() => {
-    window.cookieStore
-      .get({ name: "type" })
-      .then((type) => setType(type as string));
-  }, []);
+    setType(cookies.type);
+  }, [cookies.type]);
 
   const sections = [
     {
@@ -129,7 +130,7 @@ export function Home() {
                   transitions: "slideInBottom",
                   gestures: "scaleSmaller",
                 }}
-                color={section.color}
+                color={section.color as "primary"}
               >
                 <Stack flexDirection={"row"} gap={5}>
                   <Box>
@@ -137,7 +138,7 @@ export function Home() {
                       icon={section.icon}
                       variant="contained"
                       size="small"
-                      color={section.color}
+                      color={section.color as "primary"}
                     />
                   </Box>
                   <Box>

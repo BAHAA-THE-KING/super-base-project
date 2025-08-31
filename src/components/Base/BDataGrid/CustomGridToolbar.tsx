@@ -6,7 +6,7 @@ import {
   GridToolbarDensitySelector,
   GridToolbarExport,
   GridToolbarFilterButton,
-  GridToolbarQuickFilter,
+  // GridToolbarQuickFilter,
 } from "@mui/x-data-grid";
 
 import { BChip } from "../BChip";
@@ -18,7 +18,7 @@ type Props = {
     id: string | number;
     field: string;
     operator: string;
-    value: string | number;
+    value: any;
   }[];
   removeFilter: (id: string) => void;
   columns: readonly GridColDef[];

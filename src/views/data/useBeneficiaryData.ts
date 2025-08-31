@@ -142,7 +142,7 @@ export function useBeneficiaryData(id: number) {
           job: e.job,
           provided_aid: e.provided_aid,
         })),
-      }),
+      }) as any,
     }).finally(() => setCreateBeneficiaryLoading(false));
   };
 

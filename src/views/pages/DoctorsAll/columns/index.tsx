@@ -83,7 +83,7 @@ export function useDoctorsColumns(onEdit: (id: number) => void) {
               icon={<EditIcon />}
               label="Edit"
               color="primary"
-              onClick={() => onEdit(id)}
+              onClick={() => onEdit(id as any)}
             />
           </BTooltip>,
         ],

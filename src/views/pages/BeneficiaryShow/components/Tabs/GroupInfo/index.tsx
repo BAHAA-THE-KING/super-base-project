@@ -24,8 +24,8 @@ export function GroupInfo({ control, requestMode }: Props) {
   const {
     groups,
     changeBeneficiaryGroup,
-    changeGroupLoading,
-    getGroupsLoading,
+    // changeGroupLoading,
+    // getGroupsLoading,
   } = useBeneficiaryGroupsData(id as number, requestMode);
   const orderedGroups = groups.sort((e1, e2) =>
     e1.id === group?.id ? -1 : e2.id === group?.id ? 1 : 0

@@ -1,6 +1,6 @@
 import { Box, Grid2, Stack, SvgIcon } from "@mui/material";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 
 import { FaDoorOpen } from "react-icons/fa";
 
@@ -9,9 +9,6 @@ import { BButton, BCard, BTypography } from "src/components/Base";
 
 import { useBaseTranslation } from "src/hooks";
 import { useLoginData } from "src/views/data";
-
-import { varAlpha } from "src/themes/styles";
-import { useNavigate } from "react-router";
 
 type Form = {
   username: string;
@@ -24,30 +21,30 @@ const i18ns = [
   "welcome_back",
   "login",
   "sign_in_please",
-  "you_can_manage_your",
-  "services",
-  "and_control_many_things_like",
-  "and_more",
-  "the_beneficiaries",
-  "help_requests",
-  "distribution_plans",
-  "beneficiary_categories",
-  "clinic",
-  "doctors",
-  "secretaries",
-  "appointments",
-  "clinic_balance",
-  "storages",
-  "items",
-  "education",
-  "students",
-  "teachers",
-  "supervisors",
-  "accountant",
-  "donations",
-  "books",
-  "employees",
-  "meets",
+  // "you_can_manage_your",
+  // "services",
+  // "and_control_many_things_like",
+  // "and_more",
+  // "the_beneficiaries",
+  // "help_requests",
+  // "distribution_plans",
+  // "beneficiary_categories",
+  // "clinic",
+  // "doctors",
+  // "secretaries",
+  // "appointments",
+  // "clinic_balance",
+  // "storages",
+  // "items",
+  // "education",
+  // "students",
+  // "teachers",
+  // "supervisors",
+  // "accountant",
+  // "donations",
+  // "books",
+  // "employees",
+  // "meets",
 ];
 export function Login() {
   const [
@@ -56,87 +53,88 @@ export function Login() {
     WelcomeBackText,
     LoginText,
     SignInPleaseText,
-    YouCanManageYourText,
-    ServicesText,
-    AndControlManyThingsLikeText,
-    AndMoreText,
-    BeneficiariesText,
-    HelpRequestsText,
-    DistributionPlansText,
-    BeneficiaryCategoriesText,
-    ClinicText,
-    DoctorsText,
-    SecretariesText,
-    AppointmentsText,
-    ClinicBalanceText,
-    StoragesText,
-    ItemsText,
-    EducationText,
-    StudentsText,
-    TeachersText,
-    SupervisorsText,
-    AccountantText,
-    DonationsText,
-    BooksText,
-    EmployeesText,
-    MeetsText,
+    // YouCanManageYourText,
+    // ServicesText,
+    // AndControlManyThingsLikeText,
+    // AndMoreText,
+    // BeneficiariesText,
+    // HelpRequestsText,
+    // DistributionPlansText,
+    // BeneficiaryCategoriesText,
+    // ClinicText,
+    // DoctorsText,
+    // SecretariesText,
+    // AppointmentsText,
+    // ClinicBalanceText,
+    // StoragesText,
+    // ItemsText,
+    // EducationText,
+    // StudentsText,
+    // TeachersText,
+    // SupervisorsText,
+    // AccountantText,
+    // DonationsText,
+    // BooksText,
+    // EmployeesText,
+    // MeetsText,
   ] = useBaseTranslation(i18ns);
 
   const navigate = useNavigate();
 
   const { login, loginLoading } = useLoginData();
 
-  const { control, reset, handleSubmit } = useForm<Form>({
+  const {
+    control,
+    //  reset,
+    handleSubmit,
+  } = useForm<Form>({
     defaultValues: {
       username: "",
       password: "",
     },
   });
 
-  const sections: {
-    section: string;
-    color: "primary" | "secondary" | "info" | "success" | "warning" | "error";
-    sectors: string[];
-  }[] = [
-    {
-      section: ServicesText,
-      color: "primary",
-      sectors: [
-        BeneficiariesText,
-        HelpRequestsText,
-        DistributionPlansText,
-        BeneficiaryCategoriesText,
-      ],
-    },
-    {
-      section: ClinicText,
-      color: "secondary",
-      sectors: [
-        DoctorsText,
-        SecretariesText,
-        AppointmentsText,
-        ClinicBalanceText,
-      ],
-    },
-    {
-      section: StoragesText,
-      color: "success",
-      sectors: [ItemsText],
-    },
-    {
-      section: EducationText,
-      color: "info",
-      sectors: [StudentsText, TeachersText, SupervisorsText],
-    },
-    {
-      section: AccountantText,
-      color: "warning",
-      sectors: [DonationsText, BooksText, EmployeesText, MeetsText],
-    },
-  ];
-
-  const [i, setI] = useState(0);
-  const [j, setJ] = useState(0);
+  // const sections: {
+  //   section: string;
+  //   color: "primary" | "secondary" | "info" | "success" | "warning" | "error";
+  //   sectors: string[];
+  // }[] = [
+  //   {
+  //     section: ServicesText,
+  //     color: "primary",
+  //     sectors: [
+  //       BeneficiariesText,
+  //       HelpRequestsText,
+  //       DistributionPlansText,
+  //       BeneficiaryCategoriesText,
+  //     ],
+  //   },
+  //   {
+  //     section: ClinicText,
+  //     color: "secondary",
+  //     sectors: [
+  //       DoctorsText,
+  //       SecretariesText,
+  //       AppointmentsText,
+  //       ClinicBalanceText,
+  //     ],
+  //   },
+  //   {
+  //     section: StoragesText,
+  //     color: "success",
+  //     sectors: [ItemsText],
+  //   },
+  //   {
+  //     section: EducationText,
+  //     color: "info",
+  //     sectors: [StudentsText, TeachersText, SupervisorsText],
+  //   },
+  //   {
+  //     section: AccountantText,
+  //     color: "warning",
+  //     sectors: [DonationsText, BooksText, EmployeesText, MeetsText],
+  //   },
+  // ];
 
   return (
     <Stack flexDirection={"row"} height={"100%"}>
