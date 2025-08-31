@@ -74,11 +74,10 @@ export default function ManualHandler() {
             },
           ]);
         } else {
-          const { status } = await chartAPI({
+          await chartAPI({
             data: { question: userText.slice("/chart".length) },
           });
-          if (status !== 200) throw new Error(`got ${status} in metadata`);
-          response = "http://213.136.92.110:3000";
+          response = "http://213.136.92.110:3000/collection/root";
         }
 
         // Begin a stream message (creates a bot bubble you can append to)
