@@ -69,7 +69,7 @@ export function Home() {
       color: "secondary",
       description: StorageDescriptionText,
       roles: ["super"],
-      url: "/storage",
+      url: "/warehouse",
     },
     {
       name: ClinicText,

@@ -443,5 +443,7 @@
   "confirm_operation": "تأكيد العملية",
   "aon_the_ai_assistant": "عون، المساعد الذكي !",
   "initial_question": "مرحباً، أنا عون ! اسألني سؤالاً ما",
-  "write_your_question_here": "اكتب سؤالك هنا"
+  "write_your_question_here": "اكتب سؤالك هنا",
+  "mobile": "رقم الجوال",
+  "role": "الدور"
 }

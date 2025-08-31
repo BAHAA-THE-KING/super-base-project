@@ -21,7 +21,6 @@ const i18ns = [
   "birth_date",
   "joined_at",
   "salary",
-  "is_active",
   "show_profile",
   "terminate",
 ];
@@ -34,7 +33,6 @@ export function useEmployeesColumns() {
     BirthDateText,
     JoinedAtText,
     SalaryText,
-    IsActiveText,
     ShowProfileText,
     TerminateText,
   ] = useBaseTranslation(i18ns);
@@ -76,11 +74,6 @@ export function useEmployeesColumns() {
       {
         field: "salary",
         headerName: SalaryText,
-        flex: 1,
-      },
-      {
-        field: "is_active",
-        headerName: IsActiveText,
         flex: 1,
       },
       {

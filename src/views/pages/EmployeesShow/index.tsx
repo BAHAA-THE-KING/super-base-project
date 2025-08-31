@@ -9,7 +9,7 @@ import {
   EmployeeTerminatePopup,
 } from "./components";
 
-import { useShowEmployeeData } from "./data";
+import { useEmployeeShowData } from "src/views/data";
 
 import { MessagesContext } from "src/contexts";
 
@@ -24,6 +24,9 @@ type Form = {
   birth_place: string;
   joined_at: string;
   salary: number;
+  address: string;
+  mobile: string;
+  role: string;
 };
 
 export function EmployeesShow({ isAdd = false }: { isAdd?: boolean }) {
@@ -36,7 +39,7 @@ export function EmployeesShow({ isAdd = false }: { isAdd?: boolean }) {
   }
 
   const { employee, createEmployee, updateEmployee, getEmployeeLoading } =
-    useShowEmployeeData(employeeId);
+    useEmployeeShowData(employeeId);
 
   const [wantToTerminate, setWantToTerminate] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -52,7 +55,7 @@ export function EmployeesShow({ isAdd = false }: { isAdd?: boolean }) {
     control,
     formState: { isDirty },
   } = useForm<Form>({
-    defaultValues: employee ?? {
+    defaultValues: {
       first_name: "",
       last_name: "",
       father_name: "",
@@ -61,6 +64,9 @@ export function EmployeesShow({ isAdd = false }: { isAdd?: boolean }) {
       birth_place: "",
       joined_at: "",
       salary: 0,
+      address: "",
+      mobile: "",
+      role: "",
     },
   });
 
@@ -71,7 +77,9 @@ export function EmployeesShow({ isAdd = false }: { isAdd?: boolean }) {
   const submit = handleSubmit(async (data) => {
     if (isAdd) {
       const newEmployee = await createEmployee(data);
-      navigate(newEmployee.data.id.toString(), { replace: true });
+      navigate("/accountant/employees/" + newEmployee?.data?.id, {
+        replace: true,
+      });
     } else if (isEdit) {
       await updateEmployee({
         id: employeeId,

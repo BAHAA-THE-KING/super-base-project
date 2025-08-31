@@ -30,6 +30,9 @@ type Form = {
   birth_place: string;
   joined_at: string;
   salary: number;
+  address: string;
+  mobile: string;
+  role: string;
 };
 
 type Props = {
@@ -57,6 +60,9 @@ const i18ns = [
   "terminate_employee",
   "save_changes",
   "cancel",
+  "address",
+  "mobile",
+  "role",
 ];
 export function GeneralEmployeeInfo({
   control,
@@ -82,6 +88,9 @@ export function GeneralEmployeeInfo({
     TerminateEmployeeText,
     SaveChangesText,
     CancelText,
+    AddressText,
+    MobileText,
+    RoleText,
   ] = useBaseTranslation(i18ns);
 
   return (
@@ -162,6 +171,14 @@ export function GeneralEmployeeInfo({
               name="father_name"
               rules={{ required: true }}
             />
+            <FormInput
+              readOnly={!isEdit && !isAdd}
+              sx={{ my: 1 }}
+              control={control}
+              label={AddressText}
+              name="address"
+              rules={{ required: true }}
+            />
           </Grid2>
           <Grid2 size={{ xs: 12, md: 4 }}>
             <FormDate
@@ -188,6 +205,14 @@ export function GeneralEmployeeInfo({
               name="national_number"
               rules={{ required: true }}
             />
+            <FormInput
+              readOnly={!isEdit && !isAdd}
+              sx={{ my: 1 }}
+              control={control}
+              label={MobileText}
+              name="mobile"
+              rules={{ required: true }}
+            />
           </Grid2>
           <Grid2 size={{ xs: 12, md: 4 }}>
             <FormDate
@@ -204,6 +229,14 @@ export function GeneralEmployeeInfo({
               control={control}
               label={SalaryText}
               name="salary"
+              rules={{ required: true }}
+            />
+            <FormInput
+              readOnly={!isEdit && !isAdd}
+              sx={{ my: 1 }}
+              control={control}
+              label={RoleText}
+              name="role"
               rules={{ required: true }}
             />
           </Grid2>

@@ -1,13 +1,16 @@
 export type Employee = {
-  id: number;
+  id?: number;
   first_name: string;
   last_name: string;
   father_name: string;
   national_number: string;
+  address: string;
+  mobile: string;
   birth_date: string;
   birth_place: string;
+  role: string;
   joined_at: string;
-  is_active: string;
+  is_active?: string;
   salary: number;
   history?: EmployeeHistory[];
 };

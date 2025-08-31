@@ -7,10 +7,10 @@ import { Add } from "@mui/icons-material";
 import { BButton } from "src/components/Base";
 import { EmployeeGrid } from "./components";
 
+import { useBaseTranslation } from "src/hooks";
 import { useEmployeesColumns } from "./hooks";
 
-import { useEmployeesData } from "./data";
-import { useBaseTranslation } from "src/hooks";
+import { useEmployeesAllData } from "src/views/data";
 
 const i18ns = ["add_employee"];
 export function Employees() {
@@ -35,7 +35,7 @@ export function Employees() {
   ].reduce((p, e) => ({ ...p, [e.field]: e.value }), {});
 
   const { employees, totalRows, getEmployeesLoading } =
-    useEmployeesData(params);
+    useEmployeesAllData(params);
 
   return (
     <Stack height={"100%"} p={3} justifyContent={"stretch"}>
