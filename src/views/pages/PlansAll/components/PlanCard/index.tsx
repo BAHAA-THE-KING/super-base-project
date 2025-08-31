@@ -18,13 +18,13 @@ type Props = {
 };
 export function PlanCard({ plan }: Props) {
   const color =
-    plan.category.name === "clothes"
+    plan.category.name === "clothes" || plan.category.name.includes("ملابس")
       ? "primary"
-      : plan.category.name === "meat"
+      : plan.category.name === "meat" || plan.category.name.includes("لحوم")
       ? "error"
-      : plan.category.name === "rice"
+      : plan.category.name === "rice" || plan.category.name.includes("حبوب")
       ? "warning"
-      : plan.category.name === "food"
+      : plan.category.name === "food" || plan.category.name.includes("طعام")
       ? "success"
       : "info";
   return (
