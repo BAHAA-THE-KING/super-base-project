@@ -56,7 +56,7 @@ export function Home() {
       ),
       color: "primary",
       description: ServicesDescriptionText,
-      roles: "super",
+      roles: ["super"],
       url: "/services/plans",
     },
     {
@@ -68,7 +68,7 @@ export function Home() {
       ),
       color: "secondary",
       description: StorageDescriptionText,
-      roles: "super",
+      roles: ["super"],
       url: "/storage",
     },
     {
@@ -80,7 +80,7 @@ export function Home() {
       ),
       color: "info",
       description: ClinicDescriptionText,
-      roles: "clinic_secretary",
+      roles: ["super", "clinic_secretary"],
       url: "/clinic/appointments",
     },
     {
@@ -92,7 +92,7 @@ export function Home() {
       ),
       color: "success",
       description: EducationDescriptionText,
-      roles: "super",
+      roles: ["super"],
       url: "/education",
     },
     {
@@ -104,7 +104,7 @@ export function Home() {
       ),
       color: "warning",
       description: AccountantDescriptionText,
-      roles: "accountant",
+      roles: ["super", "accountant"],
       url: "/accountant/donation-books",
     },
   ];
@@ -119,7 +119,7 @@ export function Home() {
       <Stack width={"80%"} flexDirection={"row"} flexWrap={"wrap"}>
         {type &&
           sections
-            .filter((e) => e.roles === type)
+            .filter((e) => e.roles.includes(type))
             .map((section) => (
               <Box key={section.name} width={"50%"} p={2}>
                 <Link to={section.url}>
